@@ -3,8 +3,8 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     requires: [
         "svgxml.view.grid.TypeGridController",
         "svgxml.view.grid.TypeGridModel",
-        'Ext.grid.column.Action'
-        // "svgxml.store.TypeInit"
+        'Ext.grid.column.Action',
+        "svgxml.view.tab.DrawPanel"
     ],
     controller: "grid-typegrid",
     viewModel: {
@@ -31,7 +31,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         itemdblclick: "girditemdblclick",
         move: "girdmove",
         itemclick:"griditemclick",
-        //itemmousedown:"griditemmousedown",
+        itemmousedown:"griditemmousedown",
         itemmouseleave:"griditemmouseleave",
         itemmouseenter:"griditemmouseenter",
         itemmouseup:"griditemmouseup"

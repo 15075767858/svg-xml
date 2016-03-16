@@ -82,7 +82,23 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
     griditemmousedown: function (th, record, item, index,el, e, eOpts) {
        // console.log(arguments);
-
+        curDrawPanel.setSprites([{
+            type: 'path',
+            path: 'M115,115 c0,-25 50,25 50,0 c0,-25 -50,25 -50,0',
+            fillStyle: 'blue'
+        }])
+              /*      var mainSurface = curDrawPanel.getSurface("temp"); // --- getSurface('main')
+        var oLine = { // add sprite to the surface
+            type: 'line',
+            fromX: 50,
+            fromY: 50,
+            toX:100,
+            toY:100,
+            strokeStyle: '#1F6D91',
+            lineWidth: 3
+        };
+        mainSurface.add(oLine)
+        mainSurface.renderFrame();*/
         console.log("鼠标按下")
     },
     griditemmouseleave: function () {
