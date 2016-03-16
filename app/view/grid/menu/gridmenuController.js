@@ -3,8 +3,10 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     alias: 'controller.grid-menu-gridmenu',
 
     init: function (el) {
-        if (hideCom)
+        if (hideCom){
             console.log(el.getComponent('paste').setDisabled(false))
+        }
+
         //alert("controller init")
     },
     cupclick: function (menu, item, e, eOpts) {
@@ -27,6 +29,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         menu.up().up().up().add(oTypeGrid)
         oTypeGrid.setPagePosition(hideCom.x+hideCom.up().getX()+hideCom.width+50,hideCom.y+hideCom.up().getY(),true)
     },
+
     deleteclick: function (menu, item, e, eOpts) {
         if(menu.up().up()==hideCom){
             menu.up().getComponent('paste').setDisabled(true);
@@ -49,10 +52,13 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         /*hideCom.x + hideCom.width + 10,
             hideCom.y,*/
         //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
+    },
+    addSlotclick:function(menu,item,e,eOpts){
+        var oGrid=menu.up("grid");
+        console.log(oGrid.getRow())
+
+    },
+    delSlotclick:function(menu,item,e,eOpts){
+
     }
 });
-/*title: typeName,
- store: typeName + "Store",
- x: e.browserEvent.offsetX,
- y: e.browserEvent.offsetY,
- icon: "img/SVG/" + typeName + ".svg"*/

@@ -9,8 +9,8 @@ Ext.define('svgxml.view.tab.BasicTabs', {
     requires: [
         "svgxml.view.tree.XmlTree",
         "Ext.tree.Panel",
-        'svgxml.view.main.MainController',
-        "svgxml.view.tree.DevTree"
+        "svgxml.view.tree.DevTree",
+        "svgxml.view.tab.BasicController"
     ],
     width: 400,
     height: 300,
@@ -19,7 +19,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
         //autoScroll: true
     },
     style: "border-right:10px",
-    controller: 'main',
+    controller: 'grid-panel-gridpanel',
 
     items: [{
         title: 'Active Tab',
@@ -33,22 +33,24 @@ Ext.define('svgxml.view.tab.BasicTabs', {
                 region: "center",
                 manageHeight: true,
                 title: "Icons",
-
                 autoScroll: true,
                 collapsible: true,
+
                 //resizable: true,
                 stateful: true,
-                //title:"aaa",
                 store: Ext.create("svgxml.store.SvgImgs", {}),
                 id: "leftPanelIcons",
                 columns: [
                     {
+                        draggable: false,
+                        menuDisabled: true,
+                        sortable: false,
                         header: 'type', dataIndex: "src", flex: 1,
                         renderer: function (value) {
                             return Ext.String.format('<img src="{0}" width="67px" height="67px"/>', value);
                         }
                     },
-                    {header: 'name', dataIndex: 'name', flex: 1}
+                    {draggable: false, menuDisabled: true, sortable: false, header: 'name', dataIndex: 'name', flex: 1}
                 ],
                 autoShow: true,
 
@@ -63,45 +65,10 @@ Ext.define('svgxml.view.tab.BasicTabs', {
 
                 },
                 listeners: {
-                    render: function () {
-                        // alert("aaaaaaa")
-                    },
-                    viewready: function () {
-                        console.log(arguments);
-                        var overrides = {};
-                        var aTables = Ext.get("leftPanelIcons").select(".x-grid-item")
-                        Ext.each(aTables.elements, function (el) {
-                            var dd = new Ext.dd.DragSource(el, {
-                                ddGroup: "DragDropGroup2",
-                                isTarget: false
-
-                            })
-                            dd.afterDragDrop = function (target, e, id) {
-                                console.log(target)
-                                console.log(e)
-
-                                console.log(id)
-                                var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
-                                Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
-                                    title: typeName,
-                                    store: typeName + "Store",
-                                    x: e.browserEvent.offsetX,
-                                    y: e.browserEvent.offsetY,
-                                    icon: "img/SVG/" + typeName + ".svg"
-                                }));
-                            }
-
-                            Ext.apply(dd, overrides);
-                        })
-                    },
-                    itemclick: function () {
-
-                        console.log(arguments);
-
-                    },
-                    afterDragDrop: function () {
-                        console.log(arguments)
-                    }
+                    render: "basicRender",
+                    viewready: "basicViewready",
+                    itemclick: "basicItemclick",
+                    afterDragDrop: "basicAfterDragDrop"
                 }
 
             })

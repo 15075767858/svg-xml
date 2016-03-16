@@ -15,30 +15,28 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     draggable: true,
     //closable: true,
     // title: 'null',
-    viewConfig: {
-        stripeRows: true,
-        enableTextSelection: true
-    },
-    listeners: {
-        viewready:"girdviewready",
-        headerclick: function () {
-            alert("headerclick")
-        },
-        itemdblclick: "girditemdblclick",
-        /*itemcontextmenu: function (a, b, c, d, e, f) {
-         e.stopEvent();
-         alert("aa");
-         },*/
-        move: "girdmove"
-    },
     sortable: false,//禁用标题排序
     enableColumnMove: false,//禁止移动列
     enableColumnHide: false,
     constrainHeader: false,
     //plain: true,
     //icon:"img/PNG/add.png",
-
     iconCls: "titleIcon",
+    viewConfig: {
+        stripeRows: true,
+        enableTextSelection: true
+    },
+    listeners: {
+        viewready:"girdviewready",
+        itemdblclick: "girditemdblclick",
+        move: "girdmove",
+        itemclick:"griditemclick",
+        //itemmousedown:"griditemmousedown",
+        itemmouseleave:"griditemmouseleave",
+        itemmouseenter:"griditemmouseenter",
+        itemmouseup:"griditemmouseup"
+    },
+
     initComponent: function () {
         this.width = 140;
         this.columns = [
@@ -51,6 +49,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
                 dataIndex: 'name',
                 detachOnRemove: true,
                 collapsible: false,
+
                 editor: {
                     allowBlank: false
                 }
@@ -62,7 +61,9 @@ Ext.define("svgxml.view.grid.TypeGrid", {
                 align: "right",
                 //renderer : 'usMoney',
                 dataIndex: 'value',
-                editor: 'textfield'/*,
+                editor:"textfield"
+                //editor: 'textfield'
+                /*,
              editor: {
              allowBlank: true
              }*/

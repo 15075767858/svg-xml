@@ -3,42 +3,45 @@ var hideCom;
 Ext.define('svgxml.view.grid.TypeGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.grid-typegrid',
-    girdviewready:function(th,eO){
-        th.getHeader().el.dom.oncontextmenu=function(e){
-            e.preventDefault();
+    girdviewready: function (th, eO) {
+        var oHead = th.getHeader().el.dom;
+        oHead.onmousedown = function (e) {
+            console.log(e)
+            th.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
+        }
+        oHead.oncontextmenu = function (e) {
             th.add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
-                    floating: true,  // usually you want this set to True (default)
-                    x: e.pageX,
-                    y: e.pageY//,
-                    /*listeners:{
-                     click:function(){
-                     console.log(Ext.removeNode(th))
-                     }
-                     }*/
+                    x: e.pageX + 5,
+                    y: e.pageY
                 })
             )
-            console.log(arguments)
+            return false;
+            //console.log(arguments)
+        };
 
-        }
+
     },
+
     girdmove: function (t, x, y, eOpts) {
-        if (x < 0 & !t.getActiveAnimation()) {
-            t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
+        //console.log(t.data.x)
+        //console.log(t.data.y)
+        if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
+            console.log(x + " " + y)
+            //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
+            t.setPagePosition(t.data.x, t.data.y, true)
         }
-        if (y < 0 & !t.getActiveAnimation()) {
-            t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
-        }
-    },
-    girditemdblclick:function (me, record, item, index, e, eopts) {
-        var win = Ext.create("Ext.window.Window", {
-            title: "表格",
-            width: 300,
-            height: 200,
-            layout: "fit",
-            autoShow:true,
-            listeners: {
 
+    },
+    girditemdblclick: function (me, record, item, index, e, eopts) {
+        console.log(arguments)
+        var win = Ext.create("Ext.window.Window", {
+            title: "ChangeValue",
+            width: 260,
+            height: 150,
+            layout: "fit",
+            autoShow: true,
+            listeners: {
                 /*activate:function(){
                  win.down("form").loadRecord(record);
                  },
@@ -55,9 +58,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     labelWidth: 60
                 },
                 items: [
-                    { xtype: "textfield", name: "name", fieldLabel: "名字" },
-                    { xtype: "numberfield", name: "age", fieldLabel: "年龄" ,maxValue: 3,  minValue: 0 },
-                    { xtype: "textfield", name: "phone", fieldLabel: "电话" }
+                    {xtype: "textfield", name: "name", fieldLabel: "type"},
+                    /*{ xtype: "numberfield", name: "age", fieldLabel: "年龄" ,maxValue: 3,  minValue: 0 },*/
+                    {xtype: "textfield", name: "value", fieldLabel: "value"}
                 ]
             },
             buttons: [
@@ -73,6 +76,38 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         win.show();
         win.down("form").loadRecord(record);
         console.log(arguments)
-    }
+    },
+    griditemclick: function (th) {
 
+    },
+    griditemmousedown: function (th, record, item, index,el, e, eOpts) {
+       // console.log(arguments);
+
+        console.log("鼠标按下")
+    },
+    griditemmouseleave: function () {
+        console.log("鼠标移出")
+    },
+    griditemmouseenter: function () {
+        console.log("鼠标移入")
+    },
+    griditemmouseup: function (th, record, item, index, e, eOpts) {
+        th.el.dom.oncontextmenu = function (eve) {
+            return false;
+        }
+        if (e.button == 2) {
+            th.up().add(
+                Ext.create('svgxml.view.grid.menu.gridmenu', {
+                    x: e.pageX + 5,
+                    y: e.pageY
+                })
+            )
+        }
+        console.log("鼠标抬起")
+    }
+    ,
+    griditemcontextmenu: function (th, td, cellIndex, tr, rowIndex, e, eOpts) {
+        alert("aa")
+
+    }
 });

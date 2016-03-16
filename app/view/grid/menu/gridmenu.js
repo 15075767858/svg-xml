@@ -1,15 +1,14 @@
 Ext.define("svgxml.view.grid.menu.gridmenu", {
     extend: "Ext.menu.Menu",
-
     requires: [
         "svgxml.view.grid.menu.gridmenuController",
         "svgxml.view.grid.menu.gridmenuModel"
     ],
-
     controller: "grid-menu-gridmenu",
     viewModel: {
         type: "grid-menu-gridmenu"
     },
+    floating: true,  // usually you want this set to True (default)
     autoShow: true,
     shadow: "drop",
     shadowOffset: 5,
@@ -17,8 +16,6 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
     style: {
         borderColor: "#111"
     },
-    //padding:"0 0 0 0",
-    //margin: '0 0 0 30',
     items: [{
         text: 'cut',
         listeners: {
@@ -61,8 +58,20 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
             borderColor: "#111"
         }
     }, {
-        text: 'Move'
-    }, {
+        text: 'addSlot',
+        listeners:{
+            click:"addSlotclick"
+        }
+    },{
+        text: 'delSlot',
+        border: "0 0 1 0",
+        listeners:{
+            click:"delSlotclick"
+        },
+        style: {
+            borderColor: "#111"
+        }
+    },  {
         text: 'Rename'
     }, {
         text: 'New plant'
