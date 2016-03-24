@@ -3,16 +3,21 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     requires: [
         "svgxml.view.grid.TypeGridController",
         "svgxml.view.grid.TypeGridModel",
-        'Ext.grid.column.Action',
-        "svgxml.view.tab.DrawPanel"
+        'Ext.grid.column.Action'
+        // "svgxml.store.TypeInit"
     ],
+
     controller: "grid-typegrid",
     viewModel: {
         type: "grid-typegrid"
     },
+
     resizable: false,
     collapsible: true,//收起
-    draggable: true,
+    draggable: {
+        autoStart:true,
+        tolerance:1000
+    },
     //closable: true,
     // title: 'null',
     sortable: false,//禁用标题排序
@@ -31,9 +36,9 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         itemdblclick: "girditemdblclick",
         move: "girdmove",
         itemclick:"griditemclick",
-        itemmousedown:"griditemmousedown",
-        itemmouseleave:"griditemmouseleave",
-        itemmouseenter:"griditemmouseenter",
+        //itemmousedown:"griditemmousedown",
+        //itemmouseleave:"griditemmouseleave",
+        //itemmouseenter:"griditemmouseenter",
         itemmouseup:"griditemmouseup"
     },
 

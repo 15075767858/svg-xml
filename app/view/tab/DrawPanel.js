@@ -10,17 +10,10 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     viewModel: {
         type: "tab-drawpanel"
     },
+    autoScroll:true,
     closable: true,
     bodyStyle: 'background:url(img/square.gif);',
-    /*sprites: [{
-     type: 'rect',
-     path: 'M150 0 L25 100 L300 100 Z',
-     strokeStyle: '#333',
-     fill: '#999',
-     width: 100,
-     height: 100,
-     lineWidth: 2
-     }],*/
+    bodyPadding:"0",
     layout: {
         type: "absolute"
     },
@@ -28,7 +21,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     enableDragDrop: true,
     listeners: {
         boxready: "boxready",
-
+        add:"add",
         render: "render",
         show: "show"
     }
