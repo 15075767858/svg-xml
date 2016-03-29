@@ -10,10 +10,10 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     viewModel: {
         type: "tab-drawpanel"
     },
-    autoScroll:true,
+    autoScroll: true,
     closable: true,
     bodyStyle: 'background:url(img/square.gif);',
-    bodyPadding:"0",
+    bodyPadding: "0",
     layout: {
         type: "absolute"
     },
@@ -21,8 +21,76 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     enableDragDrop: true,
     listeners: {
         boxready: "boxready",
-        add:"add",
+        add: "add",
         render: "render",
-        show: "show"
+        show: "show",
+        el: {
+            contextmenu: function (th, el, eOpts) {
+                console.log(arguments)
+                if (el.tagName != "svg") {
+                    return;
+                };
+                    Ext.create('svgxml.view.grid.menu.gridmenu', {
+                        x: th.pageX,
+                        y: th.pageY,
+                        listeners: {
+                            show: function (thi, eOpts) {
+                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                                addSlot.setDisabled(false);
+                            }
+                        }
+                    })
+                th.stopEvent();
+            }
+        }
     }
 });
+
+
+
+/*
+ var image = Ext.create('Ext.Img', {
+ src: 'xrModule.do?method=view&id=' + nodeData.nodeId,
+ autoEl: 'div',
+ //	constrain: true,
+ //	floating:true,
+ nodeId: nodeData.nodeId,
+ x: nodeData.x,
+ y: nodeData.y,
+ draggable: true,
+ listeners: {
+ scope: this,
+ el: {
+ dblclick: function (e, a) {
+ e.stopEvent();
+ rightPanel.setSource({
+ name: nodeData.name,
+ code: nodeData.code,
+ width: nodeData.width,
+ height: nodeData.height
+ });
+ rightPanel.setTitle('模块设置：' + nodeData.name);
+ },
+ contextmenu: function (e, a, b, c) {
+ e.stopEvent();
+ var contextmenu = new Ext.menu.Menu({
+ items: [{
+ text: '模块设置',
+ iconCls: 'icon-edit',
+ handler: function () {
+ rightPanel.setSource({
+ name: nodeData.name,
+ code: nodeData.code,
+ width: nodeData.width,
+ height: nodeData.height
+ });
+ rightPanel.setTitle('模块设置：' + nodeData.name);
+ },
+ scope: this
+ }]
+ });
+ contextmenu.showAt(e.getXY());
+ }
+ }
+ }
+ });*/

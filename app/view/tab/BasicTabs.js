@@ -35,7 +35,6 @@ Ext.define('svgxml.view.tab.BasicTabs', {
                 title: "Icons",
                 autoScroll: true,
                 collapsible: true,
-
                 //resizable: true,
                 stateful: true,
                 store: Ext.create("svgxml.store.SvgImgs", {}),
@@ -47,7 +46,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
                         sortable: false,
                         header: 'type', dataIndex: "src", flex: 1,
                         renderer: function (value) {
-                            return Ext.String.format('<img src="{0}" width="67px" height="67px"/>', value);
+                            return Ext.String.format('<img src="{0}" width="67px" height="33px"/>', value);
                         }
                     },
                     {draggable: false, menuDisabled: true, sortable: false, header: 'name', dataIndex: 'name', flex: 1}

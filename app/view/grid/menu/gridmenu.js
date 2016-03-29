@@ -46,8 +46,8 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         style: {
             borderColor: "#111"
         },
-        listeners: {
-            click: "deleteclick"
+        listeners:{
+          click:"deleteclick"
         }
     }, {
         text: 'Link '
@@ -59,19 +59,17 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         }
     }, {
         text: 'addSlot',
-        listeners:{
-            click:"addSlotclick"
-        }
-    },{
+        itemId:"addSlot"
+
+    }, {
         text: 'delSlot',
         border: "0 0 1 0",
-        listeners:{
-            click:"delSlotclick"
-        },
+        itemId: 'delSlot',
+
         style: {
             borderColor: "#111"
-        }
-    },  {
+        }, disabled: true
+    }, {
         text: 'Rename'
     }, {
         text: 'New plant'
@@ -83,13 +81,13 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         style: {
             borderColor: "#111"
         }
-    },{
-        text: 'PinSlots'
-    },  {
-            text: 'Backup'
     }, {
-            text: 'Restor'
-        }
+        text: 'PinSlots'
+    }, {
+        text: 'Backup'
+    }, {
+        text: 'Restor'
+    }
     ]/*,
      listeners:{
      click:function(){

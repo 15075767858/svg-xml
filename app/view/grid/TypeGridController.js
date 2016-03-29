@@ -13,18 +13,21 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             th.add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: e.pageX + 5,
-                    y: e.pageY
+                    y: e.pageY,
+                    listeners: {
+                        show: function (thi, eOpts) {
+                            var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                            addSlot.setDisabled(false);
+                        }
+                    }
                 })
             )
             return false;
             //console.log(arguments)
         };
-
-
     },
 
     girdmove: function (t, x, y, eOpts) {
-
         drawlines(t.up("drawpanel"))
         //console.log(t.data.x)
         //console.log(t.data.y)
@@ -33,10 +36,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
             t.setPagePosition(t.data.x, t.data.y, true)
         }
-
     },
+
     girditemdblclick: function (me, record, item, index, e, eopts) {
-        console.log(arguments)
+        console.log(record)
         var win = Ext.create("Ext.window.Window", {
             title: "ChangeValue",
             width: 260,
@@ -44,12 +47,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             layout: "fit",
             autoShow: true,
             listeners: {
-                /*activate:function(){
-                 win.down("form").loadRecord(record);
-                 },
-                 render:function(){
-                 win.down("form").loadRecord(record);
-                 }*/
+                activate: function () {
+                    // win.down("form").loadRecord(record);
+                },
+                render: function () {
+                    //   win.down("form").loadRecord(record);
+                }
             },
             items: {
                 xtype: "form",
@@ -77,7 +80,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         });
         win.show();
         win.down("form").loadRecord(record);
-        console.log(arguments)
+        // console.log(arguments)
     },
     griditemclick: function (th) {
 
@@ -94,14 +97,26 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         console.log("鼠标移入")
     },
     griditemmouseup: function (th, record, item, index, e, eOpts) {
+
+        th.datas = {"index": index}
+
         th.el.dom.oncontextmenu = function (eve) {
             return false;
         }
         if (e.button == 2) {
-            th.up().add(
+            th.up("typegrid").add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: e.pageX + 5,
-                    y: e.pageY
+                    y: e.pageY,
+                    listeners: {
+                        show: function (thi, eOpts) {
+                            d3.select(thi.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
+                            var delSlot = thi.getComponent("delSlot").on("click", thi.getController().delSlotclick, th);
+                            delSlot.setDisabled(false);
+                            var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                            addSlot.setDisabled(false);
+                        }
+                    }
                 })
             )
         }
@@ -109,10 +124,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     }
     ,
     griditemcontextmenu: function (th, td, cellIndex, tr, rowIndex, e, eOpts) {
-        alert("aa")
-
+        alert("griditemcontextmenu")
     }
 });
+
 
 function removeTemp() {
     d3.select("#tempCircle").remove()
@@ -128,10 +143,12 @@ var STROKEWIDTH_MAX = 10;
 var STROKEWIDTH_MIN = 3;
 var iDrawPanelLeft;
 var iDrawPanelTop;
-var STROKE_COLOR="blue";
+var STROKE_COLOR = "blue";
 //带 data-targetid 的是td  data-targetid 标注的是目标的id
+var sStartItemTrId;//鼠标按下后得到item下的tr的id
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
-    sStartItemTrId = item.querySelector("tr").id;
+     sStartItemTrId = item.querySelector("tr").id;
+    console.log(sStartItemTrId)
     var oDrawPanel = d3.select(thi.el.dom).select(".x-autocontainer-innerCt");
     var oSvg = oDrawPanel.select(".tempSVG");
     iDrawPanelLeft = thi.el.getLeft();
@@ -144,17 +161,17 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var tempLineStart = oSvg.append("rect").attr("x", eItemWidth).attr("y", eItemHeight).attr("id", "tempLineStart");
     //var tempLineEnd = oSvg.append("rect").attr("width", "10").attr("height", "10").attr("fill", "green").attr("x",eItemWidth).attr("y",eItemHeight).attr("fill", "red").attr("id","tempLineEnd");
     //var columnid=d3.select(item).attr("data-columnid")
-    var sStartItemTrId;
     var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
+
+
+
     tempLineEnd[0][0].onmousedown = function () {
-        //sStartItemTrId = item.querySelector("tr").id;
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
             var left = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
             var top = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
             var columnid = d3.select(aRowsAll[i]).attr("id");
-
             var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
             tempLineEnd.on("mouseover", function () {
                 d3.select(this).attr("r", CIRCLE_MAX_R);
@@ -162,10 +179,11 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             tempLineEnd.on("mouseout", function () {
                 d3.select(this).attr("fill", "green").attr("r", CIRCLE_MIN_R);
             });
-
+            sStartItemTrId = item.querySelector("tr").id;
         }
 
         document.onmousemove = function (e) {
+            console.log("mousemove")
             _this.attr("cx", e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
             _this.attr("cy", e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
             drawTempline();
@@ -174,30 +192,30 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             removeTemp();
             document.onmousemove = null;
             document.onmouseup = null;
-            console.log(e.target.tagName+"   "+ sStartItemTrId)
+            console.log(e.target.tagName + "   " + sStartItemTrId)
             if (e.target.tagName == "circle") {
-                sEndItemTrId=d3.select(e.target).attr("columnid");
-                var str='{ "'+sEndItemTrId+'": "'+sStartItemTrId+'" }'
-                var jTempJson=JSON.parse(str);
-                for(o in jTempJson){
-                    if(o != ""&o!=null & jTempJson[o]!=""&jTempJson[o]!=null){
-                        if(jTempJson.null){
+                sEndItemTrId = d3.select(e.target).attr("columnid");
+                var str = '{ "' + sEndItemTrId + '": "' + sStartItemTrId + '" }'
+                var jTempJson = JSON.parse(str);
+                for (o in jTempJson) {
+                    if (o != "" & o != null & jTempJson[o] != "" & jTempJson[o] != null) {
+                        if (jTempJson.null) {
                             return;
                         }
-                    datasArray.push(jTempJson)
+
+                        //console.log(document.querySelector(sEndItemTrId));
+                        datasArray.push(jTempJson)
                     }
                 }
-                //console.log(datasArray)
                 d3.select(item).attr("data-targetid", d3.select(e.target).attr("columnid"));
                 drawlines(thi);
             } else {
                 //console.log(datasArray.pop())
-                return ;
+                return;
             }
 
         };
     };
-
 
 
     function drawTempline() {
@@ -220,37 +238,12 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var cA = Math.atan2(a, b);
         var x = Math.sin(cA) * CIRCLE_MIN_R;
         var y = Math.cos(cA) * CIRCLE_MIN_R;
-        //x += parseInt(CIRCLE_MIN_R);
-        //y += parseInt(CIRCLE_MIN_R);
-        //console.log(x + " " + y);
-        //x=parseInt(end.attr("cx"))+parseInt(x);
-        //y=parseInt(end.attr("cy"))+parseInt(y);
+
         svg.append("line").attr("id", "tempLine").attr('stroke', "blue").attr("stroke-width", "1").attr("x1", parseInt(endcx) + x).attr("y1", parseInt(endcy) + y).attr("x2", start.attr("x")).attr("y2", start.attr("y"));
 
 
     }
 
-    /*  var tempLineStart=oDrawPanel.append("div").attr("position","absolute").style("width","15px").style("height","15px").style("background","green").style("left","100px").attr("id","tempLineStart");
-     var tempLineEnd=oDrawPanel.append("div").attr("position","absolute").style("width","15px").style("height","15px").style("background","yellow").attr("id","tempLineEnd").style("left","300px").style("top","100px");
-
-     var disX = 0;
-     var disY = 0;
-     var oDiv = tempLineEnd[0][0];
-     oDiv.onmousedown = function (e) {
-     disX = e.clientX - oDiv.offsetLeft;
-     disY = e.clientY - oDiv.offsetTop;
-     document.onmousemove = function (e) {
-     oDiv.style.left = e.clientX - disX + "px";
-     oDiv.style.top = e.clientY - disY + "px";
-     drawline()
-     };
-     document.onmouseup = function (e) {
-
-     document.onmousemove = null;
-     document.onmousedown = null;
-     };
-     return false;
-     };*/
 }
 
 

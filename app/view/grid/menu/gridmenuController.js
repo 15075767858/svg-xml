@@ -3,62 +3,92 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     alias: 'controller.grid-menu-gridmenu',
 
     init: function (el) {
-        if (hideCom){
+        if (hideCom) {
             console.log(el.getComponent('paste').setDisabled(false))
         }
 
         //alert("controller init")
     },
     cupclick: function (menu, item, e, eOpts) {
-        hideCom = menu.up().up();
-        menu.up().up().hide();
+        hideCom = menu.up("typegrid");
+        menu.up("typegrid").hide();
         //console.log(menu.up().getComponent('paste').setDisabled(true))
     },
     copyclick: function (menu, item, e, eOpts) {
-        hideCom = menu.up().up();
+        hideCom = menu.up("typegrid");
     },
     pasteclick: function (menu, item, e, eOpts) {
         //var sourcePanel = menu.up().up();
-        var oTypeGrid =Ext.create("svgxml.view.grid.TypeGrid", {
+        var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
             title: hideCom.getTitle(),
             icon: hideCom.getIcon(),
             x: hideCom.x,
             y: hideCom.y,
             store: hideCom.getStore()
         })
-        menu.up().up().up().add(oTypeGrid)
-        oTypeGrid.setPagePosition(hideCom.x+hideCom.up().getX()+hideCom.width+50,hideCom.y+hideCom.up().getY(),true)
+        menu.up("drawpanel").add(oTypeGrid)
+        oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
     },
 
     deleteclick: function (menu, item, e, eOpts) {
-        if(menu.up().up()==hideCom){
+
+        if (menu.up("typegrid") == hideCom) {
             menu.up().getComponent('paste').setDisabled(true);
-            hideCom=false;
+            hideCom = false;
         }
-        menu.up().up().close()
+        menu.up("typegrid").close()
     },
     deplicateclick: function (menu, item, e, eOpts) {
         hideCom = menu.up().up();
-        var oTypeGrid =Ext.create("svgxml.view.grid.TypeGrid", {
+        var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
             title: hideCom.getTitle(),
             icon: hideCom.getIcon(),
             x: hideCom.x,
             y: hideCom.y,
             store: hideCom.getStore()
         })
-        menu.up().up().up().add(oTypeGrid)
-        oTypeGrid.setPagePosition(hideCom.x+hideCom.up().getX()+hideCom.width+50,hideCom.y+hideCom.up().getY(),true)
+        menu.up("drawpanel").add(oTypeGrid)
+        oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
         //oTypeGrid.setPagePosition(0,0,true)
         /*hideCom.x + hideCom.width + 10,
-            hideCom.y,*/
+         hideCom.y,*/
         //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
     },
-    addSlotclick:function(menu,item,e,eOpts){
-        var oGrid=menu.up("grid");
-        console.log(oGrid.getRow())
+    addSlotclick: function (menu, item, e, eOpts) {
+        console.log(this)
 
+        var store = this.getStore();
+
+        store.add(Ext.create("svgxml.view.grid.TypeGridModel", {
+            name: "In",
+            value: ""
+        }))
+        console.log(this.setStore(store))
     },
-    delSlotclick:function(menu,item,e,eOpts){
+    delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
+        console.log(arguments)
+        var index = this.datas.index;
+        var store = this.getStore();
+        console.log(store)
+        store.removeAt(index);
+        this.setStore(store);
+
+
+        var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
+        console.log(datasArray)
+        d3.selectAll("polyline").each(function () {
+            console.log(d3.select(this).attr("data-end") + " " + targetid)
+            for (var i = 0; i < datasArray.length; i++) {
+                console.log(datasArray[i][targetid])
+                if (datasArray[i][targetid]) {
+                    datasArray.splice(i, 1)
+                }
+            }
+            if (d3.select(this).attr("data-end") == targetid) {
+                d3.select(this).remove()
+            }
+        })
+
 
     }
 });

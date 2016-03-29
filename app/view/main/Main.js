@@ -7,13 +7,13 @@
  */
 
 Ext.define('svgxml.view.main.Main', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
     requires: [
         'svgxml.view.main.MainController',
         'svgxml.view.main.MainModel',
         "svgxml.view.tab.BasicTabs",
         "svgxml.view.tab.FramedTabs",
-        "svgxml.view.toolbar.BasicToolbar"
+        "svgxml.view.main.toolbar.TopToolbar"
     ],
     style: {
         background:"rgb(21,127,214)"
@@ -24,10 +24,11 @@ Ext.define('svgxml.view.main.Main', {
         type: 'border',
         align: 'stretch'
     },
- //   controller: 'main',
+   controller: 'main',
     viewModel: {
         type: 'main'
     },
+    //header:true,
     items: [
         {
             xtype:"header",

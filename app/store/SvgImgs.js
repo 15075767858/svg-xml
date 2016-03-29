@@ -199,12 +199,7 @@ var Imgs = [{
         Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAYAAABhNaJ7AAAABGdBTUEAALGOfPtRkwAAACBjSFJN AAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAA7EAAAOxAGVKw4b AAADWUlEQVR4Xu2bPXajMBDHhz1LcOHnE+ATrNOkyhFw63tsg9scIdU2sW/gE+S5CL4LkUASgxCg D8CA+L1HELYYZv4ajZQ4DjICeMxoAgRBwFp6jDUugwhgGqwOQwnyh517Y4jgKdTuELZ7yYChgu6i j6xwEuBZgcu4CGE9BaYSPMXFF+MMmFLgKkyzwSgDph68DdoCzCV4Uz+1BJjbyJv42ynAXNNe12/r VWAO6IjQKsBcRx/TFUOjAEsIntMWi1KAJQXfxaJrAKZpUGsC+DT6FG8ygKIaXK8EUFERwIf0l2Nc M4CdvSt+HC8zAA/2OgXY2VtWAegPXwsgxdsM4IO+TgF29pZVAHauEiWQZln+IUN2idmL7cQX1r9y XEB5d3zR70tB/qRJxF5UgP0WRwptt9BO9KOU6hElGTFUcInr70tHlIjeRX+ihiBNMvL8sj+2Td+T r3FfxT1EgPr7Uh/iRBZDlJVupRkRoXYPpQcBYvI4BgoAi0KSSPQvtaFOyn3VjuoIUNpFNjruo7jX gPgN/rLm4+sTbqx9+/yCB2uHW56DMbzxztf/8MGaZd8XeH1vy9cmsN1/cBJO3CFlzZfNjrWq9FoE 0zt/MkH18GgLYdGCx883axFuJwjJukzX5lB4b0CTXSLxgdkNDlzuAjL4+TkXgF/YEG35o1sIt5CP 625DxngAHOw+dxlUrAatVX4AxhEgvYvaMDWcBbjd+UzHxY6A5qXg+0cUxpyPQzE/gyNc2UtWyHYF EZAFpsiuNCmmoYR7BqCHVyotmpeiMOHC+PpeOqQSy4Qmu7CDDXcCZSEVREAuBPQyP4z2AaoNR/Mm BO+R+P4A7xmU67zRPkBtF+9FMN0CNIGFaelfdxhtnBTYClAVXQL5KlOZAuSatQzJ1/E9nCsT8QHn vWpdL9bmI5r0j/NRuteGG5zCAPaSoeuxvgfA1P5LbOl/HZIH+bn7gJFRZXhNAOtpMFO8yYCmgVUK sLQsaIunMQN8mQqtU2AJInTF0FkD5iyCju+LLYK6A6clADU2p0ww8dUoA+YggqmPxlNgyiLY+GZV A6Yogq1Pzt8ae/YvT66D4bwKPCsb6HP7eHYv3xvEDJ0RfQveuwCYvsQY0MVhBZDRFWREl8YVYIo4 F8F5A/AL92q26OLem8sAAAAASUVORK5CYII:",
         Img_1: ""
     },
-    {
-        name: "logie",
-        src: "img/SVG/logie.svg",
-        Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAYAAABhNaJ7AAAABGdBTUEAALGOfPtRkwAAACBjSFJN AAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAA7EAAAOxAGVKw4b AAADWUlEQVR4Xu2bPXajMBDHhz1LcOHnE+ATrNOkyhFw63tsg9scIdU2sW/gE+S5CL4LkUASgxCg D8CA+L1HELYYZv4ajZQ4DjICeMxoAgRBwFp6jDUugwhgGqwOQwnyh517Y4jgKdTuELZ7yYChgu6i j6xwEuBZgcu4CGE9BaYSPMXFF+MMmFLgKkyzwSgDph68DdoCzCV4Uz+1BJjbyJv42ynAXNNe12/r VWAO6IjQKsBcRx/TFUOjAEsIntMWi1KAJQXfxaJrAKZpUGsC+DT6FG8ygKIaXK8EUFERwIf0l2Nc M4CdvSt+HC8zAA/2OgXY2VtWAegPXwsgxdsM4IO+TgF29pZVAHauEiWQZln+IUN2idmL7cQX1r9y XEB5d3zR70tB/qRJxF5UgP0WRwptt9BO9KOU6hElGTFUcInr70tHlIjeRX+ihiBNMvL8sj+2Td+T r3FfxT1EgPr7Uh/iRBZDlJVupRkRoXYPpQcBYvI4BgoAi0KSSPQvtaFOyn3VjuoIUNpFNjruo7jX gPgN/rLm4+sTbqx9+/yCB2uHW56DMbzxztf/8MGaZd8XeH1vy9cmsN1/cBJO3CFlzZfNjrWq9FoE 0zt/MkH18GgLYdGCx883axFuJwjJukzX5lB4b0CTXSLxgdkNDlzuAjL4+TkXgF/YEG35o1sIt5CP 625DxngAHOw+dxlUrAatVX4AxhEgvYvaMDWcBbjd+UzHxY6A5qXg+0cUxpyPQzE/gyNc2UtWyHYF EZAFpsiuNCmmoYR7BqCHVyotmpeiMOHC+PpeOqQSy4Qmu7CDDXcCZSEVREAuBPQyP4z2AaoNR/Mm BO+R+P4A7xmU67zRPkBtF+9FMN0CNIGFaelfdxhtnBTYClAVXQL5KlOZAuSatQzJ1/E9nCsT8QHn vWpdL9bmI5r0j/NRuteGG5zCAPaSoeuxvgfA1P5LbOl/HZIH+bn7gJFRZXhNAOtpMFO8yYCmgVUK sLQsaIunMQN8mQqtU2AJInTF0FkD5iyCju+LLYK6A6clADU2p0ww8dUoA+YggqmPxlNgyiLY+GZV A6Yogq1Pzt8ae/YvT66D4bwKPCsb6HP7eHYv3xvEDJ0RfQveuwCYvsQY0MVhBZDRFWREl8YVYIo4 F8F5A/AL92q26OLem8sAAAAASUVORK5CYII:",
-        Img_1: ""
-    },
+
     {
         name: "max",
         src: "img/SVG/max.svg",
@@ -240,7 +235,7 @@ var Imgs = [{
         src: "img/SVG/switch.svg",
         Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAMAAABW61JJAAAACXBIWXMAAAOLAAADiwF1yxf7AAAA BGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VG AAADAFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAD7+/v8/Pz9/f3+/v7///82tC/HAAAAAXRSTlMAQObYZgAAAzJJ REFUeNpiYKAQAAQQHmS1+hcUTFbErQoggLAjgQO/MEArdqUAAcSITfCpKFa1W4KwCAIEEKYBLtvw Oe0bughAAKEb4LaFgO94fqHyAQKICZX7gpB+hi89qHyAAEJxgf9qooIYxREAAYRsAOtXIiOJDYkN EEBIXlAkVj8DsgsAAgjhAtm7xKeTfxxwJkAAwQ1g+UZSUoP7AiCA4F4gTT/DURgDIIAYsXiLKPBe HEIDBBDUBbdJzmqCThAaIIAgLlC/TEZuhQQDQAAxkucBhAkAAQT2ggQFpQZAAIENeESeXrC/AQKI kXwfQPwAEEAgF6wj1/mCQAwQQIwUOIDhhB0DA0AAAV3QSnYAWgAxQAAxUuAABobNwQwAAUSZAcBg BAggFkxBVjD5G8r8DRfEYIEBQAAxYWhnRaOxGo8AAAHExJCMx4W/kbWxYoiCAEAAMTF4Y1jwGwiw 2IUNcDMABBATgxVWa3/jdAwKsGQACCAmBiEcgQh2xW9k17NiBqEEA0AAYYkFdEX4gDoDQAAxYXcp KysrUQb8YQAIIIxo/P0bLT6BDgI76Te2SHzJABBATAx3MI34jSPsWDFEzjEABBATwyls8U9sPF5g AAggJoYJqOmQFW+0YVZyAAGElplYGTDSPCtyzkA3mI0BIICYMCOBFWuaxwUAAghHOiDeFwABBHTB dxwp9jeC+o3GgrenGBgAAggYBvyvsTrgN2bCZMUMAgaAAAJ64SOBbPMbp8wuIAYIIFCprH+agnoB IIAorlgAAggcjdfI0+8JIgACCOwC5u/k184AAQR2wd+f5OgvAJMAAQRpH3B+JLuBARBAkKT8XZRc /QwAAQTNC6S7YDeUBgggWGZiIzEc62C1AUAAMWJtvxIEez1hLIAAQhjASEJUXDSFMwECCFEe/Gcj Wv8xhH4GgABixNUKxwP+syNxAAIIpURiKyJGvyKyfgaAAGJGkTulrk1Qv+ZDFC5AAKGViTFse/Fr z2BD61YABBBmtw9fx+cXD4YQQAAxYVYqbGyTsWt3YMPUzwAQQLiQzR7Uju8kXHoBAggf8tt3G6j1 29m1JngUAQQQxQgggChGAAEGAPwfseRyGN9+AAAAAElFTkSuQmCC",
         Img_1: ""
-    },
+    }/*,
     {
         name: "timer",
         src: "img/SVG/timer.svg",
@@ -252,7 +247,7 @@ var Imgs = [{
         src: "img/SVG/tolalazer.svg",
         Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAMAAABW61JJAAAACXBIWXMAAAOLAAADiwF1yxf7AAAA BGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VG AAADAFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAD7+/v8/Pz9/f3+/v7///82tC/HAAAAAXRSTlMAQObYZgAAAwBJ REFUeNpiYKAQAAQQHmS1+hcUTFbErQoggLAjgQO/MEArdqUAAcSITfCpKFa1W4KwCAIEEKYBLtvw Oe0bughAAKEb4LaFgO94fqHyAQKICZX7gpB+hi89qHyAAEJxgf9qooIYxREAAYRsAOtXIiOJDYkN EEBIXlAkVj8DsgsAAgjhAtm7xKeTfxxwJkAAwQ1g+UZSUoP7AiCA4F4gTT/DURgDIIAYsXiLKPBe HEIDBBDUBbdJzmqCThAaIIAgLlC/TEZuhQQDQAAxkucBhAkAAQT2ggQFpQZAAIENeESeXrC/AQKI kXwfQPwAEEAgF6wj1/mCQAwQQIwUOIDhhB0DA0AAAV3QSnYAWgAxQAAxUuAABobNwQwAAUSZAcBg BAggJkprD4AAotgAgABiYUiGFGdwkd8Qzm8sgr8hKn8jGwAQQEwM3uhmsrIiSEKAmwEggJgYrCBW AAGMhFEogiCLMc20ZAAIICYGIXQHQJyITTkmkGAACCAKA1GdASCAiDUA5C4sjvrDABBAFLrgJQNA ADEx3CHWDdji5RwDQAAxMZwizgcMaMkFAi4wAAQQE8MENDGoT9HSCzgyf2Op5AACiAVoCE778DoH ahpAAGEJRFgiwkwb2OIBIIAozs4AAQR0wXfy9bswMAAEENAF/K8pcAADQAABXfCRbP27gBgggECl sv5pCuoFgACiuGIBCCBwNF4jT78niAAIILALmL+T7QAGgAACu+DvT3L0F4BJgACCtA84P5LrAAaA AIIk5e+i5OpnAAggaF4g3QW7oTRAAMEyExuJ4VgHqw0AAogRa/uVINjrCWMBBBDCAEYSouKiKZwJ EECI8uA/G9H6jyH0MwAEECOuVjge8J8diQMQQCglElsRMfoVkfUzAAQQM4rcKXVtgvo1H6JwAQII rUyMYduLX3sGG1q3AiCAMLt9+Do+v3gwhAACCLNU/s3GNhm7dgc2TP0MAAGEC9nsQe34TsKlFyCA 8CG/fbeBWr+dXWuCRxFAAFGMAAKIYgQQYAA6zKt+37SYgwAAAABJRU5ErkJggg::",
         Img_1: ""
-    }
+    }*/
 ]
 var typeicon = [
 
@@ -292,6 +287,323 @@ var typeicon = [
         Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAMAAABW61JJAAAACXBIWXMAAAOLAAADiwF1yxf7AAAA BGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VG AAADAFBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8Q EBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIj IyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2 NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJ SUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tc XFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5v b29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGC goKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSV lZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eo qKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7 u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3O zs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh 4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P0 9PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////isF19AAABt0lEQVR42mJgoBAABBDF CCCAKEYAAUQxAgggihFAAFGMAAKIYgQQQBQjgACiGAEEEMUIIIAoRgABRDECCCCKEUAAUYwAAohi BBBAFCOAAKIYAQQQxQgggChGAAHEiMT+DxX4DyFAbCDzP1Tdf4QcMgAIICZU4xghpoAVQtlAGoxx AIAAYsJw0X+ofjRt/xnghqMAgABiojQMAAKIBbcUxNOEAEAAMREXvrgBQAAR64X/MIQOAAKICUMh I1JYosYQVicBBBALDm8z/scVBP9RfQcQQBQjgACiGAEEEMUIIIAoRgABRDECCCCKEUAAUYwAAohi BBBAFCOAAKIYAQQQxQgggChGAAFEMQIIIEYseRlSFDMi8xmQy2cUABBAKNkZmIexldx4CymAAGLC Uf5gL4KxAIAAorhUBgggJoxaAY8PGP7//4/uMIAAYiE/yCEAIICYSCqCsQCAAGLCrNkYcRfBWABA ALEQrA6Ahv2HlcRYSmSAAKIYAQQQxQgggChGAAFEMQIIIIoRQABRjAACiGIEEEAUI4AAohgBBBDF CCCAKEYAAUQxAgggihFAAFGMAAKIYgQQYABBxjIyXEyFmwAAAABJRU5ErkJggg::",
         Img_1: ""
     }];
+
+
+var slotsJson={
+    'add':{
+        type:"52",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'aodo':{
+        type:"58",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+        ]
+    },
+    'aver':{
+        type:"55",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'comp':{
+        type:"61",
+        initData: [
+            {"name": "mod", value: "< = >"},
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'count':{
+        type:"62",
+        initData: [
+            {'name': 'Out', 'value': "1"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'delay':{
+        type:"60",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'Time', 'value': "2"}
+        ]
+    },
+    'enth':{
+        type:"70",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Temp', 'value': "1"},
+            {'name': 'RH', 'value': "2"}
+        ]
+    },
+    'fa':{
+        type:"54",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "1"}
+        ]
+    },
+    'fd':{
+        type:"57",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "1"},
+        ]
+    },
+    'hour':{
+        type:"59",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'hy':{
+        type:"68",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'On', 'value': "2"},
+            {'name': 'Off', 'value': "2"}
+        ]
+    },
+    'lock':{
+        type:"69",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'Unlock', 'value': "2"}
+        ]
+    },
+    'logic':{
+        type:"56",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+
+    'max':{
+        type:"63",
+        initData: [
+            {'name': 'min', 'value': "max"},
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'mul':{
+        type:"53",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'pid':{
+        type:"67",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'PV', 'value': "1"},
+            {'name': 'SP', 'value': "2"},
+            {'name': 'Enable', 'value': "3"},
+            {'name': 'Direction', 'value': "4"}
+        ]
+    },
+    'Pulse':{
+        type:"65",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Enable', 'value': "1"},
+            {'name': 'OnTime', 'value': "2"},
+            {'name': 'OffTime', 'value': "3"}
+        ]
+    },
+    'sub':{
+        type:"52",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'switch':{
+        type:"64",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'Enable', 'value': "3"}
+        ]
+    }/*,
+    'timer':{
+        type:"",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    },
+    'tolalazer':{
+        type:"",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ]
+    }*/
+};
+
+
+
+/*
+ var oproxy = {
+ type: 'memory',
+ reader: {
+ type: 'json',
+ rootProperty: 'items'
+ }
+ }
+ Ext.create('Ext.data.Store', {
+ storeId: 'addStore',
+ fields:"grid-typegrid",
+ fields: ['name', 'value'],
+ data:slotsJson.add.initData,
+ proxy: oproxy
+ });
+Ext.create('Ext.data.Store', {
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    data: slotsJson.aodo.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'averStore',
+    fields: ['name', 'value'],
+    data: slotsJson.aver.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'compStore',
+    fields: ['name', 'value'],
+    data: slotsJson.comp.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'countStore',
+    fields: ['name', 'value'],
+    data:slotsJson.count.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'delayStore',
+    fields: ['name', 'value'],
+    data:slotsJson.delay.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'enthStore',
+    fields: ['name', 'value'],
+    data: slotsJson.enth.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'faStore',
+    fields: ['name', 'value'],
+    data:slotsJson.fa.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'fdStore',
+    fields: ['name', 'value'],
+    data:slotsJson.fd.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'hourStore',
+    fields: ['name', 'value'],
+    data:slotsJson.hour.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'hyStore',
+    fields: ['name', 'value'],
+    data: slotsJson.hy.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'lockStore',
+    fields: ['name', 'value'],
+    data:slotsJson.lock.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'logicStore',
+    fields: ['name', 'value'],
+    data: slotsJson.logic.initData,
+    proxy: oproxy
+});
+
+Ext.create('Ext.data.Store', {
+    storeId: 'maxStore',
+    fields: ['name', 'value'],
+    data: slotsJson.max.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'mulStore',
+    fields: ['name', 'value'],
+    data:slotsJson.mul.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'pidStore',
+    fields: ['name', 'value'],
+    data:slotsJson.pid.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'PulseStore',
+    fields: ['name', 'value'],
+    data:slotsJson.Pulse.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'subStore',
+    fields: ['name', 'value'],
+    data:slotsJson.sub.initData,
+    proxy: oproxy
+});
+Ext.create('Ext.data.Store', {
+    storeId: 'switchStore',
+    fields: ['name', 'value'],
+    data:slotsJson.switch.initData,
+    proxy: oproxy
+});
+/!*Ext.create('Ext.data.Store', {
+ storeId: 'timerStore',
+ fields: ['name', 'value'],
+ data:slotsJson.timer.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'tolalazerStore',
+ fields: ['name', 'value'],
+ data:slotsJson.tolalazer.initData,
+ proxy: oproxy
+ });*!/*/
+
 
 /*px:{
  Img_0:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAALHRFWHRDcmVhdGlvbiBUaW1lAE1v biAxOCBPY3QgMjAwNCAxNjoyNTo1MyAtMDUwMFdqmFgAAAAHdElNRQfUChIUHA+YPDhMAAAACXBI WXMAAArwAAAK8AFCrDSYAAAABGdBTUEAALGPC/xhBQAAAN5QTFRF/8DAAAAA4+P/4uL/4eH/4OD/ 3t7/3d3/3Nz/29v/2dn/2Nj/19f/1tb/1NT/09P/0tL/0dH/0ND/z8//zs7/zc3/zMz/5OT/5eX/ 5ub/5+f/6Oj/6en/6ur/6+v/7Oz/dnarc3OocXGmbm6jamqfZWWbYmKYX1+VW1ySWFiPVVWMUVKJ Tk+GS0yDeXmtfHyw////f3+zg4O3hoa6iYm9jIy/j4/CkpLFlZXIl5fK7u7/8PD/7+//9fX//v7/ /Pz/+/v/+vr/+fn/+Pj/9/f/9vb/9PT/8/P/8vL/8fH//37/+wAAAAF0Uk5TAEDm2GYAAAEQSURB VHjardNZV4JQFIZhv2ywUZusSDgOZYINpywtscwm6///oQ4s926De3XRal/AxfPCgcOiUPifQW7m A/s0fp68vL69f0w/v+L5AhkfYYLf7j8a4jGWBR7uB/27297N9dVlvdHE0CA2niiQ8RZMAOMVV38K DPrW2sTdqXWCwIfzcpULuOsdzfwUfi33tkjub9Nx3kbt2Ds6PFgoLnKQrk9+BvIlDnqz9W3iHZAv c0BurfMQ5Csc0PO7QyeMQF7igJ6/7U5RF+S8E0j3J10/jLrnIF/jIOMXIF/nIDfkG/JzmMDn/SHf lIHmWzLQvCwDzSsy0HxbBprvyEDzXRlovicDzfdloHlVBvr88UfOzTcRxzZ/alzIWwAAAABJRU5E rkJggg==",

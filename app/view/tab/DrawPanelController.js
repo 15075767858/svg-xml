@@ -7,36 +7,13 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //.style("border","1px solid red")
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
-        //svg.append("rect").attr("x", "100").attr("y", "100").attr("width", "100").attr("height", "10").attr("fill", "red");
-        /* th.el.dom.onmousedown = function (e) {
 
-         var mainSurface = th.getSurface("temp"); // --- getSurface('main')
-         var oLine = { // add sprite to the surface
-         type: 'line',
-         fromX: e.offsetX,
-         fromY: e.offsetY,
-
-         strokeStyle: '#1F6D91',
-         lineWidth: 3
-         };
-         // --- renders all the sprites in the surface
-         th.el.dom.onmousemove = function (e) {
-         th.getSurface("temp").removeAll();
-         oLine.toX = e.offsetX;
-         oLine.toY = e.offsetY;
-         mainSurface.add(oLine)
-         mainSurface.renderFrame();
-         }
-         th.el.dom.onmouseup = function (e) {
-         th.el.dom.onmousemove = null;
-         }
-         }*/
     },
     add: function (thi, com, index, eOpts) {
         com.addListener("itemmouseenter", function (th, record, item, index, e, eOpts) {
             d3.select("#tempLineEnd").remove();
+            /* console.log(sStartItemTrId)*/
             initDrawLine(thi, th, record, item, index, e, eOpts)
-
         });
         com.addListener("itemmouseleave", function (th, record, item, index, e, eOpts) {
 
@@ -48,7 +25,6 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         com.addListener("itemmousedown", function (th, record, item, index, e, eOpts) {
             //console.log(arguments)
             //console.log(d3.select(com.el.dom).select("td"));
-
             /*d3.select("#templine").remove()
              th.data = {oitem: item}
              var d = d3.select(thi.el.dom).select('svg');
@@ -72,65 +48,42 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
         com.addListener("itemmouseup", function (th, record, item, index, e, eOpts) {
 
-            // console.log(item)
-
-            /*  var edrawpanel = Ext.get(th.up("drawpanel").el.dom);
-             var dpleft = edrawpanel.getLeft(false);
-             var dptop = edrawpanel.getTop(false);
-             var endtLeft = Ext.get(item).getLeft(false) - dpleft + thi.getScrollX();
-             var endTop = Ext.get(item).getTop(false) - dptop + thi.getScrollY();
-             d3.select("#templine").attr("x2", endtLeft).attr("y2", endTop).attr("id", null);
-             if (th.data.oitem == item) {
-             thi.el.clearListeners()
-             d3.select("#templine").remove()
-             }*/
         });
+
     },
     render: function (th, eOpts) {
         //console.log(th)
         new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
 
     },
+
     show: function (th, event, eOpts) {
-        th.el.on("mouseup",function(){
-            console.log("aaaaaaaaaaaa")
-            //drawlines();
-        })
-        console.log("这是DrawPanel.show事件")
         drawlines(th);
     }
 });
 
-var datasArray=[];
-var getRandomColor = function(){
+var datasArray = [];
 
-    return  '#' +
-        (function(color){
-            return (color +=  '0123456789abcdef'[Math.floor(Math.random()*16)])
-            && (color.length == 6) ?  color : arguments.callee(color);
-        })('');
-}
 function drawlines(drawpanel) {
     console.log(datasArray);
-    if(!datasArray)
-    {
+    if (!datasArray) {
         return;
     }
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
     /*var currentDrawPanel;
-    Ext.ComponentManager.each(function (key, value, length) {
-        if (arguments[1].id.indexOf("drawpanel") >= 0) {
-            var oDrawPanel = Ext.getCmp(arguments[1].id);
-            if (!oDrawPanel.hidden) {
-                currentDrawPanel = oDrawPanel;
-            }
-        }
-    });
-    var dCurrentDrawPanel=d3.select("#"+currentDrawPanel.id);
-    console.log(dCurrentDrawPanel)
-    currentDrawPanel=Ext.get(dCurrentDrawPanel[0][0]);*/
-    var currentDrawPanel=drawpanel;
+     Ext.ComponentManager.each(function (key, value, length) {
+     if (arguments[1].id.indexOf("drawpanel") >= 0) {
+     var oDrawPanel = Ext.getCmp(arguments[1].id);
+     if (!oDrawPanel.hidden) {
+     currentDrawPanel = oDrawPanel;
+     }
+     }
+     });
+     var dCurrentDrawPanel=d3.select("#"+currentDrawPanel.id);
+     console.log(dCurrentDrawPanel)
+     currentDrawPanel=Ext.get(dCurrentDrawPanel[0][0]);*/
+    var currentDrawPanel = drawpanel;
     var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
     var iDrawPanelLeft = currentDrawPanel.el.getLeft();
     var iDrawPanelTop = currentDrawPanel.el.getTop();
@@ -158,12 +111,23 @@ function drawlines(drawpanel) {
         for (o in oStartEndJson) {
             console.log(oStartEndJson)
 
-           /* if(o==null||oStartEndJson[0]==undefined)
-            {
-                continue;
-            }*/
+            /* if(o==null||oStartEndJson[0]==undefined)
+             {
+             continue;
+             }*/
             var oElStart = Ext.get(oStartEndJson[o]);
             var oElEnd = Ext.get(o)
+            if (!oElEnd) {
+                datasArray.splice(i,1);
+                drawlines(drawpanel)
+                return
+            }
+            if (!oElStart) {
+                datasArray.splice(i,1);
+                drawlines(drawpanel)
+                return
+            }
+
             var iElWidth = oElStart.el.getWidth();
             var iElHeight = oElStart.el.getHeight() / 2;
             var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth;
@@ -172,33 +136,41 @@ function drawlines(drawpanel) {
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight;
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG")
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
-            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine");
-
+            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o);
             polyline.on("mouseover", function () {
                 d3.select(this).attr("stroke-width", STROKEWIDTH_MIN)
                     .transition()
-                    .attr("stroke-width", STROKEWIDTH_MAX).attr("stroke","chartreuse");
+                    .attr("stroke-width", STROKEWIDTH_MAX).attr("stroke", "chartreuse");
             });
             polyline.on("mouseout", function () {
                 d3.select(this).attr("stroke-width", STROKEWIDTH_MAX)
                     .transition()
-                    .attr("stroke-width", "4").attr("stroke","blue");
+                    .attr("stroke-width", "4").attr("stroke", "blue");
             });
+            /*polyline.on("click",function(){
+             console.log(this)
+             d3.select(this).remove();
+             });*/
+
+            /*polyline.on("contextmenu",function(){
+             d3.select(this).remove();
+             });*/
             var pointAll = [];//折线的数组初始化
             pointAll.push([iStartLeft, iStartTop]);
             var pointStart = [iStartLeft + JIANGE, iStartTop];
             var pointEnd = [iEndLeft, iEndTop]
             pointAll.push(pointStart);
-            //polyline.attr("points", [[iStartLeft, iStartTop], [iEndLeft, iEndTop]]);
 
+            //polyline.attr("points", [[iStartLeft, iStartTop], [iEndLeft, iEndTop]]);
 
             var iCount = 0;
             drawPolyline(pointStart, iCount);
-            pointAll.push([pointEnd[0]-JIANGE,pointEnd[1]]);
+            pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
             pointAll.push(pointEnd);
             polyline.attr("points", pointAll);
         }
     }
+
 
     function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
         console.log(pointStart)
