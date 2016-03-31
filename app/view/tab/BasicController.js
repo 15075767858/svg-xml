@@ -63,6 +63,11 @@ Ext.define('add', {
     storeId: 'aodoStore',
     fields: ['name', 'value'],
     data: slotsJson.add.initData,
+    listeners:{
+        add:function(){
+            console.log(arguments)
+        }
+    },
     proxy: oproxy
 });
 Ext.define('aodo', {
@@ -93,7 +98,7 @@ Ext.define('coun', {
     data:slotsJson.count.initData,
     proxy: oproxy
 });
-Ext.define('dela', {
+Ext.define('delay', {
     extend:"Ext.data.Store",
     storeId: 'delayStore',
     fields: ['name', 'value'],
@@ -185,7 +190,7 @@ Ext.define('sub', {
     data:slotsJson.sub.initData,
     proxy: oproxy
 });
-Ext.define('swit', {
+Ext.define('switch', {
     extend:"Ext.data.Store",
     storeId: 'switchStore',
     fields: ['name', 'value'],

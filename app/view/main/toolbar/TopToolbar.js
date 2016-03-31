@@ -1,5 +1,4 @@
-
-Ext.define("svgxml.view.main.toolbar.TopToolbar",{
+Ext.define("svgxml.view.main.toolbar.TopToolbar", {
     extend: "Ext.toolbar.Toolbar",
     xtype: 'basic-toolbar',
     id: 'basic-toolbar',
@@ -7,32 +6,35 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar",{
         "svgxml.view.main.toolbar.TopToolbarController",
         "svgxml.view.main.toolbar.TopToolbarModel"
     ],
-    
+
     controller: "main-toolbar-toptoolbar",
     viewModel: {
         type: "main-toolbar-toptoolbar"
     },
 
-    initComponent: function() {
+    initComponent: function () {
         Ext.apply(this, {
 
             width: "100%",
             items: [
                 {
-                    text:'File',
+                    text: 'File',
                     glyph: 70,
-                    menu:[{
-                        text:'New Xml'
+                    menu: [{
+                        text: 'New Xml'
                     },
                         {
-                            text:'Open Xml'
-                        },{
-                            text:'Save Xml',
-                            listeners:{
-                                click:"saveXmlClick"
+                            text: 'Open Xml',
+                            listeners: {
+                                click: "openXmlClick"
                             }
-                        },{
-                            text:"Save as Xml"
+                        }, {
+                            text: 'Save Xml',
+                            listeners: {
+                                click: "saveXmlClick"
+                            }
+                        }, {
+                            text: "Save as Xml"
                         }
                     ]
                 }]

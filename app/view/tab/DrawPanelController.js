@@ -7,21 +7,18 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //.style("border","1px solid red")
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
-
     },
     add: function (thi, com, index, eOpts) {
         com.addListener("itemmouseenter", function (th, record, item, index, e, eOpts) {
             d3.select("#tempLineEnd").remove();
-            /* console.log(sStartItemTrId)*/
+            //console.log(sStartItemTrId)
             initDrawLine(thi, th, record, item, index, e, eOpts)
         });
-        com.addListener("itemmouseleave", function (th, record, item, index, e, eOpts) {
 
+        com.addListener("itemmouseleave", function (th, record, item, index, e, eOpts) {
             /*
              d3.select("#tempLineStart").remove();*/
-
         });
-
         com.addListener("itemmousedown", function (th, record, item, index, e, eOpts) {
             //console.log(arguments)
             //console.log(d3.select(com.el.dom).select("td"));
@@ -45,11 +42,9 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
              d3.select("#templine").attr("x2", ev.pageX - dpleft).attr("y2", ev.pageY - dptop);
              })*/
         });
-
         com.addListener("itemmouseup", function (th, record, item, index, e, eOpts) {
 
         });
-
     },
     render: function (th, eOpts) {
         //console.log(th)

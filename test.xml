@@ -2,27 +2,24 @@
 <root>
     <master_node>
         <number>1</number>
-        <type>52</type>
-        <slots>
-            <node>1</node>
-            <slot_number>0</slot_number>
-        </slots>
-        <slots>
-            <node>1</node>
-            <slot_number>0</slot_number>
-        </slots>
-        
-        <slots>
+        <type>64</type>
+        <slots  number="1">
             <default>2</default>
+        </slots>
+        <slots  number="2">
+            <default>2</default>
+        </slots>
+        <slots  number="3">
+            <default>3</default>
         </slots>
     </master_node>
     <master_node>
         <number>2</number>
-        <type>58</type>
-        <slots>
-            <default>0</default>
+        <type>52</type>
+        <slots  number="1">
+            <default>2</default>
         </slots>
-        <slots>
+        <slots  number="2">
             <default>2</default>
         </slots>
     </master_node>

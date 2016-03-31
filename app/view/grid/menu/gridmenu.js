@@ -18,11 +18,15 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
     },
     items: [{
         text: 'cut',
+        itemId: 'cut',
+        disabled: true,
         listeners: {
             click: "cupclick"
         }
     }, {
         text: 'copy',
+        itemId: 'copy',
+        disabled: true,
         listeners: {
             click: "copyclick"
         }
@@ -36,33 +40,43 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         }
     }, {
         text: 'deplicate',
+        itemId: 'deplicate',
+        disabled: true,
         listeners: {
             click: "deplicateclick"
         }
     }, {
         text: 'delete',
+        itemId: 'delete',
+        disabled: true,
         //plain:true //平的
         border: "0 0 1 0",
         style: {
             borderColor: "#111"
         },
-        listeners:{
-          click:"deleteclick"
+        listeners: {
+            click: "deleteclick"
         }
     }, {
-        text: 'Link '
+        text: 'Link ',
+        itemId: 'Link',
+        disabled: true,
     }, {
         text: 'Link form',
+        itemId: 'Linkform',
+        disabled: true,
         border: "0 0 1 0",
         style: {
             borderColor: "#111"
         }
     }, {
         text: 'addSlot',
-        itemId:"addSlot"
+        disabled: true,
+        itemId: "addSlot"
 
     }, {
         text: 'delSlot',
+        disabled: true,
         border: "0 0 1 0",
         itemId: 'delSlot',
 
@@ -70,23 +84,34 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
             borderColor: "#111"
         }, disabled: true
     }, {
-        text: 'Rename'
+        text: 'Rename',
+        disabled: true,
     }, {
-        text: 'New plant'
+        text: 'New plant',
+        disabled: true,
     }, {
-        text: 'Reorder'//排序
+        text: 'Reorder',//排序
+        disabled: true
     }, {
         text: 'Property',
+        disabled: true,
+        itemId: 'Property',
         border: "0 0 1 0",
         style: {
             borderColor: "#111"
         }
     }, {
-        text: 'PinSlots'
+        text: 'PinSlots',
+        itemId: 'PinSlots',
+        disabled: true,
     }, {
-        text: 'Backup'
+        text: 'Backup',
+        itemId: 'Backup',
+        disabled: true,
     }, {
-        text: 'Restor'
+        text: 'Restor',
+        itemId: 'Restor',
+        disabled: true
     }
     ]/*,
      listeners:{

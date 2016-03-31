@@ -29,23 +29,28 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                 console.log(arguments)
                 if (el.tagName != "svg") {
                     return;
-                };
-                    Ext.create('svgxml.view.grid.menu.gridmenu', {
-                        x: th.pageX,
-                        y: th.pageY,
-                        listeners: {
-                            show: function (thi, eOpts) {
-                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
-                                addSlot.setDisabled(false);
+                }
+                ;
+                Ext.create('svgxml.view.grid.menu.gridmenu', {
+                    x: th.pageX,
+                    y: th.pageY,
+                    listeners: {
+                        show: function (thi, eOpts) {
+                            try {
+                                if (hideCom)
+                                    thi.getComponent("addSlot").setDisabled(false);
+                            } catch (e) {
+
                             }
+
                         }
-                    })
+                    }
+                })
                 th.stopEvent();
             }
         }
     }
 });
-
 
 
 /*

@@ -16,8 +16,15 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     y: e.pageY,
                     listeners: {
                         show: function (thi, eOpts) {
-                            var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
-                            addSlot.setDisabled(false);
+                            var title = th.title;
+                            if(slotsJson[title].isAddSlot){
+                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                                addSlot.setDisabled(false);
+                            }
+                            thi.getComponent("cut").setDisabled(false);
+                            thi.getComponent("copy").setDisabled(false);
+                            thi.getComponent("deplicate").setDisabled(false);
+                            thi.getComponent("delete").setDisabled(false);
                         }
                     }
                 })
@@ -113,8 +120,19 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             d3.select(thi.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
                             var delSlot = thi.getComponent("delSlot").on("click", thi.getController().delSlotclick, th);
                             delSlot.setDisabled(false);
-                            var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
-                            addSlot.setDisabled(false);
+                            var title = th.up("typegrid").title;
+                            if(slotsJson[title].isAddSlot){
+                                //var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                                //addSlot.setDisabled(false);
+                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                                addSlot.setDisabled(false);
+                            }
+
+                            thi.getComponent("cut").setDisabled(false);
+                            thi.getComponent("copy").setDisabled(false);
+                            thi.getComponent("deplicate").setDisabled(false);
+                            thi.getComponent("delete").setDisabled(false);
+
                         }
                     }
                 })
@@ -163,12 +181,13 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     //var columnid=d3.select(item).attr("data-columnid")
     var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
 
-
-
     tempLineEnd[0][0].onmousedown = function () {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
+            if(aRowsAll[i].querySelector("div").innerHTML=="Out"){
+                continue;
+            }
             var left = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
             var top = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
             var columnid = d3.select(aRowsAll[i]).attr("id");

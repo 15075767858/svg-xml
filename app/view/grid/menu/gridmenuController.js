@@ -3,12 +3,24 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     alias: 'controller.grid-menu-gridmenu',
 
     init: function (el) {
+        try{
         if (hideCom) {
             console.log(el.getComponent('paste').setDisabled(false))
         }
+        }catch(e){
 
+        }
         //alert("controller init")
     },
+    /*show:function(th){
+        console.log(th.up("typegrid"))
+        var title = th.up("typegrid").title;
+        if(slotsJson[title].isAddSlot){
+            el.getComponent("addSlot").setDisabled(true);
+        }else{
+            el.getComponent("addSlot").setDisabled(false);
+        }
+    },*/
     cupclick: function (menu, item, e, eOpts) {
         hideCom = menu.up("typegrid");
         menu.up("typegrid").hide();
@@ -17,7 +29,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     copyclick: function (menu, item, e, eOpts) {
         hideCom = menu.up("typegrid");
     },
-    pasteclick: function (menu, item, e, eOpts) {
+    pasteclick: function (item, e, eOpts) {
         //var sourcePanel = menu.up().up();
         var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
             title: hideCom.getTitle(),
@@ -26,8 +38,9 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             y: hideCom.y,
             store: hideCom.getStore()
         })
-        menu.up("drawpanel").add(oTypeGrid)
-        oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
+        getCurrentDrawPanel().add(oTypeGrid);
+        oTypeGrid.setPagePosition(e.pageX, e.pageY, true)
+        //oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
     },
 
     deleteclick: function (menu, item, e, eOpts) {
@@ -55,10 +68,12 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
     },
     addSlotclick: function (menu, item, e, eOpts) {
-        console.log(this)
-
+        var typeGirdName = menu.up("typegrid").title;
         var store = this.getStore();
-
+        if(store.data.length>slotsJson[typeGirdName].maxSlot){
+            Ext.Msg.alert('Info', 'This slot max length is '+slotsJson[typeGirdName].maxSlot+'.');
+            return ;
+        }
         store.add(Ext.create("svgxml.view.grid.TypeGridModel", {
             name: "In",
             value: ""

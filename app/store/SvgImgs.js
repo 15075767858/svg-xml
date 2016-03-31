@@ -296,14 +296,17 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
     'aodo':{
         type:"58",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
-        ]
+        ],
+        isAddSlot:false
     },
     'aver':{
         type:"55",
@@ -311,7 +314,9 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
     'comp':{
         type:"61",
@@ -320,7 +325,8 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:false,
     },
     'count':{
         type:"62",
@@ -328,7 +334,9 @@ var slotsJson={
             {'name': 'Out', 'value': "1"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
     'delay':{
         type:"60",
@@ -336,7 +344,8 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'Time', 'value': "2"}
-        ]
+        ],
+        isAddSlot:false,
     },
     'enth':{
         type:"70",
@@ -344,21 +353,24 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'Temp', 'value': "1"},
             {'name': 'RH', 'value': "2"}
-        ]
+        ],
+        isAddSlot:false
     },
     'fa':{
         type:"54",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "1"}
-        ]
+        ],
+        isAddSlot:false
     },
     'fd':{
         type:"57",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "1"},
-        ]
+        ],
+        isAddSlot:false
     },
     'hour':{
         type:"59",
@@ -366,7 +378,8 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:false
     },
     'hy':{
         type:"68",
@@ -375,7 +388,8 @@ var slotsJson={
             {'name': 'In', 'value': "2"},
             {'name': 'On', 'value': "2"},
             {'name': 'Off', 'value': "2"}
-        ]
+        ],
+        isAddSlot:false,
     },
     'lock':{
         type:"69",
@@ -383,7 +397,8 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'Unlock', 'value': "2"}
-        ]
+        ],
+        isAddSlot:false
     },
     'logic':{
         type:"56",
@@ -391,7 +406,9 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
 
     'max':{
@@ -401,7 +418,9 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
     'mul':{
         type:"53",
@@ -409,7 +428,9 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
     'pid':{
         type:"67",
@@ -419,7 +440,8 @@ var slotsJson={
             {'name': 'SP', 'value': "2"},
             {'name': 'Enable', 'value': "3"},
             {'name': 'Direction', 'value': "4"}
-        ]
+        ],
+        isAddSlot:false
     },
     'Pulse':{
         type:"65",
@@ -428,7 +450,8 @@ var slotsJson={
             {'name': 'Enable', 'value': "1"},
             {'name': 'OnTime', 'value': "2"},
             {'name': 'OffTime', 'value': "3"}
-        ]
+        ],
+        isAddSlot:false
     },
     'sub':{
         type:"52",
@@ -436,7 +459,9 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
-        ]
+        ],
+        isAddSlot:true,
+        maxSlot:10
     },
     'switch':{
         type:"64",
@@ -445,7 +470,8 @@ var slotsJson={
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"},
             {'name': 'Enable', 'value': "3"}
-        ]
+        ],
+        isAddSlot:false
     }/*,
     'timer':{
         type:"",
