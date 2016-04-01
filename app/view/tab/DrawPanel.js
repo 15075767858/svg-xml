@@ -29,8 +29,8 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                 console.log(arguments)
                 if (el.tagName != "svg") {
                     return;
-                }
-                ;
+                };
+
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: th.pageX,
                     y: th.pageY,

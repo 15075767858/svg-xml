@@ -321,7 +321,7 @@ var slotsJson={
     'comp':{
         type:"61",
         initData: [
-            {"name": "mod", value: "< = >"},
+            {"name": "model", value: "0"},
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
@@ -414,7 +414,7 @@ var slotsJson={
     'max':{
         type:"63",
         initData: [
-            {'name': 'min', 'value': "max"},
+            {'name': 'model', 'value': "0"},
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}

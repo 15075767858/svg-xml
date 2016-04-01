@@ -60,7 +60,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 var datasArray = [];
 
 function drawlines(drawpanel) {
-    console.log(datasArray);
+    //console.log(datasArray);
     if (!datasArray) {
         return;
     }
@@ -91,7 +91,7 @@ function drawlines(drawpanel) {
             pointEnd[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
             pointEnd[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
             //console.log(aRowsAll[i]) //第一列
-            console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
+     //       console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
             //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointEnd[0]).attr("y", pointEnd[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
         } else {
             pointStart[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;

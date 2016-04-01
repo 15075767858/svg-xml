@@ -50,7 +50,9 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         this.width = 140;
         this.columns = [
             {
+
                     multiColumnSort: false,
+
                 //text     :"<img height='20px' src='img/PNG/add.png'>",
                 text: "type",
                 flex: 1,

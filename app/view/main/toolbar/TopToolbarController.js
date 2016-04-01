@@ -73,6 +73,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     console.log(xmlDom)
                     var masterNodes = $(xmlDom).find("master_node");
                     var drawPanel = getCurrentDrawPanel();
+                    var aLineDatas=[];
                     for (var i = 0; i < masterNodes.length; i++) {
                         var type = masterNodes[i].getElementsByTagName("type")[0].innerHTML;
 
@@ -82,43 +83,48 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                                 typeName = slot;
                             }
                         }
+                        var initData = slotsJson[typeName].initData;
+                        //console.log(initData)
+                        var startIndex = 1;
+                        if (initData[0].name == "model") {
+                            initData[0].value = masterNodes[i].getElementsByTagName("model")[0].innerHTML;
+                            startIndex = 2;
+                        }
+                        var xmlSlots = masterNodes[i].getElementsByTagName("slots");
+                        for (var j = 0; j < xmlSlots.length; j++, startIndex++) {
+                            if (xmlSlots[j].getElementsByTagName("default")[0]) {
+                                if (initData[startIndex]) {
+                                    initData[startIndex].value = xmlSlots[j].getElementsByTagName("default")[0].innerHTML;
+                                }
+                                else {
+                                    initData.push({
+                                        name: "In",
+                                        value: xmlSlots[j].getElementsByTagName("default")[0].innerHTML
+                                    })
+                                }
+                            } else {
+                                var iNode = xmlSlots[j].getElementsByTagName("node")[0].innerHTML;
+                                var iSlotNumber = xmlSlots[j].getElementsByTagName("slot_number")[0].innerHTML;
+                                console.log(iNode)
+                                console.log(iSlotNumber)
+                                aLineDatas.push([iNode,iSlotNumber])
+                                console.log(aLineDatas)
+                            }
+                        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
                         var store = Ext.create(typeName, {
-                            data: slotsJson[typeName].initData
+                            data: initData
                         });
-                        drawPanel.add(Ext.create("svgxml.view.grid.TypeGrid", {
+                        var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
                             title: typeName,
                             store: store,
                             x: 0,
                             y: 0,
                             icon: "img/SVG/" + typeName + ".svg"
-                        }));
+                        })
+                        drawPanel.add(oTypeGrid);
                         win.close();
-
                     }
-                    /*Ext.MessageBox.show({
-                     title : '请等待',
-                     msg : '文件正在上传...',
-                     progressText : '',
-                     width : 300,
-                     progress : true,
-                     closable : false,
-                     animEl : 'loding'
-                     });
-                     form.getForm().submit({
-                     url : 'Action/UpdateLoad',
-                     method : 'POST',
-                     success : function(form, action) {
-                     Ext.Msg.alert('Message',
-                     action.result.success);
-                     win.close();
-                     },
-                     failure : function() {
-                     Ext.Msg.alert('Error',
-                     'File upload failure.');
-                     }
-                     })*/
-
-
                 }
             }, {
                 text: 'Close',
@@ -127,38 +133,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 }
             }]
         }).show();
-
-
-        /*if (form.form.isValid()) {
-         if(Ext.getCmp('userfile').getValue() == ''){
-         Ext.Msg.alert('错误','请选择你要上传的文件');
-         return;
-         }
-         Ext.MessageBox.show({
-         title : '请等待',
-         msg : '文件正在上传...',
-         progressText : '',
-         width : 300,
-         progress : true,
-         closable : false,
-         animEl : 'loding'
-         });
-         form.getForm().submit({
-         url : 'Action/UpdateLoad',
-         method : 'POST',
-         success : function(form, action) {
-         Ext.Msg.alert('Message',
-         action.result.success);
-         win.close();
-         },
-         failure : function() {
-         Ext.Msg.alert('Error',
-         'File upload failure.');
-         }
-         })
-         }*/
-
-
     },
 
     saveXmlClick: function () {

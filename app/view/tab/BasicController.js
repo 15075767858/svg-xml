@@ -91,7 +91,7 @@ Ext.define('comp', {
     data: slotsJson.comp.initData,
     proxy: oproxy
 });
-Ext.define('coun', {
+Ext.define('count', {
     extend:"Ext.data.Store",
     storeId: 'countStore',
     fields: ['name', 'value'],
@@ -147,7 +147,7 @@ Ext.define('lock', {
     data:slotsJson.lock.initData,
     proxy: oproxy
 });
-Ext.define('logi', {
+Ext.define('logic', {
     extend:"Ext.data.Store",
     storeId: 'logicStore',
     fields: ['name', 'value'],
@@ -176,7 +176,7 @@ Ext.define('pid', {
     data:slotsJson.pid.initData,
     proxy: oproxy
 });
-Ext.define('Puls', {
+Ext.define('Pulse', {
     extend:"Ext.data.Store",
     storeId: 'PulseStore',
     fields: ['name', 'value'],

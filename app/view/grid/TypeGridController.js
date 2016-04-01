@@ -17,7 +17,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     listeners: {
                         show: function (thi, eOpts) {
                             var title = th.title;
-                            if(slotsJson[title].isAddSlot){
+                            if (slotsJson[title].isAddSlot) {
                                 var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
                                 addSlot.setDisabled(false);
                             }
@@ -39,14 +39,16 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         //console.log(t.data.x)
         //console.log(t.data.y)
         if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
-            console.log(x + " " + y)
+            //console.log(x + " " + y)
             //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
             t.setPagePosition(t.data.x, t.data.y, true)
         }
     },
 
     girditemdblclick: function (me, record, item, index, e, eopts) {
-        console.log(record)
+        console.log(me.up())
+        console.log(arguments)
+
         var win = Ext.create("Ext.window.Window", {
             title: "ChangeValue",
             width: 260,
@@ -59,6 +61,53 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 },
                 render: function () {
                     //   win.down("form").loadRecord(record);
+                },
+                show: function (th) {
+                    th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name"});
+                    var title = me.up("typegrid").title;
+                    if (title == "comp" & index == 0) {
+                        var store = Ext.create('Ext.data.Store', {
+                            fields: ['name'],
+                            data: [
+                                {"name": "<", value: "0"},
+                                {"name": "=", value: "1"},
+                                {"name": ">", value: "2"}
+                            ]
+                        });
+                        th.down("form").add({
+                            xtype: "combobox",
+                            name: "value",
+                            fieldLabel: "type",
+                            forceSelection: true,
+                            store: store,
+                            queryMode: 'local',
+                            displayField: 'name',
+                            valueField: 'value'
+                        });
+                    } else if (title == "max" & index == 0) {
+
+                        var store = Ext.create('Ext.data.Store', {
+                            fields: ['name'],
+                            data: [
+                                {"name": "min", value: "0"},
+                                {"name": "max", value: "1"},
+                            ]
+                        });
+                        th.down("form").add({
+                            xtype: "combobox",
+                            name: "value",
+                            fieldLabel: "type",
+                            forceSelection: true,
+                            store: store,
+                            queryMode: 'local',
+                            displayField: 'name',
+                            valueField: 'value'
+                        });
+                    } else {
+                        th.down("form").add({xtype: "textfield", name: "value", fieldLabel: "type"});
+                    }
+
+
                 }
             },
             items: {
@@ -68,12 +117,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 fieldDefaults: {
                     labelAlign: 'left',
                     labelWidth: 60
-                },
-                items: [
-                    {xtype: "textfield", name: "name", fieldLabel: "type"},
-                    /*{ xtype: "numberfield", name: "age", fieldLabel: "年龄" ,maxValue: 3,  minValue: 0 },*/
-                    {xtype: "textfield", name: "value", fieldLabel: "value"}
-                ]
+                }/*,
+                 items: [
+                 {xtype: "textfield", name: "name", fieldLabel: "type"},
+                 /!*{ xtype: "numberfield", name: "age", fieldLabel: "年龄" ,maxValue: 3,  minValue: 0 },*!/
+                 {xtype: "textfield", name: "value", fieldLabel: "value"}
+                 ]*/
             },
             buttons: [
                 {
@@ -118,14 +167,15 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     listeners: {
                         show: function (thi, eOpts) {
                             d3.select(thi.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
-                            var delSlot = thi.getComponent("delSlot").on("click", thi.getController().delSlotclick, th);
-                            delSlot.setDisabled(false);
+                            if (record.data.name == "In") {
+                                var delSlot = thi.getComponent("delSlot").on("click", thi.getController().delSlotclick, th);
+                                delSlot.setDisabled(false);
+                            }
                             var title = th.up("typegrid").title;
-                            if(slotsJson[title].isAddSlot){
-                                //var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
-                                //addSlot.setDisabled(false);
+                            if (slotsJson[title].isAddSlot) {
                                 var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
                                 addSlot.setDisabled(false);
+
                             }
 
                             thi.getComponent("cut").setDisabled(false);
@@ -165,8 +215,11 @@ var STROKE_COLOR = "blue";
 //带 data-targetid 的是td  data-targetid 标注的是目标的id
 var sStartItemTrId;//鼠标按下后得到item下的tr的id
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
-     sStartItemTrId = item.querySelector("tr").id;
-    console.log(sStartItemTrId)
+    if (item.querySelector("div").innerHTML == "model") {
+        return;
+    }
+    sStartItemTrId = item.querySelector("tr").id;
+    //console.log(arguments)
     var oDrawPanel = d3.select(thi.el.dom).select(".x-autocontainer-innerCt");
     var oSvg = oDrawPanel.select(".tempSVG");
     iDrawPanelLeft = thi.el.getLeft();
@@ -176,29 +229,30 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2;
     var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
     d3.select("#tempLineStart").remove()
+
     var tempLineStart = oSvg.append("rect").attr("x", eItemWidth).attr("y", eItemHeight).attr("id", "tempLineStart");
-    //var tempLineEnd = oSvg.append("rect").attr("width", "10").attr("height", "10").attr("fill", "green").attr("x",eItemWidth).attr("y",eItemHeight).attr("fill", "red").attr("id","tempLineEnd");
-    //var columnid=d3.select(item).attr("data-columnid")
     var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
 
     tempLineEnd[0][0].onmousedown = function () {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
-            if(aRowsAll[i].querySelector("div").innerHTML=="Out"){
-                continue;
-            }
+
             var left = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
             var top = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
             var columnid = d3.select(aRowsAll[i]).attr("id");
-            var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
-            tempLineEnd.on("mouseover", function () {
-                d3.select(this).attr("r", CIRCLE_MAX_R);
-            });
-            tempLineEnd.on("mouseout", function () {
-                d3.select(this).attr("fill", "green").attr("r", CIRCLE_MIN_R);
-            });
-            sStartItemTrId = item.querySelector("tr").id;
+            var tempLineEnd;
+            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "model") {
+                tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
+
+                tempLineEnd.on("mouseover", function () {
+                    d3.select(this).attr("r", CIRCLE_MAX_R);
+                });
+                tempLineEnd.on("mouseout", function () {
+                    d3.select(this).attr("fill", "green").attr("r", CIRCLE_MIN_R);
+                });
+                sStartItemTrId = item.querySelector("tr").id;
+            }
         }
 
         document.onmousemove = function (e) {

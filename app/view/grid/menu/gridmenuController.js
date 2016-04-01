@@ -3,41 +3,65 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     alias: 'controller.grid-menu-gridmenu',
 
     init: function (el) {
-        try{
-        if (hideCom) {
-            console.log(el.getComponent('paste').setDisabled(false))
-        }
-        }catch(e){
+        try {
+            if (hideCom) {
+                console.log(el.getComponent('paste').setDisabled(false))
+            }
+        } catch (e) {
 
         }
         //alert("controller init")
     },
     /*show:function(th){
-        console.log(th.up("typegrid"))
-        var title = th.up("typegrid").title;
-        if(slotsJson[title].isAddSlot){
-            el.getComponent("addSlot").setDisabled(true);
-        }else{
-            el.getComponent("addSlot").setDisabled(false);
-        }
-    },*/
+     console.log(th.up("typegrid"))
+     var title = th.up("typegrid").title;
+     if(slotsJson[title].isAddSlot){
+     el.getComponent("addSlot").setDisabled(true);
+     }else{
+     el.getComponent("addSlot").setDisabled(false);
+     }
+     },*/
     cupclick: function (menu, item, e, eOpts) {
         hideCom = menu.up("typegrid");
+
         menu.up("typegrid").hide();
         //console.log(menu.up().getComponent('paste').setDisabled(true))
     },
     copyclick: function (menu, item, e, eOpts) {
         hideCom = menu.up("typegrid");
+        console.log(hideCom.getStore())
     },
     pasteclick: function (item, e, eOpts) {
         //var sourcePanel = menu.up().up();
+        var typeName = hideCom.getTitle();
+        var dataitems = hideCom.getStore().data.items;
+
+        var data = [];
+        for (var i = 0; i < dataitems.length; i++) {
+            var otempjson = {};
+            otempjson['name'] = dataitems[i].data['name']
+            otempjson['value'] = dataitems[i].data['value']
+            data[i]=otempjson
+        }
+        var store = Ext.create(typeName, {
+            data: data
+        });
+
         var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
-            title: hideCom.getTitle(),
-            icon: hideCom.getIcon(),
-            x: hideCom.x,
-            y: hideCom.y,
-            store: hideCom.getStore()
+            title: typeName,
+            store: store,
+            x: e.browserEvent.offsetX,
+            y: e.browserEvent.offsetY,
+            icon: "img/SVG/" + typeName + ".svg"
         })
+
+        /*var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
+         title: hideCom.getTitle(),
+         icon: hideCom.getIcon(),
+         x: hideCom.x,
+         y: hideCom.y,
+         store: hideCom.getStore()
+         })*/
         getCurrentDrawPanel().add(oTypeGrid);
         oTypeGrid.setPagePosition(e.pageX, e.pageY, true)
         //oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
@@ -62,17 +86,14 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         })
         menu.up("drawpanel").add(oTypeGrid)
         oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
-        //oTypeGrid.setPagePosition(0,0,true)
-        /*hideCom.x + hideCom.width + 10,
-         hideCom.y,*/
-        //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
+
     },
     addSlotclick: function (menu, item, e, eOpts) {
         var typeGirdName = menu.up("typegrid").title;
         var store = this.getStore();
-        if(store.data.length>slotsJson[typeGirdName].maxSlot){
-            Ext.Msg.alert('Info', 'This slot max length is '+slotsJson[typeGirdName].maxSlot+'.');
-            return ;
+        if (store.data.length > slotsJson[typeGirdName].maxSlot) {
+            Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
+            return;
         }
         store.add(Ext.create("svgxml.view.grid.TypeGridModel", {
             name: "In",
