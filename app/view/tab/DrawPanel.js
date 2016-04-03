@@ -24,6 +24,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
         add: "add",
         render: "render",
         show: "show",
+        hide:"hide",
         el: {
             contextmenu: function (th, el, eOpts) {
                 console.log(arguments)

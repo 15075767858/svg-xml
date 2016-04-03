@@ -16,6 +16,9 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
     style: {
         borderColor: "#111"
     },
+    listeners:{
+      show:"show"
+    },
     items: [{
         text: 'cut',
         itemId: 'cut',
@@ -58,14 +61,20 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
             click: "deleteclick"
         }
     }, {
-        text: 'Link ',
-        itemId: 'Link',
+        text: 'Link Mark',
+        itemId: 'LinkMark',
         disabled: true,
+        listeners:{
+            click:"LinkMarkClick"
+        }
     }, {
-        text: 'Link form',
-        itemId: 'Linkform',
+        text: 'Link Form',
+        itemId: 'LinkForm',
         disabled: true,
         border: "0 0 1 0",
+        listeners:{
+            click:"LinkFormClick"
+        },
         style: {
             borderColor: "#111"
         }

@@ -1,12 +1,13 @@
 var hideCom;
 
+
 Ext.define('svgxml.view.grid.TypeGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.grid-typegrid',
     girdviewready: function (th, eO) {
         var oHead = th.getHeader().el.dom;
         oHead.onmousedown = function (e) {
-            console.log(e)
+            //console.log(e)
             th.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
         }
         oHead.oncontextmenu = function (e) {
@@ -20,6 +21,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             if (slotsJson[title].isAddSlot) {
                                 var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
                                 addSlot.setDisabled(false);
+                            }
+                            thi.getComponent("LinkMark").setDisabled(false);
+                            if(getCurrentDrawPanel().datas.LinkMarkTypeGrid){
+                                var linkform = thi.getComponent("LinkForm");
+                            linkform.setDisabled(false);
+                                linkform.setText("Link Form \""+getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle()+"\"")
                             }
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
@@ -35,6 +42,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
 
     girdmove: function (t, x, y, eOpts) {
+        console.log(t.datas)
         drawlines(t.up("drawpanel"))
         //console.log(t.data.x)
         //console.log(t.data.y)
@@ -44,6 +52,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             t.setPagePosition(t.data.x, t.data.y, true)
         }
     },
+
 
     girditemdblclick: function (me, record, item, index, e, eopts) {
         console.log(me.up())
@@ -154,6 +163,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
     griditemmouseup: function (th, record, item, index, e, eOpts) {
 
+
         th.datas = {"index": index}
 
         th.el.dom.oncontextmenu = function (eve) {
@@ -214,6 +224,9 @@ var iDrawPanelTop;
 var STROKE_COLOR = "blue";
 //带 data-targetid 的是td  data-targetid 标注的是目标的id
 var sStartItemTrId;//鼠标按下后得到item下的tr的id
+
+
+
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
     if (item.querySelector("div").innerHTML == "model") {
         return;
@@ -228,7 +241,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var eItemWidth = eItem.getLeft() - iDrawPanelLeft + eItem.getWidth();
     var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2;
     var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
-    d3.select("#tempLineStart").remove()
+    d3.select("#tempLineStart").remove();
 
     var tempLineStart = oSvg.append("rect").attr("x", eItemWidth).attr("y", eItemHeight).attr("id", "tempLineStart");
     var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
@@ -275,7 +288,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
                         if (jTempJson.null) {
                             return;
                         }
-
                         //console.log(document.querySelector(sEndItemTrId));
                         datasArray.push(jTempJson)
                     }
@@ -286,7 +298,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
                 //console.log(datasArray.pop())
                 return;
             }
-
         };
     };
 

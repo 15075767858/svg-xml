@@ -10,61 +10,31 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         } catch (e) {
 
         }
-        //alert("controller init")
-    },
-    /*show:function(th){
-     console.log(th.up("typegrid"))
-     var title = th.up("typegrid").title;
-     if(slotsJson[title].isAddSlot){
-     el.getComponent("addSlot").setDisabled(true);
-     }else{
-     el.getComponent("addSlot").setDisabled(false);
-     }
-     },*/
-    cupclick: function (menu, item, e, eOpts) {
-        hideCom = menu.up("typegrid");
 
-        menu.up("typegrid").hide();
+
+    },
+    show: function (th) {
+
+        /*var title = th.up("typegrid");
+         if (slotsJson[title].isAddSlot) {
+         el.getComponent("addSlot").setDisabled(true);
+         } else {
+         el.getComponent("addSlot").setDisabled(false);
+         }*/
+    },
+    cupclick: function (menu, e, eOpts) {
+        hideCom = cloneTypegrid(menu.up("typegrid"), e);
+        menu.up("typegrid").destroy();
         //console.log(menu.up().getComponent('paste').setDisabled(true))
     },
-    copyclick: function (menu, item, e, eOpts) {
-        hideCom = menu.up("typegrid");
-        console.log(hideCom.getStore())
+    copyclick: function (menu, e, eOpts) {
+        hideCom = cloneTypegrid(menu.up("typegrid"), e);
+
     },
     pasteclick: function (item, e, eOpts) {
-        //var sourcePanel = menu.up().up();
-        var typeName = hideCom.getTitle();
-        var dataitems = hideCom.getStore().data.items;
-
-        var data = [];
-        for (var i = 0; i < dataitems.length; i++) {
-            var otempjson = {};
-            otempjson['name'] = dataitems[i].data['name']
-            otempjson['value'] = dataitems[i].data['value']
-            data[i]=otempjson
-        }
-        var store = Ext.create(typeName, {
-            data: data
-        });
-
-        var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
-            title: typeName,
-            store: store,
-            x: e.browserEvent.offsetX,
-            y: e.browserEvent.offsetY,
-            icon: "img/SVG/" + typeName + ".svg"
-        })
-
-        /*var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
-         title: hideCom.getTitle(),
-         icon: hideCom.getIcon(),
-         x: hideCom.x,
-         y: hideCom.y,
-         store: hideCom.getStore()
-         })*/
-        getCurrentDrawPanel().add(oTypeGrid);
-        oTypeGrid.setPagePosition(e.pageX, e.pageY, true)
-        //oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
+        hideCom.datas = {plantId: getCurrentPlant().id}
+        getCurrentDrawPanel().add(hideCom);
+        hideCom.setPagePosition(e.pageX, e.pageY, true)
     },
 
     deleteclick: function (menu, item, e, eOpts) {
@@ -75,18 +45,12 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         }
         menu.up("typegrid").close()
     },
-    deplicateclick: function (menu, item, e, eOpts) {
-        hideCom = menu.up().up();
-        var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
-            title: hideCom.getTitle(),
-            icon: hideCom.getIcon(),
-            x: hideCom.x,
-            y: hideCom.y,
-            store: hideCom.getStore()
-        })
-        menu.up("drawpanel").add(oTypeGrid)
-        oTypeGrid.setPagePosition(hideCom.x + hideCom.up().getX() + hideCom.width + 50, hideCom.y + hideCom.up().getY(), true)
-
+    deplicateclick: function (menu, e, eOpts) {
+        var typegrid = menu.up("typegrid");
+        hideCom = cloneTypegrid(typegrid, e);
+        hideCom.datas = {plantId: getCurrentPlant().id};
+        menu.up("drawpanel").add(hideCom)
+        hideCom.setPagePosition(typegrid.x + hideCom.up().getX() + hideCom.width + 50, typegrid.y + hideCom.up().getY(), true)
     },
     addSlotclick: function (menu, item, e, eOpts) {
         var typeGirdName = menu.up("typegrid").title;
@@ -124,7 +88,133 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 d3.select(this).remove()
             }
         })
+    },
+    LinkMarkClick: function (menu, item, e, eOpts) {
+        var curDrawPanel = getCurrentDrawPanel();
+        var curTypeGrid = menu.up("typegrid");
+        curDrawPanel.datas.LinkMarkTypeGrid = curTypeGrid;
+        console.log(arguments)
+    }
+    ,
+    LinkFormClick: function (menu, item, e, eOpts) {
+        var SourceTypeGrid = getCurrentDrawPanel().datas.LinkMarkTypeGrid;
+        var TargetTypeGrid = menu.up("typegrid");
 
+        var win = Ext.create('Ext.window.Window', {
+            title: "Link",
+            autoScroll: true,
+            width: 600,
+            height: 600,
+            renderTo: Ext.getBody(),
+            autoShow: true,
+            bodyPadding: 5,
+            layout: {
+                type: 'hbox',
+                //align: 'stretch'
+            },
+            defaults: {
+                //split: true,
+                //sortable:false
+                sortableColumns: false
+            },
+            listeners: {
+                show: function (th, eOpts) {
+                    th.datas = {
+                        sourceIndex: 0,
+                        targetIndex: 0
+                    }
+                }
+            },
+            items: [
+                {
+                    xtype: 'gridpanel', region: 'center', margin: '0 10 0 0', flex: 1,
+                    store: SourceTypeGrid.getStore(),
+                    columns: [
+                        {text: 'Name', dataIndex: 'name', flex: 1},
+                        {text: 'Value', dataIndex: 'value', flex: 1}
+                        //{ text: 'Phone', dataIndex: 'phone' ,flex:1}
+                    ],
+                    tbar: [
+                        {
+                            xtype: 'displayfield',
+                            value: '<span style="color:#04408c;font-weight:bolder;height:20px;line-height:19px;margin-left:3px"> SupplyTemp[Source] (' + SourceTypeGrid.getTitle() + ') </span>',
+                            margin: '0 0 0 0'
+                        }
+                    ],
+                    listeners: {
+                        itemclick: function (thi, record, item, index, e, eOpts) {
+                            win.datas.sourceIndex = index;
+                        }
+                    }
+                },
+                {
+                    xtype: 'gridpanel', region: 'center', flex: 1,
+                    store: TargetTypeGrid.getStore(),
+                    columns: [
+                        {text: 'Name', dataIndex: 'name', flex: 1},
+                        {text: 'Value', dataIndex: 'value', flex: 1}
+                        //{ text: 'Phone', dataIndex: 'phone' ,flex:1}
+                    ],
+                    tbar: [
+                        {
+                            xtype: 'displayfield',
+                            value: '<span style="color:#04408c;font-weight:bolder;height:20px;line-height:19px;margin-left:3px"> GreaterThan[Target] (' + TargetTypeGrid.getTitle() + ') </span>',
+                            margin: '0 0 0 0'
+                        }
+                    ],
+                    listeners: {
+                        itemclick: function (thi, record, item, index, e, eOpts) {
+                            win.datas.targetIndex = index;
+                        }
+                    }
+                }
+            ],
+            fbar: [
+                {xtype: "displayfield", value: 'Link"SupplyTemp [Source]"->"GreaterThane[Target]', margin: "0 120 0 0"},
+                {
+                    type: 'button', text: 'Ok',
+                    handler: function () {
+                        console.log(win.datas.sourceIndex)
+                        console.log(win.datas.targetIndex)
+                        console.log(TargetTypeGrid)
+
+                        win.close()
+                    }
+                },
+                {
+                    type: 'button', text: 'Cancel',
+                    handler: function () {
+                        win.close()
+                    }
+                }
+            ]
+        });
 
     }
+
 });
+
+function cloneTypegrid(typegrid, e) {
+
+    console.log(e)
+    var typeName = typegrid.getTitle();
+    var dataitems = typegrid.getStore().data.items;
+    var data = [];
+    for (var i = 0; i < dataitems.length; i++) {
+        var otempjson = {};
+        otempjson['name'] = dataitems[i].data['name']
+        otempjson['value'] = dataitems[i].data['value']
+        data[i] = otempjson
+    }
+    var store = Ext.create(typeName, {
+        data: data
+    });
+    var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
+        title: typeName,
+        store: store,
+        x: e.x || 100,
+        y: e.y || 100,
+        icon: "img/SVG/" + typeName + ".svg"
+    });
+    return oTypeGrid;
+}

@@ -73,7 +73,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     console.log(xmlDom)
                     var masterNodes = $(xmlDom).find("master_node");
                     var drawPanel = getCurrentDrawPanel();
-                    var aLineDatas=[];
+                    var aLineDatas = [];
                     for (var i = 0; i < masterNodes.length; i++) {
                         var type = masterNodes[i].getElementsByTagName("type")[0].innerHTML;
 
@@ -107,7 +107,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                                 var iSlotNumber = xmlSlots[j].getElementsByTagName("slot_number")[0].innerHTML;
                                 console.log(iNode)
                                 console.log(iSlotNumber)
-                                aLineDatas.push([iNode,iSlotNumber])
+                                aLineDatas.push([iNode, iSlotNumber])
                                 console.log(aLineDatas)
                             }
                         }
@@ -137,6 +137,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
     saveXmlClick: function () {
 
+
         Ext.Msg.prompt('Save Xml', 'Please input file name:', function (btn, text) {
             if (btn == 'ok') {
                 if (text.trim() == "") {
@@ -146,10 +147,8 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 // process text value and close...
                 var sXmlNameSpace = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
                 var root = $("<root></root>");
-                var aGridpanels = getCurrentDrwPanelGirdPanels();
-                for (var i = 0; i < aGridpanels.length; i++) {
-                    root.append(get_A_Master_node(aGridpanels[i], i));
-                }
+                xmlAppendPlant(root)
+
                 var datas = {};
                 datas['fileName'] = text + ".xml";
                 datas['content'] = formatXml(sXmlNameSpace + root[0].outerHTML);
@@ -163,13 +162,28 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
                     }
                 });
-
             }
         });
-
-
     }
 });
+function xmlAppendPlant(root){
+    var plants = getCurrentDrawPanelPlants();
+    for(var i=0;i<plants.length;i++){
+        var plant = $("<plant name='"+plants[i].name+"'></plant>");
+        root.append(plant)
+        plantAppendMasterNode(plant,i)
+    }
+
+}
+function plantAppendMasterNode(plant,index){
+    var aGridpanels = getCurrentDrawPanelGirdPanels();
+    var panels  = getCurrentDrawPanelPlants();
+    for (var i = 0; i < aGridpanels.length; i++) {
+       if(aGridpanels[i].datas.plantId==panels[index].id){
+       plant.append(get_A_Master_node(aGridpanels[i], i));
+       }
+    }
+}
 
 
 function get_A_Master_node(gridpanel, index) {
@@ -177,7 +191,7 @@ function get_A_Master_node(gridpanel, index) {
     var masterNode = $(document.createElement("master_node"));
 
     var iType = slotsJson[gridpanel.title].type;
-    masterNode.append("<number>" + (index + 1) + "</number>");
+    masterNode.attr("number",(index + 1))
     masterNode.append("<type>" + iType + "</type>");
     var gridPanelItems = gridpanel.getStore().getData().items;
     gridPanelItems = isModelFilter(gridPanelItems, masterNode);
@@ -201,6 +215,7 @@ function get_A_Master_node(gridpanel, index) {
     }
     return masterNode;
 }
+
 function isModelFilter(gridPanelItems, masterNode) {
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
@@ -224,7 +239,7 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
 
         for (var i = index; i < trs.length; i++) {
             if (trs[i].id == trEndId) {
-                var aGridpanels = getCurrentDrwPanelGirdPanels();
+                var aGridpanels = getCurrentDrawPanelGirdPanels();
                 Ext.each(aGridpanels, function (name, index, countriesItSelf) {
                     if (name.el.getById(trStartId)) {
                         node = index;
@@ -260,18 +275,74 @@ function getCurrentDrawPanel() {
     }
     return drawpanel;
 }
-function getCurrentDrwPanelGirdPanels(drawpanel) {
+function getCurrentDrawPanelGirdPanels(drawpanel) {
     var drawpanel = drawpanel || getCurrentDrawPanel();
     var aGridpanels = [];
     var girdpanels = Ext.ComponentQuery.query("gridpanel", drawpanel);
     for (var i = 0; i < girdpanels.length; i++) {
-        if (!girdpanels[i].hidden) {
+        //if (!girdpanels[i].hidden) {
             aGridpanels.push(girdpanels[i])
-        }
+        //}
     }
     return aGridpanels;
 }
 
+
+
+function addCurrentDrawPanelPlant(plant) {
+    getCurrentDrawPanel().datas.plants.push(plant);
+}
+function delCurrentDrawPanelPlant(index) {
+    getCurrentDrawPanel().datas.plants.splice(index, 1)
+}
+function setCurrentPlant(index) {
+    //var plant = getCurrentDrawPanelPlantByIndex(index);
+    //plant.selected = true;
+    var plants =  getCurrentDrawPanelPlants();
+    for(var i=0;i<plants.length;i++){
+        if(i==index){
+            plants[i].selected=true;
+        }else{
+            plants[i].selected=false;
+        }
+        updateCurrentDrawPanelPlant(plants[i], i)
+    }
+
+}
+
+function getCurrentDrawPanelPlantByIndex(index) {
+    return getCurrentDrawPanel().datas.plants[index]
+}
+function getCurrentDrawPanelPlants() {
+    return getCurrentDrawPanel().datas.plants;
+}
+function selectPlant(plant){
+    var aTypeGrids = getCurrentDrawPanelGirdPanels();
+    for(var i=0;i<aTypeGrids.length;i++){
+        if(aTypeGrids[i].datas.plantId==plant.id){
+            console.log(aTypeGrids[i])
+            aTypeGrids[i].show();
+        }else{
+            console.log(aTypeGrids[i])
+            aTypeGrids[i].hide();
+        }
+    }
+
+}
+function getCurrentPlant() {
+    var plants = getCurrentDrawPanelPlants();
+    console.log(plants)
+    for (var i = 0; i < plants.length; i++) {
+        if(plants[i].selected){
+            console.log(plants[i])
+            return plants[i];
+        }
+    }
+    return false;
+}
+function updateCurrentDrawPanelPlant(plant, index) {
+    getCurrentDrawPanel().datas.plants.splice(index, 1, plant);
+}
 /* var myMsg = Ext.create('Ext.window.MessageBox', {
  // set closeAction to 'destroy' if this instance is not
  // intended to be reused by the application

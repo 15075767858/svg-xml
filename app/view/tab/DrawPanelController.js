@@ -8,7 +8,20 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
     },
+    hide: function (th) {
+        Ext.get("plants" + th.getTitle()).hide();
+
+    },
+
     add: function (thi, com, index, eOpts) {
+        console.log(arguments);
+        var plant = getCurrentPlant();
+        console.log(plant)
+        if (!plant) {
+            Ext.Msg.alert("Exception", "please choose one plant.")
+            thi.remove(com)
+        }
+        com.datas = {plantId: plant.id}
         com.addListener("itemmouseenter", function (th, record, item, index, e, eOpts) {
             d3.select("#tempLineEnd").remove();
             //console.log(sStartItemTrId)
@@ -47,37 +60,197 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         });
     },
     render: function (th, eOpts) {
-        //console.log(th)
+        th.datas = {
+            data: [],
+            plants: [],
+            LinkMarkTypeGrid:null
+        };
+
+        Ext.create('Ext.data.Store', {
+            storeId: 'store' + th.getTitle(),
+            fields: ['active', 'name'],
+            data: th.datas.data
+        });
+        var ogridpanle = Ext.create('Ext.grid.Panel', {
+            id: "plantsPanel" + th.getTitle(),
+            store: "store" + th.getTitle(),
+            listeners: {
+                itemclick: function (grid, record, item, index, e, eOpts) {
+
+                    ogridpanle.datas = {index: index}
+                    //currentPlantsGrid=item
+                    setCurrentPlant(index)
+                    selectPlant(getCurrentPlant())
+                    //双击事件的操作
+                    var ostore = grid.getStore();
+                    var aItems = th.datas.data;
+                    for (var i = 0; i < aItems.length; i++) {
+                        if (i == index) {
+                            aItems[i].selected = true;
+                        }
+                        else {
+                            aItems[i].selected = false;
+                        }
+                    }
+                    ostore.setData(aItems)
+                    grid.setStore(ostore)
+
+                },
+                edit: function (grid, e) {
+                    // 编辑完成后，提交更改
+                    var index = ogridpanle.datas.index;
+                    this.setStore(this.getStore())
+                    var plant = getCurrentDrawPanelPlantByIndex(index);
+                    plant.name = e.value;
+                    updateCurrentDrawPanelPlant(plant, index);
+                    e.record.commit();
+                }
+            },
+            columns: [
+                {
+                    dataIndex: "selected",
+                    xtype: 'actioncolumn',
+                    //width: 40,
+                    flex: 1,
+                    sortable: false,
+                    menuDisabled: true,
+                    renderer: function (val) {
+                        if (val)
+                            return '<img src = "img/openFolder.png"/>'
+                        return '<img src = "img/closeFolder.png"/>'
+                    },
+                    handler: function () {
+
+                    }
+
+                },
+                {
+                    text: 'Name', dataIndex: 'name', flex: 3,
+                    sortable: false,
+                    editor: {
+                        xtype: 'textfield',
+                        allowBlank: false,
+
+                    }
+                },
+                {
+                    xtype: 'actioncolumn',
+                    //width: 30,
+                    flex: 1,
+                    sortable: false,
+                    menuDisabled: true,
+                    items: [{
+                        icon: 'img/delete.gif',
+                        tooltip: 'Delete Plant',
+                        scope: this,
+                        handler: function (grid, rowIndex) {
+
+                            delCurrentDrawPanelPlant(rowIndex);
+                            var data = getCurrentDrawPanel().datas.data;
+                            data.splice(rowIndex, 1);
+                            grid.store.setData(data);
+                        }
+                    }]
+                }
+            ],
+            tbar: [
+                {
+                    text: 'Add Plant',
+                    handler: function (th, e) {
+                        var currentDrawPanel = getCurrentDrawPanel()
+                        var data = currentDrawPanel.datas.data;
+
+                        var name = data.length + 1 + ""
+                        if (name.length == 1)
+                            name = "00" + name;
+                        if (name.length == 2)
+                            name = "0" + name;
+
+                        //currentDrawPanel.datas.plants.push(name);
+                        //console.log(currentDrawPanel.datas);
+
+                        addCurrentDrawPanelPlant({
+                            name: name,
+                            selected: false,
+                            id: "p" + Math.floor(Math.random() * 100000000000000)
+                        });
+
+
+                        console.log(getCurrentDrawPanelPlants())
+                        data.push({selected: false, name: name});
+                        ogridpanle.store.setData(data);
+                        //console.log(arguments)
+                    }
+                }
+            ],
+            selType: 'cellmodel',
+            plugins: [
+                Ext.create('Ext.grid.plugin.CellEditing', {
+                    clicksToEdit: 1
+                })
+            ],
+            height: "100%",
+            width: "100%"
+
+        });
         new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
+        Ext.create("Ext.window.Window", {
+            autoShow: true,
+            x: 100,
+            y: 100,
+            width: 200,
+            height: 300,
+            resizable: true,
+            resizeHandles: "s",
+            collapsible: true,//收起
+            closable: false,
+            renderTo: Ext.getBody(),
+            title: th.getTitle() + " Plants",
+            id: "plants" + th.getTitle(),
+            //autoScroll: true,
+            overflowX: "hidden",
+            overflowY: "scroll",
+            items: ogridpanle
+        });
 
     },
 
     show: function (th, event, eOpts) {
         drawlines(th);
+        Ext.get("plants" + th.getTitle()).show();
     }
 });
 
 var datasArray = [];
+function datasArrayUnique(){
+    var map = new Ext.util.HashMap();
+    for(var i = 0 ;i<datasArray.length;i++){
+        var oStartEndJson = datasArray[i];
+        for (o in oStartEndJson) {
+            map.add(o,oStartEndJson[o]);
+        }
+    }
+    var datasArray1=[]
+    map.each(function(key, value, length){
+        //console.log(key,value);
+        //datasArray1.push([key,value]);
+        var str = '{ "' +  key + '": "' + value + '" }'
+        var jTempJson = JSON.parse(str);
+        datasArray1.push(jTempJson);
+    });
+    return datasArray1;
+}
 
 function drawlines(drawpanel) {
-    //console.log(datasArray);
+    console.log(datasArray);
     if (!datasArray) {
         return;
     }
+    datasArray = datasArrayUnique();
+
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
-    /*var currentDrawPanel;
-     Ext.ComponentManager.each(function (key, value, length) {
-     if (arguments[1].id.indexOf("drawpanel") >= 0) {
-     var oDrawPanel = Ext.getCmp(arguments[1].id);
-     if (!oDrawPanel.hidden) {
-     currentDrawPanel = oDrawPanel;
-     }
-     }
-     });
-     var dCurrentDrawPanel=d3.select("#"+currentDrawPanel.id);
-     console.log(dCurrentDrawPanel)
-     currentDrawPanel=Ext.get(dCurrentDrawPanel[0][0]);*/
+
     var currentDrawPanel = drawpanel;
     var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
     var iDrawPanelLeft = currentDrawPanel.el.getLeft();
@@ -91,7 +264,7 @@ function drawlines(drawpanel) {
             pointEnd[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
             pointEnd[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
             //console.log(aRowsAll[i]) //第一列
-     //       console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
+            //       console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
             //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointEnd[0]).attr("y", pointEnd[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
         } else {
             pointStart[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
@@ -101,24 +274,23 @@ function drawlines(drawpanel) {
         }
         //console.log(pointStart + " " + pointEnd);
     }
+
+
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
+
+
         var oStartEndJson = datasArray[i];
         for (o in oStartEndJson) {
-            console.log(oStartEndJson)
-
-            /* if(o==null||oStartEndJson[0]==undefined)
-             {
-             continue;
-             }*/
+            //console.log(oStartEndJson)
             var oElStart = Ext.get(oStartEndJson[o]);
             var oElEnd = Ext.get(o)
             if (!oElEnd) {
-                datasArray.splice(i,1);
+                datasArray.splice(i, 1);
                 drawlines(drawpanel)
                 return
             }
             if (!oElStart) {
-                datasArray.splice(i,1);
+                datasArray.splice(i, 1);
                 drawlines(drawpanel)
                 return
             }
@@ -131,7 +303,7 @@ function drawlines(drawpanel) {
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight;
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG")
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
-            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o);
+            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o).attr("data-index",i);
             polyline.on("mouseover", function () {
                 d3.select(this).attr("stroke-width", STROKEWIDTH_MIN)
                     .transition()
@@ -142,10 +314,12 @@ function drawlines(drawpanel) {
                     .transition()
                     .attr("stroke-width", "4").attr("stroke", "blue");
             });
-            /*polyline.on("click",function(){
-             console.log(this)
-             d3.select(this).remove();
-             });*/
+
+            polyline.on("dblclick", function () {
+                var index = d3.select(this).attr("data-index");
+                datasArray.splice(index,1);
+                d3.select(this).remove();
+            });
 
             /*polyline.on("contextmenu",function(){
              d3.select(this).remove();
