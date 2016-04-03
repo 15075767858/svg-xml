@@ -14,7 +14,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     },
 
     add: function (thi, com, index, eOpts) {
-        console.log(arguments);
+
         var plant = getCurrentPlant();
         console.log(plant)
         if (!plant) {
@@ -63,7 +63,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         th.datas = {
             data: [],
             plants: [],
-            LinkMarkTypeGrid:null
+            LinkMarkTypeGrid: null
         };
 
         Ext.create('Ext.data.Store', {
@@ -115,12 +115,13 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     sortable: false,
                     menuDisabled: true,
                     renderer: function (val) {
+                        drawlines(getCurrentDrawPanel())
+
                         if (val)
                             return '<img src = "img/openFolder.png"/>'
                         return '<img src = "img/closeFolder.png"/>'
                     },
                     handler: function () {
-
                     }
 
                 },
@@ -144,11 +145,22 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                         tooltip: 'Delete Plant',
                         scope: this,
                         handler: function (grid, rowIndex) {
-
+                            try{
+                            var plant = getCurrentDrawPanelPlantByIndex(rowIndex);
+                            var aGirdPanels = getCurrentDrawPanelGirdPanels();
+                            for(var i = 0;aGirdPanels;i++){
+                                if(aGirdPanels[i].datas.plantId==plant.id)
+                                {
+                                    Ext.Msg.alert('Exception', 'This plant not null,Can node delete.');
+                                    return ;
+                                }
+                            }
+                            }catch(e){
                             delCurrentDrawPanelPlant(rowIndex);
                             var data = getCurrentDrawPanel().datas.data;
                             data.splice(rowIndex, 1);
                             grid.store.setData(data);
+                            }
                         }
                     }]
                 }
@@ -222,24 +234,6 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 });
 
 var datasArray = [];
-function datasArrayUnique(){
-    var map = new Ext.util.HashMap();
-    for(var i = 0 ;i<datasArray.length;i++){
-        var oStartEndJson = datasArray[i];
-        for (o in oStartEndJson) {
-            map.add(o,oStartEndJson[o]);
-        }
-    }
-    var datasArray1=[]
-    map.each(function(key, value, length){
-        //console.log(key,value);
-        //datasArray1.push([key,value]);
-        var str = '{ "' +  key + '": "' + value + '" }'
-        var jTempJson = JSON.parse(str);
-        datasArray1.push(jTempJson);
-    });
-    return datasArray1;
-}
 
 function drawlines(drawpanel) {
     console.log(datasArray);
@@ -247,6 +241,7 @@ function drawlines(drawpanel) {
         return;
     }
     datasArray = datasArrayUnique();
+    d3.selectAll(".OkCircle").remove();
 
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
@@ -260,16 +255,21 @@ function drawlines(drawpanel) {
     var pointStart = [];
     var pointEnd = [];
     for (var i = 0; i < aRowsAll.length; i++) {
+        //Ext.get(aRowsAll[i]).getLeft()
         if (!i % 2) {
             pointEnd[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
             pointEnd[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
-            //console.log(aRowsAll[i]) //第一列
+            //console.log("结束点"+count++)
+            //console.log(pointEnd[0]) //第一列
+            //console.log(pointEnd[1]) //第一列//
             //       console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
             //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointEnd[0]).attr("y", pointEnd[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
         } else {
             pointStart[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
             pointStart[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
-            //    console.log(aRowsAll[i])//第二列
+            //console.log("开始点"+count++)
+            //console.log(pointStart[0])//第二列
+            //console.log(pointStart[1])//第二列
             //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointStart[0]).attr("y", pointStart[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
         }
         //console.log(pointStart + " " + pointEnd);
@@ -277,24 +277,16 @@ function drawlines(drawpanel) {
 
 
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
-
-
         var oStartEndJson = datasArray[i];
         for (o in oStartEndJson) {
             //console.log(oStartEndJson)
             var oElStart = Ext.get(oStartEndJson[o]);
             var oElEnd = Ext.get(o)
-            if (!oElEnd) {
+            if (!oElEnd || !oElStart) {
                 datasArray.splice(i, 1);
                 drawlines(drawpanel)
                 return
             }
-            if (!oElStart) {
-                datasArray.splice(i, 1);
-                drawlines(drawpanel)
-                return
-            }
-
             var iElWidth = oElStart.el.getWidth();
             var iElHeight = oElStart.el.getHeight() / 2;
             var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth;
@@ -303,7 +295,8 @@ function drawlines(drawpanel) {
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight;
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG")
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
-            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o).attr("data-index",i);
+            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o).attr("data-index", i);
+            var circle = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "red").attr("data-index", i).attr("class", "OkCircle");
             polyline.on("mouseover", function () {
                 d3.select(this).attr("stroke-width", STROKEWIDTH_MIN)
                     .transition()
@@ -317,21 +310,35 @@ function drawlines(drawpanel) {
 
             polyline.on("dblclick", function () {
                 var index = d3.select(this).attr("data-index");
-                datasArray.splice(index,1);
+                datasArray.splice(index, 1);
                 d3.select(this).remove();
             });
-
             /*polyline.on("contextmenu",function(){
              d3.select(this).remove();
              });*/
+
+            circle.on("dblclick", function () {
+                var index = d3.select(this).attr("data-index");
+                datasArray.splice(index, 1);
+                d3.select(this).remove();
+            });
+            if (iStartLeft < 0 || iStartTop < 0) {
+                circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop+12);
+                console.log("start")
+                continue;
+            }
+            if (iEndLeft < 0 || iEndTop < 0) {
+                circle.attr("cx", iStartLeft + 10).attr("cy", iStartTop)
+                console.log("end")
+                continue;
+            }
+
             var pointAll = [];//折线的数组初始化
             pointAll.push([iStartLeft, iStartTop]);
             var pointStart = [iStartLeft + JIANGE, iStartTop];
             var pointEnd = [iEndLeft, iEndTop]
             pointAll.push(pointStart);
-
             //polyline.attr("points", [[iStartLeft, iStartTop], [iEndLeft, iEndTop]]);
-
             var iCount = 0;
             drawPolyline(pointStart, iCount);
             pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
@@ -342,6 +349,7 @@ function drawlines(drawpanel) {
 
 
     function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
+
         console.log(pointStart)
         console.log(pointEnd)
         if ((pointStart[0] - pointEnd[0]) == 0 || (pointStart[1] - pointEnd[1]) == 0) //判断是否在一条线上 如果不再一条线上 进入画折线部分
@@ -531,4 +539,18 @@ function isCollsionWithRect(x1, y1, w1, h1,
         return false;
     }
     return true;
+}
+function datasArrayUnique() {
+    var map = new Ext.util.HashMap();
+    for (var i = 0; i < datasArray.length; i++) {
+        var oStartEndJson = datasArray[i];
+        for (o in oStartEndJson) {
+            map.add(o, oStartEndJson[o]);
+        }
+    }
+    var datasArray1 = []
+    map.each(function (key, value, length) {
+        datasArray1.push(generateJson(key, value));
+    });
+    return datasArray1;
 }

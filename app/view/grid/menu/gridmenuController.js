@@ -64,6 +64,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             value: ""
         }))
         console.log(this.setStore(store))
+
     },
     delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
         console.log(arguments)
@@ -174,10 +175,13 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 {
                     type: 'button', text: 'Ok',
                     handler: function () {
-                        console.log(win.datas.sourceIndex)
-                        console.log(win.datas.targetIndex)
-                        console.log(TargetTypeGrid)
-
+                        var startId = getTypeGridRowIdByIndex(SourceTypeGrid, win.datas.sourceIndex).id;
+                        var endId = getTypeGridRowIdByIndex(TargetTypeGrid, win.datas.targetIndex).id;
+                        console.log(startId)
+                        console.log(endId)
+                        console.log(generateJson(startId,endId))
+                        datasArray.push(generateJson(startId,endId));
+                        drawlines(getCurrentDrawPanel())
                         win.close()
                     }
                 },
@@ -191,8 +195,11 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         });
 
     }
-
 });
+
+function getTypeGridRowIdByIndex(typegrid, index) {
+    return typegrid.el.dom.querySelectorAll(".x-grid-row")[index];
+}
 
 function cloneTypegrid(typegrid, e) {
 

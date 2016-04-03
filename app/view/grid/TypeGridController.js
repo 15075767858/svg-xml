@@ -5,6 +5,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.grid-typegrid',
     girdviewready: function (th, eO) {
+        currentDrawPanelGridPanelsTrSetId();
+
+
+
         var oHead = th.getHeader().el.dom;
         oHead.onmousedown = function (e) {
             //console.log(e)
@@ -52,11 +56,11 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             t.setPagePosition(t.data.x, t.data.y, true)
         }
     },
+render: function () {
 
-
+},
     girditemdblclick: function (me, record, item, index, e, eopts) {
         console.log(me.up())
-        console.log(arguments)
 
         var win = Ext.create("Ext.window.Window", {
             title: "ChangeValue",
@@ -205,7 +209,19 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("griditemcontextmenu")
     }
 });
-
+function  currentDrawPanelGridPanelsTrSetId(){
+    var aGridPanels = getCurrentDrawPanelGirdPanels();
+    for(var i=0;i<aGridPanels.length;i++){
+        var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
+        for (var j = 0; j < aRowsAll.length; j++) {
+            //console.log("1"+aRowsAll[j].id+"1")
+            //console.log(aRowsAll[j].length)
+            if(!aRowsAll[j].id.length<3){
+                aRowsAll[j].id= "t"+Math.floor(Math.random() * 10000000000);
+            }
+        }
+    }
+}
 
 function removeTemp() {
     d3.select("#tempCircle").remove()
@@ -213,6 +229,7 @@ function removeTemp() {
     d3.select("#tempLineStart").remove()
     d3.selectAll(".tempCircle").remove()
     d3.select("#tempLine").remove()
+
 }
 var CIRCLE_MIN_R = 8;
 var CIRCLE_MAX_R = 15;
@@ -231,6 +248,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     if (item.querySelector("div").innerHTML == "model") {
         return;
     }
+
     sStartItemTrId = item.querySelector("tr").id;
     //console.log(arguments)
     var oDrawPanel = d3.select(thi.el.dom).select(".x-autocontainer-innerCt");
@@ -250,11 +268,12 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
-
             var left = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
             var top = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
+
             var columnid = d3.select(aRowsAll[i]).attr("id");
             var tempLineEnd;
+
             if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "model") {
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 
@@ -266,10 +285,10 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
                 });
                 sStartItemTrId = item.querySelector("tr").id;
             }
+
         }
 
         document.onmousemove = function (e) {
-            console.log("mousemove")
             _this.attr("cx", e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
             _this.attr("cy", e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
             drawTempline();
@@ -281,17 +300,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             console.log(e.target.tagName + "   " + sStartItemTrId)
             if (e.target.tagName == "circle") {
                 sEndItemTrId = d3.select(e.target).attr("columnid");
-                var str = '{ "' + sEndItemTrId + '": "' + sStartItemTrId + '" }'
-                var jTempJson = JSON.parse(str);
-                for (o in jTempJson) {
-                    if (o != "" & o != null & jTempJson[o] != "" & jTempJson[o] != null) {
-                        if (jTempJson.null) {
-                            return;
-                        }
-                        //console.log(document.querySelector(sEndItemTrId));
-                        datasArray.push(jTempJson)
-                    }
-                }
+                datasArray.push(generateJson(sEndItemTrId,sStartItemTrId))
                 d3.select(item).attr("data-targetid", d3.select(e.target).attr("columnid"));
                 drawlines(thi);
             } else {
@@ -300,7 +309,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             }
         };
     };
-
 
     function drawTempline() {
         d3.select("#tempLine").remove();
