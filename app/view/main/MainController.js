@@ -9,7 +9,7 @@ Ext.define('svgxml.view.main.MainController', {
     extend: 'Ext.app.ViewController',
 
     requires: [
-        'Ext.window.MessageBox'
+        //'Ext.window.MessageBox'
     ],
 
     alias: 'controller.main',
