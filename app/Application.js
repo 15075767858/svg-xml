@@ -6,7 +6,10 @@
 
 Ext.define('svgxml.Application', {
     extend: 'Ext.app.Application',
-
+    requires: [
+      //"svgxml.store.SvgImgs",
+        "svgxml.view.Viewport"
+    ],
     name: 'svgxml',
     appFolder:'app',
    // controllers:['User'],

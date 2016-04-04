@@ -34,8 +34,6 @@ Ext.define('svgxml.view.tab.BasicController', {
                         listeners: {
                             add: function () {
                                 setTimeout(currentDrawPanelGridPanelsTrSetId,1000)
-
-
                             }
                         }
                     }),
@@ -66,12 +64,199 @@ var oproxy = {
     }
 }
 
+
+
+var slotsJson={
+    add:{
+        type:"52",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+    'aodo':{
+        type:"58",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'aver':{
+        type:"55",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+    'comp':{
+        type:"61",
+        initData: [
+            {"name": "model", value: "0"},
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'count':{
+        type:"62",
+        initData: [
+            {'name': 'Out', 'value': "1"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+    'delay':{
+        type:"60",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'Time', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'enth':{
+        type:"70",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Temp', 'value': "1"},
+            {'name': 'RH', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'fa':{
+        type:"54",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "1"}
+        ],
+        isAddSlot:false
+    },
+    'fd':{
+        type:"57",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "1"}
+        ],
+        isAddSlot:false
+    },
+    'hour':{
+        type:"59",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'hy':{
+        type:"68",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'On', 'value': "2"},
+            {'name': 'Off', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'lock':{
+        type:"69",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'Unlock', 'value': "2"}
+        ],
+        isAddSlot:false
+    },
+    'logic':{
+        type:"56",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+
+    'max':{
+        type:"63",
+        initData: [
+            {'name': 'model', 'value': "0"},
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+    'mul':{
+        type:"53",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+    'pid':{
+        type:"67",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'PV', 'value': "1"},
+            {'name': 'SP', 'value': "2"},
+            {'name': 'Enable', 'value': "3"},
+            {'name': 'Direction', 'value': "4"}
+        ],
+        isAddSlot:false
+    },
+    'Pulse':{
+        type:"65",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Enable', 'value': "1"},
+            {'name': 'OnTime', 'value': "2"},
+            {'name': 'OffTime', 'value': "3"}
+        ],
+        isAddSlot:false
+    },
+    'sub':{
+        type:"52",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    },
+    'Switch':{
+        type:"64",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'In', 'value': "2"},
+            {'name': 'Enable', 'value': "3"}
+        ],
+        isAddSlot:false
+    }
+
+};
 Ext.define('add', {
     extend: "Ext.data.Store",
     storeId: 'aodoStore',
     fields: ['name', 'value'],
     data: slotsJson.add.initData,
-
     proxy: oproxy
 });
 Ext.define('aodo', {
@@ -194,11 +379,11 @@ Ext.define('sub', {
     data: slotsJson.sub.initData,
     proxy: oproxy
 });
-Ext.define('switch', {
+Ext.define('Switch', {
     extend: "Ext.data.Store",
     storeId: 'switchStore',
     fields: ['name', 'value'],
-    data: slotsJson.switch.initData,
+    data: slotsJson.Switch.initData,
     proxy: oproxy
 });
 /*

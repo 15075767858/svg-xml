@@ -231,7 +231,7 @@ var Imgs = [{
         Img_1: ""
     },
     {
-        name: "switch",
+        name: "Switch",
         src: "img/SVG/switch.svg",
         Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAMAAABW61JJAAAACXBIWXMAAAOLAAADiwF1yxf7AAAA BGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VG AAADAFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAD7+/v8/Pz9/f3+/v7///82tC/HAAAAAXRSTlMAQObYZgAAAzJJ REFUeNpiYKAQAAQQHmS1+hcUTFbErQoggLAjgQO/MEArdqUAAcSITfCpKFa1W4KwCAIEEKYBLtvw Oe0bughAAKEb4LaFgO94fqHyAQKICZX7gpB+hi89qHyAAEJxgf9qooIYxREAAYRsAOtXIiOJDYkN EEBIXlAkVj8DsgsAAgjhAtm7xKeTfxxwJkAAwQ1g+UZSUoP7AiCA4F4gTT/DURgDIIAYsXiLKPBe HEIDBBDUBbdJzmqCThAaIIAgLlC/TEZuhQQDQAAxkucBhAkAAQT2ggQFpQZAAIENeESeXrC/AQKI kXwfQPwAEEAgF6wj1/mCQAwQQIwUOIDhhB0DA0AAAV3QSnYAWgAxQAAxUuAABobNwQwAAUSZAcBg BAggFkxBVjD5G8r8DRfEYIEBQAAxYWhnRaOxGo8AAAHExJCMx4W/kbWxYoiCAEAAMTF4Y1jwGwiw 2IUNcDMABBATgxVWa3/jdAwKsGQACCAmBiEcgQh2xW9k17NiBqEEA0AAYYkFdEX4gDoDQAAxYXcp KysrUQb8YQAIIIxo/P0bLT6BDgI76Te2SHzJABBATAx3MI34jSPsWDFEzjEABBATwyls8U9sPF5g AAggJoYJqOmQFW+0YVZyAAGElplYGTDSPCtyzkA3mI0BIICYMCOBFWuaxwUAAghHOiDeFwABBHTB dxwp9jeC+o3GgrenGBgAAggYBvyvsTrgN2bCZMUMAgaAAAJ64SOBbPMbp8wuIAYIIFCprH+agnoB IIAorlgAAggcjdfI0+8JIgACCOwC5u/k184AAQR2wd+f5OgvAJMAAQRpH3B+JLuBARBAkKT8XZRc /QwAAQTNC6S7YDeUBgggWGZiIzEc62C1AUAAMWJtvxIEez1hLIAAQhjASEJUXDSFMwECCFEe/Gcj Wv8xhH4GgABixNUKxwP+syNxAAIIpURiKyJGvyKyfgaAAGJGkTulrk1Qv+ZDFC5AAKGViTFse/Fr z2BD61YABBBmtw9fx+cXD4YQQAAxYVYqbGyTsWt3YMPUzwAQQLiQzR7Uju8kXHoBAggf8tt3G6j1 29m1JngUAQQQxQgggChGAAEGAPwfseRyGN9+AAAAAElFTkSuQmCC",
         Img_1: ""
@@ -289,207 +289,30 @@ var typeicon = [
     }];
 
 
-var slotsJson={
-    'add':{
-        type:"52",
-        initData:[
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'aodo':{
-        type:"58",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-        ],
-        isAddSlot:false
-    },
-    'aver':{
-        type:"55",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'comp':{
-        type:"61",
-        initData: [
-            {"name": "model", value: "0"},
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:false,
-    },
-    'count':{
-        type:"62",
-        initData: [
-            {'name': 'Out', 'value': "1"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'delay':{
-        type:"60",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'Time', 'value': "2"}
-        ],
-        isAddSlot:false,
-    },
-    'enth':{
-        type:"70",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Temp', 'value': "1"},
-            {'name': 'RH', 'value': "2"}
-        ],
-        isAddSlot:false
-    },
-    'fa':{
-        type:"54",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "1"}
-        ],
-        isAddSlot:false
-    },
-    'fd':{
-        type:"57",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "1"},
-        ],
-        isAddSlot:false
-    },
-    'hour':{
-        type:"59",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:false
-    },
-    'hy':{
-        type:"68",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'On', 'value': "2"},
-            {'name': 'Off', 'value': "2"}
-        ],
-        isAddSlot:false,
-    },
-    'lock':{
-        type:"69",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'Unlock', 'value': "2"}
-        ],
-        isAddSlot:false
-    },
-    'logic':{
-        type:"56",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
+Ext.define("svgxml.store.SvgImgs", {
+    extend: "Ext.data.JsonStore",
+    fields: ["name"],
+    data: Imgs
+});
 
-    'max':{
-        type:"63",
-        initData: [
-            {'name': 'model', 'value': "0"},
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'mul':{
-        type:"53",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'pid':{
-        type:"67",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'PV', 'value': "1"},
-            {'name': 'SP', 'value': "2"},
-            {'name': 'Enable', 'value': "3"},
-            {'name': 'Direction', 'value': "4"}
-        ],
-        isAddSlot:false
-    },
-    'Pulse':{
-        type:"65",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Enable', 'value': "1"},
-            {'name': 'OnTime', 'value': "2"},
-            {'name': 'OffTime', 'value': "3"}
-        ],
-        isAddSlot:false
-    },
-    'sub':{
-        type:"52",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'switch':{
-        type:"64",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'Enable', 'value': "3"}
-        ],
-        isAddSlot:false
-    }/*,
-    'timer':{
-        type:"",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ]
-    },
-    'tolalazer':{
-        type:"",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
-        ]
-    }*/
-};
+/*,
+ 'timer':{
+ type:"",
+ initData: [
+ {'name': 'Out', 'value': "0"},
+ {'name': 'In', 'value': "2"},
+ {'name': 'In', 'value': "2"}
+ ]
+ },
+ 'tolalazer':{
+ type:"",
+ initData: [
+ {'name': 'Out', 'value': "0"},
+ {'name': 'In', 'value': "2"},
+ {'name': 'In', 'value': "2"}
+ ]
+ }*/
+
 
 
 
@@ -508,116 +331,116 @@ var slotsJson={
  data:slotsJson.add.initData,
  proxy: oproxy
  });
-Ext.create('Ext.data.Store', {
-    storeId: 'aodoStore',
-    fields: ['name', 'value'],
-    data: slotsJson.aodo.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'averStore',
-    fields: ['name', 'value'],
-    data: slotsJson.aver.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'compStore',
-    fields: ['name', 'value'],
-    data: slotsJson.comp.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'countStore',
-    fields: ['name', 'value'],
-    data:slotsJson.count.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'delayStore',
-    fields: ['name', 'value'],
-    data:slotsJson.delay.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'enthStore',
-    fields: ['name', 'value'],
-    data: slotsJson.enth.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'faStore',
-    fields: ['name', 'value'],
-    data:slotsJson.fa.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'fdStore',
-    fields: ['name', 'value'],
-    data:slotsJson.fd.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'hourStore',
-    fields: ['name', 'value'],
-    data:slotsJson.hour.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'hyStore',
-    fields: ['name', 'value'],
-    data: slotsJson.hy.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'lockStore',
-    fields: ['name', 'value'],
-    data:slotsJson.lock.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'logicStore',
-    fields: ['name', 'value'],
-    data: slotsJson.logic.initData,
-    proxy: oproxy
-});
+ Ext.create('Ext.data.Store', {
+ storeId: 'aodoStore',
+ fields: ['name', 'value'],
+ data: slotsJson.aodo.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'averStore',
+ fields: ['name', 'value'],
+ data: slotsJson.aver.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'compStore',
+ fields: ['name', 'value'],
+ data: slotsJson.comp.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'countStore',
+ fields: ['name', 'value'],
+ data:slotsJson.count.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'delayStore',
+ fields: ['name', 'value'],
+ data:slotsJson.delay.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'enthStore',
+ fields: ['name', 'value'],
+ data: slotsJson.enth.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'faStore',
+ fields: ['name', 'value'],
+ data:slotsJson.fa.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'fdStore',
+ fields: ['name', 'value'],
+ data:slotsJson.fd.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'hourStore',
+ fields: ['name', 'value'],
+ data:slotsJson.hour.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'hyStore',
+ fields: ['name', 'value'],
+ data: slotsJson.hy.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'lockStore',
+ fields: ['name', 'value'],
+ data:slotsJson.lock.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'logicStore',
+ fields: ['name', 'value'],
+ data: slotsJson.logic.initData,
+ proxy: oproxy
+ });
 
-Ext.create('Ext.data.Store', {
-    storeId: 'maxStore',
-    fields: ['name', 'value'],
-    data: slotsJson.max.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'mulStore',
-    fields: ['name', 'value'],
-    data:slotsJson.mul.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'pidStore',
-    fields: ['name', 'value'],
-    data:slotsJson.pid.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'PulseStore',
-    fields: ['name', 'value'],
-    data:slotsJson.Pulse.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'subStore',
-    fields: ['name', 'value'],
-    data:slotsJson.sub.initData,
-    proxy: oproxy
-});
-Ext.create('Ext.data.Store', {
-    storeId: 'switchStore',
-    fields: ['name', 'value'],
-    data:slotsJson.switch.initData,
-    proxy: oproxy
-});
-/!*Ext.create('Ext.data.Store', {
+ Ext.create('Ext.data.Store', {
+ storeId: 'maxStore',
+ fields: ['name', 'value'],
+ data: slotsJson.max.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'mulStore',
+ fields: ['name', 'value'],
+ data:slotsJson.mul.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'pidStore',
+ fields: ['name', 'value'],
+ data:slotsJson.pid.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'PulseStore',
+ fields: ['name', 'value'],
+ data:slotsJson.Pulse.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'subStore',
+ fields: ['name', 'value'],
+ data:slotsJson.sub.initData,
+ proxy: oproxy
+ });
+ Ext.create('Ext.data.Store', {
+ storeId: 'switchStore',
+ fields: ['name', 'value'],
+ data:slotsJson.switch.initData,
+ proxy: oproxy
+ });
+ /!*Ext.create('Ext.data.Store', {
  storeId: 'timerStore',
  fields: ['name', 'value'],
  data:slotsJson.timer.initData,
@@ -639,12 +462,6 @@ Ext.create('Ext.data.Store', {
  Img_0:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACGUlEQVR42u2X6S4DURSAJf54Bn/6 CP54BWIrERpBg0gtoZaI2kIIIVJEvIMu6GppadW+7/vyNMeckTuuuTWmHOWHSU6aSWbm+85y73RS Uv6PP3aAzvgZ+PPTDDzcT8LtzThcXY7A2ekgHB/1wcF+F2xvtcFGrAmikbofkdAND4eqYWmxglwi IXjAbwLPQhEk0LJPW/kl+PnZkHT9AJwc98v3HB32wuFBt3SvDfb3OmFvtwN2ttul57TC1mYLbG40 y8+LrTeKAlRwrYwZPBqpFwUSCT2Z99jSleAzR3hkzSIK4BA+PU5LszAF93cTcHdrl9tycz0G11ej coUuzod1l50XUMNXw7WiABVcq3IMHg7ViAJUmbOB4yvAZ47w0EqVKEAJx57zAmr4yrJZFKCCa7WA wZeXKuPvAxSZs4HjK8BnjvDFYLkoQAnHnvMCangwUCYKUMG1WsDguKHF3QkpMmcDx1eAzxzhPm+J KEAJx57zAmq411MsClDBtVrA4Nyb9E2AKnM2cHwF+MwRvjBvFAUo4Y0Nme8yt1gy3sHn3AWiABU8 GHhd4waDAYxGo/yL53PuQgXuduWJAhRwnHa/73WNI5wFnrslMIO7nDmiAAUcp93nNcWtgMuZr8Cd jmxRgAKOS83rKY27ApyOXAXumM363j8iPWG325VI9vdF6gcCqcn6uvp1gTQEms1mJZItgIdV1Wvr Rxe+AGtJvpoanOGAAAAAAElFTkSuQmCC",
  Img_1:""
  }*/
-Ext.define("svgxml.store.SvgImgs", {
-    extend: "Ext.data.JsonStore",
-    fields: ["name"],
-    data: Imgs
-});
-
 /*root: {
  children: [
  {text: "<img src=" + Imgs.add.Img + "/>"}

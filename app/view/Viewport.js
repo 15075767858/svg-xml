@@ -3,8 +3,8 @@
  */
 Ext.define("svgxml.view.Viewport",{
    extend:"Ext.container.Viewport",
-    layout:"fit",
-    items:{
-        xtype:"userlist"
-    }
+    layout:"fit"
+    /*items:{
+        //xtype:"userlist"
+    }*/
 });

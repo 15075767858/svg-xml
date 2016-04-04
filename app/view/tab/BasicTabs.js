@@ -8,9 +8,11 @@ Ext.define('svgxml.view.tab.BasicTabs', {
     xtype: 'basic-tabs',
     requires: [
         "svgxml.view.tree.XmlTree",
-        "Ext.tree.Panel",
+        //"Ext.tree.Panel",
         "svgxml.view.tree.DevTree",
-        "svgxml.view.tab.BasicController"
+        "svgxml.view.tab.BasicController",
+        "svgxml.view.tab.DrawPanel",
+        "svgxml.store.SvgImgs"
     ],
     width: 400,
     height: 300,
@@ -74,9 +76,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
         ]
     }, {
         title: 'Inactive Tab'
-        //disabled: true,
-        //width:"50%"
-        //html: KitchenSink.DummyText.extraLongText
+
     }]
 });
 

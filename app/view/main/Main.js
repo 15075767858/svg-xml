@@ -14,6 +14,7 @@ Ext.define('svgxml.view.main.Main', {
         "svgxml.view.tab.BasicTabs",
         "svgxml.view.tab.FramedTabs",
         "svgxml.view.main.toolbar.TopToolbar"
+        //"svgxml.store.SvgImgs"
     ],
     style: {
         background:"rgb(21,127,214)"

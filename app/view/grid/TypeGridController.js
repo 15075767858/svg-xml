@@ -103,7 +103,7 @@ render: function () {
                             fields: ['name'],
                             data: [
                                 {"name": "min", value: "0"},
-                                {"name": "max", value: "1"},
+                                {"name": "max", value: "1"}
                             ]
                         });
                         th.down("form").add({

@@ -4,10 +4,11 @@ Ext.define("svgxml.view.tree.DevTree", {
 
     requires: [
         "svgxml.view.tree.DevTreeController",
-        "svgxml.view.tree.DevTreeModel"
+        "svgxml.view.tree.DevTreeModel",
+        "svgxml.store.Files"
     ],
     expanded: true,
-    controller: "imgtree",
+    //controller: "imgtree",
     /*viewModel: {
         type: "imgtree"
     },*/
@@ -25,10 +26,7 @@ Ext.define("svgxml.view.tree.DevTree", {
     //draggable:true,
     rootVisible:false,//隐藏root
     store:Ext.create("svgxml.store.Files"),
-    /*store:Ext.create("Ext.data.TreeStore",{
-       model: "svgxml.view.tree.DevTreeModel",
-        data:[{text:"aaaa"},{text:"bbbb"}]
-    }),*/
+
     listeners: {
         itemclick: function () {
             console.log(arguments);

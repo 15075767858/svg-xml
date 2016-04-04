@@ -11,13 +11,4 @@
             </slots>
         </master_node>
     </plant>
-    <plant  name="002">
-        <master_node  number="2">
-            <type>58</type>
-            <slots  number="1">
-                <node>1</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-    </plant>
 </root>

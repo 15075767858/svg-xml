@@ -7,6 +7,7 @@ Ext.define('svgxml.view.tab.FramedTabs', {
     xtype: 'framed-tabs',
     BaseCls: "FramedTabs",
     requires: [
+        "svgxml.view.tab.DrawPanel",
         "svgxml.view.tab.FramedTabsController"
     ],
     frame: true,
@@ -20,15 +21,8 @@ Ext.define('svgxml.view.tab.FramedTabs', {
         viewready: "viewready"
     },
     items: [
-          Ext.create("svgxml.view.tab.DrawPanel", {
-            title: "1200"/*,
-              sprites:[
-                  {
-                      type: 'path',
-                      path: 'M175,175 c0,-25 50,25 50,0 c0,-25 -50,25 -50,0',
-                      fillStyle: 'red'
-                  }
-              ]*/
+        Ext.create("svgxml.view.tab.DrawPanel", {
+            title: "1200"
         })
         ,
         Ext.create("svgxml.view.tab.DrawPanel", {
@@ -36,7 +30,6 @@ Ext.define('svgxml.view.tab.FramedTabs', {
         })
     ]
 });
-
 
 
 new Ext.dd.DDTarget("ssss", "IconDragDropGroup");

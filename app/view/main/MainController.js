@@ -34,7 +34,7 @@ function generateJson (key,value){
     var oJSON=JSON.parse(str);
     for(o in oJSON){
         if (o != "" & o != null & oJSON[o] != "" & oJSON[o] != null) {
-            if (oJSON.null) {
+            if (oJSON[null]) {
                 return null;
             }else{
                 return oJSON;
