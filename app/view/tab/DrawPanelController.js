@@ -74,6 +74,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         var ogridpanle = Ext.create('Ext.grid.Panel', {
             id: "plantsPanel" + th.getTitle(),
             store: "store" + th.getTitle(),
+            width: "100%",
             listeners: {
                 itemclick: function (grid, record, item, index, e, eOpts) {
 
@@ -145,21 +146,20 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                         tooltip: 'Delete Plant',
                         scope: this,
                         handler: function (grid, rowIndex) {
-                            try{
-                            var plant = getCurrentDrawPanelPlantByIndex(rowIndex);
-                            var aGirdPanels = getCurrentDrawPanelGirdPanels();
-                            for(var i = 0;aGirdPanels;i++){
-                                if(aGirdPanels[i].datas.plantId==plant.id)
-                                {
-                                    Ext.Msg.alert('Exception', 'This plant not null,Can node delete.');
-                                    return ;
+                            try {
+                                var plant = getCurrentDrawPanelPlantByIndex(rowIndex);
+                                var aGirdPanels = getCurrentDrawPanelGirdPanels();
+                                for (var i = 0; aGirdPanels; i++) {
+                                    if (aGirdPanels[i].datas.plantId == plant.id) {
+                                        Ext.Msg.alert('Exception', 'This plant not null,Can node delete.');
+                                        return;
+                                    }
                                 }
-                            }
-                            }catch(e){
-                            delCurrentDrawPanelPlant(rowIndex);
-                            var data = getCurrentDrawPanel().datas.data;
-                            data.splice(rowIndex, 1);
-                            grid.store.setData(data);
+                            } catch (e) {
+                                delCurrentDrawPanelPlant(rowIndex);
+                                var data = getCurrentDrawPanel().datas.data;
+                                data.splice(rowIndex, 1);
+                                grid.store.setData(data);
                             }
                         }
                     }]
@@ -186,8 +186,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                             selected: false,
                             id: "p" + Math.floor(Math.random() * 100000000000000)
                         });
-
-
+                        
                         console.log(getCurrentDrawPanelPlants())
                         data.push({selected: false, name: name});
                         ogridpanle.store.setData(data);
@@ -213,7 +212,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             width: 200,
             height: 300,
             resizable: true,
-            resizeHandles: "s",
+            //resizeHandles: "s",
+            maximizable: true,
             collapsible: true,//收起
             closable: false,
             renderTo: Ext.getBody(),
@@ -222,7 +222,16 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //autoScroll: true,
             overflowX: "hidden",
             overflowY: "scroll",
-            items: ogridpanle
+            items: ogridpanle,
+            listeners: {
+                resize: function (th) {
+                    ogridpanle.setWidth(th.getWidth()-20)
+                },
+                collapse:function(th,eOpts){
+                    th.setPagePosition( 0, 0, true)
+                    console.log(arguments)
+                }
+            }
         });
 
     },
@@ -323,7 +332,7 @@ function drawlines(drawpanel) {
                 d3.select(this).remove();
             });
             if (iStartLeft < 0 || iStartTop < 0) {
-                circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop+12);
+                circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop + 12);
                 console.log("start")
                 continue;
             }
