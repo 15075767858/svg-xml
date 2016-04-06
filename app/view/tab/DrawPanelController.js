@@ -59,7 +59,12 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
         });
     },
+
     render: function (th, eOpts) {
+
+        new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
+        var dTreedd = new Ext.dd.DDTarget(th.getId(), "DevTreeDragDropGroup");
+
         th.datas = {
             data: [],
             plants: [],
@@ -204,11 +209,11 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             width: "100%"
 
         });
-        new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
+
         Ext.create("Ext.window.Window", {
             autoShow: true,
-            x: 100,
-            y: 100,
+            x: 300,
+            y: 150,
             width: 200,
             height: 300,
             resizable: true,

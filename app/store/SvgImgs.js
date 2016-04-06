@@ -290,6 +290,60 @@ var typeicon = [
 
 
 var slotsJson={
+    'AI':{
+        type:"0",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Instance', 'value': ""}
+        ],
+        isAddSlot:true,
+        maxSlot:10
+    }, 'AO':{
+        type:"1",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Instance', 'value': ""},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+        //maxSlot:10
+    }, 'DI':{
+        type:"3",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Instance', 'value': ""}
+        ],
+        isAddSlot:false
+        //maxSlot:10
+    }, 'DO':{
+        type:"4",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Instance', 'value': ""},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+        //maxSlot:10
+    }, 'AV':{
+        type:"2",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Instance', 'value': ""},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+        //maxSlot:10
+    }, 'DV':{
+        type:"5",
+        initData:[
+            {'name': 'Out', 'value': "0"},
+            {'name': 'Instance', 'value': "2"},
+            {'name': 'In', 'value': "2"}
+        ],
+        isAddSlot:false
+        //maxSlot:10
+    },
+
     'add':{
         type:"52",
         initData:[

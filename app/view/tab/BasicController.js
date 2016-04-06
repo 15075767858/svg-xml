@@ -21,7 +21,6 @@ Ext.define('svgxml.view.tab.BasicController', {
             var dd = new Ext.dd.DragSource(el, {
                 ddGroup: "IconDragDropGroup",
                 isTarget: false
-
             })
             dd.afterDragDrop = function (target, e, id) {
                 //console.log(target)
@@ -34,8 +33,6 @@ Ext.define('svgxml.view.tab.BasicController', {
                         listeners: {
                             add: function () {
                                 setTimeout(currentDrawPanelGridPanelsTrSetId,1000)
-
-
                             }
                         }
                     }),
@@ -65,6 +62,50 @@ var oproxy = {
         rootProperty: 'items'
     }
 }
+
+Ext.define('AI', {
+    extend: "Ext.data.Store",
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    //data: slotsJson.AI.initData,
+
+    proxy: oproxy
+});Ext.define('AO', {
+    extend: "Ext.data.Store",
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    //data: slotsJson.AO.initData,
+
+    proxy: oproxy
+});Ext.define('DI', {
+    extend: "Ext.data.Store",
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    //data: slotsJson.DI.initData,
+
+    proxy: oproxy
+});Ext.define('DO', {
+    extend: "Ext.data.Store",
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    //data: slotsJson.DO.initData,
+
+    proxy: oproxy
+});Ext.define('AV', {
+    extend: "Ext.data.Store",
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    //data: slotsJson.AV.initData,
+
+    proxy: oproxy
+});Ext.define('DV', {
+    extend: "Ext.data.Store",
+    storeId: 'aodoStore',
+    fields: ['name', 'value'],
+    //data: slotsJson.DV.initData,
+
+    proxy: oproxy
+});
 
 Ext.define('add', {
     extend: "Ext.data.Store",

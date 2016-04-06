@@ -166,22 +166,22 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         });
     }
 });
-function xmlAppendPlant(root){
+function xmlAppendPlant(root) {
     var plants = getCurrentDrawPanelPlants();
-    for(var i=0;i<plants.length;i++){
-        var plant = $("<plant name='"+plants[i].name+"'></plant>");
+    for (var i = 0; i < plants.length; i++) {
+        var plant = $("<plant name='" + plants[i].name + "'></plant>");
         root.append(plant)
-        plantAppendMasterNode(plant,i)
+        plantAppendMasterNode(plant, i)
     }
 
 }
-function plantAppendMasterNode(plant,index){
+function plantAppendMasterNode(plant, index) {
     var aGridpanels = getCurrentDrawPanelGirdPanels();
-    var panels  = getCurrentDrawPanelPlants();
+    var panels = getCurrentDrawPanelPlants();
     for (var i = 0; i < aGridpanels.length; i++) {
-       if(aGridpanels[i].datas.plantId==panels[index].id){
-       plant.append(get_A_Master_node(aGridpanels[i], i));
-       }
+        if (aGridpanels[i].datas.plantId == panels[index].id) {
+            plant.append(get_A_Master_node(aGridpanels[i], i));
+        }
     }
 }
 
@@ -189,17 +189,30 @@ function plantAppendMasterNode(plant,index){
 function get_A_Master_node(gridpanel, index) {
 
     var masterNode = $(document.createElement("master_node"));
+    var iType;
 
-    var iType = slotsJson[gridpanel.title].type;
-    masterNode.attr("number",(index + 1))
+    try {
+        iType = slotsJson[gridpanel.title].type;
+    }
+    catch (e) {
+        iType = gridpanel.datas.type;
+    }
+
+
+    masterNode.attr("number", (index + 1))
     masterNode.append("<type>" + iType + "</type>");
     var gridPanelItems = gridpanel.getStore().getData().items;
     gridPanelItems = isModelFilter(gridPanelItems, masterNode);
+    gridPanelItems= isKeyFilter(gridPanelItems,masterNode,gridpanel);
     console.log(gridPanelItems)
     for (var i = 0; i < gridPanelItems.length; i++) {
-        if (gridPanelItems[i].data["name"] == "Out") {
+        if (gridPanelItems[i].data["name"] == "Out" ) {
             continue;
         }
+        if (gridPanelItems[i].data["name"]=="Instance") {
+            continue;
+        }
+
         var name = gridPanelItems[i].data["name"];
         var value = gridPanelItems[i].data["value"];
         var slots = $("<slots number='" + i + "'></slots>");
@@ -215,7 +228,16 @@ function get_A_Master_node(gridpanel, index) {
     }
     return masterNode;
 }
-
+function isKeyFilter(gridPanelItems, masterNode,gridpanel){
+    var name = gridPanelItems[1].data["name"];
+    var value = gridPanelItems[1].data["value"];
+    if(name=="Instance"){
+        masterNode.append("<key>" + gridpanel.datas.value + "</key>")
+        gridPanelItems.shift();
+        return gridPanelItems;
+    }
+    return gridPanelItems;
+}
 function isModelFilter(gridPanelItems, masterNode) {
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
@@ -281,12 +303,11 @@ function getCurrentDrawPanelGirdPanels(drawpanel) {
     var girdpanels = Ext.ComponentQuery.query("gridpanel", drawpanel);
     for (var i = 0; i < girdpanels.length; i++) {
         //if (!girdpanels[i].hidden) {
-            aGridpanels.push(girdpanels[i])
+        aGridpanels.push(girdpanels[i])
         //}
     }
     return aGridpanels;
 }
-
 
 
 function addCurrentDrawPanelPlant(plant) {
@@ -298,12 +319,12 @@ function delCurrentDrawPanelPlant(index) {
 function setCurrentPlant(index) {
     //var plant = getCurrentDrawPanelPlantByIndex(index);
     //plant.selected = true;
-    var plants =  getCurrentDrawPanelPlants();
-    for(var i=0;i<plants.length;i++){
-        if(i==index){
-            plants[i].selected=true;
-        }else{
-            plants[i].selected=false;
+    var plants = getCurrentDrawPanelPlants();
+    for (var i = 0; i < plants.length; i++) {
+        if (i == index) {
+            plants[i].selected = true;
+        } else {
+            plants[i].selected = false;
         }
         updateCurrentDrawPanelPlant(plants[i], i)
     }
@@ -316,13 +337,13 @@ function getCurrentDrawPanelPlantByIndex(index) {
 function getCurrentDrawPanelPlants() {
     return getCurrentDrawPanel().datas.plants;
 }
-function selectPlant(plant){
+function selectPlant(plant) {
     var aTypeGrids = getCurrentDrawPanelGirdPanels();
-    for(var i=0;i<aTypeGrids.length;i++){
-        if(aTypeGrids[i].datas.plantId==plant.id){
+    for (var i = 0; i < aTypeGrids.length; i++) {
+        if (aTypeGrids[i].datas.plantId == plant.id) {
             console.log(aTypeGrids[i])
             aTypeGrids[i].show();
-        }else{
+        } else {
             console.log(aTypeGrids[i])
             aTypeGrids[i].hide();
         }
@@ -333,7 +354,7 @@ function getCurrentPlant() {
     var plants = getCurrentDrawPanelPlants();
     console.log(plants)
     for (var i = 0; i < plants.length; i++) {
-        if(plants[i].selected){
+        if (plants[i].selected) {
             console.log(plants[i])
             return plants[i];
         }

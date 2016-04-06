@@ -1,7 +1,6 @@
-
 Ext.define("svgxml.view.tree.DevTree", {
     extend: "Ext.tree.Panel",
-
+    xtype: 'devtree',
     requires: [
         "svgxml.view.tree.DevTreeController",
         "svgxml.view.tree.DevTreeModel"
@@ -9,9 +8,10 @@ Ext.define("svgxml.view.tree.DevTree", {
     expanded: true,
     controller: "imgtree",
     /*viewModel: {
-        type: "imgtree"
-    },*/
+     type: "imgtree"
+     },*/
     //height:200,
+    minHeight: 200,
     title: "XmlFiles",
     //titleAlign:"center",//标题居中
     titleCollapse: true,
@@ -20,23 +20,49 @@ Ext.define("svgxml.view.tree.DevTree", {
     resizable: true,
     //ui: "default",
     useArrows: true,
-    viewType: "treeview",
+    //viewType: "treeview",
     stateful: true,
     //draggable:true,
-    rootVisible:false,//隐藏root
-    store:Ext.create("svgxml.store.Files"),
-    /*store:Ext.create("Ext.data.TreeStore",{
-       model: "svgxml.view.tree.DevTreeModel",
-        data:[{text:"aaaa"},{text:"bbbb"}]
-    }),*/
+    rootVisible: false,//隐藏root
     listeners: {
-        itemclick: function () {
-            console.log(arguments);
+       // itemclick: "itemclick",
+        render: "render",
+        itemmouseenter: "itemmouseenter"
+    },
+    tbar: [{
+        text: 'Expand All',
+        scope: this,
+        handler: function (th) {
+            th.up("devtree").down("toolbar").disable();
+            th.up("devtree").expandAll(function () {
+                th.up("devtree").down("toolbar").enable()
+            });
         }
+    }, {
+        text: 'Collapse All',
+        scope: this,
+        handler: function (th) {
+            th.up("devtree").down("toolbar").disable();
+            th.up("devtree").collapseAll(function () {
+                th.up("devtree").down("toolbar").enable()
+            });
+
+        }
+    }],
+    viewConfig: {
+       /* plugins: {
+            ptype: 'treeviewdragdrop',
+            containerScroll: true,
+            ddGroup: "DevTreeDragDropGroup",
+            listeners: {
+                drop: function () {
+                    alert("sdafasdfsa")
+                }
+            }
+        }*/
     }
+
 });
-
-
 
 
 /*

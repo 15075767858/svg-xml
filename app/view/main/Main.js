@@ -49,7 +49,7 @@ Ext.define('svgxml.view.main.Main', {
         {
             xtype: "basic-tabs",
             region: "west",
-            width: 212,
+            width: 280,
             resizable: true,
             title: 'Projects',
             collapsible: true,

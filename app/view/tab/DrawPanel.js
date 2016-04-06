@@ -17,20 +17,21 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     layout: {
         type: "absolute"
     },
-
     enableDragDrop: true,
     listeners: {
         boxready: "boxready",
         add: "add",
         render: "render",
         show: "show",
-        hide:"hide",
+        hide: "hide",
+
         el: {
             contextmenu: function (th, el, eOpts) {
                 console.log(arguments)
                 if (el.tagName != "svg") {
                     return;
-                };
+                }
+                ;
 
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: th.pageX,

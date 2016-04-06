@@ -2,26 +2,8 @@
 <root>
     <plant  name="001">
         <master_node  number="1">
-            <type>52</type>
-            <slots  number="1">
-                <default>2</default>
-            </slots>
-            <slots  number="2">
-                <default>2</default>
-            </slots>
+            <type>0</type>
+            <key>1002002</key>
         </master_node>
-        <master_node  number="2">
-            <type>52</type>
-            <slots  number="1">
-                <node>1</node>
-                <slot_number>2</slot_number>
-            </slots>
-            <slots  number="2">
-                <node>1</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-    </plant>
-    <plant  name="002">
     </plant>
 </root>
