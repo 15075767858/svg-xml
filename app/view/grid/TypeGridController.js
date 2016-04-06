@@ -10,7 +10,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
 
         var oHead = th.getHeader().el.dom;
+
+
         oHead.onmousedown = function (e) {
+
             //console.log(e)
             th.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
         }
@@ -27,10 +30,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 addSlot.setDisabled(false);
                             }
                             thi.getComponent("LinkMark").setDisabled(false);
-                            if(getCurrentDrawPanel().datas.LinkMarkTypeGrid){
+                            if (getCurrentDrawPanel().datas.LinkMarkTypeGrid) {
                                 var linkform = thi.getComponent("LinkForm");
-                            linkform.setDisabled(false);
-                                linkform.setText("Link Form \""+getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle()+"\"")
+                                linkform.setDisabled(false);
+                                linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
@@ -55,10 +58,38 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
             t.setPagePosition(t.data.x, t.data.y, true)
         }
-    },
-render: function () {
+    }
+    ,
+    render: function (th) {
 
-},
+
+
+       th.getHeader().on({
+            click:function(){
+                console.log(this.getWidth()==140)
+                if(this.getWidth()==140){
+                th.animate({
+                    to: {
+                        width: (th.title.length * 13 < 140 ) ? 140 : th.title.length * 13
+                        //height: (th.getHeight() == 300) ? 400 : 300,
+                    }
+                });
+                }else{
+
+                    th.animate({
+                        to: {
+                            width:140
+                            //height: (th.getHeight() == 300) ? 400 : 300,
+                        }
+                    });
+
+
+                }
+            }
+        })
+
+    }
+    ,
     girditemdblclick: function (me, record, item, index, e, eopts) {
         console.log(me.up())
 
@@ -150,21 +181,26 @@ render: function () {
         win.show();
         win.down("form").loadRecord(record);
         // console.log(arguments)
-    },
+    }
+    ,
     griditemclick: function (th) {
 
-    },
+    }
+    ,
     griditemmousedown: function (th, record, item, index, el, e, eOpts) {
         // console.log(arguments);
 
         console.log("鼠标按下")
-    },
+    }
+    ,
     griditemmouseleave: function () {
         console.log("鼠标移出")
-    },
+    }
+    ,
     griditemmouseenter: function () {
         console.log("鼠标移入")
-    },
+    }
+    ,
     griditemmouseup: function (th, record, item, index, e, eOpts) {
 
 
@@ -209,15 +245,15 @@ render: function () {
         alert("griditemcontextmenu")
     }
 });
-function  currentDrawPanelGridPanelsTrSetId(){
+function currentDrawPanelGridPanelsTrSetId() {
     var aGridPanels = getCurrentDrawPanelGirdPanels();
-    for(var i=0;i<aGridPanels.length;i++){
+    for (var i = 0; i < aGridPanels.length; i++) {
         var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
         for (var j = 0; j < aRowsAll.length; j++) {
             //console.log("1"+aRowsAll[j].id+"1")
             //console.log(aRowsAll[j].length)
-            if(!aRowsAll[j].id.length<3){
-                aRowsAll[j].id= "t"+Math.floor(Math.random() * 10000000000);
+            if (!aRowsAll[j].id.length < 3) {
+                aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
             }
         }
     }
@@ -243,9 +279,11 @@ var STROKE_COLOR = "blue";
 var sStartItemTrId;//鼠标按下后得到item下的tr的id
 
 
-
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
     if (item.querySelector("div").innerHTML == "model") {
+        return;
+    }
+    if (item.querySelector("div").innerHTML == "Instance") {
         return;
     }
 
@@ -274,7 +312,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             var columnid = d3.select(aRowsAll[i]).attr("id");
             var tempLineEnd;
 
-            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "model") {
+            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "model" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 
                 tempLineEnd.on("mouseover", function () {
@@ -300,7 +338,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             console.log(e.target.tagName + "   " + sStartItemTrId)
             if (e.target.tagName == "circle") {
                 sEndItemTrId = d3.select(e.target).attr("columnid");
-                datasArray.push(generateJson(sEndItemTrId,sStartItemTrId))
+                datasArray.push(generateJson(sEndItemTrId, sStartItemTrId))
                 d3.select(item).attr("data-targetid", d3.select(e.target).attr("columnid"));
                 drawlines(thi);
             } else {

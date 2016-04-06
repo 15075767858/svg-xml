@@ -27,7 +27,13 @@ Ext.define("svgxml.view.tree.DevTree", {
     listeners: {
        // itemclick: "itemclick",
         render: "render",
-        itemmouseenter: "itemmouseenter"
+        itemmouseenter: "itemmouseenter",
+        afteritemexpand:function(node,index,e){
+            if(node.raw.depth==3){
+                console.log(node)
+            }
+
+        }
     },
     tbar: [{
         text: 'Expand All',
@@ -64,31 +70,3 @@ Ext.define("svgxml.view.tree.DevTree", {
 
 });
 
-
-/*
- xtype:"treepanel",
- title:"iConTree",
- //titleAlign:"center",//标题居中
- titleCollapse:true,
- autoScroll:true,
- animate:true,
- resizable: true,
- ui:"default",
- useArrows:true,
- viewType:"treeview",
- stateful : true,
- //draggable:true,
- //rootVisible:false,//隐藏root
- /!*root:{
- title:"iCon",
- expanded:true,
- children:[
- text:"aa"},
- {text:"bb"}
- ]
- }*!/
- listeners:{
- itemclick:function(){
- console.log(arguments);
- }
- },*/

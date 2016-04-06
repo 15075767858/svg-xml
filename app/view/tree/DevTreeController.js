@@ -14,14 +14,11 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     },
 
     "itemmouseenter": function (th, record, item, index, e, eOpts) {
-        if (!record.data.allowDrag) {
+        if (!record.raw.leaf) {
             return;
         }
 
 
-        if (record.isDrog) {
-            return;
-        }
         var dd = new Ext.dd.DragSource(item.id, {
             ddGroup: "DevTreeDragDropGroup",
             isTarget: false,
@@ -126,6 +123,7 @@ function getDevAll() {
 
     return childrenArr;
 }
+
 function getTypeByDev(devName) {
     var type = [0, 1, 2, 3, 4, 5];
     var nodes = getNodesAll();

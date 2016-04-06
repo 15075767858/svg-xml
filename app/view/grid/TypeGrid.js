@@ -12,10 +12,9 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     viewModel: {
         type: "grid-typegrid"
     },
-
     resizable: false,
     collapsible: true,//收起
-
+    scrollable:false,
     draggable: {
         autoStart:true,
         tolerance:1000
@@ -51,9 +50,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         this.width = 140;
         this.columns = [
             {
-
-                    multiColumnSort: false,
-
+                multiColumnSort: false,
                 //text     :"<img height='20px' src='img/PNG/add.png'>",
                 text: "type",
                 flex: 1,
