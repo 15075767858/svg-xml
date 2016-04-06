@@ -110,7 +110,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             autoShow: true,
             bodyPadding: 5,
             layout: {
-                type: 'hbox',
+                type: 'hbox'
                 //align: 'stretch'
             },
             defaults: {

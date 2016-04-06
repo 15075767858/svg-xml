@@ -94,10 +94,10 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         }, disabled: true
     }, {
         text: 'Rename',
-        disabled: true,
+        disabled: true
     }, {
         text: 'New plant',
-        disabled: true,
+        disabled: true
     }, {
         text: 'Reorder',//排序
         disabled: true
@@ -112,11 +112,11 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
     }, {
         text: 'PinSlots',
         itemId: 'PinSlots',
-        disabled: true,
+        disabled: true
     }, {
         text: 'Backup',
         itemId: 'Backup',
-        disabled: true,
+        disabled: true
     }, {
         text: 'Restor',
         itemId: 'Restor',

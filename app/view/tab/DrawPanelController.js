@@ -136,7 +136,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     sortable: false,
                     editor: {
                         xtype: 'textfield',
-                        allowBlank: false,
+                        allowBlank: false
 
                     }
                 },

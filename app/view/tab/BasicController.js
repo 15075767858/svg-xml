@@ -235,11 +235,11 @@ Ext.define('sub', {
     data: slotsJson.sub.initData,
     proxy: oproxy
 });
-Ext.define('switch', {
+Ext.define('Switch', {
     extend: "Ext.data.Store",
     storeId: 'switchStore',
     fields: ['name', 'value'],
-    data: slotsJson.switch.initData,
+    data: slotsJson.Switch.initData,
     proxy: oproxy
 });
 /*
