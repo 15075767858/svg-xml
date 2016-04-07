@@ -10,7 +10,6 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     },
     hide: function (th) {
         Ext.get("plants" + th.getTitle()).hide();
-
     },
 
     add: function (thi, com, index, eOpts) {
@@ -63,7 +62,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     render: function (th, eOpts) {
 
         new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
-        var dTreedd = new Ext.dd.DDTarget(th.getId(), "DevTreeDragDropGroup");
+       // var dTreedd = new Ext.dd.DDTarget(th.getId(), "DevTreeDragDropGroup");
 
         th.datas = {
             data: [],

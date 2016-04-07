@@ -29,6 +29,7 @@ Ext.define('svgxml.view.main.MainController', {
 });
 
 
+
 function generateJson (key,value){
     var str = '{ "' + key + '": "' + value + '" }'
     var oJSON=JSON.parse(str);

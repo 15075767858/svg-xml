@@ -6,12 +6,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     alias: 'controller.grid-typegrid',
     girdviewready: function (th, eO) {
         currentDrawPanelGridPanelsTrSetId();
-
-
-
         var oHead = th.getHeader().el.dom;
-
-
         oHead.onmousedown = function (e) {
 
             //console.log(e)
@@ -24,7 +19,13 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     y: e.pageY,
                     listeners: {
                         show: function (thi, eOpts) {
-                            var title = th.title;
+                            var title;
+                                try {
+                                   title= getNameByType(thi.datas.type)
+                                }catch(e){
+                            title = th.title;
+                                }
+                            //var title = th.title;
                             if (slotsJson[title].isAddSlot) {
                                 var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
                                 addSlot.setDisabled(false);
@@ -62,8 +63,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
     render: function (th) {
 
-
-
        th.getHeader().on({
             click:function(){
                 console.log(this.getWidth()==140)
@@ -92,7 +91,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
     girditemdblclick: function (me, record, item, index, e, eopts) {
         console.log(me.up())
-
         var win = Ext.create("Ext.window.Window", {
             title: "ChangeValue",
             width: 260,
@@ -203,7 +201,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
     griditemmouseup: function (th, record, item, index, e, eOpts) {
 
-
         th.datas = {"index": index}
 
         th.el.dom.oncontextmenu = function (eve) {
@@ -280,6 +277,7 @@ var sStartItemTrId;//鼠标按下后得到item下的tr的id
 
 
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
+    //console.log(item.querySelector("div").innerHTML )
     if (item.querySelector("div").innerHTML == "model") {
         return;
     }

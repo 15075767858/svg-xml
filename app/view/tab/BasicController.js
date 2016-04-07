@@ -23,9 +23,7 @@ Ext.define('svgxml.view.tab.BasicController', {
                 isTarget: false
             })
             dd.afterDragDrop = function (target, e, id) {
-                //console.log(target)
-                //console.log(e)
-                //console.log(id)
+
                 var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
                 Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
                     title: typeName,

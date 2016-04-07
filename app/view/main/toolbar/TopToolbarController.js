@@ -187,7 +187,7 @@ function plantAppendMasterNode(plant, index) {
 
 
 function get_A_Master_node(gridpanel, index) {
-
+    console.log(gridpanel)
     var masterNode = $(document.createElement("master_node"));
     var iType;
 
@@ -223,7 +223,18 @@ function get_A_Master_node(gridpanel, index) {
             slots.append($("<node>" + aGirdPanelIII[0] + "</node>"));
             slots.append($("<slot_number>" + aGirdPanelIII[1] + "</slot_number>"));
         }
-        masterNode.append(slots);
+
+        //masterNode.append(slots);
+        if(iType==1 || iType==2 || iType ==4 || iType ==5){
+            console.log(slots)
+            if(slots.find("default")){
+             //   masterNode.find("slots").remove()
+            }else{
+                masterNode.append(slots);
+            }
+        }else{
+            masterNode.append(slots);
+        }
         aGirdPanelIII = null;
     }
     return masterNode;

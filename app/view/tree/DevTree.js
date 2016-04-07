@@ -25,11 +25,11 @@ Ext.define("svgxml.view.tree.DevTree", {
     //draggable:true,
     rootVisible: false,//隐藏root
     listeners: {
-       // itemclick: "itemclick",
+        // itemclick: "itemclick",
         render: "render",
-        itemmouseenter: "itemmouseenter",
-        afteritemexpand:function(node,index,e){
-            if(node.raw.depth==3){
+        //itemmouseenter: "itemmouseenter",
+        afteritemexpand: function (node, index, e) {
+            if (node.raw.depth == 3) {
                 console.log(node)
             }
 
@@ -54,19 +54,30 @@ Ext.define("svgxml.view.tree.DevTree", {
             });
 
         }
-    }],
-    viewConfig: {
-       /* plugins: {
-            ptype: 'treeviewdragdrop',
-            containerScroll: true,
-            ddGroup: "DevTreeDragDropGroup",
-            listeners: {
-                drop: function () {
-                    alert("sdafasdfsa")
-                }
+    }], initComponent: function () {
+        this.viewConfig={
+            plugins: {
+                ptype: 'treeviewdragdrop',
+                containerScroll: true,
+                ddGroup: "DevTreeDragDropGroup"
             }
-        }*/
-    }
+        }
+
+        this.callParent();
+    },
+
+    /* viewConfig: {
+     plugins: {
+     ptype: 'treeviewdragdrop',
+     containerScroll: true,
+     ddGroup: "DevTreeDragDropGroup"
+     },
+     drop:function(){
+     console.log(this)
+     console.log(arguments)
+     alert("asdf")
+     }
+     }*/
 
 });
 

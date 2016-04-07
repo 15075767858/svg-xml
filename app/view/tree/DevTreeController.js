@@ -4,8 +4,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     render: function (th) {
 
         var store = Ext.create("Ext.data.TreeStore")
-
-
         var url = "127.0.0.1";
         var oJson = getTreeJsonByUrl(url)
         store.setRoot(oJson);
@@ -13,62 +11,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
     },
 
-    "itemmouseenter": function (th, record, item, index, e, eOpts) {
-        if (!record.raw.leaf) {
-            return;
-        }
 
-
-        var dd = new Ext.dd.DragSource(item.id, {
-            ddGroup: "DevTreeDragDropGroup",
-            isTarget: false,
-            id: "dd" + item.id
-        })
-        console.log(record.data)
-        var aData;
-            if(record.data.type!=0&record.data.type!=3){
-            aData=[
-                {'name': 'Out', 'value': "0"},
-                {'name': 'Instance', 'value': (record.data.value+"").substr(5,6)},
-                {'name': 'In', 'value': "2"}
-            ];
-            }else{
-                aData=[
-                    {'name': 'Out', 'value': "0"},
-                    {'name': 'Instance', 'value': (record.data.value+"").substr(5,6)}
-                ];
-            }
-        var ostore = Ext.create(getNameByType(record.data.type), {
-            data: aData,
-            listeners: {
-                add: function (th) {
-                    setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
-                }
-            }
-        })
-        dd.afterDragDrop = function (target, e, id) {
-
-            var typeName = getNameByType(record.data.type);
-            Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
-                    title: record.data.text,
-                    store: ostore,
-                    x: e.browserEvent.offsetX,
-                    y: e.browserEvent.offsetY,
-                    icon: "img/SVG/" + typeName + ".svg",
-                    listeners: {
-                        render: function (thi) {
-                            thi.datas.type = record.data.type;
-                            thi.datas.value = record.data.value;
-                            console.log(thi.getStore().data);
-
-                        }
-                    }
-                })
-            )
-            ;
-        }
-        record.isDrog = true
-    }
 })
 ;
 
