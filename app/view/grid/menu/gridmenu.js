@@ -106,6 +106,9 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         disabled: true,
         itemId: 'Property',
         border: "0 0 1 0",
+        listeners:{
+            //click:"PropertyClick"
+        },
         style: {
             borderColor: "#111"
         }

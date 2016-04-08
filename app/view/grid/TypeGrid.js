@@ -32,14 +32,14 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         enableTextSelection: true
     },
     listeners: {
-        render:"render",
+        render:"render1",
         viewready:"girdviewready",
         itemdblclick: "girditemdblclick",
         move: "girdmove",
         itemclick:"griditemclick",
         //itemmousedown:"griditemmousedown",
         //itemmouseleave:"griditemmouseleave",
-        //itemmouseenter:"griditemmouseenter",
+        itemmouseenter:"griditemmouseenter",
         itemmouseup:"griditemmouseup"
     },
     hideHeaders :true,

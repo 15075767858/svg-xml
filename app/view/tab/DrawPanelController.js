@@ -12,53 +12,6 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         Ext.get("plants" + th.getTitle()).hide();
     },
 
-    add: function (thi, com, index, eOpts) {
-
-        var plant = getCurrentPlant();
-        console.log(plant)
-        if (!plant) {
-            Ext.Msg.alert("Exception", "please choose one plant.")
-            thi.remove(com)
-        }
-        com.datas = {plantId: plant.id}
-        com.addListener("itemmouseenter", function (th, record, item, index, e, eOpts) {
-            d3.select("#tempLineEnd").remove();
-            //console.log(sStartItemTrId)
-            initDrawLine(thi, th, record, item, index, e, eOpts)
-        });
-
-        com.addListener("itemmouseleave", function (th, record, item, index, e, eOpts) {
-            /*
-             d3.select("#tempLineStart").remove();*/
-        });
-        com.addListener("itemmousedown", function (th, record, item, index, e, eOpts) {
-            //console.log(arguments)
-            //console.log(d3.select(com.el.dom).select("td"));
-            /*d3.select("#templine").remove()
-             th.data = {oitem: item}
-             var d = d3.select(thi.el.dom).select('svg');
-             var edrawpanel = Ext.get(th.up("drawpanel").el.dom);
-             var dpleft = edrawpanel.getLeft(false);
-             var dptop = edrawpanel.getTop(false);
-             var itemWidth = Ext.get(item).getWidth();
-             var itemHeight = Ext.get(item).getHeight();
-             var starttLeft = Ext.get(item).getLeft(false) - dpleft + thi.getScrollX();
-             var startTop = Ext.get(item).getTop(false) - dptop + thi.getScrollY();
-             //d.append("line").attr("id","templine").attr('stroke', "#00ff00").attr("stroke-width", "5").attr("x1", starttLeft).attr("y1", startTop).attr("x2", starttLeft).attr("y2", startTop)
-             d.append("line").attr("id", "templine").attr('stroke', "#00ff00").attr("stroke-width", "5").attr("x1", starttLeft + itemWidth).attr("y1", startTop + itemHeight / 2).attr("x2", 300).attr("y2", 300)
-             /!*thi.el.dom.onmousemove = function (e) {
-             console.log(e)
-             }*!/
-             thi.el.on("mousemove", function (ev, el) {
-             console.log("move")
-             d3.select("#templine").attr("x2", ev.pageX - dpleft).attr("y2", ev.pageY - dptop);
-             })*/
-        });
-        com.addListener("itemmouseup", function (th, record, item, index, e, eOpts) {
-
-        });
-    },
-
     render: function (th, eOpts) {
 
         new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");

@@ -151,7 +151,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 xmlAppendPlant(root)
 
                 var datas = {};
-                datas['fileName'] ="../"+ text;
+                datas['fileName'] = "../" + text;
                 datas['content'] = formatXml(sXmlNameSpace + root[0].outerHTML);
                 datas['rw'] = "w";
                 $.ajax({
@@ -189,27 +189,20 @@ function plantAppendMasterNode(plant, index) {
 function get_A_Master_node(gridpanel, index) {
     console.log(gridpanel)
     var masterNode = $(document.createElement("master_node"));
-    var iType;
-
-    try {
-        iType = slotsJson[gridpanel.title].type;
-    }
-    catch (e) {
-        iType = gridpanel.datas.type;
-    }
-
+    var iType = gridpanel.datas.type;
 
     masterNode.attr("number", (index + 1))
     masterNode.append("<type>" + iType + "</type>");
+    isPidSave(gridpanel, masterNode)
     var gridPanelItems = gridpanel.store.data.items;
 
-    gridPanelItems = isModelFilter(gridPanelItems, masterNode,gridpanel);
-    gridPanelItems= isKeyFilter(gridPanelItems,masterNode,gridpanel);
+    gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
+    gridPanelItems = isKeyFilter(gridPanelItems, masterNode, gridpanel);
     for (var i = 0; i < gridPanelItems.length; i++) {
-        if (gridPanelItems[i].data["name"] == "Out" ) {
+        if (gridPanelItems[i].data["name"] == "Out") {
             continue;
         }
-        if (gridPanelItems[i].data["name"]=="Instance") {
+        if (gridPanelItems[i].data["name"] == "Instance") {
             continue;
         }
 
@@ -225,32 +218,48 @@ function get_A_Master_node(gridpanel, index) {
         }
 
         //masterNode.append(slots);
-        if(iType==1 || iType==2 || iType ==4 || iType ==5){
+        if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
             console.log(slots)
-            if(slots.find("default")){
-             //   masterNode.find("slots").remove()
-            }else{
+            if (slots.find("default")) {
+                //   masterNode.find("slots").remove()
+            } else {
                 masterNode.append(slots);
             }
-        }else{
+        } else {
             masterNode.append(slots);
         }
         aGirdPanelIII = null;
     }
     return masterNode;
 }
-function isKeyFilter(gridPanelItems, masterNode,gridpanel){
+function isPidSave(gridpanel, masterNode) {
+var items ;
+    if (gridpanel.datas.type == "67") {
+
+        items=Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
+    }else{
+        return ;
+    }
+    console.log(items)
+    masterNode.append("<P>"+items[0].data.value+"</P>")
+    masterNode.append("<I>"+items[1].data.value+"</I>")
+    masterNode.append("<D>"+items[2].data.value+"</D>")
+    masterNode.append("<max_value>"+items[3].data.value+"</max_value>")
+    masterNode.append("<min_value>"+items[4].data.value+"</min_value>")
+
+}
+function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
     console.log(gridpanel)
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];
-    if(name=="Instance"){
+    if (name == "Instance") {
         masterNode.append("<key>" + gridpanel.datas.value + "</key>")
         gridPanelItems.shift();
         return gridPanelItems;
     }
     return gridPanelItems;
 }
-function isModelFilter(gridPanelItems, masterNode,gridpanel) {
+function isModelFilter(gridPanelItems, masterNode, gridpanel) {
     console.log(gridpanel)
     console.log(gridPanelItems)
     var name = gridPanelItems[0].data["name"];
@@ -277,19 +286,19 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
             if (trs[i].id == trEndId) {
                 var aGridpanels = getCurrentDrawPanelGirdPanels();
 
-               /* for(var j=0;j<aGridpanels.length;j++){
-                    if(aGridpanels[j].el.getId(trStartId)){
-                        node=i;
-                        var rows= aGridpanels[j].el.query(".x-grid-row");
-                        for(var k=0;k<rows.length;k++){
-                            if(rows[k].id==trStartId){
-                                slot_number=index;
-                                return false;
-                            }
-                        }
-                    }
+                /* for(var j=0;j<aGridpanels.length;j++){
+                 if(aGridpanels[j].el.getId(trStartId)){
+                 node=i;
+                 var rows= aGridpanels[j].el.query(".x-grid-row");
+                 for(var k=0;k<rows.length;k++){
+                 if(rows[k].id==trStartId){
+                 slot_number=index;
+                 return false;
+                 }
+                 }
+                 }
 
-                }*/
+                 }*/
 
                 Ext.each(aGridpanels, function (name, index, countriesItSelf) {
                     if (name.el.getById(trStartId)) {

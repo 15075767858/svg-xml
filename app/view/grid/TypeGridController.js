@@ -5,8 +5,36 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.grid-typegrid',
 
+    render1: function(th){
+        var plant = getCurrentPlant();
+        if (!plant) {
+
+            Ext.Msg.alert("Exception", "please choose one plant.")
+            //th.close()
+            th.destroy()
+
+            return;
+        }
+
+
+    },
     girdviewready: function (th, eO) {
 
+        if(th.datas.type==67){
+            Ext.create('Ext.data.Store', {
+                storeId:"store"+th.getId(),
+                fields: ['name', 'value'],
+                data: [
+                    {'name': 'P', 'value': "10.0"},
+                    {'name': 'I', 'value': "2.0"},
+                    {'name': 'D', 'value': "0.0"},
+                    {'name': 'Max', 'value': "100"},
+                    {'name': 'Min', 'value': "0"}
+                ]
+            });
+        }
+        var plant = getCurrentPlant()
+        th.datas.plantId = plant.id
         console.log(th.datas)
         currentDrawPanelGridPanelsTrSetId();
         var oHead = th.getHeader().el.dom;
@@ -23,13 +51,16 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     listeners: {
                         show: function (thi, eOpts) {
                             var title;
-                                try {
-                                   title= getNameByType(thi.datas.type)
-                                }catch(e){
-                            title = th.title;
-                                }
+                            try {
+                                title = getNameByType(thi.datas.type)
+                            } catch (e) {
+                                title = th.title;
+                            }
                             //var title = th.title;
-                            if (slotsJson[title].isAddSlot) {
+                            console.log(th.datas)
+                            var isAddSlot = th.datas.isAddSlot;
+
+                            if (isAddSlot) {
                                 var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
                                 addSlot.setDisabled(false);
                             }
@@ -39,6 +70,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 linkform.setDisabled(false);
                                 linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
+                            isPidMenu(th, thi)
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -66,21 +98,21 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
     render: function (th) {
 
-       th.getHeader().on({
-            click:function(){
-                console.log(this.getWidth()==140)
-                if(this.getWidth()==140){
-                th.animate({
-                    to: {
-                        width: (th.title.length * 13 < 140 ) ? 140 : th.title.length * 13
-                        //height: (th.getHeight() == 300) ? 400 : 300,
-                    }
-                });
-                }else{
+        th.getHeader().on({
+            click: function () {
+                console.log(this.getWidth() == 140)
+                if (this.getWidth() == 140) {
+                    th.animate({
+                        to: {
+                            width: (th.title.length * 13 < 140 ) ? 140 : th.title.length * 13
+                            //height: (th.getHeight() == 300) ? 400 : 300,
+                        }
+                    });
+                } else {
 
                     th.animate({
                         to: {
-                            width:140
+                            width: 140
                             //height: (th.getHeight() == 300) ? 400 : 300,
                         }
                     });
@@ -198,8 +230,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         console.log("鼠标移出")
     }
     ,
-    griditemmouseenter: function () {
-        console.log("鼠标移入")
+    griditemmouseenter: function (th, record, item, index, e, eOpts) {
+        d3.select("#tempLineEnd").remove();
+        initDrawLine(th.up("drawpanel"), th, record, item, index, e, eOpts)
     }
     ,
     griditemmouseup: function (th, record, item, index, e, eOpts) {
@@ -225,8 +258,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             if (slotsJson[title].isAddSlot) {
                                 var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
                                 addSlot.setDisabled(false);
-
                             }
+                            isPidMenu(th.up("typegrid"), thi)
+
 
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
@@ -245,6 +279,14 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("griditemcontextmenu")
     }
 });
+function isPidMenu(girdpanel, menu) {
+    console.log(arguments)
+    if (girdpanel.title == "pid") {
+        var cProperty = menu.getComponent("Property")
+        cProperty.setDisabled(false);
+        cProperty.on("click", menu.getController().PropertyClick, girdpanel)
+    }
+}
 function currentDrawPanelGridPanelsTrSetId() {
     var aGridPanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < aGridPanels.length; i++) {

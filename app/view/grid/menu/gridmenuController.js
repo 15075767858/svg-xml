@@ -97,6 +97,107 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         console.log(arguments)
     }
     ,
+    PropertyClick: function (menu, item, e, eOpts) {
+
+        var _this=this
+        var win = Ext.create('Ext.window.Window', {
+            title: 'pid Property',
+            width: 213,
+            height: 234,
+            layout: 'border',
+
+
+            items: {  // Let's put an empty grid in just to illustrate fit layout
+                region: "center",
+                xtype: 'grid',
+                // height: 205,
+                // width: 206,
+                border: false,
+                bbar: [
+                    {text: "Ok",handler:function(menu){
+                        Ext.data.StoreManager.lookup( "store"+_this.id).commitChanges();
+                        Ext.Msg.alert('Status', 'Changes saved successfully.');
+                        win.close();
+                    }}
+                ],
+                plugins: [
+                    Ext.create('Ext.grid.plugin.CellEditing', {
+                        clicksToEdit: 1
+                    })
+                ],
+                columns: [{header: 'name', dataIndex: "name"},
+                    {header: "value", dataIndex: "value",editor: {
+                        xtype: 'textfield',
+                        allowBlank: false
+                    }},
+
+                ],                 // 仅仅用来显示一个头部。没有数据，
+                store:Ext.data.StoreManager.lookup( "store"+_this.id)
+            }
+        }).show();
+
+        /*Ext.create('Ext.data.Store', {
+            fields: ['name', 'value'],
+            data: [
+                {'name': 'P', 'value': "10.0"},
+                {'name': 'I', 'value': "2.0"},
+                {'name': 'D', 'value': "0.0"},
+                {'name': 'Max', 'value': "100"},
+                {'name': 'Min', 'value': "0"}
+            ]
+        })*/
+        /*Ext.create('Ext.form.Panel', {
+         title: 'Simple Form',
+         bodyPadding: 5,
+         width: 350,
+
+         // 将会通过 AJAX 请求提交到此URL
+
+         // 表单域 Fields 将被竖直排列, 占满整个宽度
+         layout: 'anchor',
+         defaults: {
+         anchor: '100%'
+         },
+
+         // The fields
+         defaultType: 'textfield',
+         items: [{
+         fieldLabel: 'First Name',
+         name: 'first',
+         allowBlank: false
+         },{
+         fieldLabel: 'Last Name',
+         name: 'last',
+         allowBlank: false
+         }],
+
+         // 重置 和 保存 按钮.
+         buttons: [{
+         text: '重置',
+         handler: function() {
+         this.up('form').getForm().reset();
+         }
+         }, {
+         text: '保存',
+         formBind: true, //only enabled once the form is valid
+         disabled: true,
+         handler: function() {
+         var form = this.up('form').getForm();
+         if (form.isValid()) {
+         form.submit({
+         success: function(form, action) {
+         Ext.Msg.alert('保存成功', action.result.msg);
+         },
+         failure: function(form, action) {
+         Ext.Msg.alert('操作失败', action.result.msg);
+         }
+         });
+         }
+         }
+         }],
+         renderTo: Ext.getBody()
+         });*/
+    },
     LinkFormClick: function (menu, item, e, eOpts) {
         var SourceTypeGrid = getCurrentDrawPanel().datas.LinkMarkTypeGrid;
         var TargetTypeGrid = menu.up("typegrid");
@@ -179,8 +280,8 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                         var endId = getTypeGridRowIdByIndex(TargetTypeGrid, win.datas.targetIndex).id;
                         console.log(startId)
                         console.log(endId)
-                        console.log(generateJson(startId,endId))
-                        datasArray.push(generateJson(startId,endId));
+                        console.log(generateJson(startId, endId))
+                        datasArray.push(generateJson(startId, endId));
                         drawlines(getCurrentDrawPanel())
                         win.close()
                     }

@@ -21,7 +21,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
 
     listeners: {
         boxready: "boxready",
-        add: "add",
+        //add: "add",
         render: "render",
         show: "show",
         hide: "hide",
@@ -70,7 +70,6 @@ Ext.define("svgxml.view.tab.DrawPanel", {
             notifyDrop: function (ddSource, e, data) {
                 var selectRecord = ddSource.dragData.records[0].data;
                 var aData, ostore, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value + "", title = selectRecord.text;
-                console.log(selectRecord)
                 console.log(typeName)
                 if (type != 0 & type != 3) {
                     aData = [
@@ -84,6 +83,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                         {'name': 'Instance', 'value': value.substr(5, 6)}
                     ];
                 }
+
                 ostore = Ext.create(typeName, {
                     data: aData,
                     listeners: {
@@ -103,9 +103,11 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                                 setTimeout(currentDrawPanelGridPanelsTrSetId,1000)
                             },
                             render: function (thi) {
-
+                                /*thi.datas.isAddSlot=slotsJson[getNameByType(type)].isAddSlot;
+                                thi.datas.plantId=""
                                 thi.datas.type =type;
-                                thi.datas.value =value;
+                                thi.datas.value =value;*/
+                                thi.datas = {isAddSlot:slotsJson[getNameByType(type)].isAddSlot,plantId:"",type:type,value:value};
                                 console.log(thi.getStore().data);
 
                             }

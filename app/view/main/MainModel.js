@@ -23,7 +23,7 @@ var slotsJson={
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': ""}
         ],
-        isAddSlot:true,
+        isAddSlot:false,
         maxSlot:10
     }, 'AO':{
         type:"1",
