@@ -12,7 +12,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     },
     autoScroll: true,
     closable: true,
-    bodyStyle: 'background:url(img/square.gif);',
+    bodyStyle: 'background:url(resources/img/square.gif);',
     bodyPadding: "0",
     layout: {
         type: "absolute"
@@ -97,7 +97,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                         store: ostore,
                         x: e.browserEvent.offsetX,
                         y: e.browserEvent.offsetY,
-                        icon: "img/SVG/" + typeName + ".svg",
+                        icon: "resources/img/SVG/" + typeName + ".svg",
                         listeners: {
                             add: function () {
                                 setTimeout(currentDrawPanelGridPanelsTrSetId,1000)
@@ -131,49 +131,4 @@ Ext.define("svgxml.view.tab.DrawPanel", {
 });
 
 
-/*
- var image = Ext.create('Ext.Img', {
- src: 'xrModule.do?method=view&id=' + nodeData.nodeId,
- autoEl: 'div',
- //	constrain: true,
- //	floating:true,
- nodeId: nodeData.nodeId,
- x: nodeData.x,
- y: nodeData.y,
- draggable: true,
- listeners: {
- scope: this,
- el: {
- dblclick: function (e, a) {
- e.stopEvent();
- rightPanel.setSource({
- name: nodeData.name,
- code: nodeData.code,
- width: nodeData.width,
- height: nodeData.height
- });
- rightPanel.setTitle('模块设置：' + nodeData.name);
- },
- contextmenu: function (e, a, b, c) {
- e.stopEvent();
- var contextmenu = new Ext.menu.Menu({
- items: [{
- text: '模块设置',
- iconCls: 'icon-edit',
- handler: function () {
- rightPanel.setSource({
- name: nodeData.name,
- code: nodeData.code,
- width: nodeData.width,
- height: nodeData.height
- });
- rightPanel.setTitle('模块设置：' + nodeData.name);
- },
- scope: this
- }]
- });
- contextmenu.showAt(e.getXY());
- }
- }
- }
- });*/
+

@@ -4,7 +4,10 @@ var hideCom;
 Ext.define('svgxml.view.grid.TypeGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.grid-typegrid',
+
     girdviewready: function (th, eO) {
+
+        console.log(th.datas)
         currentDrawPanelGridPanelsTrSetId();
         var oHead = th.getHeader().el.dom;
         oHead.onmousedown = function (e) {

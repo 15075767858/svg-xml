@@ -40,7 +40,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             }]
         });
         var win = Ext.create('Ext.window.Window', {
-            title: 'Open Xml',
+            title: 'Open •••',
             width: 600,
             height: 500,
             bodyStyle: {},
@@ -120,7 +120,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                             store: store,
                             x: 0,
                             y: 0,
-                            icon: "img/SVG/" + typeName + ".svg"
+                            icon: "resources/img/SVG/" + typeName + ".svg"
                         })
                         drawPanel.add(oTypeGrid);
                         win.close();
@@ -137,29 +137,29 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
     saveXmlClick: function () {
 
-
-        Ext.Msg.prompt('Save Xml', 'Please input file name:', function (btn, text) {
+        Ext.Msg.prompt('Save •••', 'Please input file name:', function (btn, text) {
             if (btn == 'ok') {
                 if (text.trim() == "") {
                     Ext.Msg.alert('Exception', 'File name cannot null.');
                     return;
                 }
                 // process text value and close...
+                console.log(getCurrentDrawPanelGirdPanels()[0].store.data.items)
+                console.log(getCurrentDrawPanelGirdPanels()[0].store.data.items)
                 var sXmlNameSpace = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
                 var root = $("<root></root>");
                 xmlAppendPlant(root)
 
                 var datas = {};
-                datas['fileName'] = text + ".xml";
+                datas['fileName'] ="../"+ text;
                 datas['content'] = formatXml(sXmlNameSpace + root[0].outerHTML);
                 datas['rw'] = "w";
                 $.ajax({
                     type: "POST",
-                    url: "xmlRW.php",
+                    url: "resources/xmlRW.php",
                     data: datas,
                     success: function () {
                         Ext.Msg.alert('Success', 'Saved file successfully.');
-
                     }
                 });
             }
@@ -201,10 +201,10 @@ function get_A_Master_node(gridpanel, index) {
 
     masterNode.attr("number", (index + 1))
     masterNode.append("<type>" + iType + "</type>");
-    var gridPanelItems = gridpanel.getStore().getData().items;
-    gridPanelItems = isModelFilter(gridPanelItems, masterNode);
+    var gridPanelItems = gridpanel.store.data.items;
+
+    gridPanelItems = isModelFilter(gridPanelItems, masterNode,gridpanel);
     gridPanelItems= isKeyFilter(gridPanelItems,masterNode,gridpanel);
-    console.log(gridPanelItems)
     for (var i = 0; i < gridPanelItems.length; i++) {
         if (gridPanelItems[i].data["name"] == "Out" ) {
             continue;
@@ -240,6 +240,7 @@ function get_A_Master_node(gridpanel, index) {
     return masterNode;
 }
 function isKeyFilter(gridPanelItems, masterNode,gridpanel){
+    console.log(gridpanel)
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];
     if(name=="Instance"){
@@ -249,7 +250,9 @@ function isKeyFilter(gridPanelItems, masterNode,gridpanel){
     }
     return gridPanelItems;
 }
-function isModelFilter(gridPanelItems, masterNode) {
+function isModelFilter(gridPanelItems, masterNode,gridpanel) {
+    console.log(gridpanel)
+    console.log(gridPanelItems)
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
     if (name != "Out" && name != "In") {
@@ -273,6 +276,21 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
         for (var i = index; i < trs.length; i++) {
             if (trs[i].id == trEndId) {
                 var aGridpanels = getCurrentDrawPanelGirdPanels();
+
+               /* for(var j=0;j<aGridpanels.length;j++){
+                    if(aGridpanels[j].el.getId(trStartId)){
+                        node=i;
+                        var rows= aGridpanels[j].el.query(".x-grid-row");
+                        for(var k=0;k<rows.length;k++){
+                            if(rows[k].id==trStartId){
+                                slot_number=index;
+                                return false;
+                            }
+                        }
+                    }
+
+                }*/
+
                 Ext.each(aGridpanels, function (name, index, countriesItSelf) {
                     if (name.el.getById(trStartId)) {
                         node = index;
@@ -286,6 +304,7 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
                     }
                 });
                 //console.log(trEndId+"   "+trStartId) //在这里查找起点的 panel
+                console.log(aGridpanels[0])
             }
         }
         if (node && slot_number)
@@ -313,8 +332,10 @@ function getCurrentDrawPanelGirdPanels(drawpanel) {
     var aGridpanels = [];
     var girdpanels = Ext.ComponentQuery.query("gridpanel", drawpanel);
     for (var i = 0; i < girdpanels.length; i++) {
+        console.log(girdpanels[i])
         //if (!girdpanels[i].hidden) {
         aGridpanels.push(girdpanels[i])
+        //aGridpanels[i]=girdpanels[i]
         //}
     }
     return aGridpanels;

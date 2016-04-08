@@ -36,7 +36,7 @@ Ext.define('svgxml.view.tab.BasicController', {
                     }),
                     x: e.browserEvent.offsetX,
                     y: e.browserEvent.offsetY,
-                    icon: "img/SVG/" + typeName + ".svg"
+                    icon: "resources/img/SVG/" + typeName + ".svg"
                 }));
             }
 

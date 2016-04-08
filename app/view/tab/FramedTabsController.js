@@ -4,7 +4,7 @@ Ext.define('svgxml.view.tab.FramedTabsController', {
 
     render: function (th) {
         th.add(Ext.create("svgxml.view.tab.DrawPanel", {
-            title: "1200"
+            title: "1000"
         }))
     }
 });

@@ -16,7 +16,7 @@ Ext.define('svgxml.view.main.Main', {
         "svgxml.view.Viewport"
     ],
     style: {
-        background: "rgb(21,127,214)"
+        //background: "rgb(21,127,214)"
     },
     xtype: 'app-main',
     //layout: "border",
@@ -28,24 +28,34 @@ Ext.define('svgxml.view.main.Main', {
     viewModel: {
         type: 'main'
     },
+    title:"<div style='z-index:0;top:0px;width:100%;line-height:35px;padding:0 0 0 5px;margin:0;font-size: 20px;color:white;'><img style='height:30px;' src='resources/img/PNG/SmartIO.png'/>    SmartIO</div>",
+     bind:{
+    //title:"<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
+     },
+    tbar:[
+        {
+            xtype:"basic-toolbar",
+            padding:0
+        }
+    ],
     //header:true,
     items: [
-        {
+       /* {
             xtype: "header",
             region: "north",
             layout: "border",
-            //height: 100,
+            height: 100,
             bind: {
-                title: "<div style='z-index:0;position:fixed;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
+                title: "<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
             },
-            margin: "40 0 0 0",
+            //margin: "40 0 0 0",
             items: [
                 {
                     xtype: "basic-toolbar"
                 }
             ],
             collapsible: false
-        },
+        },*/
         {
             xtype: "basic-tabs",
             region: "west",
@@ -61,7 +71,7 @@ Ext.define('svgxml.view.main.Main', {
             region: "center",
             split: true,
             collapsible: true,
-            title: "Files"
+            title: "Program"
         })
     ]
 });

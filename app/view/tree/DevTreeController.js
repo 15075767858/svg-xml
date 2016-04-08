@@ -9,7 +9,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         store.setRoot(oJson);
         th.setStore(store);
 
-    },
+    }
 
 
 })
@@ -83,7 +83,8 @@ function getTypeByDev(devName) {
                 childrenArr1.push(nodes[j]);
             }
         }
-        var typeJson = {text: i, expanded: false, allowDrop: false, allowDrag: false, children: childrenArr1};
+
+        var typeJson = {text: getNameByType(i), expanded: false, allowDrop: false, allowDrag: false, children: childrenArr1};
         childrenArr.push(typeJson);
     }
     return childrenArr;
@@ -92,7 +93,7 @@ function getTypeByDev(devName) {
 function getDevNamesAll() {
     var aNames = null;
     Ext.Ajax.request({
-        url: 'test1.php?par=dev',
+        url: 'resources/test1.php?par=dev',
         async: false,
         params: {
             // url: url,
@@ -108,7 +109,7 @@ function getDevNamesAll() {
 function getNodesAll(url) {
     var aNames = null;
     Ext.Ajax.request({
-        url: 'test1.php?par=nodes',
+        url: 'resources/test1.php?par=nodes',
         async: false,
         params: {
             //url: url,

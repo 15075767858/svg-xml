@@ -12,7 +12,7 @@ Ext.define("svgxml.view.tree.DevTree", {
      },*/
     //height:200,
     minHeight: 200,
-    title: "XmlFiles",
+    title: "Device",
     //titleAlign:"center",//标题居中
     titleCollapse: true,
     autoScroll: true,
@@ -64,20 +64,6 @@ Ext.define("svgxml.view.tree.DevTree", {
         }
 
         this.callParent();
-    },
-
-    /* viewConfig: {
-     plugins: {
-     ptype: 'treeviewdragdrop',
-     containerScroll: true,
-     ddGroup: "DevTreeDragDropGroup"
-     },
-     drop:function(){
-     console.log(this)
-     console.log(arguments)
-     alert("asdf")
-     }
-     }*/
-
+    }
 });
 

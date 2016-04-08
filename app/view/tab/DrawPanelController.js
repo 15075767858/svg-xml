@@ -62,7 +62,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     render: function (th, eOpts) {
 
         new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
-       // var dTreedd = new Ext.dd.DDTarget(th.getId(), "DevTreeDragDropGroup");
+        // var dTreedd = new Ext.dd.DDTarget(th.getId(), "DevTreeDragDropGroup");
 
         th.datas = {
             data: [],
@@ -123,8 +123,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                         drawlines(getCurrentDrawPanel())
 
                         if (val)
-                            return '<img src = "img/openFolder.png"/>'
-                        return '<img src = "img/closeFolder.png"/>'
+                            return '<img src = "resources/img/openFolder.png"/>'
+                        return '<img src = "resources/img/closeFolder.png"/>'
                     },
                     handler: function () {
                     }
@@ -146,7 +146,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     sortable: false,
                     menuDisabled: true,
                     items: [{
-                        icon: 'img/delete.gif',
+                        icon: 'resources/img/delete.gif',
                         tooltip: 'Delete Plant',
                         scope: this,
                         handler: function (grid, rowIndex) {
@@ -190,7 +190,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                             selected: false,
                             id: "p" + Math.floor(Math.random() * 100000000000000)
                         });
-                        
+
                         console.log(getCurrentDrawPanelPlants())
                         data.push({selected: false, name: name});
                         ogridpanle.store.setData(data);
@@ -217,7 +217,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             height: 300,
             resizable: true,
             //resizeHandles: "s",
-            maximizable: true,
+            //maximizable: true,
             collapsible: true,//收起
             closable: false,
             renderTo: Ext.getBody(),
@@ -229,10 +229,10 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             items: ogridpanle,
             listeners: {
                 resize: function (th) {
-                    ogridpanle.setWidth(th.getWidth()-20)
+                    ogridpanle.setWidth(th.getWidth() - 20)
                 },
-                collapse:function(th,eOpts){
-                    th.setPagePosition( 0, 0, true)
+                collapse: function (th, eOpts) {
+                    th.setPagePosition(0, 0, true)
                     console.log(arguments)
                 }
             }
@@ -308,44 +308,48 @@ function drawlines(drawpanel) {
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight;
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG")
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
-            var polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o).attr("data-index", i);
-            var circle = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "red").attr("data-index", i).attr("class", "OkCircle");
-            polyline.on("mouseover", function () {
-                d3.select(this).attr("stroke-width", STROKEWIDTH_MIN)
-                    .transition()
-                    .attr("stroke-width", STROKEWIDTH_MAX).attr("stroke", "chartreuse");
-            });
-            polyline.on("mouseout", function () {
-                d3.select(this).attr("stroke-width", STROKEWIDTH_MAX)
-                    .transition()
-                    .attr("stroke-width", "4").attr("stroke", "blue");
-            });
-
-            polyline.on("dblclick", function () {
-                var index = d3.select(this).attr("data-index");
-                datasArray.splice(index, 1);
-                d3.select(this).remove();
-            });
-            /*polyline.on("contextmenu",function(){
-             d3.select(this).remove();
-             });*/
-
-            circle.on("dblclick", function () {
-                var index = d3.select(this).attr("data-index");
-                datasArray.splice(index, 1);
-                d3.select(this).remove();
-            });
-            if (iStartLeft < 0 || iStartTop < 0) {
-                circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop + 12);
-                console.log("start")
-                continue;
-            }
-            if (iEndLeft < 0 || iEndTop < 0) {
-                circle.attr("cx", iStartLeft + 10).attr("cy", iStartTop)
-                console.log("end")
-                continue;
+            var polyline, circle;
+            if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {
+                circle = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "red").attr("data-index", i).attr("class", "OkCircle");
+            } else {
+                polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o).attr("data-index", i);
             }
 
+            if (polyline) {
+                polyline.on("mouseover", function () {
+                    d3.select(this).attr("stroke-width", STROKEWIDTH_MIN)
+                        .transition()
+                        .attr("stroke-width", STROKEWIDTH_MAX).attr("stroke", "chartreuse");
+                });
+                polyline.on("mouseout", function () {
+                    d3.select(this).attr("stroke-width", STROKEWIDTH_MAX)
+                        .transition()
+                        .attr("stroke-width", "4").attr("stroke", "blue");
+                });
+
+                polyline.on("dblclick", function () {
+                    var index = d3.select(this).attr("data-index");
+                    datasArray.splice(index, 1);
+                    d3.select(this).remove();
+                });
+            }
+            else {
+                circle.on("dblclick", function () {
+                    var index = d3.select(this).attr("data-index");
+                    datasArray.splice(index, 1);
+                    d3.select(this).remove();
+                });
+                if (iStartLeft < 0 || iStartTop < 0) {
+                    circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop + 12);
+                    console.log("start")
+                    continue;
+                }
+                if (iEndLeft < 0 || iEndTop < 0) {
+                    circle.attr("cx", iStartLeft + 10).attr("cy", iStartTop)
+                    console.log("end")
+                    continue;
+                }
+            }
             var pointAll = [];//折线的数组初始化
             pointAll.push([iStartLeft, iStartTop]);
             var pointStart = [iStartLeft + JIANGE, iStartTop];

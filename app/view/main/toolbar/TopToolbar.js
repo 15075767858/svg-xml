@@ -14,27 +14,26 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 
     initComponent: function () {
         Ext.apply(this, {
-
             width: "100%",
             items: [
                 {
                     text: 'File',
                     glyph: 70,
                     menu: [{
-                        text: 'New Xml'
+                        text: 'New •••'
                     },
                         {
-                            text: 'Open Xml',
+                            text: 'Open •••',
                             listeners: {
                                 click: "openXmlClick"
                             }
                         }, {
-                            text: 'Save Xml',
+                            text: 'Save •••',
                             listeners: {
                                 click: "saveXmlClick"
                             }
                         }, {
-                            text: "Save as Xml"
+                            text: "Save as •••"
                         }
                     ]
                 }]

@@ -32,10 +32,10 @@
     /**
      * The name of the theme for this application.
      */
-    //"theme": "ext-theme-neptune",
-    //"theme": "ext-theme-neptune",
     "theme": "ext-theme-neptune",
-    //"theme": "ext-theme-neutral",
+    //"theme": "ext-theme-crisp",
+    //"theme": "ext-theme-gray",
+    //"theme": "ext-theme-classic",
     /**
      * The list of required packages (with optional versions; default is "latest").
      *
