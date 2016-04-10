@@ -59,11 +59,12 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
         }
-        store.add(Ext.create("svgxml.view.grid.TypeGridModel", {
+        store.add( {
             name: "In",
             value: ""
-        }))
+        })
         console.log(this.setStore(store))
+        store.commitChanges()
 
     },
     delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
@@ -129,7 +130,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     {header: "value", dataIndex: "value",editor: {
                         xtype: 'textfield',
                         allowBlank: false
-                    }},
+                    }}
 
                 ],                 // 仅仅用来显示一个头部。没有数据，
                 store:Ext.data.StoreManager.lookup( "store"+_this.id)

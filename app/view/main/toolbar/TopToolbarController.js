@@ -139,33 +139,46 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
         Ext.Msg.prompt('Save •••', 'Please input file name:', function (btn, text) {
             if (btn == 'ok') {
-                if (text.trim() == "") {
-                    Ext.Msg.alert('Exception', 'File name cannot null.');
-                    return;
-                }
-                // process text value and close...
-                console.log(getCurrentDrawPanelGirdPanels()[0].store.data.items)
-                console.log(getCurrentDrawPanelGirdPanels()[0].store.data.items)
-                var sXmlNameSpace = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
-                var root = $("<root></root>");
-                xmlAppendPlant(root)
-
-                var datas = {};
-                datas['fileName'] = "../" + text;
-                datas['content'] = formatXml(sXmlNameSpace + root[0].outerHTML);
-                datas['rw'] = "w";
-                $.ajax({
-                    type: "POST",
-                    url: "resources/xmlRW.php",
-                    data: datas,
-                    success: function () {
-                        Ext.Msg.alert('Success', 'Saved file successfully.');
-                    }
-                });
+                saveXml(text);
             }
         });
     }
 });
+function saveXml(text){
+    text=text||"1000";
+
+    if (text.trim() == "") {
+        Ext.Msg.alert('Exception', 'File name cannot null.');
+        return;
+    }
+    // process text value and close...
+
+    var sXmlNameSpace = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
+    var root = $("<root></root>");
+    xmlAppendPlant(root)
+
+    var datas = {};
+    datas['fileName'] = "../" + text;
+    datas['content'] = formatXml(sXmlNameSpace + root[0].outerHTML);
+    datas['rw'] = "w";
+    $.ajax({
+        type: "POST",
+        url: "resources/xmlRW.php",
+        data: datas,
+        success: function () {
+            if(text=="1000"){
+                Ext.toast({
+                    html: 'Auto Save Successfully.',
+                    title: 'Status',
+                    //width: 200,
+                    align: 'br'
+                });
+            }else{
+            Ext.Msg.alert('Success', 'Saved file successfully.');
+            }
+        }
+    });
+}
 function xmlAppendPlant(root) {
     var plants = getCurrentDrawPanelPlants();
     for (var i = 0; i < plants.length; i++) {
@@ -318,8 +331,7 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
         }
         if (node && slot_number)
             return false;
-        //console.log("node="+node)
-        //console.log("slot_number="+slot_number)
+
 
     });
     return [node, slot_number];
@@ -351,9 +363,17 @@ function getCurrentDrawPanelGirdPanels(drawpanel) {
 }
 
 
+
 function addCurrentDrawPanelPlant(plant) {
-    getCurrentDrawPanel().datas.plants.push(plant);
+    var currentDrawPanel = getCurrentDrawPanel()
+    var data = currentDrawPanel.datas.data;
+    currentDrawPanel.datas.plants.push(plant);
+    data.push({selected: plant.selected, name: plant.name});
+    var store = Ext.data.StoreManager.lookup('store' + currentDrawPanel.getTitle());
+    store.setData(data);
 }
+
+
 function delCurrentDrawPanelPlant(index) {
     getCurrentDrawPanel().datas.plants.splice(index, 1)
 }

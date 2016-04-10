@@ -28,34 +28,54 @@ Ext.define('svgxml.view.main.Main', {
     viewModel: {
         type: 'main'
     },
-    title:"<div style='z-index:0;top:0px;width:100%;line-height:35px;padding:0 0 0 5px;margin:0;font-size: 20px;color:white;'><img style='height:30px;' src='resources/img/PNG/SmartIO.png'/>    SmartIO</div>",
-     bind:{
-    //title:"<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
-     },
-    tbar:[
+    title: "<div style='z-index:0;top:0px;width:100%;line-height:35px;padding:0 0 0 5px;margin:0;font-size: 20px;color:white;'><img style='height:30px;' src='resources/img/PNG/SmartIO.png'/>    SmartIO</div>",
+    bind: {
+        //title:"<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
+    },
+    tbar: [
         {
-            xtype:"basic-toolbar",
-            padding:0
+            xtype: "basic-toolbar",
+            padding: 0
         }
     ],
+    listeners: {
+        boxready: function () {
+            function autoSave() {
+                if(!window.localStorage){
+                    return;
+                }
+
+
+                saveXml()
+            }
+            var runner = new Ext.util.TaskRunner();
+            setTimeout(function () {
+                var task = runner.start({
+                    run: autoSave,
+                    interval: 5000
+                })
+            }, 5000)
+
+        }
+    },
     //header:true,
     items: [
-       /* {
-            xtype: "header",
-            region: "north",
-            layout: "border",
-            height: 100,
-            bind: {
-                title: "<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
-            },
-            //margin: "40 0 0 0",
-            items: [
-                {
-                    xtype: "basic-toolbar"
-                }
-            ],
-            collapsible: false
-        },*/
+        /* {
+         xtype: "header",
+         region: "north",
+         layout: "border",
+         height: 100,
+         bind: {
+         title: "<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
+         },
+         //margin: "40 0 0 0",
+         items: [
+         {
+         xtype: "basic-toolbar"
+         }
+         ],
+         collapsible: false
+         },*/
         {
             xtype: "basic-tabs",
             region: "west",

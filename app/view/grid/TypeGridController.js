@@ -33,9 +33,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ]
             });
         }
+        if(th.datas.plantId.length<2){
         var plant = getCurrentPlant()
         th.datas.plantId = plant.id
-        console.log(th.datas)
+        }
         currentDrawPanelGridPanelsTrSetId();
         var oHead = th.getHeader().el.dom;
         oHead.onmousedown = function (e) {
@@ -222,7 +223,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
     griditemmousedown: function (th, record, item, index, el, e, eOpts) {
         // console.log(arguments);
-
+        console.log(th.up())
+        console.log(arguments)
         console.log("鼠标按下")
     }
     ,
@@ -381,7 +383,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             console.log(e.target.tagName + "   " + sStartItemTrId)
             if (e.target.tagName == "circle") {
                 sEndItemTrId = d3.select(e.target).attr("columnid");
-                datasArray.push(generateJson(sEndItemTrId, sStartItemTrId))
+                thi.datas.datasArray.push(generateJson(sEndItemTrId, sStartItemTrId))
                 d3.select(item).attr("data-targetid", d3.select(e.target).attr("columnid"));
                 drawlines(thi);
             } else {

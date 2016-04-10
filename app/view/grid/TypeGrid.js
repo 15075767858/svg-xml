@@ -37,7 +37,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         itemdblclick: "girditemdblclick",
         move: "girdmove",
         itemclick:"griditemclick",
-        //itemmousedown:"griditemmousedown",
+        itemmousedown:"griditemmousedown",
         //itemmouseleave:"griditemmouseleave",
         itemmouseenter:"griditemmouseenter",
         itemmouseup:"griditemmouseup"

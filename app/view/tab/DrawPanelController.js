@@ -7,6 +7,41 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //.style("border","1px solid red")
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
+
+        typegridCache(th)
+        function typegridCache(th) {
+            th = th || getCurrentDrawPanel();
+            var items = Ext.decode(localStorage.getItem("gridpanelConfigs"));
+            var plants = Ext.decode(localStorage.getItem("plants"))
+            for (var i = 0; i < plants.length; i++) {
+                addCurrentDrawPanelPlant(plants[i]);
+            }
+            for (var i = 0; i < items.length; i++) {
+                var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
+                typegrid.datas = items[i].datas;
+                console.log(items[i].datas)
+                typegrid.setStore(Ext.create("Ext.data.Store", {
+                    data: items[i].store.data,
+                    fields: items[i].store.fields
+                }))
+                console.log(getCurrentPlant() + items[i].datas.plantId)
+                if (getCurrentPlant().id != items[i].datas.plantId) {
+                    typegrid.hide()
+                }
+                th.add(typegrid);
+                var ids =Ext.decode(items[i].typegrid.trsIds);
+                var trs = typegrid.el.dom.querySelectorAll("tr");
+                for(var j=0;j<trs.length;j++){
+                    trs[j].id=ids[j];
+                }
+
+            }
+            console.log(datasArray)
+            console.log(Ext.decode(localStorage.getItem("datasArray")))
+            datasArray=Ext.decode(localStorage.getItem("datasArray"));
+            drawlines(th)
+        }
+
     },
     hide: function (th) {
         Ext.get("plants" + th.getTitle()).hide();
@@ -20,6 +55,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         th.datas = {
             data: [],
             plants: [],
+            datasArray:[],
             LinkMarkTypeGrid: null
         };
 
@@ -126,27 +162,22 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                 {
                     text: 'Add Plant',
                     handler: function (th, e) {
-                        var currentDrawPanel = getCurrentDrawPanel()
-                        var data = currentDrawPanel.datas.data;
-
+                        var data = getCurrentDrawPanel().datas.data;
                         var name = data.length + 1 + ""
                         if (name.length == 1)
                             name = "00" + name;
                         if (name.length == 2)
                             name = "0" + name;
-
-                        //currentDrawPanel.datas.plants.push(name);
-                        //console.log(currentDrawPanel.datas);
-
-                        addCurrentDrawPanelPlant({
+                        var plant = {
                             name: name,
                             selected: false,
                             id: "p" + Math.floor(Math.random() * 100000000000000)
-                        });
+                        };
+                        addCurrentDrawPanelPlant(plant)
 
-                        console.log(getCurrentDrawPanelPlants())
-                        data.push({selected: false, name: name});
-                        ogridpanle.store.setData(data);
+
+                        //console.log(getCurrentDrawPanelPlants())
+
                         //console.log(arguments)
                     }
                 }
@@ -202,6 +233,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 var datasArray = [];
 
 function drawlines(drawpanel) {
+    datasArray = drawpanel.datas.datasArray;
     console.log(datasArray);
     if (!datasArray) {
         return;
