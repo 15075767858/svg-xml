@@ -262,7 +262,8 @@ var items ;
 
 }
 function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
-    console.log(gridpanel)
+  console.log(gridpanel)
+    console.log(gridPanelItems)
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];
     if (name == "Instance") {

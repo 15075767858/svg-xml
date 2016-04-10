@@ -64,7 +64,6 @@ function saveGridpanelsConfigs() {
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
     localStorage.setItem("datasArray",Ext.encode(drawpanel.datas.datasArray));
-    console.log(localStorage.getItem("datasArray"))
     drawpanel.datas.datasArray=Ext.decode(localStorage.getItem("datasArray"));
     localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
     localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));

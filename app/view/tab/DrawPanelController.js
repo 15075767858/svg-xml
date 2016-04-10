@@ -25,7 +25,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         th.datas = {
             data: [],
             plants: [],
-            datasArray: Ext.decode(localStorage.getItem("datasArray")),
+            datasArray: Ext.decode(localStorage.getItem("datasArray"))||[],
             LinkMarkTypeGrid: null
         };
 
@@ -206,17 +206,25 @@ function typegridCache(th) {
     th = th || getCurrentDrawPanel();
     var items = Ext.decode(localStorage.getItem("gridpanelConfigs"));
     var plants = Ext.decode(localStorage.getItem("plants"))
+
+    if(!items||!plants){
+        console.log(items)
+        console.log(plants)
+        return;
+    }
     for (var i = 0; i < plants.length; i++) {
         addCurrentDrawPanelPlant(plants[i]);
     }
     for (var i = 0; i < items.length; i++) {
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
         typegrid.datas = items[i].datas;
-        console.log(items[i].datas)
+        console.log(typegrid.datas);
+
         typegrid.setStore(Ext.create("Ext.data.Store", {
             data: items[i].store.data,
             fields: items[i].store.fields
         }))
+        isDev(typegrid)
         //console.log(getCurrentPlant() + items[i].datas.plantId)
 
         th.add(typegrid);
@@ -230,6 +238,10 @@ function typegridCache(th) {
         if (getCurrentPlant().id != items[i].datas.plantId) {
             typegrid.hide()
         }
+    }
+
+    function isDev(typegrid){
+        
     }
     /*console.log(datasArray)
      console.log(Ext.decode(localStorage.getItem("datasArray")))

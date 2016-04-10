@@ -15,7 +15,27 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
             return;
         }
-
+        
+        th.getHeader().on({
+            click: function () {
+                console.log(this.getWidth() == 140)
+                if (this.getWidth() == 140) {
+                    th.animate({
+                        to: {
+                            width: (th.title.length * 13 < 140 ) ? 140 : th.title.length * 13
+                            //height: (th.getHeight() == 300) ? 400 : 300,
+                        }
+                    });
+                } else {
+                    th.animate({
+                        to: {
+                            width: 140
+                            //height: (th.getHeight() == 300) ? 400 : 300,
+                        }
+                    });
+                }
+            }
+        })
 
     },
     girdviewready: function (th, eO) {
@@ -98,30 +118,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     }
     ,
     render: function (th) {
+        alert("render")
 
-        th.getHeader().on({
-            click: function () {
-                console.log(this.getWidth() == 140)
-                if (this.getWidth() == 140) {
-                    th.animate({
-                        to: {
-                            width: (th.title.length * 13 < 140 ) ? 140 : th.title.length * 13
-                            //height: (th.getHeight() == 300) ? 400 : 300,
-                        }
-                    });
-                } else {
-
-                    th.animate({
-                        to: {
-                            width: 140
-                            //height: (th.getHeight() == 300) ? 400 : 300,
-                        }
-                    });
-
-
-                }
-            }
-        })
 
     }
     ,
@@ -386,6 +384,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             console.log(e.target.tagName + "   " + sStartItemTrId)
             if (e.target.tagName == "circle") {
                 sEndItemTrId = d3.select(e.target).attr("columnid");
+                console.log(thi)
                 thi.datas.datasArray.push(generateJson(sEndItemTrId, sStartItemTrId))
                 console.log(thi.datas.datasArray);
                 d3.select(item).attr("data-targetid", d3.select(e.target).attr("columnid"));

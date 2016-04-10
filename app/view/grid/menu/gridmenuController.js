@@ -74,8 +74,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         console.log(store)
         store.removeAt(index);
         this.setStore(store);
-
-
+        var datasArray= getCurrentDrawPanel().datas.datasArray;
         var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
         console.log(datasArray)
         d3.selectAll("polyline").each(function () {
@@ -83,7 +82,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             for (var i = 0; i < datasArray.length; i++) {
                 console.log(datasArray[i][targetid])
                 if (datasArray[i][targetid]) {
-                    datasArray.splice(i, 1)
+                    getCurrentDrawPanel().datas.datasArray.splice(i, 1)
                 }
             }
             if (d3.select(this).attr("data-end") == targetid) {
@@ -282,7 +281,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                         console.log(startId)
                         console.log(endId)
                         console.log(generateJson(startId, endId))
-                        datasArray.push(generateJson(startId, endId));
+                        getCurrentDrawPanel().datas.datasArray.push(generateJson(startId, endId));
                         drawlines(getCurrentDrawPanel())
                         win.close()
                     }
