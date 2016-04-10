@@ -39,24 +39,7 @@ Ext.define('svgxml.view.main.Main', {
         }
     ],
     listeners: {
-        boxready: function () {
-            function autoSave() {
-                if(!window.localStorage){
-                    return;
-                }
-
-
-                saveXml()
-            }
-            var runner = new Ext.util.TaskRunner();
-            setTimeout(function () {
-                var task = runner.start({
-                    run: autoSave,
-                    interval: 5000
-                })
-            }, 5000)
-
-        }
+        render:"boxready"
     },
     //header:true,
     items: [

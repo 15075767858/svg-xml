@@ -22,7 +22,8 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                     menu: [{
                         text: 'New •••',
                         handler: function () {
-                            console.log(saveGridpanelsConfigs())
+                            saveXml()
+                            saveGridpanelsConfigs()
                         }
                     },
                         {
@@ -38,7 +39,6 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "Save as •••",
                             handler: function () {
-                                console.log(getCurrentDrawPanel().datas.plants)
 
                                 //id: "plantsPanel" + th.getTitle(),
                                 //  store: "store" + th.getTitle(),
@@ -63,9 +63,9 @@ function saveGridpanelsConfigs() {
 
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
-    console.log(datasArray)
-    localStorage.setItem("datasArray",Ext.encode(datasArray));
+    localStorage.setItem("datasArray",Ext.encode(drawpanel.datas.datasArray));
     console.log(localStorage.getItem("datasArray"))
+    drawpanel.datas.datasArray=Ext.decode(localStorage.getItem("datasArray"));
     localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
     localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));
 }
@@ -77,6 +77,7 @@ function getGridPanelRowsIds(gridpanel) {
         /*if (trs[i].length < 3) {
          currentDrawPanelGridPanelsTrSetId()
          }*/
+        console.log(trs[i])
         ids.push(trs[i].id)
     }
     return ids;

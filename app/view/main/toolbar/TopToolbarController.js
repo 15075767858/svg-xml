@@ -353,7 +353,7 @@ function getCurrentDrawPanelGirdPanels(drawpanel) {
     var aGridpanels = [];
     var girdpanels = Ext.ComponentQuery.query("gridpanel", drawpanel);
     for (var i = 0; i < girdpanels.length; i++) {
-        console.log(girdpanels[i])
+        //console.log(girdpanels[i])
         //if (!girdpanels[i].hidden) {
         aGridpanels.push(girdpanels[i])
         //aGridpanels[i]=girdpanels[i]
@@ -413,10 +413,10 @@ function selectPlant(plant) {
 }
 function getCurrentPlant() {
     var plants = getCurrentDrawPanelPlants();
-    console.log(plants)
+    //console.log(plants)
     for (var i = 0; i < plants.length; i++) {
         if (plants[i].selected) {
-            console.log(plants[i])
+      //      console.log(plants[i])
             return plants[i];
         }
     }

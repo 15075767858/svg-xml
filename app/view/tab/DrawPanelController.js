@@ -9,38 +9,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             .style("left", "0").style("top", "0");
 
         typegridCache(th)
-        function typegridCache(th) {
-            th = th || getCurrentDrawPanel();
-            var items = Ext.decode(localStorage.getItem("gridpanelConfigs"));
-            var plants = Ext.decode(localStorage.getItem("plants"))
-            for (var i = 0; i < plants.length; i++) {
-                addCurrentDrawPanelPlant(plants[i]);
-            }
-            for (var i = 0; i < items.length; i++) {
-                var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
-                typegrid.datas = items[i].datas;
-                console.log(items[i].datas)
-                typegrid.setStore(Ext.create("Ext.data.Store", {
-                    data: items[i].store.data,
-                    fields: items[i].store.fields
-                }))
-                console.log(getCurrentPlant() + items[i].datas.plantId)
-                if (getCurrentPlant().id != items[i].datas.plantId) {
-                    typegrid.hide()
-                }
-                th.add(typegrid);
-                var ids =Ext.decode(items[i].typegrid.trsIds);
-                var trs = typegrid.el.dom.querySelectorAll("tr");
-                for(var j=0;j<trs.length;j++){
-                    trs[j].id=ids[j];
-                }
 
-            }
-            console.log(datasArray)
-            console.log(Ext.decode(localStorage.getItem("datasArray")))
-            datasArray=Ext.decode(localStorage.getItem("datasArray"));
-            drawlines(th)
-        }
+        drawlines(th)
 
     },
     hide: function (th) {
@@ -55,7 +25,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         th.datas = {
             data: [],
             plants: [],
-            datasArray:[],
+            datasArray: Ext.decode(localStorage.getItem("datasArray")),
             LinkMarkTypeGrid: null
         };
 
@@ -88,7 +58,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     }
                     ostore.setData(aItems)
                     grid.setStore(ostore)
-
+                    console.log(th.datas.datasArray)
+                    drawlines(th)
                 },
                 edit: function (grid, e) {
                     // 编辑完成后，提交更改
@@ -109,13 +80,14 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     sortable: false,
                     menuDisabled: true,
                     renderer: function (val) {
-                        drawlines(getCurrentDrawPanel())
+                        //drawlines(getCurrentDrawPanel())
 
                         if (val)
                             return '<img src = "resources/img/openFolder.png"/>'
                         return '<img src = "resources/img/closeFolder.png"/>'
                     },
                     handler: function () {
+
                     }
 
                 },
@@ -154,6 +126,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                 data.splice(rowIndex, 1);
                                 grid.store.setData(data);
                             }
+
                         }
                     }]
                 }
@@ -225,32 +198,62 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     },
 
     show: function (th, event, eOpts) {
-        drawlines(th);
+       // drawlines(th);
         Ext.get("plants" + th.getTitle()).show();
     }
 });
+function typegridCache(th) {
+    th = th || getCurrentDrawPanel();
+    var items = Ext.decode(localStorage.getItem("gridpanelConfigs"));
+    var plants = Ext.decode(localStorage.getItem("plants"))
+    for (var i = 0; i < plants.length; i++) {
+        addCurrentDrawPanelPlant(plants[i]);
+    }
+    for (var i = 0; i < items.length; i++) {
+        var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
+        typegrid.datas = items[i].datas;
+        console.log(items[i].datas)
+        typegrid.setStore(Ext.create("Ext.data.Store", {
+            data: items[i].store.data,
+            fields: items[i].store.fields
+        }))
+        //console.log(getCurrentPlant() + items[i].datas.plantId)
 
-var datasArray = [];
+        th.add(typegrid);
+        var ids = Ext.decode(items[i].typegrid.trsIds);
+        var trs = typegrid.el.dom.querySelectorAll("tr");
+        for (var j = 0; j < trs.length; j++) {
+            console.log(trs[j])
+            console.log(ids[j])
+            trs[j].id = ids[j];
+        }
+        if (getCurrentPlant().id != items[i].datas.plantId) {
+            typegrid.hide()
+        }
+    }
+    /*console.log(datasArray)
+     console.log(Ext.decode(localStorage.getItem("datasArray")))
+     datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
+}
 
 function drawlines(drawpanel) {
-    datasArray = drawpanel.datas.datasArray;
-    console.log(datasArray);
+    var datasArray = drawpanel.datas.datasArray;
     if (!datasArray) {
         return;
     }
-    datasArray = datasArrayUnique();
+    datasArrayUnique(drawpanel);
+    datasArray = drawpanel.datas.datasArray;
+
     d3.selectAll(".OkCircle").remove();
 
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
 
     var currentDrawPanel = drawpanel;
-    var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
-    var iDrawPanelLeft = currentDrawPanel.el.getLeft();
-    var iDrawPanelTop = currentDrawPanel.el.getTop();
-    //console.log(aRowsAll)
-
-    var pointStart = [];
+    //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
+    var iDrawPanelLeft = drawpanel.el.getLeft();
+    var iDrawPanelTop = drawpanel.el.getTop();
+/*    var pointStart = [];
     var pointEnd = [];
     for (var i = 0; i < aRowsAll.length; i++) {
         //Ext.get(aRowsAll[i]).getLeft()
@@ -271,20 +274,28 @@ function drawlines(drawpanel) {
             //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointStart[0]).attr("y", pointStart[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
         }
         //console.log(pointStart + " " + pointEnd);
-    }
-
-
+    }*/
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
         var oStartEndJson = datasArray[i];
+        console.log(oStartEndJson)
         for (o in oStartEndJson) {
             //console.log(oStartEndJson)
+        var dStart= Ext.getDom(document.getElementById(oStartEndJson[o]))
+            var dEnd=Ext.getDom(document.getElementById(o));
+            console.log(dStart)
+            console.log(dEnd)
             var oElStart = Ext.get(oStartEndJson[o]);
-            var oElEnd = Ext.get(o)
+            var oElEnd = Ext.get(o);
+
             if (!oElEnd || !oElStart) {
-                datasArray.splice(i, 1);
+
+                console.log(oElEnd)
+                console.log(oElStart)
+                drawpanel.datas.datasArray.splice(i, 1);
                 drawlines(drawpanel)
                 return
             }
+
             var iElWidth = oElStart.el.getWidth();
             var iElHeight = oElStart.el.getHeight() / 2;
             var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth;
@@ -294,6 +305,10 @@ function drawlines(drawpanel) {
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG")
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
+
+            if(iStartLeft < 0 & iStartTop < 0 & iEndLeft < 0 & iEndTop < 0){
+                continue;
+            }
             if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {
                 circle = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "red").attr("data-index", i).attr("class", "OkCircle");
             } else {
@@ -314,14 +329,14 @@ function drawlines(drawpanel) {
 
                 polyline.on("dblclick", function () {
                     var index = d3.select(this).attr("data-index");
-                    datasArray.splice(index, 1);
+                    drawpanel.datas.datasArray.splice(index, 1);
                     d3.select(this).remove();
                 });
             }
             else {
                 circle.on("dblclick", function () {
                     var index = d3.select(this).attr("data-index");
-                    datasArray.splice(index, 1);
+                    drawpanel.datas.datasArray.splice(index, 1);
                     d3.select(this).remove();
                 });
                 if (iStartLeft < 0 || iStartTop < 0) {
@@ -351,7 +366,6 @@ function drawlines(drawpanel) {
 
 
     function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
-
         console.log(pointStart)
         console.log(pointEnd)
         if ((pointStart[0] - pointEnd[0]) == 0 || (pointStart[1] - pointEnd[1]) == 0) //判断是否在一条线上 如果不再一条线上 进入画折线部分
@@ -401,8 +415,8 @@ function drawlines(drawpanel) {
         }
 
         if (oRect2 || oRect4) {
-            console.log("oRect4碰上了")
-            console.log(pointEnd)
+            //console.log("oRect4碰上了")
+            //console.log(pointEnd)
             var aPoint = lineSkirtRect([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], oRect2 || oRect4);
             for (var i = 0; i < aPoint.length; i++) {
                 pointAll.push(aPoint[i]);
@@ -542,7 +556,8 @@ function isCollsionWithRect(x1, y1, w1, h1,
     }
     return true;
 }
-function datasArrayUnique() {
+function datasArrayUnique(drawpanel) {
+    var datasArray = drawpanel.datas.datasArray;
     var map = new Ext.util.HashMap();
     for (var i = 0; i < datasArray.length; i++) {
         var oStartEndJson = datasArray[i];
@@ -554,5 +569,5 @@ function datasArrayUnique() {
     map.each(function (key, value, length) {
         datasArray1.push(generateJson(key, value));
     });
-    return datasArray1;
+    drawpanel.datas.datasArray = datasArray1;
 }

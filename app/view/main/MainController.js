@@ -14,6 +14,25 @@ Ext.define('svgxml.view.main.MainController', {
 
     alias: 'controller.main',
 
+  boxready:  function () {
+
+    function autoSave() {
+        if(!window.localStorage){
+            return;
+        }
+        saveXml()
+        saveGridpanelsConfigs()
+    }
+    var runner = new Ext.util.TaskRunner();
+    setTimeout(function () {
+        var task = runner.start({
+            run: autoSave,
+            interval: 60*1000
+        })
+    }, 60*1000)
+
+},
+
     onClick:function(){
         alert("aaa");
     },

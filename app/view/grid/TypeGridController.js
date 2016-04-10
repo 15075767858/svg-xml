@@ -296,7 +296,10 @@ function currentDrawPanelGridPanelsTrSetId() {
         for (var j = 0; j < aRowsAll.length; j++) {
             //console.log("1"+aRowsAll[j].id+"1")
             //console.log(aRowsAll[j].length)
-            if (!aRowsAll[j].id.length < 3) {
+            if ($.trim(aRowsAll[j].id).length == 0) {
+                //console.log(aRowsAll[j].id)
+                //console.log(aRowsAll[j].id.length)
+                //alert(aRowsAll[j].id)
                 aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
             }
         }
@@ -384,6 +387,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             if (e.target.tagName == "circle") {
                 sEndItemTrId = d3.select(e.target).attr("columnid");
                 thi.datas.datasArray.push(generateJson(sEndItemTrId, sStartItemTrId))
+                console.log(thi.datas.datasArray);
                 d3.select(item).attr("data-targetid", d3.select(e.target).attr("columnid"));
                 drawlines(thi);
             } else {
