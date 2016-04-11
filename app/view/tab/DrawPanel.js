@@ -71,19 +71,8 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                 var selectRecord = ddSource.dragData.records[0].data;
                 var aData, ostore, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value + "", title = selectRecord.text;
                 console.log(typeName)
-                if (type != 0 & type != 3) {
-                    aData = [
-                        {'name': 'Out', 'value': "0"},
-                        {'name': 'Instance', 'value': value.substr(5, 6)},
-                        {'name': 'In', 'value': "2"}
-                    ];
-                } else {
-                    aData = [
-                        {'name': 'Out', 'value': "0"},
-                        {'name': 'Instance', 'value': value.substr(5, 6)}
-                    ];
-                }
-
+                aData = slotsJson[typeName].initData;
+                aData[1].value=value.substr(5,6);
                 ostore = Ext.create(typeName, {
                     data: aData,
                     listeners: {

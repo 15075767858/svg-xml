@@ -4,7 +4,8 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
     id: 'basic-toolbar',
     requires: [
         "svgxml.view.main.toolbar.TopToolbarController",
-        "svgxml.view.main.toolbar.TopToolbarModel"
+        "svgxml.view.main.toolbar.TopToolbarModel",
+        "Ext.window.*"
     ],
 
     controller: "main-toolbar-toptoolbar",
@@ -33,11 +34,15 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             }
                         }, {
                             text: 'Save •••',
-                            listeners: {
-                                click: "saveXmlClick"
+                            handler: function () {
+                                saveXml()
+                                saveGridpanelsConfigs()
                             }
                         }, {
-                            text: "Save as •••",
+                            text: "Save as •••" ,
+                            listeners: {
+                                click: "saveXmlClick"
+                            },
                             handler: function () {
 
                                 //id: "plantsPanel" + th.getTitle(),
@@ -52,7 +57,8 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
     }
 });
 
-function saveGridpanelsConfigs() {
+function saveGridpanelsConfigs(fileName) {
+    fileName=fileName||"1000.json"
     var drawpanel = getCurrentDrawPanel();
     var gridpanels = getCurrentDrawPanelGirdPanels();
     var aGridPanels = [];
@@ -60,13 +66,25 @@ function saveGridpanelsConfigs() {
         var typeGridConfig = getGridPanelConfig(gridpanels[i]);
         var storeConfig = getStoreConfig(gridpanels[i].getStore());
         var datas = gridpanels[i].datas;
-
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
-    localStorage.setItem("datasArray",Ext.encode(drawpanel.datas.datasArray));
-    drawpanel.datas.datasArray=Ext.decode(localStorage.getItem("datasArray"));
+    localStorage.setItem("datasArray", Ext.encode(drawpanel.datas.datasArray));
+    drawpanel.datas.datasArray = Ext.decode(localStorage.getItem("datasArray"));
     localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
     localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));
+    var oJson = {datasArray: Ext.encode(drawpanel.datas.datasArray),plants: Ext.encode(drawpanel.datas.plants),gridpanelConfigs: Ext.encode(aGridPanels)};
+    console.log(oJson)
+    Ext.Ajax.request({
+        url:"resources/xmlRW.php",
+        params: {
+            fileName:"../"+fileName,
+            rw:"w",
+            content:Ext.encode(oJson)
+        },
+        success: function(response){
+            var text = response.responseText;
+        }
+    });
 }
 
 function getGridPanelRowsIds(gridpanel) {
@@ -109,57 +127,3 @@ function getStoreFields(store) {
     return fields;
 }
 
-var a = [{
-    "typegrid": {"icon": "resources/img/SVG/add.svg", "title": "add", "x": 292, "y": 71, "trsIds": "[]"},
-    "store": {
-        "data": [{"name": "Out", "value": 0}, {"name": "In", "value": 2}, {"name": "In", "value": 2}],
-        "fields": ["name", "value"]
-    },
-    "datas": {"isAddSlot": true, "plantId": "p65871478524059", "type": "51"}
-}, {
-    "typegrid": {
-        "icon": "resources/img/SVG/aodo.svg",
-        "title": "aodo",
-        "x": 475,
-        "y": 42,
-        "trsIds": "[\"t2222894716\",\"t7274237156\"]"
-    },
-    "store": {"data": [{"name": "Out", "value": 0}, {"name": "In", "value": 2}], "fields": ["name", "value"]},
-    "datas": {"isAddSlot": false, "plantId": "p27513997862115", "type": "58"}
-}, {
-    "typegrid": {
-        "icon": "resources/img/SVG/aodo.svg",
-        "title": "aodo",
-        "x": 304,
-        "y": 293,
-        "trsIds": "[\"t3895129633\",\"t854103176\"]"
-    },
-    "store": {"data": [{"name": "Out", "value": 0}, {"name": "In", "value": 2}], "fields": ["name", "value"]},
-    "datas": {"isAddSlot": false, "plantId": "p27513997862115", "type": "58"}
-}, {
-    "typegrid": {
-        "icon": "resources/img/SVG/aver.svg",
-        "title": "aver",
-        "x": 521,
-        "y": 235,
-        "trsIds": "[\"t9312353765\",\"t758218895\",\"t3074402061\"]"
-    },
-    "store": {
-        "data": [{"name": "Out", "value": 0}, {"name": "In", "value": 2}, {"name": "In", "value": 2}],
-        "fields": ["name", "value"]
-    },
-    "datas": {"isAddSlot": true, "plantId": "p27513997862115", "type": "55"}
-}, {
-    "typegrid": {
-        "icon": "resources/img/SVG/add.svg",
-        "title": "add",
-        "x": 346,
-        "y": 156,
-        "trsIds": "[\"t573671751\",\"t2455006972\",\"t3565675395\"]"
-    },
-    "store": {
-        "data": [{"name": "Out", "value": 0}, {"name": "In", "value": 2}, {"name": "In", "value": 2}],
-        "fields": ["name", "value"]
-    },
-    "datas": {"isAddSlot": true, "plantId": "p27513997862115", "type": "51"}
-}]

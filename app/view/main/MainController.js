@@ -20,8 +20,8 @@ Ext.define('svgxml.view.main.MainController', {
         if(!window.localStorage){
             return;
         }
-        //saveGridpanelsConfigs()
-        //saveXml()
+        saveGridpanelsConfigs()
+        saveXml()
     }
     var runner = new Ext.util.TaskRunner();
     setTimeout(function () {

@@ -186,8 +186,9 @@ function xmlAppendPlant(root) {
         root.append(plant)
         plantAppendMasterNode(plant, i)
     }
-
 }
+
+
 function plantAppendMasterNode(plant, index) {
     var aGridpanels = getCurrentDrawPanelGirdPanels();
     var panels = getCurrentDrawPanelPlants();
@@ -197,7 +198,6 @@ function plantAppendMasterNode(plant, index) {
         }
     }
 }
-
 
 function get_A_Master_node(gridpanel, index) {
     console.log(gridpanel)
@@ -222,7 +222,9 @@ function get_A_Master_node(gridpanel, index) {
         var name = gridPanelItems[i].data["name"];
         var value = gridPanelItems[i].data["value"];
         var slots = $("<slots number='" + i + "'></slots>");
-        var aGirdPanelIII = getStartGridPanelIndexAndItemIndex(gridpanel, i);
+
+
+        var aGirdPanelIII = getStartGridPanelIndexAndItemIndex(gridpanel, i);//判断当前tr上的id是否有相应的线，有的话返回起点的坐标
         if (!aGirdPanelIII[0] && !aGirdPanelIII[1]) {
             slots.append("<default>" + value + "</default>")
         } else {
@@ -245,6 +247,8 @@ function get_A_Master_node(gridpanel, index) {
     }
     return masterNode;
 }
+
+
 function isPidSave(gridpanel, masterNode) {
 var items ;
     if (gridpanel.datas.type == "67") {
@@ -261,8 +265,9 @@ var items ;
     masterNode.append("<min_value>"+items[4].data.value+"</min_value>")
 
 }
+
 function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
-  console.log(gridpanel)
+    console.log(gridpanel)
     console.log(gridPanelItems)
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];
@@ -366,6 +371,7 @@ function getCurrentDrawPanelGirdPanels(drawpanel) {
 
 
 function addCurrentDrawPanelPlant(plant) {
+    console.log(plant)
     var currentDrawPanel = getCurrentDrawPanel()
     var data = currentDrawPanel.datas.data;
     currentDrawPanel.datas.plants.push(plant);
@@ -373,7 +379,6 @@ function addCurrentDrawPanelPlant(plant) {
     var store = Ext.data.StoreManager.lookup('store' + currentDrawPanel.getTitle());
     store.setData(data);
 }
-
 
 function delCurrentDrawPanelPlant(index) {
     getCurrentDrawPanel().datas.plants.splice(index, 1)

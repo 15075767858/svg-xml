@@ -25,9 +25,11 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         th.datas = {
             data: [],
             plants: [],
-            datasArray: Ext.decode(localStorage.getItem("datasArray"))||[],
+            datasArray: [],
+            gridpanelConfigs: [],
             LinkMarkTypeGrid: null
         };
+
 
         Ext.create('Ext.data.Store', {
             storeId: 'store' + th.getTitle(),
@@ -87,9 +89,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                         return '<img src = "resources/img/closeFolder.png"/>'
                     },
                     handler: function () {
-
                     }
-
                 },
                 {
                     text: 'Name', dataIndex: 'name', flex: 3,
@@ -198,23 +198,49 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     },
 
     show: function (th, event, eOpts) {
-       // drawlines(th);
+        // drawlines(th);
         Ext.get("plants" + th.getTitle()).show();
     }
 });
 function typegridCache(th) {
     th = th || getCurrentDrawPanel();
-    var items = Ext.decode(localStorage.getItem("gridpanelConfigs"));
-    var plants = Ext.decode(localStorage.getItem("plants"))
 
-    if(!items||!plants){
+
+    Ext.Ajax.request({
+        url: "resources/xmlRW.php",
+        async: false,
+        params: {
+            fileName: "../" + "1000.json",
+            rw: "r"
+        },
+        success: function (response) {
+            var text = response.responseText;
+            var ojson = Ext.decode(text);
+            try {
+                th.datas.datasArray = Ext.decode(ojson.datasArray);
+
+                th.datas.gridpanelConfigs = Ext.decode(ojson.gridpanelConfigs);
+                console.log(th.datas.gridpanelConfigs)
+                th.datas.plants = Ext.decode(ojson.plants);
+                console.log(th.datas.plants)
+            } catch (e) {
+
+            }
+        }
+    });
+    var items = th.datas.gridpanelConfigs;// Ext.decode(localStorage.getItem("gridpanelConfigs"));
+    var plants = th.datas.plants;// Ext.decode(localStorage.getItem("plants"))
+
+    console.log(plants.length)
+    console.log(items)
+
+    if (!items || !plants) {
         console.log(items)
         console.log(plants)
         return;
     }
-    for (var i = 0; i < plants.length; i++) {
-        addCurrentDrawPanelPlant(plants[i]);
-    }
+    
+
     for (var i = 0; i < items.length; i++) {
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
         typegrid.datas = items[i].datas;
@@ -240,9 +266,10 @@ function typegridCache(th) {
         }
     }
 
-    function isDev(typegrid){
-        
+    function isDev(typegrid) {
+
     }
+
     /*console.log(datasArray)
      console.log(Ext.decode(localStorage.getItem("datasArray")))
      datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
@@ -265,35 +292,35 @@ function drawlines(drawpanel) {
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
-/*    var pointStart = [];
-    var pointEnd = [];
-    for (var i = 0; i < aRowsAll.length; i++) {
-        //Ext.get(aRowsAll[i]).getLeft()
-        if (!i % 2) {
-            pointEnd[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
-            pointEnd[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
-            //console.log("结束点"+count++)
-            //console.log(pointEnd[0]) //第一列
-            //console.log(pointEnd[1]) //第一列//
-            //       console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
-            //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointEnd[0]).attr("y", pointEnd[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
-        } else {
-            pointStart[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
-            pointStart[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
-            //console.log("开始点"+count++)
-            //console.log(pointStart[0])//第二列
-            //console.log(pointStart[1])//第二列
-            //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointStart[0]).attr("y", pointStart[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
-        }
-        //console.log(pointStart + " " + pointEnd);
-    }*/
+    /*    var pointStart = [];
+     var pointEnd = [];
+     for (var i = 0; i < aRowsAll.length; i++) {
+     //Ext.get(aRowsAll[i]).getLeft()
+     if (!i % 2) {
+     pointEnd[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
+     pointEnd[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
+     //console.log("结束点"+count++)
+     //console.log(pointEnd[0]) //第一列
+     //console.log(pointEnd[1]) //第一列//
+     //       console.log(d3.select(aRowsAll[i]).attr("data-targetid"))
+     //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointEnd[0]).attr("y", pointEnd[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
+     } else {
+     pointStart[0] = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft;
+     pointStart[1] = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
+     //console.log("开始点"+count++)
+     //console.log(pointStart[0])//第二列
+     //console.log(pointStart[1])//第二列
+     //d3.select(currentDrawPanel.el.dom).select("svg").append("rect").attr("x", pointStart[0]).attr("y", pointStart[1]).attr("width", "10").attr("height", "10").attr("fill", "red");
+     }
+     //console.log(pointStart + " " + pointEnd);
+     }*/
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
         var oStartEndJson = datasArray[i];
         console.log(oStartEndJson)
         for (o in oStartEndJson) {
             //console.log(oStartEndJson)
-        var dStart= Ext.getDom(document.getElementById(oStartEndJson[o]))
-            var dEnd=Ext.getDom(document.getElementById(o));
+            var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]))
+            var dEnd = Ext.getDom(document.getElementById(o));
             console.log(dStart)
             console.log(dEnd)
             var oElStart = Ext.get(oStartEndJson[o]);
@@ -318,7 +345,7 @@ function drawlines(drawpanel) {
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
 
-            if(iStartLeft < 0 & iStartTop < 0 & iEndLeft < 0 & iEndTop < 0){
+            if (iStartLeft < 0 & iStartTop < 0 & iEndLeft < 0 & iEndTop < 0) {
                 continue;
             }
             if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {

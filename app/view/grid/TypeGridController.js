@@ -334,7 +334,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     }
 
     sStartItemTrId = item.querySelector("tr").id;
-    //console.log(arguments)
+    console.log(arguments)
     var oDrawPanel = d3.select(thi.el.dom).select(".x-autocontainer-innerCt");
     var oSvg = oDrawPanel.select(".tempSVG");
     iDrawPanelLeft = thi.el.getLeft();
@@ -342,7 +342,36 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var eItem = Ext.get(item);
     var eItemWidth = eItem.getLeft() - iDrawPanelLeft + eItem.getWidth();
     var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2;
-    var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
+
+    //var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
+
+   var  aRowsAll = getCanLinesRowsAll(th.up())
+    function getCanLinesRowsAll(gridpanel){
+        var typegrids = getCurrentDrawPanelGirdPanels()
+        var sId = gridpanel.getId();
+        var aRowsAll=[];
+        console.log(typegrids.length)
+        for(var i=0;i<typegrids.length;i++){
+            if(typegrids[i].getId()==sId){
+                typegrids.splice(i,1)
+                break;
+            }
+        }
+
+        console.log(typegrids.length)
+        for(var i=0;i<typegrids.length;i++){
+            var rows= typegrids[i].el.dom.querySelectorAll(".x-grid-row")
+            for(var j=0;j<rows.length;j++){
+                aRowsAll.push(rows[j])
+            }
+        }
+
+        return aRowsAll;
+
+
+    }
+
+    console.log(aRowsAll)
     d3.select("#tempLineStart").remove();
 
     var tempLineStart = oSvg.append("rect").attr("x", eItemWidth).attr("y", eItemHeight).attr("id", "tempLineStart");
@@ -359,6 +388,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             var tempLineEnd;
 
             if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "model" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
+
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 
                 tempLineEnd.on("mouseover", function () {

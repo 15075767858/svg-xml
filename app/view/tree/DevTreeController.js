@@ -26,13 +26,13 @@ function getNameByType(type) {
         return "AV"
     }
     if (type == 3) {
-        return "DI"
+        return "BI"
     }
     if (type == 4) {
-        return "DO"
+        return "BO"
     }
     if (type == 5) {
-        return "DV"
+        return "BV"
     }
     return null;
 }

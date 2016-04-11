@@ -81,14 +81,14 @@ Ext.define('AI', {
     //data: slotsJson.AO.initData,
 
     proxy: oproxy
-});Ext.define('DI', {
+});Ext.define('BI', {
     extend: "Ext.data.Store",
     storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.DI.initData,
 
     proxy: oproxy
-});Ext.define('DO', {
+});Ext.define('BO', {
     extend: "Ext.data.Store",
     storeId: 'aodoStore',
     fields: ['name', 'value'],
@@ -102,7 +102,7 @@ Ext.define('AI', {
     //data: slotsJson.AV.initData,
 
     proxy: oproxy
-});Ext.define('DV', {
+});Ext.define('BV', {
     extend: "Ext.data.Store",
     storeId: 'aodoStore',
     fields: ['name', 'value'],
