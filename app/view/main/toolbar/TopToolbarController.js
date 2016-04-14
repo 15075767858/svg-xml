@@ -167,7 +167,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     allowBlank: false,
                     fieldLabel: 'select file name',
                     store: states,
-                    editable:false,
+                    editable: false,
                     queryMode: 'local',
                     displayField: 'name',
                     valueField: 'name',
@@ -179,9 +179,9 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 {
                     text: 'Ok', handler: function () {
                     var text = win.down("combobox").getValue();
-                    if(text==null){
+                    if (text == null) {
                         Ext.Msg.alert('Info', 'Plase select file name.');
-                        return ;
+                        return;
                     }
                     saveXml(text);
                     saveGridpanelsConfigs(text);
@@ -201,6 +201,8 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     }
 });
 function saveXml(text) {
+
+
     text = text || "1000";
 
     if (text.trim() == "") {
@@ -257,11 +259,11 @@ function plantAppendMasterNode(plant, index) {
 function get_A_Master_node(gridpanel, index) {
     var masterNode = $(document.createElement("master_node"));
     var iType = gridpanel.datas.type;
-    masterNode.attr("number", (index + 1))
+    masterNode.attr("number", (index + 1));
     masterNode.append("<type>" + iType + "</type>");
-
     isPidSave(gridpanel, masterNode)
     var gridPanelItems = gridpanel.store.data.items;
+    console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
     gridPanelItems = isKeyFilter(gridPanelItems, masterNode, gridpanel);
     var startIndex = 0;
@@ -276,24 +278,33 @@ function get_A_Master_node(gridpanel, index) {
         if (gridPanelItems[i].data["name"] == "model") {
             continue;
         }
+        console.log(gridPanelItems[i])
         startIndex++;
         var name = gridPanelItems[i].data["name"];
         var value = gridPanelItems[i].data["value"];
+        console.log(gridPanelItems[i].data.select)
+        if (gridPanelItems[i].data['select']) {
+            var select = gridPanelItems[i].data.select;
+            for (var j = 0; j < select.length; j++) {
+                if (select[j].name == value) {
+                    value = select[j].value;
+                }
+            }
+        }
         var slots = $("<slots number='" + startIndex + "'></slots>");
         var aGirdPanelIII = getStartGridPanelIndexAndItemIndex(gridpanel, i);//判断当前tr上的id是否有相应的线，有的话返回起点的坐标
-
         if (!aGirdPanelIII[0] && !aGirdPanelIII[1]) {
             slots.append("<default>" + value + "</default>")
         } else {
             slots.append($("<node>" + aGirdPanelIII[0] + "</node>"));
             slots.append($("<slot_number>" + aGirdPanelIII[1] + "</slot_number>"));
         }
-
         //masterNode.append(slots);
+
         if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
-            console.log(slots)
-            if (slots.find("default")) {
-                //   masterNode.find("slots").remove()................................................................
+            console.log(slots.find("default"))
+            if (slots.find("default").length != 0) {
+
             } else {
                 masterNode.append(slots);
             }
@@ -335,11 +346,31 @@ function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
 function isModelFilter(gridPanelItems, masterNode, gridpanel) {
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
-    if (name != "Out" && name != "In") {
+    if (name == 'model') {// if (name != "Out" && name != "In") {
+        var select = gridPanelItems[0].data.select;
+        for (var i = 0; i < select.length; i++) {
+            if (select[i].name == value) {
+                value = select[i].value;
+            }
+        }
+
         masterNode.append("<model>" + value + "</model>")
         //gridPanelItems.shift()
         return gridPanelItems;
     }
+    /*console.log(gridPanelItems[i].data["select"])
+
+     if(gridPanelItems[i].data['select']){
+     console.log(gridPanelItems[i])
+     var select = gridPanelItems[i].data['select'];
+     for(var i= 0 ;i<select.length;i++){
+     console.log(select[i])
+     if(select[i].name==name){
+     value=select[i].value;
+     }
+     }
+     }*/
+
     return gridPanelItems;
 }
 

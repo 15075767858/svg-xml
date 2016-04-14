@@ -8,252 +8,266 @@ Ext.define('svgxml.view.main.MainModel', {
 
     data: {
         name: 'SmartIO',
-        img:"data:image/png;base64,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 lnha8FNifAAAAABJRU5ErkJggg=="
+        img: "data:image/png;base64,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 lnha8FNifAAAAABJRU5ErkJggg=="
     }
 
     //TODO - add data, formulas and/or methods to support your view
 });
 
 
-
-var slotsJson={
-    'AI':{
-        type:"0",
-        initData:[
+var slotsJson = {
+    'AI': {
+        type: "0",
+        initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': ""}
         ],
-        isAddSlot:false,
-        maxSlot:10
-    }, 'AO':{
-        type:"1",
-        initData:[
+        isAddSlot: false,
+        maxSlot: 10
+    }, 'AO': {
+        type: "1",
+        initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': ""},
             {'name': 'In', 'value': ""}
         ],
-        isAddSlot:false
+        isAddSlot: false
         //maxSlot:10
-    }, 'BI':{
-        type:"3",
-        initData:[
+    }, 'BI': {
+        type: "3",
+        initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': ""}
         ],
-        isAddSlot:false
+        isAddSlot: false
         //maxSlot:10
-    }, 'BO':{
-        type:"4",
-        initData:[
+    }, 'BO': {
+        type: "4",
+        initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': ""},
             {'name': 'In', 'value': ""}
         ],
-        isAddSlot:false
+        isAddSlot: false
         //maxSlot:10
-    }, 'AV':{
-        type:"2",
-        initData:[
+    }, 'AV': {
+        type: "2",
+        initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': ""},
             {'name': 'In', 'value': ""}
         ],
-        isAddSlot:false
+        isAddSlot: false
         //maxSlot:10
-    }, 'BV':{
-        type:"5",
-        initData:[
+    }, 'BV': {
+        type: "5",
+        initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Instance', 'value': "2"},
             {'name': 'In', 'value': ""}
         ],
-        isAddSlot:false
+        isAddSlot: false
         //maxSlot:10
     },
 
-    'add':{
-        type:"51",
-        initData:[
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "0"},
-            {'name': 'In', 'value': "0"}
-        ],
-        isAddSlot:true,
-        maxSlot:10
-    },
-    'aodo':{
-        type:"58",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "0"}
-        ],
-        isAddSlot:false
-    },
-    'aver':{
-        type:"55",
+    'add': {
+        type: "51",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:true,
-        maxSlot:10
+        isAddSlot: true,
+        maxSlot: 10
     },
-    'comp':{
-        type:"61",
+    'aodo': {
+        type: "58",
         initData: [
-            {"name": "model", value: "0"},
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "0"}
+        ],
+        isAddSlot: false
+    },
+    'aver': {
+        type: "55",
+        initData: [
+            {'name': 'Out', 'value': "0"},
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
+        ],
+        isAddSlot: true,
+        maxSlot: 10
+    },
+    'comp': {
+        type: "61",
+        initData: [
+            {
+                "name": "model", value: "<", select: [{name: "<", value: "0"},
+                {name: ">", value: "1"},
+                {name: "=", value: "2"}
+            ]
+            },
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"}
         ],
-        isAddSlot:false
+
+        isAddSlot: false
     },
-    'count':{
-        type:"62",
+    'count': {
+        type: "62",
         initData: [
             {'name': 'Out', 'value': "1"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:true,
-        maxSlot:10
+        isAddSlot: true,
+        maxSlot: 10
     },
-    'delay':{
-        type:"60",
+    'delay': {
+        type: "60",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'DelayTime(s)', 'value': "2"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'enth':{
-        type:"70",
+    'enth': {
+        type: "70",
         initData: [
-            {"name":"model" , value :"0"},
+            {
+                "name": "model", value: "ps", select: [{name: "ps", value: "0"},
+                {name: "water", value: "1"},
+                {name: "enthalpy", value: "2"}
+            ]
+            },
             {'name': 'Out', 'value': "0"},
             {'name': 'Temp', 'value': "0"},
             {'name': 'RH', 'value': "0"},
             {'name': 'pa', 'value': "101325.0"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'fa':{
-        type:"54",
+    'fa': {
+        type: "54",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "1"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'fd':{
-        type:"57",
+    'fd': {
+        type: "57",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'hour':{
-        type:"59",
+    'hour': {
+        type: "59",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'hy':{
-        type:"68",
+    'hy': {
+        type: "68",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'On', 'value': "55"},
             {'name': 'Off', 'value': "45"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'lock':{
-        type:"69",
+    'lock': {
+        type: "69",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'Unlock', 'value': "0"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'logic':{
-        type:"56",
+    'logic': {
+        type: "56",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:true,
-        maxSlot:10
+        isAddSlot: true,
+        maxSlot: 10
     },
 
-    'max':{
-        type:"63",
+    'max': {
+        type: "63",
         initData: [
-            {'name': 'model', 'value': "0"},
+            {
+                'name': 'model', 'value': "max", select: [{name: "max", value: "1"},
+                {name: "min", value: "0"}
+            ]
+            },
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:true,
-        maxSlot:10
+        isAddSlot: true,
+        maxSlot: 10
     },
-    'mul':{
-        type:"53",
+    'mul': {
+        type: "53",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:true,
-        maxSlot:10
+        isAddSlot: true,
+        maxSlot: 10
     },
-    'pid':{
-        type:"67",
+    'pid': {
+        type: "67",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'PV', 'value': "0"},
             {'name': 'SP', 'value': "0"},
-            {'name': 'Enable', 'value': "0"},
-            {'name': 'Direction', 'value': "0"}
+            {'name': 'Enable', 'value': "Enable", select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]},
+            {'name': 'Direction', 'value': "Derect", select: [{name: "Derect", value: "0"}, {name: "Reverse", value: "1"}]}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'Pulse':{
-        type:"65",
+    'Pulse': {
+        type: "65",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'Enable', 'value': "1"},
+            {'name': 'Enable', 'value': "Enable",select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]},
             {'name': 'OnTime', 'value': "2"},
             {'name': 'OffTime', 'value': "3"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     },
-    'sub':{
-        type:"52",
+    'sub': {
+        type: "52",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"}
         ],
-        isAddSlot:true,
-        maxSlot:10
+        isAddSlot: true,
+        maxSlot: 10
     },
-    'Switch':{
-        type:"64",
+    'Switch': {
+        type: "64",
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "2"},
             {'name': 'In', 'value': "2"},
             {'name': 'Enable', 'value': "3"}
         ],
-        isAddSlot:false
+        isAddSlot: false
     }/*,
      'timer':{
      type:"",
@@ -561,8 +575,6 @@ var typeicon = [
         Img_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAMAAABW61JJAAAACXBIWXMAAAOLAAADiwF1yxf7AAAA BGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VG AAADAFBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8Q EBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIj IyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2 NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJ SUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tc XFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5v b29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGC goKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSV lZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eo qKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7 u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3O zs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh 4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P0 9PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////isF19AAABt0lEQVR42mJgoBAABBDF CCCAKEYAAUQxAgggihFAAFGMAAKIYgQQQBQjgACiGAEEEMUIIIAoRgABRDECCCCKEUAAUYwAAohi BBBAFCOAAKIYAQQQxQgggChGAAHEiMT+DxX4DyFAbCDzP1Tdf4QcMgAIICZU4xghpoAVQtlAGoxx AIAAYsJw0X+ofjRt/xnghqMAgABiojQMAAKIBbcUxNOEAEAAMREXvrgBQAAR64X/MIQOAAKICUMh I1JYosYQVicBBBALDm8z/scVBP9RfQcQQBQjgACiGAEEEMUIIIAoRgABRDECCCCKEUAAUYwAAohi BBBAFCOAAKIYAQQQxQgggChGAAFEMQIIIEYseRlSFDMi8xmQy2cUABBAKNkZmIexldx4CymAAGLC Uf5gL4KxAIAAorhUBgggJoxaAY8PGP7//4/uMIAAYiE/yCEAIICYSCqCsQCAAGLCrNkYcRfBWABA ALEQrA6Ahv2HlcRYSmSAAKIYAQQQxQgggChGAAFEMQIIIIoRQABRjAACiGIEEEAUI4AAohgBBBDF CCCAKEYAAUQxAgggihFAAFGMAAKIYgQQYABBxjIyXEyFmwAAAABJRU5ErkJggg::",
         Img_1: ""
     }];
-
-
 
 
 /*

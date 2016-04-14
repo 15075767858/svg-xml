@@ -120,7 +120,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     render: function (th) {
         alert("render")
 
-
     }
     ,
     girditemdblclick: function (me, record, item, index, e, eopts) {
@@ -143,15 +142,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 },
                 show: function (th) {
                     th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name"});
-                    var title = me.up("typegrid").title;
-                    if (title == "comp" & index == 0) {
+                    if(record.data.select){
                         var store = Ext.create('Ext.data.Store', {
                             fields: ['name'],
-                            data: [
-                                {"name": "<", value: "0"},
-                                {"name": "=", value: "1"},
-                                {"name": ">", value: "2"}
-                            ]
+                            data: record.data.select
                         });
                         th.down("form").add({
                             xtype: "combobox",
@@ -161,32 +155,11 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             store: store,
                             queryMode: 'local',
                             displayField: 'name',
-                            valueField: 'value'
+                            valueField: 'name'
                         });
-                    } else if (title == "max" & index == 0) {
-
-                        var store = Ext.create('Ext.data.Store', {
-                            fields: ['name'],
-                            data: [
-                                {"name": "min", value: "0"},
-                                {"name": "max", value: "1"}
-                            ]
-                        });
-                        th.down("form").add({
-                            xtype: "combobox",
-                            name: "value",
-                            fieldLabel: "type",
-                            forceSelection: true,
-                            store: store,
-                            queryMode: 'local',
-                            displayField: 'name',
-                            valueField: 'value'
-                        });
-                    } else {
+                    }else{
                         th.down("form").add({xtype: "textfield", name: "value", fieldLabel: "type"});
                     }
-
-
                 }
             },
             items: {

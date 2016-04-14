@@ -7,14 +7,11 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //.style("border","1px solid red")
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
-
         try{
         typegridCache(th)
         }catch(e){
-
         }
         drawlines(th)
-
     },
     hide: function (th) {
         Ext.get("plants" + th.getTitle()).hide();
@@ -199,7 +196,6 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         });
 
     },
-
     show: function (th, event, eOpts) {
         // drawlines(th);
         Ext.get("plants" + th.getTitle()).show();
@@ -207,8 +203,6 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 });
 function typegridCache(th) {
     th = th || getCurrentDrawPanel();
-
-
     Ext.Ajax.request({
         url: "resources/xmlRW.php",
         async: false,
@@ -232,10 +226,8 @@ function typegridCache(th) {
     });
     var items = th.datas.gridpanelConfigs;// Ext.decode(localStorage.getItem("gridpanelConfigs"));
     var plants = th.datas.plants;// Ext.decode(localStorage.getItem("plants"))
-
-    console.log(plants.length)
-    console.log(items)
-
+    //console.log(plants.length)
+    //console.log(items)
     if (!items || !plants) {
         console.log(items)
         console.log(plants)
@@ -255,12 +247,14 @@ function typegridCache(th) {
         typegrid.datas = items[i].datas;
         console.log(typegrid.datas);
 
+        console.log(items[i].store.data)
         typegrid.setStore(Ext.create("Ext.data.Store", {
             data: items[i].store.data,
             fields: items[i].store.fields
         }))
+        console.log(typegrid.store.data.items)
+        console.log(items[i].store.data);
         isDev(typegrid,items[i])
-        //console.log(getCurrentPlant() + items[i].datas.plantId)
 
         th.add(typegrid);
         var ids = Ext.decode(items[i].typegrid.trsIds);

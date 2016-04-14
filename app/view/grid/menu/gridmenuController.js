@@ -282,10 +282,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     handler: function () {
                         var startId = getTypeGridRowIdByIndex(SourceTypeGrid, win.datas.sourceIndex).id;
                         var endId = getTypeGridRowIdByIndex(TargetTypeGrid, win.datas.targetIndex).id;
-                        console.log(startId)
-                        console.log(endId)
-                        console.log(generateJson(startId, endId))
-                        getCurrentDrawPanel().datas.datasArray.push(generateJson(startId, endId));
+                        getCurrentDrawPanel().datas.datasArray.push(generateJson(endId, startId));
                         drawlines(getCurrentDrawPanel())
                         win.close()
                     }

@@ -58,7 +58,14 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 });
 
 function saveGridpanelsConfigs(fileName) {
-    fileName=fileName+".json"||"1000.json";
+    if(fileName){
+        fileName=fileName+".json"
+    }else{
+        fileName="1000.json";
+    }
+    //fileName=fileName||"1000.json";
+
+
     var drawpanel = getCurrentDrawPanel();
     var gridpanels = getCurrentDrawPanelGirdPanels();
     var aGridPanels = [];
@@ -109,11 +116,17 @@ function getGridPanelConfig(gridpanel) {
 function getStoreConfig(store) {
     //console.log(store)
     var datas = store.data.items;
+    store.commitChanges()
+    console.log(datas)
     //var datas = store.config.data;
     var data = [];
     for (var i = 0; i < datas.length; i++) {
-        var ojson = {"name": datas[i].data.name, "value": +datas[i].data.value}
-        console.log(ojson)
+        var ojson;
+        if(datas[i].data.select){
+        ojson = {"name": datas[i].data.name, "value": datas[i].data.value,select:datas[i].data.select}
+        }else{
+        ojson = {"name": datas[i].data.name, "value": datas[i].data.value}
+        }
         data.push(ojson)
     }
     var fields = getStoreFields(store);
