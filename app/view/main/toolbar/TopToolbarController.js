@@ -202,34 +202,35 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 }
                 }
             ]
-
         })
-
-
     }
 });
 function saveXml(text) {
-
-
     text = text || "1000";
     if(text=="local"){
         text="local.xml"
     }
-
-
     if (text.trim() == "") {
         Ext.Msg.alert('Exception', 'File name cannot null.');
         return;
     }
     // process text value and close...
-
     var sXmlNameSpace = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
     var root = $("<root></root>");
     xmlAppendPlant(root)
-
     var datas = {};
     datas['fileName'] = "../" + text;
-    datas['content'] = formatXml(sXmlNameSpace + root[0].outerHTML);
+    datas['content'] =replacePID(formatXml(sXmlNameSpace + root[0].outerHTML));
+    //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
+    function replacePID(text){
+        text = text.replaceAll("<p>","<P>");
+        text = text.replaceAll("</p>","</P>");
+        text = text.replaceAll("<i>","<I>");
+        text = text.replaceAll("</i>","</I>");
+        text = text.replaceAll("<d>","<D>");
+        text = text.replaceAll("</d>","</D>");
+        return text;
+    }
     datas['rw'] = "w";
     $.ajax({
         type: "POST",

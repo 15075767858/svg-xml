@@ -97,15 +97,13 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         console.log(arguments)
     }
     ,
-    PropertyClick: function (menu, item, e, eOpts) {
-
+    pidPropertyClick: function (menu, item, e, eOpts) {
         var _this = this
         var win = Ext.create('Ext.window.Window', {
             title: 'pid Property',
             width: 213,
             height: 234,
             layout: 'border',
-
             items: {  // Let's put an empty grid in just to illustrate fit layout
                 region: "center",
                 xtype: 'grid',
@@ -200,6 +198,125 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
          }],
          renderTo: Ext.getBody()
          });*/
+    },
+    logicPropertyClick: function (menu, item, e, eOpts) {
+        var _this = this;
+        console.log(_this)
+        var typeGirdName = this.getTitle();
+        var store = _this.store//Ext.data.StoreManager.lookup("store" + _this.id);
+        if (store.data.length > slotsJson[typeGirdName].maxSlot) {
+            Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
+            return;
+        }
+
+        var win = Ext.create('Ext.window.Window', {
+            title: 'logic Property',
+            width: 420,
+            height: 284,
+            layout: 'border',
+            rbar: [{xtype: "component", html: "Add solts"}, {
+                text: "+", handler: function () {
+                    if (store.data.length > 10) {
+                        Ext.Msg.alert('Exception', 'Cannot add slot.');
+                        return
+                    }
+                    store.add({
+                        name: "In",
+                        delay: "0",
+                        time: "0",
+                        value: "0"
+                    });
+                    //_this.setStore(store)
+                    //_this.store.commitChanges()
+                    store.commitChanges()
+                }
+            }, {
+                text: "-", handler: function () {
+                    if (store.data.length <= 3) {
+                        Ext.Msg.alert('Exception', 'Cannot delete slot.');
+                        return
+                    }
+                    store.removeAt(store.data.length - 1)
+                    //_this.setStore(store)
+                    //_this.store.commitChanges()
+                    store.commitChanges()
+                }
+            }, {xtype: "component", html: "Add list"}, {
+                text: "+", handler: function () {
+                    store.fields.append("")
+                }
+            }, {
+                text: "-", handler: function () {
+
+                }
+            }],
+            items: {  // Let's put an empty grid in just to illustrate fit layout
+                region: "center",
+                xtype: 'grid',
+                // height: 205,
+                // width: 206,
+                border: false,
+                bbar: [
+                    {
+                        text: "Ok", handler: function (menu) {
+                        //Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
+                        store.commitChanges();
+                        Ext.Msg.alert('Status', 'Changes saved successfully.');
+                        win.close();
+                    }
+                    }
+                ],
+                plugins: [
+                    Ext.create('Ext.grid.plugin.CellEditing', {
+                        clicksToEdit: 1
+                    })
+                ],
+                forceFit:true,
+                columns: [{
+                    header: 'name', dataIndex: "name", width: 80,
+                    sortable: false,
+                    menuDisabled: true
+                },
+                    {
+                        sortable: false,
+                        menuDisabled: true,
+                        header: "delay", dataIndex: "delay", width: 90, align: "right", editor: {
+                        xtype: 'textfield',
+                        allowBlank: false
+                    }
+                    },
+                    {
+                        sortable: false,
+                        menuDisabled: true,
+                        header: "value", dataIndex: "value", width: 53, editor: {
+                        xtype: 'textfield',
+                        allowBlank: false
+                    }
+                    },
+                    {
+                        sortable: false,
+                        menuDisabled: true,
+                        header: "configure", dataIndex: "value", width: 53, align: "right",
+
+                        editor: {
+                            xtype: 'textfield',
+                            allowBlank: false
+                        }
+                    },
+                    {
+                        sortable: false,
+                        menuDisabled: true,
+                        dataIndex: "value", width: 53, align: "right",
+                        editor: {
+                        xtype: 'textfield',
+                        allowBlank: false
+                    }
+                    }
+
+                ],                 // 仅仅用来显示一个头部。没有数据，
+                store: store
+            }
+        }).show();
     },
     LinkFormClick: function (menu, item, e, eOpts) {
         var SourceTypeGrid = getCurrentDrawPanel().datas.LinkMarkTypeGrid;

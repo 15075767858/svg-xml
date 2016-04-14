@@ -275,10 +275,8 @@ function typegridCache(th) {
         if(type>=10){
             return
         }
-
         console.log(typegrid.store)
         console.log(item)
-
         var data = slotsJson[getNameByType(type)].initData;
         console.log(data)
         try{
@@ -294,8 +292,6 @@ function typegridCache(th) {
 }
 
 function drawlines(drawpanel) {
-
-
 
     var datasArray = drawpanel.datas.datasArray;
 

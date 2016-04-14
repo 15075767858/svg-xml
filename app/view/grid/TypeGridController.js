@@ -52,7 +52,20 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     {'name': 'Min', 'value': "0"}
                 ]
             });
-        }
+        };
+
+        /*if(th.datas.type==56){
+            Ext.create('Ext.data.Store', {
+                storeId:"store"+th.getId(),
+                fields: ['name', "delay","time",'value'],
+                data: [
+                    {delay:"0",time:"0",'name': 'Out', 'value': "0"},
+                    {delay:"0",time:"0",'name': 'In', 'value': "0"},
+                    {delay:"0",time:"0",'name': 'In', 'value': "0"}
+                ]
+            });
+        }*/
+
         if(th.datas.plantId.length<2){
         var plant = getCurrentPlant()
         th.datas.plantId = plant.id
@@ -237,7 +250,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 addSlot.setDisabled(false);
                             }
                             isPidMenu(th.up("typegrid"), thi)
-
+                            isLogicMenu(th.up("typegrid"),thi);
 
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
@@ -261,13 +274,15 @@ function isPidMenu(girdpanel, menu) {
     if (girdpanel.title == "pid") {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
-        cProperty.on("click", menu.getController().PropertyClick, girdpanel)
+        cProperty.on("click", menu.getController().pidPropertyClick, girdpanel)
     }
 }
 
 function isLogicMenu(gridpanel,menu){
     if(gridpanel.datas.type==56){
-
+        var cProperty = menu.getComponent("Property")
+        cProperty.setDisabled(false);
+        cProperty.on("click", menu.getController().logicPropertyClick, gridpanel)
     }
 }
 

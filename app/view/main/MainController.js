@@ -67,6 +67,36 @@ function generateJson (key,value){
 String.prototype.removeLineEnd = function () {
     return this.replace(/(<.+?\s+?)(?:\n\s*?(.+?=".*?"))/g, '$1 $2')
 }
+
+function formatXml1(str){
+    //去除输入框中xmll两端的空格。
+    str = str.replace(/^\s+|\s+$/g,"");
+    var source = new ActiveXObject("Msxml2.DOMDocument");
+    //装载数据
+    source.async = false;
+    source.loadXML(str);
+    // 装载样式单
+    var stylesheet = new ActiveXObject("Msxml2.DOMDocument");
+    stylesheet.async = false;
+    stylesheet.resolveExternals = false;
+    stylesheet.load(path+"/XlsTmpl/temp/format.xsl");
+
+    // 创建结果对象
+    var result = new ActiveXObject("Msxml2.DOMDocument");
+    result.async = false;
+
+    // 把解析结果放到结果对象中方法1
+    source.transformNodeToObject(stylesheet, result);
+    //alert(result.xml);
+    if(result.xml==''||result.xml==null){
+        alert('xml报文格式错误，请检查');
+        return false;
+    }
+    var finalStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +result.xml;
+    return finalStr;
+}
+
+
 function formatXml(text) {
     //去掉多余的空格
     text = '\n' + text.replace(/(<\w+)(\s.*?>)/g, function ($0, name, props) {
@@ -132,4 +162,7 @@ function getPrefix(prefixIndex) {
     }
 
     return output.join('');
+}
+String.prototype.replaceAll = function(s1,s2){
+    return this.replace(new RegExp(s1,"gm"),s2);
 }
