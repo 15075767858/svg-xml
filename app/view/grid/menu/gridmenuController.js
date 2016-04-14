@@ -61,7 +61,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         }
         store.add({
             name: "In",
-            value: ""
+            value: "0"
         })
         store.commitChanges()
         console.log(this.setStore(store))
@@ -105,7 +105,6 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             width: 213,
             height: 234,
             layout: 'border',
-
 
             items: {  // Let's put an empty grid in just to illustrate fit layout
                 region: "center",

@@ -21,5 +21,17 @@
                             <default>1</default>
                         </slots>
                     </master_node>
+                    <master_node  number="2">
+                        <type>51</type>
+                        <slots  number="1">
+                            <default>0</default>
+                        </slots>
+                        <slots  number="2">
+                            <default>0</default>
+                        </slots>
+                        <slots  number="3">
+                            <default>0</default>
+                        </slots>
+                    </master_node>
                 </plant>
             </root>

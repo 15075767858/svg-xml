@@ -1,7 +1,6 @@
 <?php  
 $fn=$_POST['fileName'];
 $rw=$_POST['rw'];
-
 if($rw=='r'){
     $fp = fopen($fn, 'r');
     while(! feof($fp))

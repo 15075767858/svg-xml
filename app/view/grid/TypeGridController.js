@@ -91,7 +91,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 linkform.setDisabled(false);
                                 linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
-                            isPidMenu(th, thi)
+                            isPidMenu(th, thi);
+                            isLogicMenu(th,thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -263,6 +264,14 @@ function isPidMenu(girdpanel, menu) {
         cProperty.on("click", menu.getController().PropertyClick, girdpanel)
     }
 }
+
+function isLogicMenu(gridpanel,menu){
+    if(gridpanel.datas.type==56){
+
+    }
+}
+
+
 function currentDrawPanelGridPanelsTrSetId() {
     var aGridPanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < aGridPanels.length; i++) {
@@ -302,6 +311,10 @@ var sStartItemTrId;//鼠标按下后得到item下的tr的id
 
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
     //console.log(item.querySelector("div").innerHTML )
+    var justDrawTempLine=thi.datas.justDrawTempLine;
+    if(justDrawTempLine==true){
+        return ;
+    }
     if (item.querySelector("div").innerHTML == "model") {
         return;
     }
@@ -341,10 +354,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
                 aRowsAll.push(rows[j])
             }
         }
-
         return aRowsAll;
-
-
     }
 
     console.log(aRowsAll)
@@ -354,6 +364,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
 
     tempLineEnd[0][0].onmousedown = function () {
+        thi.datas.justDrawTempLine=true;
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
@@ -381,12 +392,15 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         document.onmousemove = function (e) {
             _this.attr("cx", e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
             _this.attr("cy", e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
+            console.log(document.onmousemove)
             drawTempline();
         };
         document.onmouseup = function (e) {
             removeTemp();
+            thi.datas.justDrawTempLine=false;
             document.onmousemove = null;
             document.onmouseup = null;
+            console.log(document.onmousemove)
             console.log(e.target.tagName + "   " + sStartItemTrId)
             if (e.target.tagName == "circle") {
                 sEndItemTrId = d3.select(e.target).attr("columnid");

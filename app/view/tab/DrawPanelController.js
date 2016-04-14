@@ -27,6 +27,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             plants: [],
             datasArray: [],
             gridpanelConfigs: [],
+            justDrawTempLine:false,
             LinkMarkTypeGrid: null
         };
 
@@ -293,18 +294,19 @@ function typegridCache(th) {
 }
 
 function drawlines(drawpanel) {
+
+
+
     var datasArray = drawpanel.datas.datasArray;
+
     if (!datasArray) {
         return;
     }
     datasArrayUnique(drawpanel);
     datasArray = drawpanel.datas.datasArray;
-
     d3.selectAll(".OkCircle").remove();
-
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
-
     var currentDrawPanel = drawpanel;
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
     var iDrawPanelLeft = drawpanel.el.getLeft();

@@ -111,7 +111,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                                 console.log(aLineDatas)
                             }
                         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
                         var store = Ext.create(typeName, {
                             data: initData
                         });
@@ -138,10 +137,19 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     saveXmlClick: function () {
 
         var aDevs = getDevNamesAll()
+        var tempArr=[];
+        for(var i=0;i<aDevs.length;i++){
+            tempArr.push((aDevs[i]+"").substr(0,4))
+        }
+        tempArr.sort(function(a,b){
+            return a- b;
+        })
+        tempArr = tempArr.unique1()
         var aDevsStore = [];
+
         aDevsStore.push({"name": "local"})
-        for (var i = 0; i < aDevs.length; i++) {
-            aDevsStore.push({"name": (aDevs[i] + "").substr(0, 4)})
+        for (var i = 0; i < tempArr.length; i++) {
+            aDevsStore.push({"name": tempArr[i]})
         }
 
         var states = Ext.create('Ext.data.Store', {
@@ -204,6 +212,10 @@ function saveXml(text) {
 
 
     text = text || "1000";
+    if(text=="local"){
+        text="local.xml"
+    }
+
 
     if (text.trim() == "") {
         Ext.Msg.alert('Exception', 'File name cannot null.');
