@@ -124,7 +124,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     }
     ,
     girditemdblclick: function (me, record, item, index, e, eopts) {
-        console.log(me.up())
+        console.log(arguments)
+        if(record.data.name=="Out"){
+            return ;
+        }
         var win = Ext.create("Ext.window.Window", {
             title: "ChangeValue",
             width: 260,

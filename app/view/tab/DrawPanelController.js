@@ -8,8 +8,11 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
 
+        try{
         typegridCache(th)
+        }catch(e){
 
+        }
         drawlines(th)
 
     },
@@ -215,16 +218,15 @@ function typegridCache(th) {
         },
         success: function (response) {
             var text = response.responseText;
-            var ojson = Ext.decode(text);
             try {
+            var ojson = Ext.decode(text);
                 th.datas.datasArray = Ext.decode(ojson.datasArray);
 
                 th.datas.gridpanelConfigs = Ext.decode(ojson.gridpanelConfigs);
-                console.log(th.datas.gridpanelConfigs)
                 th.datas.plants = Ext.decode(ojson.plants);
                 console.log(th.datas.plants)
             } catch (e) {
-
+                return ;
             }
         }
     });
@@ -239,9 +241,16 @@ function typegridCache(th) {
         console.log(plants)
         return;
     }
-    
+    var store = Ext.data.StoreManager.lookup('store' + th.getTitle());
+    for (var i = 0; i < plants.length; i++) {
+        var data = th.datas.data
+            data.push({selected: plants[i].selected, name: plants[i].name});
+        store.setData(data);
+        //addCurrentDrawPanelPlant(plants[i]);
+    }
 
     for (var i = 0; i < items.length; i++) {
+
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
         typegrid.datas = items[i].datas;
         console.log(typegrid.datas);
@@ -250,7 +259,7 @@ function typegridCache(th) {
             data: items[i].store.data,
             fields: items[i].store.fields
         }))
-        isDev(typegrid)
+        isDev(typegrid,items[i])
         //console.log(getCurrentPlant() + items[i].datas.plantId)
 
         th.add(typegrid);
@@ -266,7 +275,21 @@ function typegridCache(th) {
         }
     }
 
-    function isDev(typegrid) {
+    function isDev(typegrid,item) {
+        var type = typegrid.datas.type;
+        if(type>=10){
+            return
+        }
+
+        console.log(typegrid.store)
+        console.log(item)
+
+        var data = slotsJson[getNameByType(type)].initData;
+        console.log(data)
+        try{
+        data[1].value=item.store.data[1].value;
+        }catch(e){}
+        typegrid.store.setData(data)
 
     }
 

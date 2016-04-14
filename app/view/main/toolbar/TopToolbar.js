@@ -23,8 +23,8 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                     menu: [{
                         text: 'New •••',
                         handler: function () {
-                            saveXml()
                             saveGridpanelsConfigs()
+                            saveXml()
                         }
                     },
                         {
@@ -35,8 +35,8 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: 'Save •••',
                             handler: function () {
-                                saveXml()
                                 saveGridpanelsConfigs()
+                                saveXml()
                             }
                         }, {
                             text: "Save as •••" ,
@@ -58,7 +58,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 });
 
 function saveGridpanelsConfigs(fileName) {
-    fileName=fileName||"1000.json"
+    fileName=fileName+".json"||"1000.json";
     var drawpanel = getCurrentDrawPanel();
     var gridpanels = getCurrentDrawPanelGirdPanels();
     var aGridPanels = [];
@@ -68,10 +68,10 @@ function saveGridpanelsConfigs(fileName) {
         var datas = gridpanels[i].datas;
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
-    localStorage.setItem("datasArray", Ext.encode(drawpanel.datas.datasArray));
-    drawpanel.datas.datasArray = Ext.decode(localStorage.getItem("datasArray"));
-    localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
-    localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));
+    //localStorage.setItem("datasArray", Ext.encode(drawpanel.datas.datasArray));
+    //drawpanel.datas.datasArray = Ext.decode(localStorage.getItem("datasArray"));
+   // localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
+    //localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));
     var oJson = {datasArray: Ext.encode(drawpanel.datas.datasArray),plants: Ext.encode(drawpanel.datas.plants),gridpanelConfigs: Ext.encode(aGridPanels)};
     console.log(oJson)
     Ext.Ajax.request({

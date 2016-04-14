@@ -99,6 +99,7 @@ function getDevNamesAll() {
             // url: url,
         },
         success: function (response) {
+
             var text = response.responseText;
             aNames = eval(text);
         }

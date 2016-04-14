@@ -59,12 +59,12 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
         }
-        store.add( {
+        store.add({
             name: "In",
             value: ""
         })
-        console.log(this.setStore(store))
         store.commitChanges()
+        console.log(this.setStore(store))
 
     },
     delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
@@ -74,7 +74,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         console.log(store)
         store.removeAt(index);
         this.setStore(store);
-        var datasArray= getCurrentDrawPanel().datas.datasArray;
+        var datasArray = getCurrentDrawPanel().datas.datasArray;
         var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
         console.log(datasArray)
         d3.selectAll("polyline").each(function () {
@@ -99,7 +99,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     ,
     PropertyClick: function (menu, item, e, eOpts) {
 
-        var _this=this
+        var _this = this
         var win = Ext.create('Ext.window.Window', {
             title: 'pid Property',
             width: 213,
@@ -114,11 +114,13 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 // width: 206,
                 border: false,
                 bbar: [
-                    {text: "Ok",handler:function(menu){
-                        Ext.data.StoreManager.lookup( "store"+_this.id).commitChanges();
+                    {
+                        text: "Ok", handler: function (menu) {
+                        Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
                         Ext.Msg.alert('Status', 'Changes saved successfully.');
                         win.close();
-                    }}
+                    }
+                    }
                 ],
                 plugins: [
                     Ext.create('Ext.grid.plugin.CellEditing', {
@@ -126,26 +128,28 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     })
                 ],
                 columns: [{header: 'name', dataIndex: "name"},
-                    {header: "value", dataIndex: "value",editor: {
+                    {
+                        header: "value", dataIndex: "value", editor: {
                         xtype: 'textfield',
                         allowBlank: false
-                    }}
+                    }
+                    }
 
                 ],                 // 仅仅用来显示一个头部。没有数据，
-                store:Ext.data.StoreManager.lookup( "store"+_this.id)
+                store: Ext.data.StoreManager.lookup("store" + _this.id)
             }
         }).show();
 
         /*Ext.create('Ext.data.Store', {
-            fields: ['name', 'value'],
-            data: [
-                {'name': 'P', 'value': "10.0"},
-                {'name': 'I', 'value': "2.0"},
-                {'name': 'D', 'value': "0.0"},
-                {'name': 'Max', 'value': "100"},
-                {'name': 'Min', 'value': "0"}
-            ]
-        })*/
+         fields: ['name', 'value'],
+         data: [
+         {'name': 'P', 'value': "10.0"},
+         {'name': 'I', 'value': "2.0"},
+         {'name': 'D', 'value': "0.0"},
+         {'name': 'Max', 'value': "100"},
+         {'name': 'Min', 'value': "0"}
+         ]
+         })*/
         /*Ext.create('Ext.form.Panel', {
          title: 'Simple Form',
          bodyPadding: 5,
@@ -322,7 +326,7 @@ function cloneTypegrid(typegrid, e) {
         store: store,
         x: e.x || 100,
         y: e.y || 100,
-        icon: "img/SVG/" + typeName + ".svg"
+        icon: "resources/img/SVG/" + typeName + ".svg"
     });
     return oTypeGrid;
 }

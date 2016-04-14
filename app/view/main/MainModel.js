@@ -75,8 +75,8 @@ var slotsJson={
         type:"51",
         initData:[
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10
@@ -85,7 +85,7 @@ var slotsJson={
         type:"58",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:false
     },
@@ -93,8 +93,8 @@ var slotsJson={
         type:"55",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10
@@ -113,8 +113,8 @@ var slotsJson={
         type:"62",
         initData: [
             {'name': 'Out', 'value': "1"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10
@@ -123,8 +123,8 @@ var slotsJson={
         type:"60",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'Time', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'DelayTime(s)', 'value': "2"}
         ],
         isAddSlot:false
     },
@@ -133,8 +133,8 @@ var slotsJson={
         initData: [
             {"name":"model" , value :"0"},
             {'name': 'Out', 'value': "0"},
-            {'name': 'Temp', 'value': "1"},
-            {'name': 'RH', 'value': "2"},
+            {'name': 'Temp', 'value': "0"},
+            {'name': 'RH', 'value': "0"},
             {'name': 'pa', 'value': "101325.0"}
         ],
         isAddSlot:false
@@ -151,7 +151,7 @@ var slotsJson={
         type:"57",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "1"}
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:false
     },
@@ -159,7 +159,7 @@ var slotsJson={
         type:"59",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:false
     },
@@ -167,9 +167,9 @@ var slotsJson={
         type:"68",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'On', 'value': "2"},
-            {'name': 'Off', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'On', 'value': "55"},
+            {'name': 'Off', 'value': "45"}
         ],
         isAddSlot:false
     },
@@ -177,8 +177,8 @@ var slotsJson={
         type:"69",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'Unlock', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'Unlock', 'value': "0"}
         ],
         isAddSlot:false
     },
@@ -186,8 +186,8 @@ var slotsJson={
         type:"56",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10
@@ -198,8 +198,8 @@ var slotsJson={
         initData: [
             {'name': 'model', 'value': "0"},
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10
@@ -208,8 +208,8 @@ var slotsJson={
         type:"53",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10
@@ -218,9 +218,9 @@ var slotsJson={
         type:"67",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'PV', 'value': "1"},
-            {'name': 'SP', 'value': "2"},
-            {'name': 'Enable', 'value': "1"},
+            {'name': 'PV', 'value': "0"},
+            {'name': 'SP', 'value': "0"},
+            {'name': 'Enable', 'value': "0"},
             {'name': 'Direction', 'value': "0"}
         ],
         isAddSlot:false
@@ -239,8 +239,8 @@ var slotsJson={
         type:"52",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
         isAddSlot:true,
         maxSlot:10

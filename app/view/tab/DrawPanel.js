@@ -72,7 +72,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                 var aData, ostore, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value + "", title = selectRecord.text;
                 console.log(typeName)
                 aData = slotsJson[typeName].initData;
-                aData[1].value=value.substr(5,6);
+                aData[1].value=Number.valueOf()(value.substr(5,6));
                 ostore = Ext.create(typeName, {
                     data: aData,
                     listeners: {
@@ -98,7 +98,6 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                                 thi.datas.value =value;*/
                                 thi.datas = {isAddSlot:slotsJson[getNameByType(type)].isAddSlot,plantId:"",type:type,value:value};
                                 console.log(thi.getStore().data);
-
                             }
                         }
                     })

@@ -17,9 +17,6 @@ Ext.define('svgxml.view.main.MainController', {
   boxready:  function () {
 
     function autoSave() {
-        if(!window.localStorage){
-            return;
-        }
         saveGridpanelsConfigs()
         saveXml()
     }

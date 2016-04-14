@@ -137,15 +137,71 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
     saveXmlClick: function () {
 
-        Ext.Msg.prompt('Save •••', 'Please input file name:', function (btn, text) {
-            if (btn == 'ok') {
-                saveXml(text);
-            }
+        var aDevs = getDevNamesAll()
+        var aDevsStore = [];
+        aDevsStore.push({"name": "local"})
+        for (var i = 0; i < aDevs.length; i++) {
+            aDevsStore.push({"name": (aDevs[i] + "").substr(0, 4)})
+        }
+
+        var states = Ext.create('Ext.data.Store', {
+            fields: ['name'],
+            data: aDevsStore
         });
+
+// Create the combo box, attached to the states data store
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Save as•••',
+            frame: true,
+            width: 280,
+            bodyPadding: 10,
+            autoShow: true,
+            defaultType: 'textfield',
+            defaults: {
+                anchor: '100%'
+            },
+
+            items: [
+                {
+                    xtype: "combobox",
+                    allowBlank: false,
+                    fieldLabel: 'select file name',
+                    store: states,
+                    editable:false,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    autoSelect: false
+                }
+            ],
+
+            buttons: [
+                {
+                    text: 'Ok', handler: function () {
+                    var text = win.down("combobox").getValue();
+                    if(text==null){
+                        Ext.Msg.alert('Info', 'Plase select file name.');
+                        return ;
+                    }
+                    saveXml(text);
+                    saveGridpanelsConfigs(text);
+                    win.close();
+                }
+                },
+                {
+                    text: 'Cancel', handler: function () {
+                    win.close();
+                }
+                }
+            ]
+
+        })
+
+
     }
 });
-function saveXml(text){
-    text=text||"1000";
+function saveXml(text) {
+    text = text || "1000";
 
     if (text.trim() == "") {
         Ext.Msg.alert('Exception', 'File name cannot null.');
@@ -166,15 +222,15 @@ function saveXml(text){
         url: "resources/xmlRW.php",
         data: datas,
         success: function () {
-            if(text=="1000"){
+            if (text == "1000") {
                 Ext.toast({
                     html: 'Auto Save Successfully.',
                     title: 'Status',
                     //width: 200,
                     align: 'br'
                 });
-            }else{
-            Ext.Msg.alert('Success', 'Saved file successfully.');
+            } else {
+                Ext.Msg.alert('Success', 'Saved file successfully.');
             }
         }
     });
@@ -188,7 +244,6 @@ function xmlAppendPlant(root) {
     }
 }
 
-
 function plantAppendMasterNode(plant, index) {
     var aGridpanels = getCurrentDrawPanelGirdPanels();
     var panels = getCurrentDrawPanelPlants();
@@ -200,31 +255,33 @@ function plantAppendMasterNode(plant, index) {
 }
 
 function get_A_Master_node(gridpanel, index) {
-    console.log(gridpanel)
     var masterNode = $(document.createElement("master_node"));
     var iType = gridpanel.datas.type;
-
     masterNode.attr("number", (index + 1))
     masterNode.append("<type>" + iType + "</type>");
+
     isPidSave(gridpanel, masterNode)
     var gridPanelItems = gridpanel.store.data.items;
-
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
     gridPanelItems = isKeyFilter(gridPanelItems, masterNode, gridpanel);
+    var startIndex = 0;
     for (var i = 0; i < gridPanelItems.length; i++) {
+        console.log(gridPanelItems[i]);
         if (gridPanelItems[i].data["name"] == "Out") {
             continue;
         }
         if (gridPanelItems[i].data["name"] == "Instance") {
             continue;
         }
-
+        if (gridPanelItems[i].data["name"] == "model") {
+            continue;
+        }
+        startIndex++;
         var name = gridPanelItems[i].data["name"];
         var value = gridPanelItems[i].data["value"];
-        var slots = $("<slots number='" + i + "'></slots>");
-
-
+        var slots = $("<slots number='" + startIndex + "'></slots>");
         var aGirdPanelIII = getStartGridPanelIndexAndItemIndex(gridpanel, i);//判断当前tr上的id是否有相应的线，有的话返回起点的坐标
+
         if (!aGirdPanelIII[0] && !aGirdPanelIII[1]) {
             slots.append("<default>" + value + "</default>")
         } else {
@@ -236,7 +293,7 @@ function get_A_Master_node(gridpanel, index) {
         if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
             console.log(slots)
             if (slots.find("default")) {
-                //   masterNode.find("slots").remove()
+                //   masterNode.find("slots").remove()................................................................
             } else {
                 masterNode.append(slots);
             }
@@ -250,98 +307,146 @@ function get_A_Master_node(gridpanel, index) {
 
 
 function isPidSave(gridpanel, masterNode) {
-var items ;
+    var items;
     if (gridpanel.datas.type == "67") {
-
-        items=Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
-    }else{
-        return ;
+        items = Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
+    } else {
+        return;
     }
     console.log(items)
-    masterNode.append("<P>"+items[0].data.value+"</P>")
-    masterNode.append("<I>"+items[1].data.value+"</I>")
-    masterNode.append("<D>"+items[2].data.value+"</D>")
-    masterNode.append("<max_value>"+items[3].data.value+"</max_value>")
-    masterNode.append("<min_value>"+items[4].data.value+"</min_value>")
+    masterNode.append("<P>" + items[0].data.value + "</P>")
+    masterNode.append("<I>" + items[1].data.value + "</I>")
+    masterNode.append("<D>" + items[2].data.value + "</D>")
+    masterNode.append("<max_value>" + items[3].data.value + "</max_value>")
+    masterNode.append("<min_value>" + items[4].data.value + "</min_value>")
 
 }
 
 function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
-    console.log(gridpanel)
-    console.log(gridPanelItems)
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];
     if (name == "Instance") {
         masterNode.append("<key>" + gridpanel.datas.value + "</key>")
-        gridPanelItems.shift();
+        //gridPanelItems.shift();
         return gridPanelItems;
     }
     return gridPanelItems;
 }
 function isModelFilter(gridPanelItems, masterNode, gridpanel) {
-    console.log(gridpanel)
-    console.log(gridPanelItems)
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
     if (name != "Out" && name != "In") {
         masterNode.append("<model>" + value + "</model>")
-        gridPanelItems.shift()
+        //gridPanelItems.shift()
         return gridPanelItems;
     }
     return gridPanelItems;
 }
 
+
 function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
-    var drawpanel = drawpanel || getCurrentDrawPanel();
-    var trs = gridpanel.el.query(".x-grid-row");
-    var node = null;
-    var slot_number = null;
-    var aPolylines = d3.select(drawpanel.el.dom).selectAll(".OkLine");
-    aPolylines.each(function () {
-        var trEndId = d3.select(this).attr("data-end");
-        var trStartId = d3.select(this).attr("data-start");
+    /**
+     * 一次只判断一个tr
+     */
+    console.log(gridpanel.el.dom.querySelectorAll(".x-grid-row")[index])
+    //alert(index)
+    console.log(gridpanel.el.dom.querySelectorAll(".x-grid-row"))
+    var endTrId = gridpanel.el.dom.querySelectorAll(".x-grid-row")[index].id;
+    var startTrId = getStartTrIdByEndTrId(endTrId);//通过结束id从所有连线信息中得到开始id
+    var gridpanels = getCurrentDrawPanelGirdPanels();
+    for (var i = 0; i < gridpanels.length; i++) {
 
-        for (var i = index; i < trs.length; i++) {
-            if (trs[i].id == trEndId) {
-                var aGridpanels = getCurrentDrawPanelGirdPanels();
+        var trs = gridpanels[i].el.dom.querySelectorAll(".x-grid-row");
+        var items = gridpanels[i].store.data.items;
 
-                /* for(var j=0;j<aGridpanels.length;j++){
-                 if(aGridpanels[j].el.getId(trStartId)){
-                 node=i;
-                 var rows= aGridpanels[j].el.query(".x-grid-row");
-                 for(var k=0;k<rows.length;k++){
-                 if(rows[k].id==trStartId){
-                 slot_number=index;
-                 return false;
-                 }
-                 }
-                 }
-
-                 }*/
-
-                Ext.each(aGridpanels, function (name, index, countriesItSelf) {
-                    if (name.el.getById(trStartId)) {
-                        node = index;
-                        Ext.each(name.el.query(".x-grid-row"), function (name, index) {
-                            console.log("index=" + index)
-                            if (name.id == trStartId) {
-                                slot_number = index;
-                                return false;
-                            }
-                        });
-                    }
-                });
-                //console.log(trEndId+"   "+trStartId) //在这里查找起点的 panel
-                console.log(aGridpanels[0])
+        for (var j = 0; j < trs.length; j++) {
+            //alert(trs[j].id+"  "+startTrId)
+            if (trs[j].id == startTrId) {
+                console.log(trs[j])
+                var sn = j;
+                console.log(items)
+                if (items[0].data['name'] == "model") {
+                    sn = j - 1
+                }
+                if (items[1].data['name'] == "Instance" & j > 0) {
+                    sn = j - 1
+                }
+                return [i + 1, sn]
             }
         }
-        if (node && slot_number)
-            return false;
 
-
-    });
-    return [node, slot_number];
+    }
+    return [null, null]
 }
+function getStartTrIdByEndTrId(endTrId) {
+    var datasArray = getCurrentDrawPanel().datas.datasArray;
+    for (var i = 0; i < datasArray.length; i++) {
+        for (o in datasArray[i]) {
+            //lert(datasArray[i][o]+" "+o)
+            console.log(datasArray)
+            console.log(endTrId)
+            if (o == endTrId) {
+                return datasArray[i][o];
+            }
+        }
+    }
+}
+
+/*
+ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
+ /!**
+ *这个方法是拿到一个gridpanel 和 需要索引的 位置 index
+ * 来找到 起点 对应的 gridpanel 和 位置 并返回
+ *
+ *!/
+ var drawpanel = drawpanel || getCurrentDrawPanel();
+ var trs = gridpanel.el.query(".x-grid-row");
+ var node = null;
+ var slot_number = null;
+ var aPolylines = d3.select(drawpanel.el.dom).selectAll(".OkLine");
+ aPolylines.each(function () {
+ var trEndId = d3.select(this).attr("data-end");
+ var trStartId = d3.select(this).attr("data-start");
+
+ for (var i = index; i < trs.length; i++) {
+ if (trs[i].id == trEndId) {
+ var aGridpanels = getCurrentDrawPanelGirdPanels();
+
+ for (var j = 0; j < aGridpanels.length; j++) {
+ if (aGridpanels[j].el.getId(trStartId)) {
+ node = j;
+ var rows = aGridpanels[j].el.query(".x-grid-row");
+ for (var k = 0; k < rows.length; k++) {
+ if (rows[k].id == trStartId) {
+ slot_number = k;
+ return false;
+ }
+ }
+ }
+ }
+
+ /!*Ext.each(aGridpanels, function (name, index, countriesItSelf) {
+ if (name.el.getById(trStartId)) {
+ node = index;
+ Ext.each(name.el.query(".x-grid-row"), function (name, index) {
+ console.log("index=" + index)
+ if (name.id == trStartId) {
+ slot_number = index;
+ return false;
+ }
+ });
+ }
+ });*!/
+ //console.log(trEndId+"   "+trStartId) //在这里查找起点的 panel
+ console.log(aGridpanels[0])
+ }
+ }
+ if (node && slot_number)
+ return false;
+ });
+ return [node, slot_number];
+ }
+ */
 
 function getCurrentDrawPanel() {
     var drawpanels = Ext.ComponentQuery.query("drawpanel");
@@ -367,7 +472,6 @@ function getCurrentDrawPanelGirdPanels(drawpanel) {
     }
     return aGridpanels;
 }
-
 
 
 function addCurrentDrawPanelPlant(plant) {
@@ -422,7 +526,7 @@ function getCurrentPlant() {
     //console.log(plants)
     for (var i = 0; i < plants.length; i++) {
         if (plants[i].selected) {
-      //      console.log(plants[i])
+            //      console.log(plants[i])
             return plants[i];
         }
     }
