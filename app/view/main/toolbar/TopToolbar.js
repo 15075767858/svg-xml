@@ -114,7 +114,7 @@ function getGridPanelConfig(gridpanel) {
     return {icon: config.icon, title: config.title, x: gridpanel.x, y: gridpanel.y, trsIds: Ext.encode(ids)};
 }
 function getStoreConfig(store) {
-    //console.log(store)
+    console.log(store)
     var datas = store.data.items;
     store.commitChanges()
     console.log(datas)

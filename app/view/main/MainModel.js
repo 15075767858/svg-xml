@@ -37,7 +37,7 @@ var slotsJson = {
         type: "3",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': ""}
+            {'name': 'Instance', 'value': "0"}
         ],
         isAddSlot: false
         //maxSlot:10
@@ -102,14 +102,14 @@ var slotsJson = {
         type: "61",
         initData: [
             {
-                "name": "model", value: "<", select: [{name: "<", value: "0"},
+                "name": "mode", value: "<", select: [{name: "<", value: "0"},
                 {name: ">", value: "1"},
                 {name: "=", value: "2"}
             ]
             },
             {'name': 'Out', 'value': "0"},
-            {'name': 'In', 'value': "2"},
-            {'name': 'In', 'value': "2"}
+            {'name': 'In', 'value': "0"},
+            {'name': 'In', 'value': "0"}
         ],
 
         isAddSlot: false
@@ -137,7 +137,7 @@ var slotsJson = {
         type: "70",
         initData: [
             {
-                "name": "model", value: "ps", select: [{name: "ps", value: "0"},
+                "name": "mode", value: "ps", select: [{name: "ps", value: "0"},
                 {name: "water", value: "1"},
                 {name: "enthalpy", value: "2"}
             ]
@@ -195,9 +195,9 @@ var slotsJson = {
     'logic': {
         type: "56",
         initData: [
-            {'name': 'Out',delay:"0",time:"0", 'value': "0"},
-            {'name': 'In',delay:"0",time:"0", 'value': "0"},
-            {'name': 'In',delay:"0",time:"0", 'value': "0"}
+            {'name': 'Out',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
+             {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
+             {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"}
         ],
         isAddSlot: true,
         maxSlot: 10
@@ -207,7 +207,7 @@ var slotsJson = {
         type: "63",
         initData: [
             {
-                'name': 'model', 'value': "max", select: [{name: "max", value: "1"},
+                'name': 'mode', 'value': "max", select: [{name: "max", value: "1"},
                 {name: "min", value: "0"}
             ]
             },
@@ -244,8 +244,9 @@ var slotsJson = {
         initData: [
             {'name': 'Out', 'value': "0"},
             {'name': 'Enable', 'value': "Enable",select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]},
-            {'name': 'OnTime', 'value': "2"},
-            {'name': 'OffTime', 'value': "3"}
+            {'name': 'OnTime', 'value': "6"},
+            {'name': 'OffTime', 'value': "6"},
+            {'name': 'lifetime', 'value': "60"}
         ],
         isAddSlot: false
     },

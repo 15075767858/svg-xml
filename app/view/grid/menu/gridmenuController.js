@@ -107,8 +107,8 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             items: {  // Let's put an empty grid in just to illustrate fit layout
                 region: "center",
                 xtype: 'grid',
-                // height: 205,
-                // width: 206,
+                height: "100%",
+                width: "100%",
                 border: false,
                 bbar: [
                     {
@@ -137,71 +137,11 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             }
         }).show();
 
-        /*Ext.create('Ext.data.Store', {
-         fields: ['name', 'value'],
-         data: [
-         {'name': 'P', 'value': "10.0"},
-         {'name': 'I', 'value': "2.0"},
-         {'name': 'D', 'value': "0.0"},
-         {'name': 'Max', 'value': "100"},
-         {'name': 'Min', 'value': "0"}
-         ]
-         })*/
-        /*Ext.create('Ext.form.Panel', {
-         title: 'Simple Form',
-         bodyPadding: 5,
-         width: 350,
 
-         // 将会通过 AJAX 请求提交到此URL
-
-         // 表单域 Fields 将被竖直排列, 占满整个宽度
-         layout: 'anchor',
-         defaults: {
-         anchor: '100%'
-         },
-
-         // The fields
-         defaultType: 'textfield',
-         items: [{
-         fieldLabel: 'First Name',
-         name: 'first',
-         allowBlank: false
-         },{
-         fieldLabel: 'Last Name',
-         name: 'last',
-         allowBlank: false
-         }],
-
-         // 重置 和 保存 按钮.
-         buttons: [{
-         text: '重置',
-         handler: function() {
-         this.up('form').getForm().reset();
-         }
-         }, {
-         text: '保存',
-         formBind: true, //only enabled once the form is valid
-         disabled: true,
-         handler: function() {
-         var form = this.up('form').getForm();
-         if (form.isValid()) {
-         form.submit({
-         success: function(form, action) {
-         Ext.Msg.alert('保存成功', action.result.msg);
-         },
-         failure: function(form, action) {
-         Ext.Msg.alert('操作失败', action.result.msg);
-         }
-         });
-         }
-         }
-         }],
-         renderTo: Ext.getBody()
-         });*/
     },
     logicPropertyClick: function (menu, item, e, eOpts) {
         var _this = this;
-        console.log(_this)
+        console.log(_this.config.store)
         var typeGirdName = this.getTitle();
         var store = _this.store//Ext.data.StoreManager.lookup("store" + _this.id);
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
@@ -209,114 +149,15 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             return;
         }
 
-        var win = Ext.create('Ext.window.Window', {
-            title: 'logic Property',
-            width: 420,
-            height: 284,
-            layout: 'border',
-            rbar: [{xtype: "component", html: "Add solts"}, {
-                text: "+", handler: function () {
-                    if (store.data.length > 10) {
-                        Ext.Msg.alert('Exception', 'Cannot add slot.');
-                        return
-                    }
-                    store.add({
-                        name: "In",
-                        delay: "0",
-                        time: "0",
-                        value: "0"
-                    });
-                    //_this.setStore(store)
-                    //_this.store.commitChanges()
-                    store.commitChanges()
-                }
-            }, {
-                text: "-", handler: function () {
-                    if (store.data.length <= 3) {
-                        Ext.Msg.alert('Exception', 'Cannot delete slot.');
-                        return
-                    }
-                    store.removeAt(store.data.length - 1)
-                    //_this.setStore(store)
-                    //_this.store.commitChanges()
-                    store.commitChanges()
-                }
-            }, {xtype: "component", html: "Add list"}, {
-                text: "+", handler: function () {
-                    store.fields.append("")
-                }
-            }, {
-                text: "-", handler: function () {
+        var win;
+        win = Ext.getCmp("win" + _this.id);
+        console.log(win)
 
-                }
-            }],
-            items: {  // Let's put an empty grid in just to illustrate fit layout
-                region: "center",
-                xtype: 'grid',
-                // height: 205,
-                // width: 206,
-                border: false,
-                bbar: [
-                    {
-                        text: "Ok", handler: function (menu) {
-                        //Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
-                        store.commitChanges();
-                        Ext.Msg.alert('Status', 'Changes saved successfully.');
-                        win.close();
-                    }
-                    }
-                ],
-                plugins: [
-                    Ext.create('Ext.grid.plugin.CellEditing', {
-                        clicksToEdit: 1
-                    })
-                ],
-                forceFit:true,
-                columns: [{
-                    header: 'name', dataIndex: "name", width: 80,
-                    sortable: false,
-                    menuDisabled: true
-                },
-                    {
-                        sortable: false,
-                        menuDisabled: true,
-                        header: "delay", dataIndex: "delay", width: 90, align: "right", editor: {
-                        xtype: 'textfield',
-                        allowBlank: false
-                    }
-                    },
-                    {
-                        sortable: false,
-                        menuDisabled: true,
-                        header: "value", dataIndex: "value", width: 53, editor: {
-                        xtype: 'textfield',
-                        allowBlank: false
-                    }
-                    },
-                    {
-                        sortable: false,
-                        menuDisabled: true,
-                        header: "configure", dataIndex: "value", width: 53, align: "right",
+        if (win) {
+            win.show()
+            return
+        }
 
-                        editor: {
-                            xtype: 'textfield',
-                            allowBlank: false
-                        }
-                    },
-                    {
-                        sortable: false,
-                        menuDisabled: true,
-                        dataIndex: "value", width: 53, align: "right",
-                        editor: {
-                        xtype: 'textfield',
-                        allowBlank: false
-                    }
-                    }
-
-                ],                 // 仅仅用来显示一个头部。没有数据，
-                store: store
-            }
-        }).show();
     },
     LinkFormClick: function (menu, item, e, eOpts) {
         var SourceTypeGrid = getCurrentDrawPanel().datas.LinkMarkTypeGrid;

@@ -53,6 +53,115 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ]
             });
         };
+        if(th.datas.type==56){
+            //var typeGirdName = this.getTitle();
+            var store = th.store//Ext.data.StoreManager.lookup("store" + _this.id);
+           var win= Ext.create('Ext.window.Window', {
+                title: 'logic Property',
+                id: "win" + th.id,
+                width: 420,
+                height: 300,
+                layout: 'border',
+                listeners: {
+                    beforeclose: function (th) {
+                        win.hide()
+                        return false
+                    }
+                },
+                buttons: [
+                    {
+                        text: "Ok", handler: function (menu) {
+                        //Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
+                        store.commitChanges();
+                        Ext.Msg.alert('Status', 'Changes saved successfully.');
+                        win.hide();
+                    }
+                    }
+                ],
+                dockedItems: [{
+                    xtype: 'toolbar',
+                    dock: 'right',
+                    margin:0,
+                    items: [
+                        {
+                            xtype: "component",
+                            html: "Add solts"
+                        }, {
+                            xtype:"button",
+                            text: "+", handler: function () {
+                                if (store.data.length > 10) {
+                                    Ext.Msg.alert('Info', 'Cannot add slot.');
+                                    return
+                                }
+                                store.add({
+                                    name: "In",
+                                    delay: "0",
+                                    time: "0",
+                                    value: "0",
+                                    time1: "0",
+                                    time2: "0",
+                                    time3: "0",
+                                    time4: "0",
+                                    time5: "0",
+                                    time6: "0",
+                                    time7: "0",
+                                    time8: "0",
+                                    time9: "0"
+                                });
+                                //_this.setStore(store)
+                                //_this.store.commitChanges()
+                                store.commitChanges()
+                            }
+                        }, {
+                            xtype:"button",
+                            text: "-", handler: function () {
+                                if (store.data.length <= 3) {
+                                    Ext.Msg.alert('Info', 'Cannot delete slot.');
+                                    return
+                                }
+                                store.removeAt(store.data.length - 1)
+                                store.commitChanges()
+                            }
+                        }, {xtype: "component", html: "Add list"}, {
+                            xtype:"button",
+                            text: "+", handler: function () {
+                                var grid = win.down("grid");
+                                var columns = grid.getColumns();
+
+                                for (var i = 0; i < columns.length; i++) {
+                                    if (columns[i].hidden) {
+                                        console.log(columns[i])
+                                        columns[i].show()
+                                        return;
+                                    }
+                                }
+                                Ext.Msg.alert('Exception', 'Cannot add list.');
+                                //console.log(grid.getViewModel())
+
+                            }
+                        }, {
+                            xtype:"button",
+                            text: "-", handler: function () {
+                                var grid = win.down("grid");
+                                var columns = grid.getColumns();
+                                for (var i = columns.length - 1; i >= 5; i--) {
+                                    if (!columns[i].hidden) {
+                                        columns[i].hide()
+                                        return
+                                    }
+                                }
+                                Ext.Msg.alert('Exception', 'Cannot delete list.');
+                            }
+                        }
+                    ]
+                }],
+                items: {  // Let's put an empty grid in just to illustrate fit layout
+                    region: "center",
+                    xtype: 'logicgridpanel',
+                    store: store
+                }
+            });
+        }
 
         /*if(th.datas.type==56){
             Ext.create('Ext.data.Store', {
@@ -330,7 +439,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     if(justDrawTempLine==true){
         return ;
     }
-    if (item.querySelector("div").innerHTML == "model") {
+    if (item.querySelector("div").innerHTML == "mode") {
         return;
     }
     if (item.querySelector("div").innerHTML == "Instance") {
@@ -389,7 +498,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             var columnid = d3.select(aRowsAll[i]).attr("id");
             var tempLineEnd;
 
-            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "model" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
+            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "mode" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
 
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 

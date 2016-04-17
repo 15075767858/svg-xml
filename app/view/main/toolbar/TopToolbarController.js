@@ -86,8 +86,8 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         var initData = slotsJson[typeName].initData;
                         //console.log(initData)
                         var startIndex = 1;
-                        if (initData[0].name == "model") {
-                            initData[0].value = masterNodes[i].getElementsByTagName("model")[0].innerHTML;
+                        if (initData[0].name == "mode") {
+                            initData[0].value = masterNodes[i].getElementsByTagName("mode")[0].innerHTML;
                             startIndex = 2;
                         }
                         var xmlSlots = masterNodes[i].getElementsByTagName("slots");
@@ -137,12 +137,12 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     saveXmlClick: function () {
 
         var aDevs = getDevNamesAll()
-        var tempArr=[];
-        for(var i=0;i<aDevs.length;i++){
-            tempArr.push((aDevs[i]+"").substr(0,4))
+        var tempArr = [];
+        for (var i = 0; i < aDevs.length; i++) {
+            tempArr.push((aDevs[i] + "").substr(0, 4))
         }
-        tempArr.sort(function(a,b){
-            return a- b;
+        tempArr.sort(function (a, b) {
+            return a - b;
         })
         tempArr = tempArr.unique1()
         var aDevsStore = [];
@@ -191,6 +191,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         Ext.Msg.alert('Info', 'Plase select file name.');
                         return;
                     }
+
                     saveXml(text);
                     saveGridpanelsConfigs(text);
                     win.close();
@@ -207,8 +208,11 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 });
 function saveXml(text) {
     text = text || "1000";
-    if(text=="local"){
-        text="local.xml"
+    if (text == "local") {
+        text = "local.xml"
+    }
+    if (text != "1000") {
+        text = "../../" + text;
     }
     if (text.trim() == "") {
         Ext.Msg.alert('Exception', 'File name cannot null.');
@@ -220,17 +224,18 @@ function saveXml(text) {
     xmlAppendPlant(root)
     var datas = {};
     datas['fileName'] = "../" + text;
-    datas['content'] =replacePID(formatXml(sXmlNameSpace + root[0].outerHTML));
+    datas['content'] = replacePID(formatXml(sXmlNameSpace + root[0].outerHTML));
     //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
-    function replacePID(text){
-        text = text.replaceAll("<p>","<P>");
-        text = text.replaceAll("</p>","</P>");
-        text = text.replaceAll("<i>","<I>");
-        text = text.replaceAll("</i>","</I>");
-        text = text.replaceAll("<d>","<D>");
-        text = text.replaceAll("</d>","</D>");
+    function replacePID(text) {
+        text = text.replaceAll("<p>", "<P>");
+        text = text.replaceAll("</p>", "</P>");
+        text = text.replaceAll("<i>", "<I>");
+        text = text.replaceAll("</i>", "</I>");
+        text = text.replaceAll("<d>", "<D>");
+        text = text.replaceAll("</d>", "</D>");
         return text;
     }
+
     datas['rw'] = "w";
     $.ajax({
         type: "POST",
@@ -274,7 +279,8 @@ function get_A_Master_node(gridpanel, index) {
     var iType = gridpanel.datas.type;
     masterNode.attr("number", (index + 1));
     masterNode.append("<type>" + iType + "</type>");
-    isPidSave(gridpanel, masterNode)
+    isPidSave(gridpanel, masterNode);
+
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -288,7 +294,7 @@ function get_A_Master_node(gridpanel, index) {
         if (gridPanelItems[i].data["name"] == "Instance") {
             continue;
         }
-        if (gridPanelItems[i].data["name"] == "model") {
+        if (gridPanelItems[i].data["name"] == "mode") {
             continue;
         }
         console.log(gridPanelItems[i])
@@ -326,9 +332,37 @@ function get_A_Master_node(gridpanel, index) {
         }
         aGirdPanelIII = null;
     }
+    isLogic(gridpanel, masterNode)
     return masterNode;
 }
-
+function isLogic(gridpanel, masterNode) {
+    var items;
+    if (gridpanel.datas.type == "56") {
+        items = gridpanel.config.store.data.items;
+    } else {
+        return;
+    }
+    var times = ["time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"];
+    var columns=Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
+    var index;
+    for (var i = 3; i < columns.length; i++) {
+        console.info(columns[i])
+        console.info(columns[i].hidden+"   "+i)
+        if (columns[i].hidden) {
+            index=i-3;
+            break;
+        }
+    }
+    for (var i = 1; i < items.length; i++) {
+        var list = $("<list number=" + i + "></list>")
+        masterNode.append(list)
+        var data = items[i].data;
+        console.log(data)
+        for (var j = 0; j < index; j++) {
+            list.append("<default number=" + j + ">" + data[times[j]] + "</default>")
+        }
+    }
+}
 
 function isPidSave(gridpanel, masterNode) {
     var items;
@@ -359,7 +393,7 @@ function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
 function isModelFilter(gridPanelItems, masterNode, gridpanel) {
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
-    if (name == 'model') {// if (name != "Out" && name != "In") {
+    if (name == 'mode') {// if (name != "Out" && name != "In") {
         var select = gridPanelItems[0].data.select;
         for (var i = 0; i < select.length; i++) {
             if (select[i].name == value) {
@@ -367,7 +401,7 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
             }
         }
 
-        masterNode.append("<model>" + value + "</model>")
+        masterNode.append("<mode>" + value + "</mode>")
         //gridPanelItems.shift()
         return gridPanelItems;
     }
@@ -409,7 +443,7 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
                 console.log(trs[j])
                 var sn = j;
                 console.log(items)
-                if (items[0].data['name'] == "model") {
+                if (items[0].data['name'] == "mode") {
                     sn = j - 1
                 }
                 if (items[1].data['name'] == "Instance" & j > 0) {

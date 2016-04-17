@@ -199,7 +199,7 @@ Ext.define('lock', {
 Ext.define('logic', {
     extend: "Ext.data.Store",
     storeId: 'logicStore',
-    fields: ['name', 'value',"delay","time"],
+    fields: ['name', 'value',"delay","time","time1","time2","time3","time4","time5","time6","time7","time8","time9"],
     data: slotsJson.logic.initData,
     proxy: oproxy
 });

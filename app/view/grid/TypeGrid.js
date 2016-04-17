@@ -3,7 +3,8 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     xtype: "typegrid",
     requires: [
         "svgxml.view.grid.TypeGridController",
-        "svgxml.view.grid.TypeGridModel"
+        "svgxml.view.grid.TypeGridModel",
+        "svgxml.view.grid.LogicGridPanel"
     ],
 
     controller: "grid-typegrid",
