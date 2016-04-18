@@ -203,16 +203,26 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     }
 });
 function typegridCache(th) {
+
     th = th || getCurrentDrawPanel();
+    var fileName;
+    if(th.title=="1000"){
+    fileName="../" + "1000.json";
+    }else{
+        fileName="devsinfo/"+th.title;
+    }
     Ext.Ajax.request({
         url: "resources/xmlRW.php",
         async: false,
         params: {
-            fileName: "../" + "1000.json",
+            fileName: fileName,
             rw: "r"
         },
         success: function (response) {
             var text = response.responseText;
+            if(text==null){
+                return;
+            }
             try {
             var ojson = Ext.decode(text);
                 th.datas.datasArray = Ext.decode(ojson.datasArray);

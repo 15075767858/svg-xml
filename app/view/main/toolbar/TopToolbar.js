@@ -30,7 +30,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         {
                             text: 'Open •••',
                             listeners: {
-                                click: "openXmlClick"
+                                click: "openXmlClick1"
                             }
                         }, {
                             text: 'Save •••',
@@ -59,13 +59,10 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 
 function saveGridpanelsConfigs(fileName) {
     if (fileName) {
-        fileName = fileName + ".json"
+        fileName = "devsinfo/"+fileName
     } else {
-        fileName = "1000.json";
+        fileName = "../1000.json";
     }
-    //fileName=fileName||"1000.json";
-
-
     var drawpanel = getCurrentDrawPanel();
     var gridpanels = getCurrentDrawPanelGirdPanels();
     var aGridPanels = [];
@@ -75,10 +72,6 @@ function saveGridpanelsConfigs(fileName) {
         var datas = gridpanels[i].datas;
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
-    //localStorage.setItem("datasArray", Ext.encode(drawpanel.datas.datasArray));
-    //drawpanel.datas.datasArray = Ext.decode(localStorage.getItem("datasArray"));
-    // localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
-    //localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));
     var oJson = {
         datasArray: Ext.encode(drawpanel.datas.datasArray),
         plants: Ext.encode(drawpanel.datas.plants),
@@ -88,7 +81,7 @@ function saveGridpanelsConfigs(fileName) {
     Ext.Ajax.request({
         url: "resources/xmlRW.php",
         params: {
-            fileName: "../" + fileName,
+            fileName: fileName,
             rw: "w",
             content: Ext.encode(oJson)
         },

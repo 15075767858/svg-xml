@@ -437,6 +437,7 @@ var sStartItemTrId;//鼠标按下后得到item下的tr的id
 
 function initDrawLine(thi, th, record, item, index, e, eOpts) {
     //console.log(item.querySelector("div").innerHTML )
+    thi=getCurrentDrawPanel();
     var justDrawTempLine=thi.datas.justDrawTempLine;
     if(justDrawTempLine==true){
         return ;

@@ -16,6 +16,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
     listeners: {
         boxready: "boxready"
     },
+    columnLines: true,
     columns: [
         {
             header: 'name', dataIndex: "name", width: 80, minWidth: 80, maxWidth: 80,
@@ -45,8 +46,16 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
             columns: [{
                 dataIndex: "time", width: 45, minWidth: 45, align: "right",
                 editor: {
-                    xtype: 'textfield',
-                    allowBlank: false
+                    xtype: "spinnerfield",
+                    value: 0,
+                    onSpinUp: function () {
+                        var _this = this;
+                        changeTimeValueUp(_this)
+                    },
+                    onSpinDown: function () {
+                        var _this = this;
+                        changeTimeValueDown(_this)
+                    }
                 }
             },
                 {

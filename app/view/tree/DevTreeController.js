@@ -89,7 +89,22 @@ function getTypeByDev(devName) {
     }
     return childrenArr;
 }
-
+function getDevInfoFileNames(){
+    var aNames = null;
+    Ext.Ajax.request({
+        url: 'resources/test3.php',
+        async: false,
+        params: {
+            // url: url,
+        },
+        success: function (response) {
+            var text = response.responseText;
+            aNames = eval(text);
+            aNames.splice(0,2);
+        }
+    });
+    return aNames;
+}
 function getDevNamesAll() {
     var aNames = null;
     Ext.Ajax.request({

@@ -4,8 +4,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
     openXmlClick: function () {
         var odrawpanel = getCurrentDrawPanel();
-
-
         var form = new Ext.form.FormPanel({
             baseCls: 'x-plain',
             labelWidth: 70,
@@ -133,7 +131,68 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             }]
         }).show();
     },
+    openXmlClick1: function () {
+        var aDevNames = getDevInfoFileNames();
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Open •••',
+            frame: true,
+            width: 280,
+            bodyPadding: 10,
+            autoShow: true,
+            defaultType: 'textfield',
+            defaults: {
+                anchor: '100%'
+            },
+            items: [
+                {
+                    xtype: "combobox",
+                    allowBlank: false,
+                    fieldLabel: 'select file name',
+                    store: aDevNames,
+                    editable: false,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    autoSelect: false
+                }
+            ],
 
+            buttons: [
+                {
+                    text: 'Ok', handler: function () {
+                    var text = win.down("combobox").getValue();
+                    if (text == null) {
+                        Ext.Msg.alert('Info', 'Plase select file name.');
+                        return;
+                    }
+                    Ext.Ajax.request({
+                        url: "resources/xmlRW.php",
+                        async: false,
+                        params: {
+                            fileName: "devsinfo/" + text,
+                            rw: "r"
+                        },
+                        success: function (response) {
+                            //var ojsonstr = response.responseText
+                            Ext.getCmp("frametab_drawpanel").add(Ext.create("svgxml.view.tab.DrawPanel", {
+                                title:text
+                            }).show())
+
+
+                        }
+                    })
+                    win.close();
+                }
+                },
+                {
+                    text: 'Cancel', handler: function () {
+                    win.close();
+                }
+                }
+            ]
+        })
+
+    },
     saveXmlClick: function () {
 
         var aDevs = getDevNamesAll()
@@ -208,19 +267,19 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 });
 function saveXml(text) {
     text = text || "1000";
-    var fname=text
+    var fname = text
     if (text == "local") {
         text = "local.xml"
     }
     if (text != "1000") {
         text = "../../" + text;
     }
-    if(fname!="local"&&fname!="1000"){
+    if (fname != "local" && fname != "1000") {
         $.ajax({
             type: "GET",
-            url: "resources/test2.php?par="+fname,
+            url: "resources/test2.php?par=" + fname,
             success: function () {
-                    Ext.Msg.alert('Success', 'Publish Ok.');
+                Ext.Msg.alert('Success', 'Publish Ok.');
             }
         });
     }
@@ -354,14 +413,14 @@ function isLogic(gridpanel, masterNode) {
         return;
     }
     var times = ["time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"];
-    var columns=Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
+    var columns = Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
     var index;
     for (var i = 3; i < columns.length; i++) {
         if (columns[i].hidden) {
-            index=i-3;
+            index = i - 3;
             break;
         }
-        index=10;
+        index = 10;
     }
     for (var i = 1; i < items.length; i++) {
         var list = $("<list number=" + i + "></list>")

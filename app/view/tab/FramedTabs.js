@@ -8,6 +8,7 @@ Ext.define('svgxml.view.tab.FramedTabs', {
     requires: [
         "svgxml.view.tab.FramedTabsController"
     ],
+    id:"frametab_drawpanel",
     controller: 'framedtabs',
     //frame: true,
     width: 400,
