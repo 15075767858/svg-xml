@@ -39,7 +39,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                 saveXml()
                             }
                         }, {
-                            text: "Save as •••" ,
+                            text: "Save as •••",
                             listeners: {
                                 click: "saveXmlClick"
                             },
@@ -58,10 +58,10 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 });
 
 function saveGridpanelsConfigs(fileName) {
-    if(fileName){
-        fileName=fileName+".json"
-    }else{
-        fileName="1000.json";
+    if (fileName) {
+        fileName = fileName + ".json"
+    } else {
+        fileName = "1000.json";
     }
     //fileName=fileName||"1000.json";
 
@@ -77,18 +77,22 @@ function saveGridpanelsConfigs(fileName) {
     }
     //localStorage.setItem("datasArray", Ext.encode(drawpanel.datas.datasArray));
     //drawpanel.datas.datasArray = Ext.decode(localStorage.getItem("datasArray"));
-   // localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
+    // localStorage.setItem("plants", Ext.encode(drawpanel.datas.plants));
     //localStorage.setItem("gridpanelConfigs", Ext.encode(aGridPanels));
-    var oJson = {datasArray: Ext.encode(drawpanel.datas.datasArray),plants: Ext.encode(drawpanel.datas.plants),gridpanelConfigs: Ext.encode(aGridPanels)};
+    var oJson = {
+        datasArray: Ext.encode(drawpanel.datas.datasArray),
+        plants: Ext.encode(drawpanel.datas.plants),
+        gridpanelConfigs: Ext.encode(aGridPanels)
+    };
     console.log(oJson)
     Ext.Ajax.request({
-        url:"resources/xmlRW.php",
+        url: "resources/xmlRW.php",
         params: {
-            fileName:"../"+fileName,
-            rw:"w",
-            content:Ext.encode(oJson)
+            fileName: "../" + fileName,
+            rw: "w",
+            content: Ext.encode(oJson)
         },
-        success: function(response){
+        success: function (response) {
             var text = response.responseText;
         }
     });
@@ -122,10 +126,27 @@ function getStoreConfig(store) {
     var data = [];
     for (var i = 0; i < datas.length; i++) {
         var ojson;
-        if(datas[i].data.select){
-        ojson = {"name": datas[i].data.name, "value": datas[i].data.value,select:datas[i].data.select}
-        }else{
-        ojson = {"name": datas[i].data.name, "value": datas[i].data.value}
+        if (datas[i].data.select) {
+            ojson = {"name": datas[i].data.name, "value": datas[i].data.value, select: datas[i].data.select}
+        } else if (datas[i].data.time) {
+            var dt = datas[i].data;
+            ojson = {
+                "name": dt.name,
+                "value": dt.value,
+                delay: dt.delay,
+                time: dt.time,
+                time1: dt.time1,
+                time2: dt.time2,
+                time3: dt.time3,
+                time4: dt.time4,
+                time5: dt.time5,
+                time6: dt.time6,
+                time7: dt.time7,
+                time8: dt.time8,
+                time9: dt.time9
+            }
+        } else {
+            ojson = {"name": datas[i].data.name, "value": datas[i].data.value}
         }
         data.push(ojson)
     }

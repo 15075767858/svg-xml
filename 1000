@@ -10,8 +10,12 @@
                 <default>0</default>
             </slots>
             <list  number="1">
+                <default  number="0">0</default>
+                <default  number="1">0</default>
             </list>
             <list  number="2">
+                <default  number="0">0</default>
+                <default  number="1">0</default>
             </list>
         </master_node>
     </plant>

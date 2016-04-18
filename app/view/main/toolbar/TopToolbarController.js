@@ -208,11 +208,21 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 });
 function saveXml(text) {
     text = text || "1000";
+    var fname=text
     if (text == "local") {
         text = "local.xml"
     }
     if (text != "1000") {
         text = "../../" + text;
+    }
+    if(fname!="local"&&fname!="1000"){
+        $.ajax({
+            type: "GET",
+            url: "resources/test2.php?par="+fname,
+            success: function () {
+                    Ext.Msg.alert('Success', 'Publish Ok.');
+            }
+        });
     }
     if (text.trim() == "") {
         Ext.Msg.alert('Exception', 'File name cannot null.');
@@ -338,7 +348,8 @@ function get_A_Master_node(gridpanel, index) {
 function isLogic(gridpanel, masterNode) {
     var items;
     if (gridpanel.datas.type == "56") {
-        items = gridpanel.config.store.data.items;
+        console.log(gridpanel)
+        items = gridpanel.store.data.items;
     } else {
         return;
     }
@@ -346,12 +357,11 @@ function isLogic(gridpanel, masterNode) {
     var columns=Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
     var index;
     for (var i = 3; i < columns.length; i++) {
-        console.info(columns[i])
-        console.info(columns[i].hidden+"   "+i)
         if (columns[i].hidden) {
             index=i-3;
             break;
         }
+        index=10;
     }
     for (var i = 1; i < items.length; i++) {
         var list = $("<list number=" + i + "></list>")
@@ -400,7 +410,6 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
                 value = select[i].value;
             }
         }
-
         masterNode.append("<mode>" + value + "</mode>")
         //gridPanelItems.shift()
         return gridPanelItems;
@@ -433,10 +442,8 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
     var startTrId = getStartTrIdByEndTrId(endTrId);//通过结束id从所有连线信息中得到开始id
     var gridpanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < gridpanels.length; i++) {
-
         var trs = gridpanels[i].el.dom.querySelectorAll(".x-grid-row");
         var items = gridpanels[i].store.data.items;
-
         for (var j = 0; j < trs.length; j++) {
             //alert(trs[j].id+"  "+startTrId)
             if (trs[j].id == startTrId) {

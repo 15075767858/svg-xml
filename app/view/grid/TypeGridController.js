@@ -89,7 +89,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                         }, {
                             xtype:"button",
                             text: "+", handler: function () {
-                                if (store.data.length > 10) {
+                                if (store.data.length > 9) {
                                     Ext.Msg.alert('Info', 'Cannot add slot.');
                                     return
                                 }
@@ -132,6 +132,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                     if (columns[i].hidden) {
                                         console.log(columns[i])
                                         columns[i].show()
+                                        joinRow0(grid)
                                         return;
                                     }
                                 }
@@ -147,6 +148,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 for (var i = columns.length - 1; i >= 5; i--) {
                                     if (!columns[i].hidden) {
                                         columns[i].hide()
+                                        joinRow0(grid)
                                         return
                                     }
                                 }
