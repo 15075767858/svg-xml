@@ -61,7 +61,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 
 function saveGridpanelsConfigs(fileName) {
     if (fileName) {
-        fileName = "devsinfo/"+fileName
+        fileName = "devsinfo/" + fileName
     } else {
         fileName = "../1000.json";
     }

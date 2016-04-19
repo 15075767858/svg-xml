@@ -11,22 +11,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         }
         removeFile("../1000");
         removeFile("../1000.json");
-        function removeFile(fileName) {
-            Ext.Ajax.request({
-                url: "resources/delFile.php?fileName=" + fileName,
-                async: false,
-                /*params: {
-                 fileName:fileName
-                 },*/
-                success: function (response) {
-                    var text = response.responseText;
-                    if (text) {
-                        delayToast("Status", 'Server delete file successfully..', 0)
-                    }
-                }
-            });
-        }
-
         tabpanel.add(Ext.create("svgxml.view.tab.DrawPanel", {
             title: "1000"
         }));
@@ -175,7 +159,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             },
             items: [
                 {
-                    margin:10,
+                    margin: 10,
                     xtype: "combobox",
                     allowBlank: false,
                     fieldLabel: 'select file name',
@@ -230,7 +214,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 }
             ]
         })
-
     },
     saveAsClick: function () {
         var aDevs = getDevNamesAll()
@@ -265,7 +248,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
             items: [
                 {
-                    margin:10,
+                    margin: 10,
                     xtype: "combobox",
                     allowBlank: false,
                     fieldLabel: 'select file name',
@@ -302,10 +285,21 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     },
     downloadClick: function () {
 
-        
+        var data;
+        Ext.Ajax.request({
+            url: "resources/test3.php",
+            async: false,
+            params: {},
+            success: function (response) {
+                var text = response.responseText;
+
+                data = Ext.decode(text)
+
+            }
+        })
 
         var win = Ext.create('Ext.window.Window', {
-            title: 'Open •••',
+            title: 'Download •••',
             frame: true,
             width: 310,
             bodyPadding: 10,
@@ -316,11 +310,11 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             },
             items: [
                 {
-                    margin:10,
+                    margin: 10,
                     xtype: "combobox",
                     allowBlank: false,
                     fieldLabel: 'select file name',
-                    store: ["1001", "1002", "1003"],
+                    store: data,
                     editable: false,
                     queryMode: 'local',
                     displayField: 'name',
@@ -811,3 +805,18 @@ function updateCurrentDrawPanelPlant(plant, index) {
  message: 'I can exist along with Ext.Msg'
  });
  */
+function removeFile(fileName) {
+    Ext.Ajax.request({
+        url: "resources/delFile.php?fileName=" + fileName,
+        async: false,
+        /*params: {
+         fileName:fileName
+         },*/
+        success: function (response) {
+            var text = response.responseText;
+            if (text) {
+                delayToast("Status", 'Server delete file successfully..', 0)
+            }
+        }
+    });
+}
