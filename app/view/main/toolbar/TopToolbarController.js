@@ -175,7 +175,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         success: function (response) {
                             //var ojsonstr = response.responseText
                             Ext.getCmp("frametab_drawpanel").add(Ext.create("svgxml.view.tab.DrawPanel", {
-                                title:text
+                                title: text
                             }).show())
 
 
@@ -272,7 +272,7 @@ function saveXml(text) {
         text = "local.xml"
     }
     if (text != "1000") {
-        text = "../../" + text;
+        text = "../../../" + text;
     }
     if (fname != "local" && fname != "1000") {
         $.ajax({
@@ -412,9 +412,16 @@ function isLogic(gridpanel, masterNode) {
     } else {
         return;
     }
-    var times = ["time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"];
+    var times = ["delay","time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"];
     var columns = Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
     var index;
+
+
+    for (var i = 0; i < columns.length; i++) {
+        console.log(columns[i])
+
+    }
+
     for (var i = 3; i < columns.length; i++) {
         if (columns[i].hidden) {
             index = i - 3;
@@ -422,15 +429,32 @@ function isLogic(gridpanel, masterNode) {
         }
         index = 10;
     }
+
+
+    /*function getListByIndex(i,index) {
+        var list = $("<list number=" + i + "></list>")
+        for (var i = 1; i < items.length; i++) {
+        }
+    }*/
+
     for (var i = 1; i < items.length; i++) {
+        console.log(items[i])
         var list = $("<list number=" + i + "></list>")
         masterNode.append(list)
         var data = items[i].data;
         console.log(data)
+
+        list.append("<default number=" + 0 + ">" + data["delay"] + "</default>");
         for (var j = 0; j < index; j++) {
-            list.append("<default number=" + j + ">" + data[times[j]] + "</default>")
+            var ivalue = data[times[j]];
+            if (ivalue == "-") {
+                ivalue = 2
+            }
+            list.append("<default number=" + (j + 1) + ">" + ivalue + "</default>")
         }
     }
+
+
 }
 
 function isPidSave(gridpanel, masterNode) {

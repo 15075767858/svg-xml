@@ -17,13 +17,14 @@ Ext.define('svgxml.view.main.MainController', {
   boxready:  function () {
 
     function autoSave() {
-        saveGridpanelsConfigs()
-        saveXml()
+        var fileNmae = getCurrentDrawPanel().title;
+        saveGridpanelsConfigs(fileNmae)
+        saveXml(fileNmae)
     }
     var runner = new Ext.util.TaskRunner();
     setTimeout(function () {
         var task = runner.start({
-            run: autoSave,
+            run: autoSave(),
             interval: 60*1000
         })
     }, 60*1000)

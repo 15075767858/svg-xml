@@ -20,13 +20,14 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
     columns: [
         {
             header: 'name', dataIndex: "name", width: 80, minWidth: 80, maxWidth: 80,
+            align: "center",
             sortable: false,
             menuDisabled: true
         },
         {
             sortable: false,
             menuDisabled: true,
-            header: "delay", dataIndex: "delay", width: 90, minWidth: 90, maxWidth: 90, align: "right", editor: {
+            header: "delay", dataIndex: "delay", width: 90, minWidth: 90, maxWidth: 90, align: "center", editor: {
             xtype: 'textfield',
             allowBlank: false
         }
@@ -34,7 +35,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
         {
             sortable: false,
             menuDisabled: true,
-            header: "value", dataIndex: "value", width: 73, minWidth: 73, maxWidth: 73, align: "right", editor: {
+            header: "value", dataIndex: "value", width: 73, minWidth: 73, maxWidth: 73, align: "center", editor: {
             xtype: 'textfield',
             allowBlank: false
         }
@@ -44,7 +45,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
             menuDisabled: true,
             header: "configure",
             columns: [{
-                dataIndex: "time", width: 45, minWidth: 45, align: "right",
+                dataIndex: "time", width: 45, minWidth: 45, align: "center",
                 editor: {
                     xtype: "spinnerfield",
                     value: 0,
@@ -61,7 +62,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time1", width: 45, minWidth: 45, align: "right", editor: {
+                    dataIndex: "time1", width: 45, minWidth: 45, align: "center", editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -77,7 +78,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time2", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time2", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -93,7 +94,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time3", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time3", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -109,7 +110,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time4", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time4", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -125,7 +126,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time5", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time5", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -141,7 +142,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time6", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time6", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -157,7 +158,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time7", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time7", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -173,7 +174,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time8", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time8", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -189,7 +190,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time9", width: 45, minWidth: 45, align: "right", hidden: true, editor: {
+                    dataIndex: "time9", width: 45, minWidth: 45, align: "center", hidden: true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
