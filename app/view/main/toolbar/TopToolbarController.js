@@ -1,7 +1,37 @@
 Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.main-toolbar-toptoolbar',
+    newClick: function () {
+        var tabpanel = Ext.getCmp("frametab_drawpanel");
+        var drawpanels = Ext.ComponentQuery.query("drawpanel");
+        for (var i = 0; i < drawpanels.length; i++) {
+            if (drawpanels[i].title == "1000") {
+                drawpanels[i].close();
+            }
+        }
+        removeFile("../1000");
+        removeFile("../1000.json");
+        function removeFile(fileName) {
+            Ext.Ajax.request({
+                url: "resources/delFile.php?fileName=" + fileName,
+                async: false,
+                /*params: {
+                 fileName:fileName
+                 },*/
+                success: function (response) {
+                    var text = response.responseText;
+                    if (text) {
+                        delayToast("Status", 'Server delete file successfully..', 0)
+                    }
+                }
+            });
+        }
 
+        tabpanel.add(Ext.create("svgxml.view.tab.DrawPanel", {
+            title: "1000"
+        }));
+        delayToast("Status", 'New file successfully..', 1000);
+    },
     openXmlClick: function () {
         var odrawpanel = getCurrentDrawPanel();
         var form = new Ext.form.FormPanel({
@@ -136,7 +166,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         var win = Ext.create('Ext.window.Window', {
             title: 'Open •••',
             frame: true,
-            width: 280,
+            width: 310,
             bodyPadding: 10,
             autoShow: true,
             defaultType: 'textfield',
@@ -145,6 +175,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             },
             items: [
                 {
+                    margin:10,
                     xtype: "combobox",
                     allowBlank: false,
                     fieldLabel: 'select file name',
@@ -156,7 +187,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     autoSelect: false
                 }
             ],
-
             buttons: [
                 {
                     text: 'Ok', handler: function () {
@@ -165,6 +195,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         Ext.Msg.alert('Info', 'Plase select file name.');
                         return;
                     }
+                    win.close();
                     Ext.Ajax.request({
                         url: "resources/xmlRW.php",
                         async: false,
@@ -174,11 +205,19 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         },
                         success: function (response) {
                             //var ojsonstr = response.responseText
-                            Ext.getCmp("frametab_drawpanel").add(Ext.create("svgxml.view.tab.DrawPanel", {
+                            var tabpanel = Ext.getCmp("frametab_drawpanel");
+                            var drawpanels = Ext.ComponentQuery.query("drawpanel");
+                            for (var i = 0; i < drawpanels.length; i++) {
+                                if (drawpanels[i].title == text) {
+                                    tabpanel.setActiveTab(drawpanels[i].id);
+                                    return;
+                                }
+                            }
+                            var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
                                 title: text
-                            }).show())
-
-
+                            })
+                            tabpanel.add(drawpanel)
+                            tabpanel.setActiveTab(drawpanel.id);
                         }
                     })
                     win.close();
@@ -193,8 +232,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         })
 
     },
-    saveXmlClick: function () {
-
+    saveAsClick: function () {
         var aDevs = getDevNamesAll()
         var tempArr = [];
         for (var i = 0; i < aDevs.length; i++) {
@@ -203,24 +241,21 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         tempArr.sort(function (a, b) {
             return a - b;
         })
-        tempArr = tempArr.unique1()
+        tempArr = tempArr.unique1();
         var aDevsStore = [];
-
         aDevsStore.push({"name": "local"})
         for (var i = 0; i < tempArr.length; i++) {
             aDevsStore.push({"name": tempArr[i]})
         }
-
         var states = Ext.create('Ext.data.Store', {
             fields: ['name'],
             data: aDevsStore
         });
-
 // Create the combo box, attached to the states data store
         var win = Ext.create('Ext.window.Window', {
             title: 'Save as•••',
             frame: true,
-            width: 280,
+            width: 310,
             bodyPadding: 10,
             autoShow: true,
             defaultType: 'textfield',
@@ -230,6 +265,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
             items: [
                 {
+                    margin:10,
                     xtype: "combobox",
                     allowBlank: false,
                     fieldLabel: 'select file name',
@@ -263,17 +299,82 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 }
             ]
         })
+    },
+    downloadClick: function () {
+
+        
+
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Open •••',
+            frame: true,
+            width: 310,
+            bodyPadding: 10,
+            autoShow: true,
+            defaultType: 'textfield',
+            defaults: {
+                anchor: '100%'
+            },
+            items: [
+                {
+                    margin:10,
+                    xtype: "combobox",
+                    allowBlank: false,
+                    fieldLabel: 'select file name',
+                    store: ["1001", "1002", "1003"],
+                    editable: false,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    autoSelect: false
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Ok', handler: function () {
+                    var text = win.down("combobox").getValue();
+                    if (text == null) {
+                        Ext.Msg.alert('Info', 'Plase select file name.');
+                        return;
+                    }
+                    win.close();
+                    Ext.Ajax.request({
+                        url: "resources/xmlRW.php",
+                        async: false,
+                        params: {
+                            fileName: "devsinfo/" + text,
+                            rw: "r"
+                        },
+                        success: function (response) {
+                            //var ojsonstr = response.responseText
+                            var tabpanel = Ext.getCmp("frametab_drawpanel");
+                            var drawpanels = Ext.ComponentQuery.query("drawpanel");
+                            for (var i = 0; i < drawpanels.length; i++) {
+                                if (drawpanels[i].title == text) {
+                                    tabpanel.setActiveTab(drawpanels[i].id);
+                                    return;
+                                }
+                            }
+                            var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
+                                title: text
+                            })
+                            tabpanel.add(drawpanel)
+                            tabpanel.setActiveTab(drawpanel.id);
+                        }
+                    })
+                    win.close();
+                }
+                },
+                {
+                    text: 'Cancel', handler: function () {
+                    win.close();
+                }
+                }
+            ]
+        })
+
     }
 });
-function saveXml(text) {
-    text = text || "1000";
-    var fname = text
-    if (text == "local") {
-        text = "local.xml"
-    }
-    if (text != "1000") {
-        text = "../../../" + text;
-    }
+function filePublish(fname) {
     if (fname != "local" && fname != "1000") {
         $.ajax({
             type: "GET",
@@ -282,6 +383,17 @@ function saveXml(text) {
                 Ext.Msg.alert('Success', 'Publish Ok.');
             }
         });
+    }
+}
+
+function saveXml(text) {
+    text = text || "1000";
+    var fName = text;
+    if (text == "local") {
+        text = "local.xml"
+    }
+    if (text != "1000") {
+        text = "../../../" + text;
     }
     if (text.trim() == "") {
         Ext.Msg.alert('Exception', 'File name cannot null.');
@@ -311,16 +423,18 @@ function saveXml(text) {
         url: "resources/xmlRW.php",
         data: datas,
         success: function () {
-            if (text == "1000") {
-                Ext.toast({
-                    html: 'Auto Save Successfully.',
-                    title: 'Status',
-                    //width: 200,
-                    align: 'br'
-                });
-            } else {
-                Ext.Msg.alert('Success', 'Saved file successfully.');
-            }
+            //getCurrentDrawPanel().title
+            delayToast("Status", "Saved file " + fName + " successfully.", 0);
+            /*if (text == "1000") {
+             Ext.toast({
+             html: 'Auto Save Successfully.',
+             title: 'Status',
+             //width: 200,
+             align: 'br'
+             });
+             } else {
+             Ext.Msg.alert('Success', 'Saved file successfully.');
+             }*/
         }
     });
 }
@@ -427,13 +541,16 @@ function isLogic(gridpanel, masterNode) {
         index = 10;
     }
 
-
     for (var i = 0; i < index; i++) {
         var list = $("<list number=" + i + "></list>")
         masterNode.append(list)
         for (var j = 1; j < items.length; j++) {
             var data = items[j].data;
-            list.append("<default number=" + (j-1) + ">" + data[times[i]] + "</default>")
+            var ivalue = data[times[i]];
+            if (ivalue == "-") {
+                ivalue = 2;
+            }
+            list.append("<default number=" + (j - 1) + ">" + ivalue + "</default>")
         }
     }
 }
@@ -608,6 +725,7 @@ function getCurrentDrawPanel() {
     }
     return drawpanel;
 }
+
 function getCurrentDrawPanelGirdPanels(drawpanel) {
     var drawpanel = drawpanel || getCurrentDrawPanel();
     var aGridpanels = [];
@@ -693,4 +811,3 @@ function updateCurrentDrawPanelPlant(plant, index) {
  message: 'I can exist along with Ext.Msg'
  });
  */
-

@@ -10,8 +10,11 @@ foreach ($arList as $value) {
    $value = "$value";
 
    $Object_Name =$redis->hGet($value, 'Object_Name');
-
+    if(strlen($value)==7){
     $str.= '{leaf: true, text :"'. $Object_Name.'",value:"'.$value.'"},';
+    }
+
+
 };
 echo substr($str,0,strlen($str)-1);
 echo "]";
@@ -21,8 +24,9 @@ echo "[";
 $str ="";
 foreach ($arList as $value) {
    $value = "$value";
-    
+if(strlen($value)==7){
     $str.= $value.',';
+}
 };
 echo substr($str,0,strlen($str)-1);
 echo "]";

@@ -24,10 +24,10 @@ Ext.define('svgxml.view.main.MainController', {
     var runner = new Ext.util.TaskRunner();
     setTimeout(function () {
         var task = runner.start({
-            run: autoSave(),
-            interval: 60*1000
+            run: autoSave,
+            interval: 60*100
         })
-    }, 60*1000)
+    }, 60*100)
 
 },
 
@@ -63,7 +63,15 @@ function generateJson (key,value){
 
 
 
-
+function delayToast(title,html,delay) {
+    setTimeout(function(){
+        Ext.toast({
+            title: title,
+            html: html,
+            align: 'br'
+        });
+    },delay)
+}
 
 String.prototype.removeLineEnd = function () {
     return this.replace(/(<.+?\s+?)(?:\n\s*?(.+?=".*?"))/g, '$1 $2')

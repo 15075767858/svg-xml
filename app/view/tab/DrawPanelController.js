@@ -14,9 +14,14 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         drawlines(th)
     },
     hide: function (th) {
-        Ext.get("plants" + th.getTitle()).hide();
+        var plant = Ext.get("plants" + th.getTitle())
+        if(plant){
+        plant.hide();
+        }
     },
-
+    close:function(th){
+        Ext.getCmp("plants" + th.getTitle()).close();
+    },
     render: function (th, eOpts) {
 
         new Ext.dd.DDTarget(th.getId(), "IconDragDropGroup");
@@ -199,6 +204,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     },
     show: function (th, event, eOpts) {
         // drawlines(th);
+        drawlines(th);
         Ext.get("plants" + th.getTitle()).show();
     }
 });

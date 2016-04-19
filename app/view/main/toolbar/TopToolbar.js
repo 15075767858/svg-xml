@@ -23,8 +23,11 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                     menu: [{
                         text: 'New •••',
                         handler: function () {
-                            saveGridpanelsConfigs()
-                            saveXml()
+                            //saveGridpanelsConfigs()
+                            //saveXml()
+                        },
+                        listeners: {
+                            click: "newClick"
                         }
                     },
                         {
@@ -41,13 +44,12 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "Save as •••",
                             listeners: {
-                                click: "saveXmlClick"
-                            },
-                            handler: function () {
-
-                                //id: "plantsPanel" + th.getTitle(),
-                                //  store: "store" + th.getTitle(),
-
+                                click: "saveAsClick"
+                            }
+                        }, {
+                            text: "Download •••",
+                            listeners: {
+                                click: "downloadClick"
                             }
                         }
                     ]

@@ -195,10 +195,10 @@ var slotsJson = {
     'logic': {
         type: "56",
         initData: [
-            {'name': 'Out',delay:"0",'value': "0",time:"-",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
-            {'name': 'In',delay:"15",'value': "0",time:"-",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
-             {'name': 'In',delay:"10",'value': "0",time:"-",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
-             {'name': 'In',delay:"20",'value': "0",time:"-",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"}
+            {'name': 'Out',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
+            {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
+             {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
+             {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"}
         ],
         isAddSlot: true,
         maxSlot: 10
