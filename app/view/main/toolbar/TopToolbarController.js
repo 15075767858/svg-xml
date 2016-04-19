@@ -412,49 +412,30 @@ function isLogic(gridpanel, masterNode) {
     } else {
         return;
     }
-    var times = ["delay","time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"];
+    var times = ["delay", "time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"];
     var columns = Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
     var index;
-
-
     for (var i = 0; i < columns.length; i++) {
         console.log(columns[i])
-
     }
 
     for (var i = 3; i < columns.length; i++) {
         if (columns[i].hidden) {
-            index = i - 3;
+            index = i - 2;
             break;
         }
         index = 10;
     }
 
 
-    /*function getListByIndex(i,index) {
-        var list = $("<list number=" + i + "></list>")
-        for (var i = 1; i < items.length; i++) {
-        }
-    }*/
-
-    for (var i = 1; i < items.length; i++) {
-        console.log(items[i])
+    for (var i = 0; i < index; i++) {
         var list = $("<list number=" + i + "></list>")
         masterNode.append(list)
-        var data = items[i].data;
-        console.log(data)
-
-        list.append("<default number=" + 0 + ">" + data["delay"] + "</default>");
-        for (var j = 0; j < index; j++) {
-            var ivalue = data[times[j]];
-            if (ivalue == "-") {
-                ivalue = 2
-            }
-            list.append("<default number=" + (j + 1) + ">" + ivalue + "</default>")
+        for (var j = 1; j < items.length; j++) {
+            var data = items[j].data;
+            list.append("<default number=" + (j-1) + ">" + data[times[i]] + "</default>")
         }
     }
-
-
 }
 
 function isPidSave(gridpanel, masterNode) {

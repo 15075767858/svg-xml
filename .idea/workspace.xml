@@ -23,7 +23,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TopToolbarController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TopToolbarController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25082508">
-              <caret line="414" column="24" selection-start-line="414" selection-start-column="24" selection-end-line="414" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="439" column="0" selection-start-line="439" selection-start-column="0" selection-end-line="439" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/1000">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+              <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -123,10 +123,10 @@
         <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
         <option value="$PROJECT_DIR$/app/view/grid/LogicGridPanel.js" />
         <option value="$PROJECT_DIR$/app/view/main/MainModel.js" />
-        <option value="$PROJECT_DIR$/1000" />
         <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
         <option value="$PROJECT_DIR$/resources/test2.php" />
         <option value="$PROJECT_DIR$/resources/test1.php" />
+        <option value="$PROJECT_DIR$/1000" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
       </list>
     </option>
@@ -774,6 +774,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -826,30 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/1000">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/test3.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18811882">
@@ -874,10 +851,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/1000">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25082508">
-          <caret line="414" column="24" selection-start-line="414" selection-start-column="24" selection-end-line="414" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="439" column="0" selection-start-line="439" selection-start-column="0" selection-end-line="439" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
           <folding />
         </state>
       </provider>
