@@ -331,31 +331,8 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         return;
                     }
                     win.close();
-                    Ext.Ajax.request({
-                        url: "resources/xmlRW.php",
-                        async: false,
-                        params: {
-                            fileName: "devsinfo/" + text,
-                            rw: "r"
-                        },
-                        success: function (response) {
-                            //var ojsonstr = response.responseText
-                            var tabpanel = Ext.getCmp("frametab_drawpanel");
-                            var drawpanels = Ext.ComponentQuery.query("drawpanel");
-                            for (var i = 0; i < drawpanels.length; i++) {
-                                if (drawpanels[i].title == text) {
-                                    tabpanel.setActiveTab(drawpanels[i].id);
-                                    return;
-                                }
-                            }
-                            var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
-                                title: text
-                            })
-                            tabpanel.add(drawpanel)
-                            tabpanel.setActiveTab(drawpanel.id);
-                        }
-                    })
-                    win.close();
+
+                    filePublish(text);
                 }
                 },
                 {
@@ -369,15 +346,37 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     }
 });
 function filePublish(fname) {
-    if (fname != "local" && fname != "1000") {
+
+    Ext.Ajax.request({
+        url: "resources/test2.php?fname="+fname,
+        async: false,
+        params: {},
+        success: function (response) {
+            var text = response.responseText;
+            if(text==1){
+                Ext.Msg.alert('Success', 'Publish Ok.');
+            }else{
+                Ext.Msg.alert('Success', 'There is a file download,Please try again later');
+            }
+        }
+    })
+
+    /*if (fname != "local" && fname != "1000") {
         $.ajax({
             type: "GET",
-            url: "resources/test2.php?par=" + fname,
-            success: function () {
+            url: "resources/test2.php?fname=" + fname,
+            success: function (response) {
+                var text = response.responseText;
+                if(text==1){
                 Ext.Msg.alert('Success', 'Publish Ok.');
+                }else{
+                    Ext.Msg.alert('Success', 'There is a file download,Please try again later');
+                }
+
             }
         });
     }
+    */
 }
 
 function saveXml(text) {
