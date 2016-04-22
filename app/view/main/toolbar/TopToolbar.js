@@ -52,9 +52,28 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             listeners: {
                                 click: "downloadClick"
                             }
+                        },"-",{
+                            text:"Exit",handler:function(){
+                                Ext.Msg.show({
+                                    title:'Exit System',
+                                    message: 'Click YES Will exit the system!',
+                                    buttons: Ext.Msg.YESNO,
+                                    icon: Ext.Msg.INFO,
+                                    fn: function(btn) {
+                                        if (btn === 'yes') {
+                                            location.href="../index.html";
+                                        } else if (btn === 'no') {
+                                        } else {
+                                        }
+                                    }
+                                });
+
+                            }
                         }
+                        ,
                     ]
-                }]
+                }
+            ]
         });
         this.callParent();
     }
@@ -77,7 +96,7 @@ function saveGridpanelsConfigs(fileName) {
             var columns = Ext.getCmp("win" + gridpanels[i].id).down("grid").getColumns();
             for (var j = 0; j < columns.length; j++) {
                 if (columns[j].hidden) {
-                    datas.rows = i;
+                    datas.rows = j;
                     break;
                 }
                 datas.rows = 10;

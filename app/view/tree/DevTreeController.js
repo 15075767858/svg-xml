@@ -91,7 +91,7 @@ function getTypeByDev(devName) {
 function getDevInfoFileNames(){
     var aNames = null;
     Ext.Ajax.request({
-        url: 'resources/test3.php',
+        url: 'resources/test3.php?par=0',
         async: false,
         params: {
             // url: url,

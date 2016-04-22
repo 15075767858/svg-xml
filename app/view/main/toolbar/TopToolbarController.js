@@ -2,6 +2,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.main-toolbar-toptoolbar',
     newClick: function () {
+
         var tabpanel = Ext.getCmp("frametab_drawpanel");
         var drawpanels = Ext.ComponentQuery.query("drawpanel");
         for (var i = 0; i < drawpanels.length; i++) {
@@ -292,9 +293,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             params: {},
             success: function (response) {
                 var text = response.responseText;
-
                 data = Ext.decode(text)
-
             }
         })
 
@@ -527,7 +526,7 @@ function isLogic(gridpanel, masterNode) {
     }
     for (var i = 3; i < columns.length; i++) {
         if (columns[i].hidden) {
-            index = i;
+            index = i-2;
             break;
         }
         index = 10;
