@@ -75,8 +75,8 @@ function saveGridpanelsConfigs(fileName) {
         var datas = gridpanels[i].datas;
         if (gridpanels[i].datas.type == 56) {
             var columns = Ext.getCmp("win" + gridpanels[i].id).down("grid").getColumns();
-            for (var i = 0; i < columns.length; i++) {
-                if (columns[i].hidden) {
+            for (var j = 0; j < columns.length; j++) {
+                if (columns[j].hidden) {
                     datas.rows = i;
                     break;
                 }
