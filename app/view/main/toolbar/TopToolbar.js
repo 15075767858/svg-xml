@@ -38,8 +38,9 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: 'Save •••',
                             handler: function () {
-                                saveGridpanelsConfigs()
-                                saveXml()
+                                var title = getCurrentDrawPanel().title;
+                                saveGridpanelsConfigs(title);
+                                saveXml(title);
                             }
                         }, {
                             text: "Save as •••",
@@ -60,7 +61,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 });
 
 function saveGridpanelsConfigs(fileName) {
-    if (fileName) {
+    if (fileName != "1000") {
         fileName = "devsinfo/" + fileName
     } else {
         fileName = "../1000.json";
@@ -70,8 +71,18 @@ function saveGridpanelsConfigs(fileName) {
     var aGridPanels = [];
     for (var i = 0; i < gridpanels.length; i++) {
         var typeGridConfig = getGridPanelConfig(gridpanels[i]);
-        var storeConfig = getStoreConfig(gridpanels[i].getStore());
+        var storeConfig = getStoreConfig(gridpanels[i]);
         var datas = gridpanels[i].datas;
+        if (gridpanels[i].datas.type == 56) {
+            var columns = Ext.getCmp("win" + gridpanels[i].id).down("grid").getColumns();
+            for (var i = 0; i < columns.length; i++) {
+                if (columns[i].hidden) {
+                    datas.rows = i;
+                    break;
+                }
+                datas.rows = 10;
+            }
+        }
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
     var oJson = {
@@ -105,6 +116,7 @@ function getGridPanelRowsIds(gridpanel) {
     }
     return ids;
 }
+
 function getGridPanelConfig(gridpanel) {
     var config = gridpanel.getConfig()
     //console.log(gridpanel)
@@ -112,12 +124,12 @@ function getGridPanelConfig(gridpanel) {
 
     return {icon: config.icon, title: config.title, x: gridpanel.x, y: gridpanel.y, trsIds: Ext.encode(ids)};
 }
-function getStoreConfig(store) {
-    console.log(store)
+
+function getStoreConfig(gridpanel) {
+    var store = gridpanel.getStore();
     var datas = store.data.items;
+    console.info(gridpanel)
     store.commitChanges()
-    console.log(datas)
-    //var datas = store.config.data;
     var data = [];
     for (var i = 0; i < datas.length; i++) {
         var ojson;
@@ -143,6 +155,8 @@ function getStoreConfig(store) {
         } else {
             ojson = {"name": datas[i].data.name, "value": datas[i].data.value}
         }
+        console.info(ojson)
+
         data.push(ojson)
     }
     var fields = getStoreFields(store);

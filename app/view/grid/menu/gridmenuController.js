@@ -44,6 +44,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             hideCom = false;
         }
         menu.up("typegrid").close()
+        drawlines(getCurrentDrawPanel())
     },
     deplicateclick: function (menu, e, eOpts) {
         var typegrid = menu.up("typegrid");

@@ -63,7 +63,7 @@ var slotsJson = {
         type: "5",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': "2"},
+            {'name': 'Instance', 'value': ""},
             {'name': 'In', 'value': ""}
         ],
         isAddSlot: false

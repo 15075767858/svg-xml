@@ -25,9 +25,9 @@ Ext.define('svgxml.view.main.MainController', {
     setTimeout(function () {
         var task = runner.start({
             run: autoSave,
-            interval: 60*100
+            interval: 60*1000
         })
-    }, 60*100)
+    }, 60*1000)
 
 },
 

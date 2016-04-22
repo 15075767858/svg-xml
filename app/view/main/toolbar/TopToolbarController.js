@@ -525,10 +525,9 @@ function isLogic(gridpanel, masterNode) {
     for (var i = 0; i < columns.length; i++) {
         console.log(columns[i])
     }
-
     for (var i = 3; i < columns.length; i++) {
         if (columns[i].hidden) {
-            index = i - 2;
+            index = i;
             break;
         }
         index = 10;

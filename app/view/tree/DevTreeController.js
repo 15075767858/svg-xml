@@ -54,7 +54,7 @@ function getDevAll() {
     var aNames = getDevNamesAll();
     aNames = getArrayBeforeFour(aNames);
     aNames.sort(function (a, b) {
-        return parseInt(a) - parseInt(b);
+        return a-b//parseInt(a) - parseInt(b);
     });
     aNames = aNames.unique1();
     var childrenArr = [];
@@ -74,7 +74,6 @@ function getTypeByDev(devName) {
     for (var i = 0; i < type.length; i++) {
         var childrenArr1 = [];
         var devAndType = devName + type[i];
-
         for (var j = 0; j < nodes.length; j++) {
             if (nodes[j]["value"].substr(0, 5) == devAndType) {
                 nodes[j]['allowDrop'] = false;
@@ -156,7 +155,20 @@ function getTypeAllByDev() {
 function getArrayBeforeFour(aArr) {
     var aArray = [];
     for (var i = 0; i < aArr.length - 1; i++) {
-        var str = (aArr[i] + "").trim().substr(0, 4);
+        var devName=aArr[i]+"";
+        if(devName.length== 6){
+            devName="0"+devName;
+        }
+        if(devName.length==5){
+            devName="00"+devName
+        }
+        if(devName.length==4){
+            devName="000"+devName
+        }
+        if(devName.length<=3){
+            continue;
+        }
+        var str =devName.trim().substr(0, 4);
         aArray.push(str);
     }
     return aArray;

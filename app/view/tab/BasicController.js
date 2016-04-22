@@ -69,51 +69,45 @@ var oproxy = {
 
 Ext.define('AI', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.AI.initData,
 
-    proxy: oproxy
+    //proxy: oproxy
 });Ext.define('AO', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.AO.initData,
 
-    proxy: oproxy
+    //proxy: oproxy
 });Ext.define('BI', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.DI.initData,
 
-    proxy: oproxy
+    //proxy: oproxy
 });Ext.define('BO', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.DO.initData,
 
-    proxy: oproxy
+    //proxy: oproxy
 });Ext.define('AV', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.AV.initData,
 
-    proxy: oproxy
+    //proxy: oproxy
 });Ext.define('BV', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
     fields: ['name', 'value'],
     //data: slotsJson.DV.initData,
 
-    proxy: oproxy
+    //proxy: oproxy
 });
 
 Ext.define('add', {
     extend: "Ext.data.Store",
-    storeId: 'aodoStore',
+    storeId: 'addStore',
     fields: ['name', 'value'],
     data: slotsJson.add.initData,
 
