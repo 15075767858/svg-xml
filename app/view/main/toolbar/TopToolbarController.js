@@ -95,7 +95,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                                 typeName = slot;
                             }
                         }
-                        var initData = slotsJson[typeName].initData;
+                        var initData = slotsJson[typeName].initData();
                         //console.log(initData)
                         var startIndex = 1;
                         if (initData[0].name == "mode") {

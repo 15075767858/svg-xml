@@ -2,8 +2,12 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.tab-drawpanel',
     boxready: function (th, width, height, eOpts) {
+         th.el.dom.childNodes[0].childNodes[0].style.height="300%"
+         th.el.dom.childNodes[0].childNodes[0].style.width="150%"
+        console.log(th.el.getViewSize())
+
         var svg = d3.select(th.el.dom).select(".x-autocontainer-innerCt").append("svg").attr("class", "tempSVG"+th.id)
-            .attr("width", "100%").attr("height", "100%")
+            .attr("width", "150%").attr("height", "300%")
             //.style("border","1px solid red")
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
@@ -46,7 +50,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
         var ogridpanle = Ext.create('Ext.grid.Panel', {
             id: "plantsPanel" + th.getTitle(),
             store: "store" + th.getTitle(),
-            width: "100%",
+            //width: "100%",
             listeners: {
                 itemclick: function (grid, record, item, index, e, eOpts) {
 
@@ -330,6 +334,8 @@ function drawlines(drawpanel) {
     var JIANGE = 10;
     var currentDrawPanel = drawpanel;
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
+    var drawpanelScrollTop=drawpanel.el.dom.querySelector("div").scrollTop
+    var drawpanelScrollLeft=drawpanel.el.dom.querySelector("div").scrollLeft
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
 
@@ -338,7 +344,7 @@ function drawlines(drawpanel) {
         console.log(oStartEndJson)
         for (o in oStartEndJson) {
             //console.log(oStartEndJson)
-            var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]))
+            var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
             var dEnd = Ext.getDom(document.getElementById(o));
             console.log(dStart)
             console.log(dEnd)
@@ -356,10 +362,10 @@ function drawlines(drawpanel) {
 
             var iElWidth = oElStart.el.getWidth();
             var iElHeight = oElStart.el.getHeight() / 2;
-            var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth;
-            var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight;
-            var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft;
-            var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight;
+            var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth+drawpanelScrollLeft;
+            var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight+drawpanelScrollTop;
+            var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft+drawpanelScrollLeft;
+            var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight+drawpanelScrollTop;
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG"+currentDrawPanel.id)
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
@@ -581,8 +587,7 @@ function drawlines(drawpanel) {
     }
 
     function isCollsion(LineToRect) {
-
-        var aObsDivs = currentDrawPanel.getItems().items;
+        var aObsDivs = currentDrawPanel.items.items;
         for (var i = 0; i < aObsDivs.length; i++) {
             var oDiv = d3.select(aObsDivs[i].el.dom);
             var iObsoffsetLeft = oDiv.property("offsetLeft");

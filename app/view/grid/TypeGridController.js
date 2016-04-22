@@ -464,13 +464,17 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
 
     sStartItemTrId = item.querySelector("tr").id;
     console.log(arguments)
+
+    var drawpanelScrollTop=thi.el.dom.querySelector("div").scrollTop
+    var drawpanelScrollLeft=thi.el.dom.querySelector("div").scrollLeft
     var oDrawPanel = d3.select(thi.el.dom).select(".x-autocontainer-innerCt");
     var oSvg = oDrawPanel.select(".tempSVG" + thi.id);
     iDrawPanelLeft = thi.el.getLeft();
     iDrawPanelTop = thi.el.getTop();
+
     var eItem = Ext.get(item);
-    var eItemWidth = eItem.getLeft() - iDrawPanelLeft + eItem.getWidth();
-    var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2;
+    var eItemWidth = eItem.getLeft() - iDrawPanelLeft + eItem.getWidth()+drawpanelScrollLeft;
+    var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2 +drawpanelScrollTop;
 
     //var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
 
@@ -509,8 +513,8 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
-            var left = Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
-            var top = Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
+            var left =drawpanelScrollLeft+ Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
+            var top =drawpanelScrollTop+  Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
 
             var columnid = d3.select(aRowsAll[i]).attr("id");
             var tempLineEnd;
@@ -531,8 +535,10 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         }
 
         document.onmousemove = function (e) {
-            _this.attr("cx", e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
-            _this.attr("cy", e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
+
+
+            _this.attr("cx",drawpanelScrollLeft+ e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
+            _this.attr("cy",drawpanelScrollTop+ e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
             console.log(document.onmousemove)
             drawTempline();
         };

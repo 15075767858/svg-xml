@@ -1,24 +1,28 @@
 Ext.define("svgxml.view.tab.DrawPanel", {
-    extend: "Ext.draw.Container",
+    extend: "Ext.panel.Panel",
     xtype: "drawpanel",
     requires: [
         "svgxml.view.tab.DrawPanelController",
         "svgxml.view.tab.DrawPanelModel"
     ],
-    engine: "Ext.draw.engine.Svg",
+    //engine: "Ext.draw.engine.Svg",
     controller: "tab-drawpanel",
     viewModel: {
         type: "tab-drawpanel"
     },
-    autoScroll: true,
+    //autoScroll: true,
     closable: true,
     bodyStyle: 'background:url(resources/img/square.gif);',
     bodyPadding: "0",
     layout: {
         type: "absolute"
     },
+    initComponent: function () {
+        this.height=3000;
+        this.width=3000;
+        this.callParent();
+    },
     enableDragDrop: true,
-
     listeners: {
         boxready: "boxready",
         //add: "add",
@@ -114,15 +118,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
             }
         });
 
-    }/*,
-     beforeDestroy: function(){
-     var target = this.PanelDropTarget;
-     if (target) {
-     target.unreg();
-     this.PanelDropTarget = null;
-     }
-     this.callParent();
-     }*/
+    }
 });
 
 

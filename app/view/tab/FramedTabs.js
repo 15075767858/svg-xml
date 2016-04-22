@@ -11,10 +11,10 @@ Ext.define('svgxml.view.tab.FramedTabs', {
     id:"frametab_drawpanel",
     controller: 'framedtabs',
     //frame: true,
-    width: 400,
-    height: 300,
+    width: 4000,
+    height: 3000,
     defaults: {
-        bodyPadding: 10,
+        //bodyPadding: 10,
         autoScroll: true
     },
     listeners : {

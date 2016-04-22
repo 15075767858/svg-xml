@@ -43,22 +43,7 @@ Ext.define('svgxml.view.main.Main', {
     },
     //header:true,
     items: [
-        /* {
-         xtype: "header",
-         region: "north",
-         layout: "border",
-         height: 100,
-         bind: {
-         title: "<div style='z-index:0;top:0px;width:100%;line-height:50px;background:rgb(130,177,52);padding:0 0 0 5px;font-size: 20px;color:white;'><img style='height:20px;' src='{img}'/>     {name}</div>"
-         },
-         //margin: "40 0 0 0",
-         items: [
-         {
-         xtype: "basic-toolbar"
-         }
-         ],
-         collapsible: false
-         },*/
+
         {
             xtype: "basic-tabs",
             region: "west",
@@ -72,6 +57,8 @@ Ext.define('svgxml.view.main.Main', {
         //{ region: "east", width: 90, title: 'north', collapsible: true },
         Ext.create("svgxml.view.tab.FramedTabs", {
             region: "center",
+            height:"200%",
+            width:"200%",
             split: true,
             collapsible: true,
             title: "Program"

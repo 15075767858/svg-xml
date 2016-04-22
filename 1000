@@ -2,12 +2,64 @@
 <root>
     <plant  name="001">
         <master_node  number="1">
-            <type>0</type>
-            <key>1002001</key>
+            <type>61</type>
+            <mode>0</mode>
+            <slots  number="1">
+                <default>0</default>
+            </slots>
+            <slots  number="2">
+                <default>0</default>
+            </slots>
         </master_node>
         <master_node  number="2">
-            <type>0</type>
-            <key>1002004</key>
+            <type>58</type>
+            <slots  number="1">
+                <node>1</node>
+                <slot_number>2</slot_number>
+            </slots>
+        </master_node>
+        <master_node  number="3">
+            <type>51</type>
+            <slots  number="1">
+                <default>0</default>
+            </slots>
+            <slots  number="2">
+                <default>0</default>
+            </slots>
+        </master_node>
+        <master_node  number="4">
+            <type>61</type>
+            <mode>0</mode>
+            <slots  number="1">
+                <node>3</node>
+                <slot_number>1</slot_number>
+            </slots>
+            <slots  number="2">
+                <default>0</default>
+            </slots>
+        </master_node>
+        <master_node  number="5">
+            <type>70</type>
+            <mode>0</mode>
+            <slots  number="1">
+                <default>0</default>
+            </slots>
+            <slots  number="2">
+                <default>0</default>
+            </slots>
+            <slots  number="3">
+                <default>101325.0</default>
+            </slots>
+        </master_node>
+        <master_node  number="6">
+            <type>60</type>
+            <slots  number="1">
+                <node>5</node>
+                <slot_number>2</slot_number>
+            </slots>
+            <slots  number="2">
+                <default>2</default>
+            </slots>
         </master_node>
     </plant>
 </root>
