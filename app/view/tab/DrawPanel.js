@@ -73,14 +73,17 @@ Ext.define("svgxml.view.tab.DrawPanel", {
 
                 var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
                 console.log(typeName)
-                aData = slotsJson[typeName].initData;
+                aData =  slotsJson[typeName].initData();
                 aData[1].value=Number.valueOf()(value.substr(5,6));
-
                 var ostore = Ext.create("Ext.data.Store", {
                     fields:["name","value"],
                     data: aData
                 })
 
+                /*setInterval(function(){
+                    aData[1].value=Math.random()*100
+                    console.log(aData)
+                },1000)*/
                 console.info(ostore)
 
                 getCurrentDrawPanel().add(Ext.create("svgxml.view.grid.TypeGrid", {

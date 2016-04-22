@@ -301,7 +301,7 @@ function typegridCache(th) {
         console.log(typegrid.store)
         console.log(item)
 
-        var data = slotsJson[getNameByType(type)].initData;
+        var data = slotsJson[getNameByType(type)].initData();
         console.log(data)
         try {
             data[1].value = item.store.data[1].value;

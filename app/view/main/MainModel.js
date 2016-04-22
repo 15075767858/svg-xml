@@ -18,54 +18,71 @@ Ext.define('svgxml.view.main.MainModel', {
 var slotsJson = {
     'AI': {
         type: "0",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': ""}
-        ],
+        initData: function () {
+            var arr = new Array()
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': ""}
+            return arr
+        },
         isAddSlot: false,
         maxSlot: 10
     }, 'AO': {
         type: "1",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': ""},
-            {'name': 'In', 'value': ""}
-        ],
+        initData: function () {
+            var arr = new Array()
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': ""}
+            arr[2] = {'name': 'In', 'value': ""}
+            return arr;
+        },
         isAddSlot: false
         //maxSlot:10
     }, 'BI': {
         type: "3",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': "0"}
-        ],
+        initData: function () {
+            var arr = new Array()
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': "0"}
+            return arr;
+        },
         isAddSlot: false
         //maxSlot:10
     }, 'BO': {
         type: "4",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': ""},
-            {'name': 'In', 'value': ""}
-        ],
+        initData: function () {
+            var arr = new Array()
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': ""}
+            arr[2] = {'name': 'In', 'value': ""}
+            return arr;
+        },
         isAddSlot: false
         //maxSlot:10
     }, 'AV': {
         type: "2",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': ""},
-            {'name': 'In', 'value': ""}
-        ],
+        initData: function () {
+            var arr = new Array()
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': ""}
+            arr[2] = {'name': 'In', 'value': ""}
+            return arr;
+        },
         isAddSlot: false
         //maxSlot:10
     }, 'BV': {
         type: "5",
-        initData: [
-            {'name': 'Out', 'value': "0"},
-            {'name': 'Instance', 'value': ""},
-            {'name': 'In', 'value': ""}
-        ],
+        initData: function () {
+            var arr = new Array()
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': ""}
+            arr[2] = {'name': 'In', 'value': ""}
+            return arr;
+        },
         isAddSlot: false
         //maxSlot:10
     },
@@ -195,10 +212,66 @@ var slotsJson = {
     'logic': {
         type: "56",
         initData: [
-            {'name': 'Out',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
-            {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
-             {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"},
-             {'name': 'In',delay:"0",'value': "0",time:"0",time1:"0",time2:"0",time3:"0",time4:"0",time5:"0",time6:"0",time7:"0",time8:"0",time9:"0"}
+            {
+                'name': 'Out',
+                delay: "0",
+                'value': "0",
+                time: "0",
+                time1: "0",
+                time2: "0",
+                time3: "0",
+                time4: "0",
+                time5: "0",
+                time6: "0",
+                time7: "0",
+                time8: "0",
+                time9: "0"
+            },
+            {
+                'name': 'In',
+                delay: "0",
+                'value': "0",
+                time: "0",
+                time1: "0",
+                time2: "0",
+                time3: "0",
+                time4: "0",
+                time5: "0",
+                time6: "0",
+                time7: "0",
+                time8: "0",
+                time9: "0"
+            },
+            {
+                'name': 'In',
+                delay: "0",
+                'value': "0",
+                time: "0",
+                time1: "0",
+                time2: "0",
+                time3: "0",
+                time4: "0",
+                time5: "0",
+                time6: "0",
+                time7: "0",
+                time8: "0",
+                time9: "0"
+            },
+            {
+                'name': 'In',
+                delay: "0",
+                'value': "0",
+                time: "0",
+                time1: "0",
+                time2: "0",
+                time3: "0",
+                time4: "0",
+                time5: "0",
+                time6: "0",
+                time7: "0",
+                time8: "0",
+                time9: "0"
+            }
         ],
         isAddSlot: true,
         maxSlot: 10
@@ -235,8 +308,16 @@ var slotsJson = {
             {'name': 'Out', 'value': "0"},
             {'name': 'PV', 'value': "0"},
             {'name': 'SP', 'value': "0"},
-            {'name': 'Enable', 'value': "Enable", select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]},
-            {'name': 'Direction', 'value': "Derect", select: [{name: "Derect", value: "0"}, {name: "Reverse", value: "1"}]}
+            {
+                'name': 'Enable',
+                'value': "Enable",
+                select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]
+            },
+            {
+                'name': 'Direction',
+                'value': "Derect",
+                select: [{name: "Derect", value: "0"}, {name: "Reverse", value: "1"}]
+            }
         ],
         isAddSlot: false
     },
@@ -244,7 +325,11 @@ var slotsJson = {
         type: "65",
         initData: [
             {'name': 'Out', 'value': "0"},
-            {'name': 'Enable', 'value': "Enable",select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]},
+            {
+                'name': 'Enable',
+                'value': "Enable",
+                select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]
+            },
             {'name': 'OnTime', 'value': "6"},
             {'name': 'OffTime', 'value': "6"},
             {'name': 'lifetime', 'value': "60"}
@@ -267,7 +352,7 @@ var slotsJson = {
             {'name': 'Out', 'value': "0"},
             {'name': 'In', 'value': "0"},
             {'name': 'In', 'value': "0"},
-            {'name': 'Enable', 'value': "Enable",select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]}
+            {'name': 'Enable', 'value': "Enable", select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]}
         ],
         isAddSlot: false
     }/*,

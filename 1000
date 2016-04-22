@@ -3,7 +3,7 @@
     <plant  name="001">
         <master_node  number="1">
             <type>0</type>
-            <key>1002002</key>
+            <key>1002001</key>
         </master_node>
         <master_node  number="2">
             <type>0</type>
