@@ -78,7 +78,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         var datasArray = getCurrentDrawPanel().datas.datasArray;
         var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
         console.log(datasArray)
-        d3.selectAll("polyline").each(function () {
+        d3.selectAll("polyline")                                                                                                                                                                                                                                                                                                              .each(function () {
             console.log(d3.select(this).attr("data-end") + " " + targetid)
             for (var i = 0; i < datasArray.length; i++) {
                 console.log(datasArray[i][targetid])

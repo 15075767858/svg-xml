@@ -16,7 +16,7 @@ Ext.define("svgxml.view.tree.DevTree", {
     //titleAlign:"center",//标题居中
     titleCollapse: true,
     autoScroll: true,
-    animate: true,
+    animate: false,
     resizable: true,
     //ui: "default",
     useArrows: true,
@@ -27,6 +27,7 @@ Ext.define("svgxml.view.tree.DevTree", {
     listeners: {
         // itemclick: "itemclick",
         render: "render",
+        itemcontextmenu:"itemcontextmenu",
         //itemmouseenter: "itemmouseenter",
         afteritemexpand: function (node, index, e) {
             if (node.raw.depth == 3) {
@@ -52,7 +53,6 @@ Ext.define("svgxml.view.tree.DevTree", {
             th.up("devtree").collapseAll(function () {
                 th.up("devtree").down("toolbar").enable()
             });
-
         }
     }], initComponent: function () {
         this.viewConfig={
@@ -62,7 +62,6 @@ Ext.define("svgxml.view.tree.DevTree", {
                 ddGroup: "DevTreeDragDropGroup"
             }
         }
-
         this.callParent();
     }
 });

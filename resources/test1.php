@@ -3,6 +3,26 @@ $par=$_GET["par"];
 $redis = new Redis();
 $redis->connect("192.168.253.253", 6379);
 $arList = $redis->keys("*");
+
+if($par=="changevalue"){
+	$nodeName = $_GET["nodename"];
+	$type=$_GET["type"];
+	$value=$_GET["value"];
+	$redis->$hSet($nodename,$type,$value);
+}
+if($par=="node"){
+	$nodeName=$_GET["nodename"];
+	//$arList = $redis->hVals(nodeName);
+	$arList = $redis->hKeys($nodeName);
+	$str = "";
+	echo "[";
+	foreach ($arList as $key) {
+		$value = $redis->hGet($nodeName,$key);
+		$str.="{type:'".$key."',value:'".$value."'},";
+	}
+echo substr($str,0,strlen($str)-1);
+echo "]";
+}
 if($par=="nodes"){
 	echo "[";
 	$str ="";

@@ -45,6 +45,8 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
             menuDisabled: true,
             header: "configure",
             columns: [{
+                sortable: false,
+                menuDisabled: true,
                 dataIndex: "time", width: 45, minWidth: 45, align: "center",
                 editor: {
                     xtype: "spinnerfield",

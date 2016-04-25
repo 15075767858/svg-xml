@@ -46,7 +46,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //th.store.data.items[1].data.value=th.datas.value.substr(5,6)
             //th.store.commitChanges();
             //console.info(th.store.items)
-
         }
 
         if (th.datas.type == 67) {
@@ -313,7 +312,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             },
             buttons: [
                 {
-                    text: "确认", handler: function () {
+                    text: "OK", handler: function () {
                     win.down("form").updateRecord();
                     record.commit();
                     win.close();
@@ -506,7 +505,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     d3.select("#tempLineStart").remove();
 
     var tempLineStart = oSvg.append("rect").attr("x", eItemWidth).attr("y", eItemHeight).attr("id", "tempLineStart");
-    var tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
+    var tempLineEnd = oSvg.append("circle").attr("r", 4).attr("stroke-width", 1.5).attr("stroke", "rgb(137,190,229)").attr("fill", "blue").attr("cx", eItemWidth + 10).attr("cy", eItemHeight).attr("id", "tempLineEnd");
 
     tempLineEnd[0][0].onmousedown = function () {
         thi.datas.justDrawTempLine = true;
@@ -575,19 +574,14 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var x1 = parseInt(start.attr("y")) + iDrawPanelTop;
         var x2 = parseInt(end.attr("cx")) + iDrawPanelLeft;
         var y2 = parseInt(end.attr("cy")) + iDrawPanelTop;
-
         //console.log(x1 + " " + y1 + " " + x2 + " " + y2)
         var a = (x1 + CIRCLE_MIN_R) - (x2 + CIRCLE_MIN_R);
         var b = (y1 + CIRCLE_MIN_R) - (y2 + CIRCLE_MIN_R);
         //var c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-
         var cA = Math.atan2(a, b);
         var x = Math.sin(cA) * CIRCLE_MIN_R;
         var y = Math.cos(cA) * CIRCLE_MIN_R;
-
         svg.append("line").attr("id", "tempLine").attr('stroke', "blue").attr("stroke-width", "1").attr("x1", parseInt(endcx) + x).attr("y1", parseInt(endcy) + y).attr("x2", start.attr("x")).attr("y2", start.attr("y"));
-
-
     }
 
 }

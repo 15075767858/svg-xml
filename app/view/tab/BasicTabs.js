@@ -22,7 +22,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
     controller: 'grid-panel-gridpanel',
 
     items: [{
-        title: 'Active Tab',
+        title: 'Active',
         layout: "border",
         items: [
             Ext.create("svgxml.view.tree.DevTree", {
@@ -73,7 +73,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
             })
         ]
     }, {
-        title: 'Inactive Tab'
+        title: 'Inactive'
         //disabled: true,
         //width:"50%"
         //html: KitchenSink.DummyText.extraLongText

@@ -2,16 +2,128 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.imgtree',
     render: function (th) {
-
         var store = Ext.create("Ext.data.TreeStore")
         var url = "127.0.0.1";
         var oJson = getTreeJsonByUrl(url)
         store.setRoot(oJson);
         th.setStore(store);
+    },
+    itemcontextmenu: function (th, record, item, index, e, eOpts) {
+        e.stopEvent();
+        if (record.data.depth == 1) {
+            Ext.create("Ext.menu.Menu", {
+                //floating: true,
+                autoShow: true,
+                x: e.pageX,
+                y: e.pageY,
+                items: [
+                    {
+                        text: "Addpoint..."
+                    }, {
+                        text: "Schedule..."
+                    }, {
+                        text: "BACnetNO."
+                    }, "-", {
+                        text: "Property"
+                    }
+                ]
+            })
+        }
+        if (record.data.depth == 2) {
+            Ext.create("Ext.menu.Menu", {
+                //floating: true,
+                autoShow: true,
+                x: e.pageX,
+                y: e.pageY,
+                items: [
+                    {
+                        text: "Schedule..."
+                    }, {
+                        text: "BACnetNO."
+                    }, {
+                        text: "Save..."
+                    }, {
+                        text: "RestorFactory"
+                    }
+                ]
+            })
+        }
+        if (record.data.depth == 4) {
 
+            var serversData = Ext.decode("[{type:'Object_Identifier',value:'0'},{type:'Object_Name',value:'ANALOG INPUT 1'},{type:'Object_Type',value:'0'},{type:'Present_Value',value:'-50.000'},{type:'Description',value:'ANALOG INPUT 1'},{type:'Device_Type',value:'NTC20K'},{type:'Status_Flags',value:'0000'},{type:'Event_State',value:'0'},{type:'Reliability',value:'0'},{type:'Out_Of_Service',value:'0'},{type:'Update_Interval',value:'0'},{type:'Units',value:'98'},{type:'Min_Pres_Value',value:'0.000'},{type:'Max_Pres_Value',value:'100.000'},{type:'Resolution',value:'0.000'},{type:'COV_Increment',value:'1.000'},{type:'Time_Delay',value:'0'},{type:'Notification_Class',value:'4194303'},{type:'High_Limit',value:'100.000'},{type:'Low_Limit',value:'0.000'},{type:'Deadband',value:'0.000'},{type:'Limit_Enable',value:'0'},{type:'Event_Enable',value:'0'},{type:'Acked_Transitions',value:'7'},{type:'Notify_Type',value:'0'},{type:'Update_Time',value:'2000-01-01 04:25:18 123'},{type:'Offset',value:'0.000'},{type:'Lock_Enable',value:'0'},{type:'Hide',value:'0'}]");
+            console.log(serversData)
+            var store = Ext.create("Ext.data.Store", {
+                fields: ["type", "value"],
+                //data: serversData,
+                proxy: {
+
+                    type: 'ajax',
+                    url: 'resources/test1.php?par=node&nodename=' + record.data.value
+                }
+            })
+            store.load()
+            Ext.create("Ext.menu.Menu", {
+                //floating: true,
+                autoShow: true,
+                x: e.pageX,
+                y: e.pageY,
+                items: [
+                    {
+                        text: "Property", handler: function () {
+                        console.log(Ext.getCmp("devNodeWindow"))
+                        Ext.create('Ext.window.Window', {
+                            id: "devNodeWindow",
+                            title: record.data.value + " Property",
+                            height: 768,
+                            width: 1024,
+                            layout: 'fit',
+                            items: {  // Let's put an empty grid in just to illustrate fit layout
+                                xtype: 'grid',
+                                border: false,
+                                plugins: [
+                                    Ext.create('Ext.grid.plugin.CellEditing', {
+                                        clicksToEdit: 1,
+                                        listeners: {
+                                            edit: function () {
+                                                console.log(arguments)
+                                            }
+                                        }
+                                    })
+                                ],
+                                columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: false},
+                                    {
+                                        header: "Value", flex: 1, dataIndex: "value", sortable: false, editor: {
+                                        xtype: 'textfield',
+                                        allowBlank: false
+                                    }
+
+                                    }
+                                ],
+                                store: store
+                            },
+                            buttons: [
+                                {
+                                    text: "OK", handler: function () {
+
+                                    this.up("window").close();
+                                }
+                                }, {
+                                    text: "Cancel", handler: function () {
+                                        this.up("window").close();
+                                    }
+                                }
+                            ]
+                        }).show();
+                        console.log(arguments)
+                    }
+                    }
+                ]
+            })
+        }
+
+        console.log(arguments)
+        console.log(record)
     }
-
-
 })
 ;
 
@@ -54,7 +166,7 @@ function getDevAll() {
     var aNames = getDevNamesAll();
     aNames = getArrayBeforeFour(aNames);
     aNames.sort(function (a, b) {
-        return a-b//parseInt(a) - parseInt(b);
+        return a - b//parseInt(a) - parseInt(b);
     });
     aNames = aNames.unique1();
     var childrenArr = [];
@@ -83,12 +195,18 @@ function getTypeByDev(devName) {
             }
         }
 
-        var typeJson = {text: getNameByType(i), expanded: false, allowDrop: false, allowDrag: false, children: childrenArr1};
+        var typeJson = {
+            text: getNameByType(i),
+            expanded: false,
+            allowDrop: false,
+            allowDrag: false,
+            children: childrenArr1
+        };
         childrenArr.push(typeJson);
     }
     return childrenArr;
 }
-function getDevInfoFileNames(){
+function getDevInfoFileNames() {
     var aNames = null;
     Ext.Ajax.request({
         url: 'resources/test3.php?par=0',
@@ -99,7 +217,7 @@ function getDevInfoFileNames(){
         success: function (response) {
             var text = response.responseText;
             aNames = eval(text);
-            aNames.splice(0,2);
+            aNames.splice(0, 2);
         }
     });
     return aNames;
@@ -155,20 +273,20 @@ function getTypeAllByDev() {
 function getArrayBeforeFour(aArr) {
     var aArray = [];
     for (var i = 0; i < aArr.length - 1; i++) {
-        var devName=aArr[i]+"";
-        if(devName.length== 6){
-            devName="0"+devName;
+        var devName = aArr[i] + "";
+        if (devName.length == 6) {
+            devName = "0" + devName;
         }
-        if(devName.length==5){
-            devName="00"+devName
+        if (devName.length == 5) {
+            devName = "00" + devName
         }
-        if(devName.length==4){
-            devName="000"+devName
+        if (devName.length == 4) {
+            devName = "000" + devName
         }
-        if(devName.length<=3){
+        if (devName.length <= 3) {
             continue;
         }
-        var str =devName.trim().substr(0, 4);
+        var str = devName.trim().substr(0, 4);
         aArray.push(str);
     }
     return aArray;

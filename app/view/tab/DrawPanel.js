@@ -12,7 +12,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     },
     //autoScroll: true,
     closable: true,
-    bodyStyle: 'background:url(resources/img/square.gif);',
+    bodyStyle: 'background:url(resources/img/square.png);',
     bodyPadding: "0",
     layout: {
         type: "absolute"

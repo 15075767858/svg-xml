@@ -223,9 +223,9 @@ var slotsJson = {
             var arr = new Array();
 
             arr[0] = {'name': 'Out', 'value': "0"}
-            arr[0] = {'name': 'In', 'value': "0"}
-            arr[0] = {'name': 'On', 'value': "55"}
-            arr[0] = {'name': 'Off', 'value': "45"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'On', 'value': "55"}
+            arr[3] = {'name': 'Off', 'value': "45"}
             return arr;
         },
         isAddSlot: false

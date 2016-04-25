@@ -17,7 +17,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         }));
         delayToast("Status", 'New file successfully..', 1000);
     },
-    openXmlClick: function () {
+/*    openXmlClick: function () {
         var odrawpanel = getCurrentDrawPanel();
         var form = new Ext.form.FormPanel({
             baseCls: 'x-plain',
@@ -145,7 +145,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 }
             }]
         }).show();
-    },
+    },*/
     openXmlClick1: function () {
         var aDevNames = getDevInfoFileNames();
         var win = Ext.create('Ext.window.Window', {
@@ -220,7 +220,20 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         var aDevs = getDevNamesAll()
         var tempArr = [];
         for (var i = 0; i < aDevs.length; i++) {
-            tempArr.push((aDevs[i] + "").substr(0, 4))
+            var devName = aDevs[i]+"";
+            if(devName.length== 6){
+                devName="0"+devName;
+            }
+            if(devName.length==5){
+                devName="00"+devName
+            }
+            if(devName.length==4){
+                devName="000"+devName
+            }
+            if(devName.length<=3){
+                continue;
+            }
+            tempArr.push(devName.substr(0, 4))
         }
         tempArr.sort(function (a, b) {
             return a - b;

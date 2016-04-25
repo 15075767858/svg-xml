@@ -16,13 +16,13 @@ if(isset($_GET["par"])){
 //if(strlen($value)==4||$value=='local'){
 }else{
 
-	$dir="../../../";
+	$dir="../../../../";
 	$file=scandir($dir);
 	$str ="";
 	echo "[";
 	foreach ($file as $value) {
 		if($value=='local.xml'){
-			$str.= "'".'local'."',";
+			//$str.= "'".'local'."',";
 		}else if(strlen($value)==4 & is_numeric($value)){
 			$str.= "'".$value."',";
 		}

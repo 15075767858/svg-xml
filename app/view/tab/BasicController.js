@@ -68,13 +68,13 @@ var oproxy = {
 
 Ext.define('AI', {
     extend: "Ext.data.Store",
-    fields: ['name', 'value'],
+    fields: ['name', 'value']
     //data: slotsJson.AI.initData(),
 
     //proxy: oproxy
 });Ext.define('AO', {
     extend: "Ext.data.Store",
-    fields: ['name', 'value'],
+    fields: ['name', 'value']
     //data: slotsJson.AO.initData(),
 
     //proxy: oproxy
@@ -86,19 +86,19 @@ Ext.define('AI', {
     //proxy: oproxy
 });Ext.define('BO', {
     extend: "Ext.data.Store",
-    fields: ['name', 'value'],
+    fields: ['name', 'value']
     //data: slotsJson.DO.initData(),
 
     //proxy: oproxy
 });Ext.define('AV', {
     extend: "Ext.data.Store",
-    fields: ['name', 'value'],
+    fields: ['name', 'value']
     //data: slotsJson.AV.initData(),
 
     //proxy: oproxy
 });Ext.define('BV', {
     extend: "Ext.data.Store",
-    fields: ['name', 'value'],
+    fields: ['name', 'value']
     //data: slotsJson.DV.initData(),
 
     //proxy: oproxy

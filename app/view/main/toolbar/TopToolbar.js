@@ -70,7 +70,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
 
                             }
                         }
-                        ,
+
                     ]
                 }
             ]
