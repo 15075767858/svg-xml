@@ -18,8 +18,8 @@ Ext.define("svgxml.view.tab.DrawPanel", {
         type: "absolute"
     },
     initComponent: function () {
-        this.height=3000;
-        this.width=3000;
+        this.height = 3000;
+        this.width = 3000;
         this.callParent();
     },
     enableDragDrop: true,
@@ -29,14 +29,18 @@ Ext.define("svgxml.view.tab.DrawPanel", {
         render: "render",
         show: "show",
         hide: "hide",
-        close:"close",
+        close: "close",
         el: {
+            selectstart: function (th) {
+                th.stopEvent();
+                return ;
+            },
             contextmenu: function (th, el, eOpts) {
                 console.log(arguments)
                 if (el.tagName != "svg") {
                     return;
-                }
-                ;
+                };
+
 
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: th.pageX,
@@ -77,17 +81,17 @@ Ext.define("svgxml.view.tab.DrawPanel", {
 
                 var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
                 console.log(typeName)
-                aData =  slotsJson[typeName].initData();
-                aData[1].value=Number.valueOf()(value.substr(5,6));
+                aData = slotsJson[typeName].initData();
+                aData[1].value = Number.valueOf()(value.substr(5, 6));
                 var ostore = Ext.create("Ext.data.Store", {
-                    fields:["name","value"],
+                    fields: ["name", "value"],
                     data: aData
                 })
 
                 /*setInterval(function(){
-                    aData[1].value=Math.random()*100
-                    console.log(aData)
-                },1000)*/
+                 aData[1].value=Math.random()*100
+                 console.log(aData)
+                 },1000)*/
                 console.info(ostore)
 
                 getCurrentDrawPanel().add(Ext.create("svgxml.view.grid.TypeGrid", {
@@ -98,14 +102,19 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                         icon: "resources/img/SVG/" + typeName + ".svg",
                         listeners: {
                             add: function () {
-                                setTimeout(currentDrawPanelGridPanelsTrSetId,1000)
+                                setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
                             },
                             render: function (thi) {
                                 /*thi.datas.isAddSlot=slotsJson[getNameByType(type)].isAddSlot;
-                                thi.datas.plantId=""
-                                thi.datas.type =type;
-                                thi.datas.value =value;*/
-                                thi.datas = {isAddSlot:slotsJson[getNameByType(type)].isAddSlot,plantId:"",type:type,value:value};
+                                 thi.datas.plantId=""
+                                 thi.datas.type =type;
+                                 thi.datas.value =value;*/
+                                thi.datas = {
+                                    isAddSlot: slotsJson[getNameByType(type)].isAddSlot,
+                                    plantId: "",
+                                    type: type,
+                                    value: value
+                                };
                                 //console.log(thi.getStore().data);
                             }
                         }

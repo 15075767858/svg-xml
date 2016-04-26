@@ -52,6 +52,10 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             listeners: {
                                 click: "downloadClick"
                             }
+                        },{
+                            text:"Backup..."
+                        },{
+                            text:"Restor..."
                         },"-",{
                             text:"Exit",handler:function(){
                                 Ext.Msg.show({

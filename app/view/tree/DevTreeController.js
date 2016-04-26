@@ -50,18 +50,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         }
         if (record.data.depth == 4) {
 
-            var serversData = Ext.decode("[{type:'Object_Identifier',value:'0'},{type:'Object_Name',value:'ANALOG INPUT 1'},{type:'Object_Type',value:'0'},{type:'Present_Value',value:'-50.000'},{type:'Description',value:'ANALOG INPUT 1'},{type:'Device_Type',value:'NTC20K'},{type:'Status_Flags',value:'0000'},{type:'Event_State',value:'0'},{type:'Reliability',value:'0'},{type:'Out_Of_Service',value:'0'},{type:'Update_Interval',value:'0'},{type:'Units',value:'98'},{type:'Min_Pres_Value',value:'0.000'},{type:'Max_Pres_Value',value:'100.000'},{type:'Resolution',value:'0.000'},{type:'COV_Increment',value:'1.000'},{type:'Time_Delay',value:'0'},{type:'Notification_Class',value:'4194303'},{type:'High_Limit',value:'100.000'},{type:'Low_Limit',value:'0.000'},{type:'Deadband',value:'0.000'},{type:'Limit_Enable',value:'0'},{type:'Event_Enable',value:'0'},{type:'Acked_Transitions',value:'7'},{type:'Notify_Type',value:'0'},{type:'Update_Time',value:'2000-01-01 04:25:18 123'},{type:'Offset',value:'0.000'},{type:'Lock_Enable',value:'0'},{type:'Hide',value:'0'}]");
-            console.log(serversData)
-            var store = Ext.create("Ext.data.Store", {
-                fields: ["type", "value"],
-                //data: serversData,
-                proxy: {
 
-                    type: 'ajax',
-                    url: 'resources/test1.php?par=node&nodename=' + record.data.value
-                }
-            })
-            store.load()
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
@@ -70,37 +59,134 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 items: [
                     {
                         text: "Property", handler: function () {
-                        console.log(Ext.getCmp("devNodeWindow"))
+
+                        if (Ext.getCmp("devNodeWindow")) {
+                            Ext.getCmp("devNodeWindow").setTitle(record.data.value + " Property")
+                            var store = Ext.data.StoreManager.lookup('devNodeStore');
+                            store.getProxy().setUrl('resources/test1.php?par=node&nodename=' + record.data.value)
+                            store.load()
+                            return;
+                        }
+                        var store = Ext.create("Ext.data.Store", {
+                            id: "devNodeStore",
+                            fields: ["type", "value"],
+                            //data: serversData,
+                            proxy: {
+                                type: 'ajax',
+                                url: 'resources/test1.php?par=node&nodename=' + record.data.value
+                            }
+                        })
+                        store.load()
                         Ext.create('Ext.window.Window', {
                             id: "devNodeWindow",
                             title: record.data.value + " Property",
+                            constrainHeader: false,
                             height: 768,
                             width: 1024,
                             layout: 'fit',
-                            items: {  // Let's put an empty grid in just to illustrate fit layout
+                            items: [{  // Let's put an empty grid in just to illustrate fit layout
                                 xtype: 'grid',
                                 border: false,
                                 plugins: [
                                     Ext.create('Ext.grid.plugin.CellEditing', {
                                         clicksToEdit: 1,
                                         listeners: {
-                                            edit: function () {
+
+                                            beforeedit: function (editor, context, eOpts) {
                                                 console.log(arguments)
+                                                var aWriteArr = ["Object_Name", "Present_Value", "Description", "Device_Type",
+                                                    "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
+                                                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
+                                                var sDevNodeName = record.data.value;
+                                                var sNodeType = record.data.type;
+                                                var sDevName = sDevNodeName.substr(0, 4);
+                                                console.log(sDevName);
+                                                console.log(sNodeType);
+                                                console.log(record);
+                                                var rowRecord = context.record;
+                                                for (var i = 0; i < aWriteArr.length; i++) {
+                                                    if (rowRecord.data.type == aWriteArr[i]) {
+                                                        if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
+                                                            return false;
+                                                        }
+                                                        if (rowRecord.data.type == "Device_Type") {
+
+                                                            var combostore = Ext.create('Ext.data.Store', {
+                                                                autoLoad: false,
+                                                                proxy: {
+                                                                    type: "ajax",
+                                                                    url: "resources/test1.php?par=changevalue",
+                                                                },
+                                                                model: Ext.create("Ext.data.Model", {
+                                                                    fields: ['name'],
+                                                                    data: [
+                                                                        {"name": "0-10=0-100"},
+                                                                        {"name": "NTC10K"},
+                                                                        {"name": "NTC20K"}
+                                                                    ]
+                                                                })
+                                                            })
+
+                                                            context.column.setEditor({
+                                                                xtype: "combobox",
+                                                                store: combostore,
+                                                                validator: function (val) {
+                                                                    if(val=="NTC10K"&&val=="NTC20K"){
+                                                                        return val
+                                                                    }
+                                                                    var str = val.split("=");
+                                                                    if(str.length!=2) {
+                                                                        return false;
+                                                                    }
+                                                                    for(var i=0;i<str.length;i++){
+
+                                                                        if(str[i].split("-").length!=2){
+                                                                        return false;
+                                                                    }
+                                                                    }
+                                                                    /*combostore.load({
+                                                                        params: {
+                                                                            nodename: sDevNodeName,
+                                                                            type: rowRecord.data.type,
+                                                                            value: val
+                                                                        }
+                                                                    })*/
+                                                                    console.log(context.column.getEditor())
+                                                                    console.log(arguments)
+                                                                    return true;
+                                                                },
+                                                                displayField: 'name',
+                                                                valueField: 'name'
+                                                            })
+
+                                                        } else {
+                                                            context.column.setEditor({xtype: "textfield"})
+                                                        }
+                                                        return arguments;
+                                                    }
+                                                }
+                                                console.log(arguments)
+                                                return false
                                             }
                                         }
                                     })
                                 ],
-                                columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: false},
+                                columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: true},
                                     {
-                                        header: "Value", flex: 1, dataIndex: "value", sortable: false, editor: {
+                                        header: "Value", flex: 1, dataIndex: "value", sortable: true, editor: {
                                         xtype: 'textfield',
-                                        allowBlank: false
+                                        allowBlank: false//允许空白
                                     }
-
                                     }
                                 ],
+                                /* listeners:{
+                                 rowclick:function(){
+                                 console.log(arguments)
+
+                                 }
+                                 },*/
                                 store: store
-                            },
+                            }],
                             buttons: [
                                 {
                                     text: "OK", handler: function () {
@@ -121,8 +207,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
             })
         }
 
-        console.log(arguments)
-        console.log(record)
     }
 })
 ;
@@ -187,6 +271,7 @@ function getTypeByDev(devName) {
         var childrenArr1 = [];
         var devAndType = devName + type[i];
         for (var j = 0; j < nodes.length; j++) {
+            //console.log(nodes[j]["value"])
             if (nodes[j]["value"].substr(0, 5) == devAndType) {
                 nodes[j]['allowDrop'] = false;
                 nodes[j]['allowDrag'] = true;
@@ -249,7 +334,8 @@ function getNodesAll(url) {
         },
         success: function (response) {
             var text = response.responseText;
-            var ojson = eval(text);
+            //document.write(text)
+            var ojson = Ext.decode(text);
             aNames = ojson
         }
     });

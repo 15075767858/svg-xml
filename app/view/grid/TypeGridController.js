@@ -53,9 +53,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 storeId: "store" + th.getId(),
                 fields: ['name', 'value'],
                 data: [
-                    {'name': 'P', 'value': "10.0"},
-                    {'name': 'I', 'value': "2.0"},
-                    {'name': 'D', 'value': "0.0"},
+                    {'name': 'P', 'value': "15"},
+                    {'name': 'I', 'value': "0.1"},
+                    {'name': 'D', 'value': "0.01"},
+                    {'name':'Extime','value':"40"},
                     {'name': 'Max', 'value': "100"},
                     {'name': 'Min', 'value': "0"}
                 ]

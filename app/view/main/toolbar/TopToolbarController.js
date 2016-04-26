@@ -570,8 +570,9 @@ function isPidSave(gridpanel, masterNode) {
     masterNode.append("<P>" + items[0].data.value + "</P>")
     masterNode.append("<I>" + items[1].data.value + "</I>")
     masterNode.append("<D>" + items[2].data.value + "</D>")
-    masterNode.append("<max_value>" + items[3].data.value + "</max_value>")
-    masterNode.append("<min_value>" + items[4].data.value + "</min_value>")
+    masterNode.append("<extime>" + items[3].data.value + "</extime>")
+    masterNode.append("<max_value>" + items[4].data.value + "</max_value>")
+    masterNode.append("<min_value>" + items[5].data.value + "</min_value>")
 
 }
 
@@ -614,8 +615,6 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
 
     return gridPanelItems;
 }
-
-
 function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
     /**
      * 一次只判断一个tr

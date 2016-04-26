@@ -103,7 +103,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         var win = Ext.create('Ext.window.Window', {
             title: 'pid Property',
             width: 213,
-            height: 234,
+            height: 262,
             layout: 'border',
             items: {  // Let's put an empty grid in just to illustrate fit layout
                 region: "center",

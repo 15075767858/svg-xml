@@ -8,7 +8,9 @@ if($par=="changevalue"){
 	$nodeName = $_GET["nodename"];
 	$type=$_GET["type"];
 	$value=$_GET["value"];
-	$redis->$hSet($nodename,$type,$value);
+	echo "{type:'".$type."',value:'"."12313"."'}";
+	
+	//$redis->$hSet($nodename,$type,$value);
 }
 if($par=="node"){
 	$nodeName=$_GET["nodename"];
