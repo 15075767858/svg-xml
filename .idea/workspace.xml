@@ -26,8 +26,31 @@
       <file leaf-file-name="DevTreeController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334">
-              <caret line="136" column="72" selection-start-line="136" selection-start-column="72" selection-end-line="136" selection-end-column="72" />
+            <state vertical-scroll-proportion="0.32366326">
+              <caret line="126" column="65" selection-start-line="126" selection-start-column="65" selection-end-line="126" selection-end-column="65" />
+              <folding>
+                <element signature="e#5430#5686#0" expanded="false" />
+                <element signature="e#5747#6211#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TypeGrid.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EcmaScript.js" pinned="false" current-in-tab="false">
+        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -391,6 +414,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="Publish Ok&#9;null&#9;null&#10;gridCon&#9;null&#9;null&#10;localS&#9;null&#9;null&#10;menu&#9;FILE&#9;file://E:/WWW/svgxml/app/view/grid/menu/gridmenu.js&#10;Icons&#9;null&#9;null&#10;ImgView&#9;FILE&#9;file://E:/WWW/svgxml/app/view/view/ImgViewController.js" />
+    <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -517,18 +541,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="22" />
+      <option name="time" value="23" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ext/src/container/Container.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36468646">
-          <caret line="412" column="25" selection-start-line="412" selection-start-column="25" selection-end-line="412" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ext/src/panel/Panel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36468646">
@@ -891,19 +908,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="27" />
+          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="136" column="72" selection-start-line="136" selection-start-column="72" selection-end-line="136" selection-end-column="72" />
-          <folding />
+        <state vertical-scroll-proportion="0.32366326">
+          <caret line="126" column="65" selection-start-line="126" selection-start-column="65" selection-end-line="126" selection-end-column="65" />
+          <folding>
+            <element signature="e#5430#5686#0" expanded="false" />
+            <element signature="e#5747#6211#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

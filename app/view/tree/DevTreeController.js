@@ -83,94 +83,94 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             constrainHeader: false,
                             height: 768,
                             width: 1024,
-                            layout: 'fit',
+                            //layout: 'auto',
                             items: [{  // Let's put an empty grid in just to illustrate fit layout
                                 xtype: 'grid',
                                 border: false,
-                                plugins: [
-                                    Ext.create('Ext.grid.plugin.CellEditing', {
-                                        clicksToEdit: 1,
-                                        listeners: {
+                                plugins: {
+                                    ptype: "cellediting",
+                                    clicksToEdit: 1,
+                                    height: 500,//"100%",
+                                    width: 500,//"100%",
+                                    listeners: {
 
-                                            beforeedit: function (editor, context, eOpts) {
-                                                console.log(arguments)
-                                                var aWriteArr = ["Object_Name", "Present_Value", "Description", "Device_Type",
-                                                    "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                                                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
-                                                var sDevNodeName = record.data.value;
-                                                var sNodeType = record.data.type;
-                                                var sDevName = sDevNodeName.substr(0, 4);
-                                                console.log(sDevName);
-                                                console.log(sNodeType);
-                                                console.log(record);
-                                                var rowRecord = context.record;
-                                                for (var i = 0; i < aWriteArr.length; i++) {
-                                                    if (rowRecord.data.type == aWriteArr[i]) {
-                                                        if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
-                                                            return false;
-                                                        }
-                                                        if (rowRecord.data.type == "Device_Type") {
-
-                                                            var combostore = Ext.create('Ext.data.Store', {
-                                                                autoLoad: false,
-                                                                proxy: {
-                                                                    type: "ajax",
-                                                                    url: "resources/test1.php?par=changevalue",
-                                                                },
-                                                                model: Ext.create("Ext.data.Model", {
-                                                                    fields: ['name'],
-                                                                    data: [
-                                                                        {"name": "0-10=0-100"},
-                                                                        {"name": "NTC10K"},
-                                                                        {"name": "NTC20K"}
-                                                                    ]
-                                                                })
-                                                            })
-
-                                                            context.column.setEditor({
-                                                                xtype: "combobox",
-                                                                store: combostore,
-                                                                validator: function (val) {
-                                                                    if(val=="NTC10K"&&val=="NTC20K"){
-                                                                        return val
-                                                                    }
-                                                                    var str = val.split("=");
-                                                                    if(str.length!=2) {
-                                                                        return false;
-                                                                    }
-                                                                    for(var i=0;i<str.length;i++){
-
-                                                                        if(str[i].split("-").length!=2){
-                                                                        return false;
-                                                                    }
-                                                                    }
-                                                                    /*combostore.load({
-                                                                        params: {
-                                                                            nodename: sDevNodeName,
-                                                                            type: rowRecord.data.type,
-                                                                            value: val
-                                                                        }
-                                                                    })*/
-                                                                    console.log(context.column.getEditor())
-                                                                    console.log(arguments)
-                                                                    return true;
-                                                                },
-                                                                displayField: 'name',
-                                                                valueField: 'name'
-                                                            })
-
-                                                        } else {
-                                                            context.column.setEditor({xtype: "textfield"})
-                                                        }
-                                                        return arguments;
+                                        beforeedit: function (editor, context, eOpts) {
+                                            console.log(arguments)
+                                            var aWriteArr = ["Object_Name", "Present_Value", "Description", "Device_Type",
+                                                "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
+                                                "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
+                                            var sDevNodeName = record.data.value;
+                                            var sNodeType = record.data.type;
+                                            var sDevName = sDevNodeName.substr(0, 4);
+                                            console.log(sDevName);
+                                            console.log(sNodeType);
+                                            console.log(record);
+                                            var rowRecord = context.record;
+                                            for (var i = 0; i < aWriteArr.length; i++) {
+                                                if (rowRecord.data.type == aWriteArr[i]) {
+                                                    if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
+                                                        return false;
                                                     }
+                                                    if (rowRecord.data.type == "Device_Type") {
+
+                                                        var combostore = Ext.create('Ext.data.Store', {
+                                                            /*proxy: {
+                                                             type: "ajax",
+                                                             url: "resources/test1.php?par=changevalue",
+                                                             },*/
+                                                            /*combostore.load({
+                                                             params: {
+                                                             nodename: sDevNodeName,
+                                                             type: rowRecord.data.type,
+                                                             value: val
+                                                             }
+                                                             })*/
+                                                            autoLoad: false,
+                                                            fields: ['name'],
+                                                            data: [
+                                                                {"name": "0-10=0-100"},
+                                                                {"name": "NTC10K"},
+                                                                {"name": "NTC20K"}
+                                                            ]
+                                                        })
+                                                        context.column.setEditor({
+                                                            xtype: "combobox",
+                                                            store: combostore,
+                                                            validator: function (val) {
+                                                                if (val == "NTC10K" || val == "NTC20K") {
+                                                                    return true
+                                                                }
+                                                                var arr = val.split("=");
+                                                                if (arr.length != 2) {
+                                                                    return false;
+                                                                }
+                                                                for (var i = 0; i < arr.length; i++) {
+                                                                    var arr_ = arr[i].split("-");
+                                                                    if (arr_.length < 2 || arr_.length > 3) {
+                                                                        return false;
+                                                                    }
+                                                                    isNaN(arr_[0])
+                                                                    isNaN(arr_[1])
+                                                                }
+
+                                                                return true;
+                                                            },
+                                                            displayField: 'name',
+                                                            valueField: 'name'
+                                                        })
+
+                                                    } else {
+                                                        context.column.setEditor({xtype: "textfield"})
+                                                    }
+                                                    return arguments;
                                                 }
-                                                console.log(arguments)
-                                                return false
                                             }
+                                            console.log(arguments)
+                                            return false
                                         }
-                                    })
-                                ],
+                                    }
+                                }
+                                ,
                                 columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: true},
                                     {
                                         header: "Value", flex: 1, dataIndex: "value", sortable: true, editor: {
@@ -186,7 +186,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                  }
                                  },*/
                                 store: store
-                            }],
+                            }
+                            ],
                             buttons: [
                                 {
                                     text: "OK", handler: function () {
