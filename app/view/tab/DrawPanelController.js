@@ -190,6 +190,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             closable: false,
             renderTo: Ext.getBody(),
             title: th.getTitle() + " Plants",
+            constrainHeader: true,//禁止移出父窗口
+
             id: "plants" + th.getTitle(),
             //autoScroll: true,
             overflowX: "hidden",

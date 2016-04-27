@@ -27,19 +27,23 @@ Ext.define('svgxml.view.tab.BasicController', {
                 console.log(typeName)
                 Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
                     title: typeName,
-                    store: Ext.create(typeName,{
+                    store: Ext.create(typeName, {
                         listeners: {
                             add: function () {
-                                setTimeout(currentDrawPanelGridPanelsTrSetId,1000)
+                                setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
                             }
                         }
                     }),
                     x: e.browserEvent.offsetX,
                     y: e.browserEvent.offsetY,
                     icon: "resources/img/SVG/" + typeName + ".svg",
-                    listeners:{
-                        render:function(thi){
-                            thi.datas = {isAddSlot:slotsJson[typeName].isAddSlot,plantId:"",type:slotsJson[typeName].type};
+                    listeners: {
+                        render: function (thi) {
+                            thi.datas = {
+                                isAddSlot: slotsJson[typeName].isAddSlot,
+                                plantId: "",
+                                type: slotsJson[typeName].type
+                            };
                         }
                     }
                 }));
@@ -72,31 +76,33 @@ Ext.define('AI', {
     //data: slotsJson.AI.initData(),
 
     //proxy: oproxy
-});Ext.define('AO', {
+});
+Ext.define('AO', {
     extend: "Ext.data.Store",
     fields: ['name', 'value']
     //data: slotsJson.AO.initData(),
 
     //proxy: oproxy
-});Ext.define('BI', {
+});
+Ext.define('BI', {
     extend: "Ext.data.Store",
-    fields: ['name', 'value'],
+    fields: ['name', 'value']
     //data: slotsJson.DI.initData(),
 
     //proxy: oproxy
-});Ext.define('BO', {
+});
+Ext.define('BO', {
     extend: "Ext.data.Store",
     fields: ['name', 'value']
-    //data: slotsJson.DO.initData(),
-
-    //proxy: oproxy
-});Ext.define('AV', {
+});
+Ext.define('AV', {
     extend: "Ext.data.Store",
     fields: ['name', 'value']
     //data: slotsJson.AV.initData(),
 
     //proxy: oproxy
-});Ext.define('BV', {
+});
+Ext.define('BV', {
     extend: "Ext.data.Store",
     fields: ['name', 'value']
     //data: slotsJson.DV.initData(),
@@ -192,7 +198,7 @@ Ext.define('lock', {
 Ext.define('logic', {
     extend: "Ext.data.Store",
     storeId: 'logicStore',
-    fields: ['name', 'value',"delay","time","time1","time2","time3","time4","time5","time6","time7","time8","time9"],
+    fields: ['name', 'value', "delay", "time", "time1", "time2", "time3", "time4", "time5", "time6", "time7", "time8", "time9"],
     data: slotsJson.logic.initData(),
     proxy: oproxy
 });

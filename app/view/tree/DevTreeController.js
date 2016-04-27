@@ -18,13 +18,17 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [
                     {
-                        text: "Addpoint..."
+                        text: "Addpoint...",
+                        disabled: true
                     }, {
-                        text: "Schedule..."
+                        text: "Schedule...",
+                        disabled: true
                     }, {
-                        text: "BACnetNO."
+                        text: "BACnetNO.",
+                        disabled: true
                     }, "-", {
-                        text: "Property"
+                        text: "Property",
+                        disabled: true
                     }
                 ]
             })
@@ -37,20 +41,26 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [
                     {
-                        text: "Schedule..."
+                        text: "Schedule...",
+                        disabled: true
                     }, {
-                        text: "BACnetNO."
+                        text: "BACnetNO.",
+                        disabled: true
                     }, {
-                        text: "Save..."
+                        text: "Save...",
+                        disabled: true
                     }, {
-                        text: "RestorFactory"
+                        text: "RestorFactory",
+                        disabled: true
                     }
                 ]
             })
         }
         if (record.data.depth == 4) {
 
-
+            var sDevNodeName = record.data.value;
+            var sNodeType = record.data.type;
+            var sDevName = sDevNodeName.substr(0, 4);
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
@@ -80,28 +90,52 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         Ext.create('Ext.window.Window', {
                             id: "devNodeWindow",
                             title: record.data.value + " Property",
-                            constrainHeader: false,
+                            //enableColumnHide: false,
+                            constrainHeader: true,//禁止移出父窗口
+                            //hideable:false,
+                            //plain: true,
                             height: 768,
                             width: 1024,
-                            //layout: 'auto',
+                            layout: 'fit',
                             items: [{  // Let's put an empty grid in just to illustrate fit layout
                                 xtype: 'grid',
                                 border: false,
                                 plugins: {
-                                    ptype: "cellediting",
+                                    ptype: "rowediting",
                                     clicksToEdit: 1,
-                                    height: 500,//"100%",
-                                    width: 500,//"100%",
                                     listeners: {
+                                        edit:function(editor, context){
+                                          console.log(arguments)
+                                            if(context.value==context.newValues.value){
+                                                return false
+                                            }
+                                            var rowRecord=context.record;
+                                            Ext.Ajax.request({
+                                                url: "resources/test1.php",
+                                                method:"GET",
+                                                params: {
+                                                    par:"changevalue",
+                                                    nodename: record.data.value,
+                                                    type: rowRecord.data.type,
+                                                    value:  rowRecord.data.value
+                                                },
+                                                success: function(response){
+                                                    var text = response.responseText;
+                                                    if(text=="01"){
+                                                        delayToast('Status','Changes saved successfully,'+"New value is "+rowRecord.data.value+" .")
+                                                    }else{
+                                                        delayToast('Error',' Servers Change the failure.')
+                                                    }
+                                                }
+                                            });
 
+                                        },
                                         beforeedit: function (editor, context, eOpts) {
                                             console.log(arguments)
                                             var aWriteArr = ["Object_Name", "Present_Value", "Description", "Device_Type",
                                                 "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
                                                 "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
-                                            var sDevNodeName = record.data.value;
-                                            var sNodeType = record.data.type;
-                                            var sDevName = sDevNodeName.substr(0, 4);
+
                                             console.log(sDevName);
                                             console.log(sNodeType);
                                             console.log(record);
@@ -114,17 +148,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     if (rowRecord.data.type == "Device_Type") {
 
                                                         var combostore = Ext.create('Ext.data.Store', {
-                                                            /*proxy: {
-                                                             type: "ajax",
-                                                             url: "resources/test1.php?par=changevalue",
-                                                             },*/
-                                                            /*combostore.load({
-                                                             params: {
-                                                             nodename: sDevNodeName,
-                                                             type: rowRecord.data.type,
-                                                             value: val
-                                                             }
-                                                             })*/
+
                                                             autoLoad: false,
                                                             fields: ['name'],
                                                             data: [
@@ -152,7 +176,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                     isNaN(arr_[0])
                                                                     isNaN(arr_[1])
                                                                 }
-
                                                                 return true;
                                                             },
                                                             displayField: 'name',
@@ -190,14 +213,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             ],
                             buttons: [
                                 {
-                                    text: "OK", handler: function () {
-
+                                    text: "Close", handler: function () {
                                     this.up("window").close();
                                 }
-                                }, {
-                                    text: "Cancel", handler: function () {
-                                        this.up("window").close();
-                                    }
                                 }
                             ]
                         }).show();
