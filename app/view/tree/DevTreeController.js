@@ -3,7 +3,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     alias: 'controller.imgtree',
     render: function (th) {
         var store = Ext.create("Ext.data.TreeStore")
-        var url = "127.0.0.1";
+        var url = "192.168.253.253";
         var oJson = getTreeJsonByUrl(url)
         store.setRoot(oJson);
         th.setStore(store);
@@ -16,7 +16,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 autoShow: true,
                 x: e.pageX,
                 y: e.pageY,
-                items: [
+                items: [{
+                    text: "SaveDB",
+                    disabled: true
+                },
                     {
                         text: "Addpoint...",
                         disabled: true
@@ -104,27 +107,27 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     ptype: "rowediting",
                                     clicksToEdit: 1,
                                     listeners: {
-                                        edit:function(editor, context){
-                                          console.log(arguments)
-                                            if(context.value==context.newValues.value){
+                                        edit: function (editor, context) {
+                                            console.log(arguments)
+                                            if (context.value == context.newValues.value) {
                                                 return false
                                             }
-                                            var rowRecord=context.record;
+                                            var rowRecord = context.record;
                                             Ext.Ajax.request({
                                                 url: "resources/test1.php",
-                                                method:"GET",
+                                                method: "GET",
                                                 params: {
-                                                    par:"changevalue",
+                                                    par: "changevalue",
                                                     nodename: record.data.value,
                                                     type: rowRecord.data.type,
-                                                    value:  rowRecord.data.value
+                                                    value: rowRecord.data.value
                                                 },
-                                                success: function(response){
+                                                success: function (response) {
                                                     var text = response.responseText;
-                                                    if(text=="01"){
-                                                        delayToast('Status','Changes saved successfully,'+"New value is "+rowRecord.data.value+" .")
-                                                    }else{
-                                                        delayToast('Error',' Servers Change the failure.')
+                                                    if (text == "0") {
+                                                        delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
+                                                    } else {
+                                                        delayToast('Error', ' Servers Change the failure.')
                                                     }
                                                 }
                                             });
@@ -325,6 +328,43 @@ function getDevInfoFileNames() {
         }
     });
     return aNames;
+}
+function getDevNamesAllDataStore(isLocal){
+    var aDevs = getDevNamesAll()
+    var tempArr = [];
+    for (var i = 0; i < aDevs.length; i++) {
+        var devName = aDevs[i] + "";
+        if (devName.length == 6) {
+            devName = "0" + devName;
+        }
+        if (devName.length == 5) {
+            devName = "00" + devName
+        }
+        if (devName.length == 4) {
+            devName = "000" + devName
+        }
+        if (devName.length <= 3) {
+            continue;
+        }
+        tempArr.push(devName.substr(0, 4))
+    }
+    tempArr.sort(function (a, b) {
+        return a - b;
+    })
+    tempArr = tempArr.unique1();
+    var aDevsStore = [];
+    if(isLocal){
+    aDevsStore.push({"name": "local"})
+    }
+    for (var i = 0; i < tempArr.length; i++) {
+        aDevsStore.push({"name": tempArr[i]})
+    }
+
+    var states = Ext.create('Ext.data.Store', {
+        fields: ['name'],
+        data: aDevsStore
+    });
+    return states;
 }
 function getDevNamesAll() {
     var aNames = null;

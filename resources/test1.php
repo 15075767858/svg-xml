@@ -10,7 +10,7 @@ if($par=="changevalue"){
 	$value=$_GET["value"];
 	//echo "{type:'".$type."',value:'"."12313"."'}";
 	echo $redis->hSet($nodeName,$type,$value);
-	echo $redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\nPresent_Value\r\n".$value);
+	 $redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n".$type."\r\n".$value);
 }
 if($par=="node"){
 	$nodeName=$_GET["nodename"];

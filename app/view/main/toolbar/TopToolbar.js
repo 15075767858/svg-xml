@@ -53,6 +53,11 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                 click: "downloadClick"
                             }
                         },{
+                            text: "Upload •••",
+                            listeners: {
+                                click: "uploadClick"
+                            }
+                        },{
                             text:"Backup..."
                         },{
                             text:"Restor..."
