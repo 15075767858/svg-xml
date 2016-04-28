@@ -148,76 +148,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
      },*/
     openXmlClick1: function () {
 
-        function getDialogWindow(title,store,items,success){
-             Ext.create('Ext.window.Window', {
-                title: 'Open •••',
-                frame: true,
-                width: 310,
-                bodyPadding: 10,
-                autoShow: true,
-                defaultType: 'textfield',
-                defaults: {
-                    anchor: '100%'
-                },
-                items: [
-                    {
-                        margin: 10,
-                        xtype: "combobox",
-                        allowBlank: false,
-                        fieldLabel: 'select file name',
-                        store: aDevNames,
-                        editable: false,
-                        queryMode: 'local',
-                        displayField: 'name',
-                        valueField: 'name',
-                        autoSelect: false
-                    }
-                ],
-                buttons: [
-                    {
-                        text: 'Ok', handler: function () {
-                        var text = win.down("combobox").getValue();
-                        if (text == null) {
-                            Ext.Msg.alert('Info', 'Plase select file name.');
-                            return;
-                        }
-                        win.close();
-                        Ext.Ajax.request({
-                            url: "resources/xmlRW.php",
-                            async: false,
-                            params: {
-                                fileName: "devsinfo/" + text,
-                                rw: "r"
-                            },
-                            success: function (response) {
-                                //var ojsonstr = response.responseText
-                                var tabpanel = Ext.getCmp("frametab_drawpanel");
-                                var drawpanels = Ext.ComponentQuery.query("drawpanel");
-                                for (var i = 0; i < drawpanels.length; i++) {
-                                    if (drawpanels[i].title == text) {
-                                        tabpanel.setActiveTab(drawpanels[i].id);
-                                        return;
-                                    }
-                                }
-                                var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
-                                    title: text
-                                })
-                                tabpanel.add(drawpanel)
-                                tabpanel.setActiveTab(drawpanel.id);
-                            }
-                        })
-                        win.close();
-                    }
-                    },
-                    {
-                        text: 'Cancel', handler: function () {
-                        win.close();
-                    }
-                    }
-                ]
-            })
-        }
-
         var aDevNames = getDevInfoFileNames();
         var win = Ext.create('Ext.window.Window', {
             title: 'Open •••',
@@ -384,8 +314,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         return;
                     }
                     win.close();
-
-                    filePublish(text);
+                    filePublish("9999.8.*","9999998\r\nSend_File\r\n"+text);
                 }
                 },
                 {
@@ -433,7 +362,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         return;
                     }
                     win.close();
-                    filePublish(text);
+                    filePublish("9999.8.*","9999998\r\nRead_File\r\n"+text);
                 }
                 },
                 {
@@ -443,44 +372,55 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 }
             ]
         })
-
+    },
+    backupClick:function(){
+    },
+    restorClick:function(){
     }
 });
 
-function filePublish(fname) {
-
+function filePublish(key,value) {
     Ext.Ajax.request({
-        url: "resources/test2.php?fname=" + fname,
+        url: "resources/test2.php",
+        method:"GET",
         async: false,
-        params: {},
+        params: {
+            par:"filePublish",
+            key:key,
+            value:value
+        },
         success: function (response) {
             var text = response.responseText;
             if (text == 1) {
-                Ext.Msg.alert('Success', 'Publish Ok.');
+                delayToast('Success', 'Publish Ok.',0)
             } else if (text == 2 || text == 3) {
                 Ext.Msg.alert('Info', 'Please download later.');
             }
         }
     })
-
-    /*if (fname != "local" && fname != "1000") {
-     $.ajax({
-     type: "GET",
-     url: "resources/test2.php?fname=" + fname,
-     success: function (response) {
-     var text = response.responseText;
-     if(text==1){
-     Ext.Msg.alert('Success', 'Publish Ok.');
-     }else{
-     Ext.Msg.alert('Success', 'There is a file download,Please try again later');
-     }
-
-     }
-     });
-     }
-     */
 }
+function devPublish(key,value){
 
+    Ext.Ajax.request({
+        url: "resources/test2.php",
+        method:"GET",
+        async: false,
+        params: {
+            par:"devPublish",
+            key:key,
+            value:value
+        },
+        success: function (response) {
+            var text = response.responseText;
+            if (text == 1) {
+                delayToast('Success', 'Publish Ok.',0)
+            } else {
+                Ext.Msg.alert('Info', 'Please download later.');
+            }
+        }
+    })
+
+}
 function saveXml(text) {
     text = text || "1000";
     var fName = text;
@@ -518,18 +458,8 @@ function saveXml(text) {
         url: "resources/xmlRW.php",
         data: datas,
         success: function () {
-            //getCurrentDrawPanel().title
             delayToast("Status", "Saved file " + fName + " successfully.", 0);
-            /*if (text == "1000") {
-             Ext.toast({
-             html: 'Auto Save Successfully.',
-             title: 'Status',
-             //width: 200,
-             align: 'br'
-             });
-             } else {
-             Ext.Msg.alert('Success', 'Saved file successfully.');
-             }*/
+
         }
     });
 }

@@ -1,16 +1,25 @@
 <?php
-if(isset($_GET["fname"])){
-$fname = $_GET["fname"]; 
-}else{
-	return;
-}
+$par = $_GET["par"];
 $redis = new Redis();
 $redis->connect("192.168.253.253", 6379);
 $pv = current($redis->hmGet('Send_File', Array("Present_Value")));
+
+if($par=="filePublish"){
+$key=$_GET["key"];
+$value=$_GET["value"];
 if($pv=="1"){
-$redis->publish("9999.8.*","9999998\r\nPresent_Value\r\n".$fname);
+$redis->publish($key,$value);
 echo $pv;
 }else{
-echo $pv;
+	echo $pv;
 }
+}
+if($par=="devPublish"){
+$key=$_GET["key"];
+$value=$_GET["value"];
+echo $redis->publish($key,$value);
+}
+
+
+
 ?>

@@ -48,13 +48,70 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         disabled: true
                     }, {
                         text: "BACnetNO.",
-                        disabled: true
+                        handler: function () {
+
+                            var win = Ext.create('Ext.window.Window', {
+                                title: 'BACnetNO •••',
+                                frame: true,
+                                width: 310,
+                                bodyPadding: 10,
+                                autoShow: true,
+                                defaultType: 'textfield',
+                                defaults: {
+                                    anchor: '100%'
+                                },
+                                items: [
+                                    {
+                                        margin: 10,
+                                        xtype: "numberfield",
+                                        allowBlank: false,
+                                        fieldLabel: 'select file name',
+                                        value: 1000,
+                                        maxValue: 9900,
+                                        minValue: 1000,
+                                        step: 100,
+                                        validator: function (value) {
+                                            console.log(arguments)
+                                            if (value % 100 == 0) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                ],
+                                buttons: [
+                                    {
+                                        text: 'Ok', handler: function () {
+                                        var text = win.down("numberfield").getValue();
+                                        if (text == null) {
+                                            Ext.Msg.alert('Info', 'Plase select file name.');
+                                            return;
+                                        }
+                                        win.close();
+                                        var devName = record.data.text;
+                                        devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n" + text);
+                                    }
+                                    },
+                                    {
+                                        text: 'Cancel', handler: function () {
+                                        win.close();
+                                    }
+                                    }
+                                ]
+                            })
+
+                        }
                     }, {
-                        text: "Save...",
-                        disabled: true
+                        text: "Save...", handler: function () {
+                            var devName = record.data.text;
+                            devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
+                        }
                     }, {
-                        text: "RestorFactory",
-                        disabled: true
+                        text: "RestorFactory",handler:function(){
+                            var devName = record.data.text;
+                            devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n2");
+                        }
                     }
                 ]
             })
@@ -329,7 +386,7 @@ function getDevInfoFileNames() {
     });
     return aNames;
 }
-function getDevNamesAllDataStore(isLocal){
+function getDevNamesAllDataStore(isLocal) {
     var aDevs = getDevNamesAll()
     var tempArr = [];
     for (var i = 0; i < aDevs.length; i++) {
@@ -353,8 +410,8 @@ function getDevNamesAllDataStore(isLocal){
     })
     tempArr = tempArr.unique1();
     var aDevsStore = [];
-    if(isLocal){
-    aDevsStore.push({"name": "local"})
+    if (isLocal) {
+        aDevsStore.push({"name": "local"})
     }
     for (var i = 0; i < tempArr.length; i++) {
         aDevsStore.push({"name": tempArr[i]})

@@ -58,9 +58,9 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                 click: "uploadClick"
                             }
                         },{
-                            text:"Backup..."
+                            text:"Backup...",handler:"backupClick"
                         },{
-                            text:"Restor..."
+                            text:"Restor...",handler:"restorClick"
                         },"-",{
                             text:"Exit",handler:function(){
                                 Ext.Msg.show({
