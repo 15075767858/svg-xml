@@ -52,35 +52,38 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             listeners: {
                                 click: "downloadClick"
                             }
-                        },{
+                        }, {
                             text: "Upload •••",
                             listeners: {
                                 click: "uploadClick"
                             }
-                        },{
-                            text:"Backup...",handler:"backupClick"
-                        },{
-                            text:"Restor...",handler:"restorClick"
-                        },"-",{
-                            text:"Exit",handler:function(){
+                        }, {
+                            text: "Backup...", handler: "backupClick"
+                        }, {
+                            text: "Restor...", handler: "restorClick"
+                        }, "-", {
+                            text: "Exit", handler: function () {
                                 Ext.Msg.show({
-                                    title:'Exit System',
+                                    title: 'Exit System',
                                     message: 'Click YES Will exit the system!',
                                     buttons: Ext.Msg.YESNO,
                                     icon: Ext.Msg.INFO,
-                                    fn: function(btn) {
+                                    fn: function (btn) {
                                         if (btn === 'yes') {
-                                            location.href="../index.html";
+                                            location.href = "../index.html";
                                         } else if (btn === 'no') {
                                         } else {
                                         }
                                     }
                                 });
-
                             }
                         }
-
                     ]
+                }, {
+                    text: "About",
+                    glyph: 65,handler:function(){
+                        Ext.Msg.alert('Version', 'SmartIO Programtools 1.04 ');
+                    }
                 }
             ]
         });

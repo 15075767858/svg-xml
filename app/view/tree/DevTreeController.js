@@ -18,7 +18,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [{
                     text: "SaveDB",
-                    disabled: true
+                    menu: [{
+                        text: "save..."
+                    },
+                        {text: "clean..."}]
                 },
                     {
                         text: "Addpoint...",
@@ -27,7 +30,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         text: "Schedule...",
                         disabled: true
                     }, {
-                        text: "BACnetNO.",
+                        text: "NetNumber....",
                         disabled: true
                     }, "-", {
                         text: "Property",
@@ -71,11 +74,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         minValue: 1000,
                                         step: 100,
                                         validator: function (value) {
-                                            console.log(arguments)
                                             if (value % 100 == 0) {
                                                 return true;
                                             } else {
-                                                return false;
+                                                return "This value is invalid,Plase input 1000-9000 A number between.Interval of 100";
                                             }
                                         }
                                     }
@@ -108,7 +110,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
                         }
                     }, {
-                        text: "RestorFactory",handler:function(){
+                        text: "RestorFactory", handler: function () {
                             var devName = record.data.text;
                             devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n2");
                         }
@@ -116,8 +118,22 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 ]
             })
         }
+        if (record.data.depth == 3) {
+            Ext.create("Ext.menu.Menu", {
+                    //floating: true,
+                    autoShow: true,
+                    x: e.pageX,
+                    y: e.pageY,
+                    items: [
+                        {
+                            text: "new..."
+                            //disabled: true
+                        }
+                    ]
+                }
+            )
+        }
         if (record.data.depth == 4) {
-
             var sDevNodeName = record.data.value;
             var sNodeType = record.data.type;
             var sDevName = sDevNodeName.substr(0, 4);
@@ -192,7 +208,12 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         },
                                         beforeedit: function (editor, context, eOpts) {
                                             console.log(arguments)
-                                            var aWriteArr = ["Object_Name", "Present_Value", "Description", "Device_Type",
+
+                                            if (context.field == "type") {
+                                                return false;
+                                            }
+
+                                            var aWriteArr = ["Object_Name", "Hide", "Offset", "Present_Value", "Description", "Device_Type",
                                                 "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
                                                 "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
 
@@ -203,6 +224,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             for (var i = 0; i < aWriteArr.length; i++) {
                                                 if (rowRecord.data.type == aWriteArr[i]) {
                                                     if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
+                                                        return false;
+                                                    }
+                                                    if (sNodeType != "0" & rowRecord.data.type == "Offset") {
                                                         return false;
                                                     }
                                                     if (rowRecord.data.type == "Device_Type") {
@@ -243,6 +267,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         })
 
                                                     } else {
+
                                                         context.column.setEditor({xtype: "textfield"})
                                                     }
                                                     return arguments;
@@ -281,6 +306,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         }).show();
                         console.log(arguments)
                     }
+                    }, {
+                        text: "delete"
+                        // disable:true
                     }
                 ]
             })
@@ -368,7 +396,25 @@ function getTypeByDev(devName) {
         };
         childrenArr.push(typeJson);
     }
+    childrenArr.push({text: "Schedule", expanded: false, allowDrop: false, allowDrag: false, children: getScheduleByDev(devName)})
     return childrenArr;
+}
+function getScheduleByDev(devName) {
+    var devjson=null;
+    Ext.Ajax.request({
+        url: 'resources/test1.php',
+        async: false,
+        method:"GET",
+        params: {
+            par: "schedule",
+            nodename: devName
+        },
+        success: function (response) {
+            var text = response.responseText;
+            devjson=eval(text);
+        }
+    });
+    return devjson;
 }
 function getDevInfoFileNames() {
     var aNames = null;

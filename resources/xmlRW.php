@@ -7,22 +7,22 @@ $rw=$_POST['rw'];
 //return ;
 //}
 if($rw=='r'){
-    $isFile=file_exists($fn);
-if($isFile==false){
-echo "null";
-return ;
-}
+	$isFile=file_exists($fn);
+	if($isFile==false){
+		echo "null";
+		return ;
+	}
 	
-    $fp = fopen($fn, 'r');
-    while(! feof($fp))
-{ 
-echo fgets($fp); 
-} 
+	$fp = fopen($fn, 'r');
+	while(! feof($fp))
+	{ 
+		echo fgets($fp); 
+	} 
 }else{
-$content=$_POST["content"];
-    echo "aaaaaaaaaa";
-    $fp = fopen($fn, 'w') or die("Unable to open file!");
-    fwrite($fp, $content);
-fclose($fp);
+	$content=$_POST["content"];
+	echo "aaaaaaaaaa";
+	$fp = fopen($fn, 'w') or die("Unable to open file!");
+	fwrite($fp, $content);
+	fclose($fp);
 }
 ?>

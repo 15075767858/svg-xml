@@ -16,7 +16,7 @@ if(isset($_GET["par"])){
 //if(strlen($value)==4||$value=='local'){
 }else{
 
-	$dir="../../../";
+	$dir="../../../../";
 	$file=scandir($dir);
 	$str ="";
 	echo "[";

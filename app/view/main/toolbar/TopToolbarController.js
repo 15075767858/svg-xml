@@ -314,7 +314,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         return;
                     }
                     win.close();
-                    filePublish("9999.8.*","9999998\r\nSend_File\r\n"+text);
+                    filePublish("9999.8.*", "9999998\r\nSend_File\r\n" + text);
                 }
                 },
                 {
@@ -362,7 +362,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         return;
                     }
                     win.close();
-                    filePublish("9999.8.*","9999998\r\nRead_File\r\n"+text);
+                    filePublish("9999.8.*", "9999998\r\nRead_File\r\n" + text);
                 }
                 },
                 {
@@ -373,47 +373,141 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             ]
         })
     },
-    backupClick:function(){
+    backupClick: function () {
+        var fileNames = getDevInfoFileNames()
+        var namesJsonArr = [];
+        for (var i = 0; i < fileNames.length; i++) {
+            namesJsonArr.push({name: fileNames[i]})
+        }
+       var win= Ext.create("Ext.window.Window", {
+            title: "Backup •••",
+            frame: true,
+            width: 310,
+            bodyPadding: 10,
+            autoShow: true,
+            items: {
+                xtype: "grid",
+                selModel: {
+                    mode: "SIMPLE",
+                    selType: 'checkboxmodel'
+                },
+                store: Ext.create("Ext.data.Store", {
+                    fields: [
+                        "name"
+                    ],
+                    data: namesJsonArr
+                }),
+                columns: [
+                    {text: "File Name", dataIndex: "name", flex: 1}
+                ],
+                listeners: {
+                    select: function () {
+                        console.log(arguments)
+                    },
+                    selectionchange: function () {
+                        console.log(arguments)
+                    }
+                }
+            },
+            buttons: [{
+                text: 'Select Path',
+                handler: function () {
+
+                    var grid = this.up("window").down("grid")
+                    var records = grid.getSelection();
+                    console.log(records);
+                    var fileNames = "";
+                    if (records.length == 0) {
+                        Ext.Msg.alert('Status', 'Select a file please.');
+                        return;
+                    }
+                    Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
+                    for (var i = 0; i < records.length; i++) {
+                            Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
+                        fileNames += records[i].data.name + ",";
+                    }
+                    setTimeout(function () {
+                        Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
+                        setTimeout(function () {
+                            location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
+                            Ext.MessageBox.close();
+                            win.close();
+                        }, 500)
+                    }, 1000)
+
+                }
+            }]
+        })
     },
-    restorClick:function(){
+    restorClick: function () {
+   /*     var win= Ext.create("Ext.window.Window", {
+            title: "Restor •••",
+            frame: true,
+            width: 310,
+            bodyPadding: 10,
+            autoShow: true,
+            items:{
+            xtype: 'filefield',
+                name: 'photo',
+            fieldLabel: 'Photo',
+            labelWidth: 50,
+            msgTarget: 'side',
+            allowBlank: false,
+            anchor: '100%',
+            buttonText: 'Select Photo...'
+
+            }  ,
+            buttons: [{
+                text: 'Select Path',
+                handler: function () {
+
+
+
+                    var grid = this.up("window").down("grid")
+                    var records = grid.getSelection();
+
+
+                }
+            }]
+        })*/
     }
 });
 
-function filePublish(key,value) {
+function filePublish(key, value) {
     Ext.Ajax.request({
         url: "resources/test2.php",
-        method:"GET",
+        method: "GET",
         async: false,
         params: {
-            par:"filePublish",
-            key:key,
-            value:value
+            par: "filePublish",
+            key: key,
+            value: value
         },
         success: function (response) {
             var text = response.responseText;
             if (text == 1) {
-                delayToast('Success', 'Publish Ok.',0)
+                delayToast('Success', 'Publish Ok.', 0)
             } else if (text == 2 || text == 3) {
                 Ext.Msg.alert('Info', 'Please download later.');
             }
         }
     })
 }
-function devPublish(key,value){
+function devPublish(key, value) {
 
     Ext.Ajax.request({
         url: "resources/test2.php",
-        method:"GET",
+        method: "GET",
         async: false,
         params: {
-            par:"devPublish",
-            key:key,
-            value:value
+            par: "devPublish",
+            key: key,
+            value: value
         },
         success: function (response) {
             var text = response.responseText;
             if (text == 1) {
-                delayToast('Success', 'Publish Ok.',0)
+                delayToast('Success', 'Publish Ok.', 0)
             } else {
                 Ext.Msg.alert('Info', 'Please download later.');
             }
