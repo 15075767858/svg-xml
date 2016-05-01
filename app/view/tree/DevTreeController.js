@@ -19,19 +19,179 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 items: [{
                     text: "SaveDB",
                     menu: [{
-                        text: "save..."
+                        text: "save •••"
                     },
-                        {text: "clean..."}]
+                        {text: "clean •••"}]
                 },
                     {
-                        text: "Addpoint...",
+                        text: "Addpoint •••",
                         disabled: true
                     }, {
-                        text: "Schedule...",
+                        text: "Schedule •••",
                         disabled: true
                     }, {
-                        text: "NetNumber....",
-                        disabled: true
+                        text: "NetNumber •••",
+                        handler: function () {
+
+                            var aDevNames = getDevInfoFileNames();
+                            var win = Ext.create('Ext.window.Window', {
+                                title: 'NetNumber •••',
+                                frame: true,
+                                width: 310,
+                                bodyPadding: 10,
+                                autoShow: true,
+                                defaultType: 'textfield',
+                                defaults: {
+                                    anchor: '100%'
+                                },
+                                items: [
+                                    {
+                                        margin: 10,
+                                        xtype: "combobox",
+                                        allowBlank: false,
+                                        fieldLabel: 'select file name',
+                                        store: aDevNames,
+                                        editable: false,
+                                        queryMode: 'local',
+                                        displayField: 'name',
+                                        valueField: 'name',
+                                        autoSelect: false
+                                    }
+                                ],
+                                buttons: [
+                                    {
+                                        text: 'Ok', handler: function () {
+                                        var text = win.down("combobox").getValue();
+                                        if (text == null) {
+                                            Ext.Msg.alert('Info', 'Plase select file name.');
+                                            return;
+                                        }
+
+                                        var initData = [
+                                            {type: "Present_Value", value: "1"},
+                                            {type: "Description", value: "Description 1"},
+                                            {type: "Object_Type", value: "17"},
+                                            {type: "Priority_For_Writing", value: "8"},
+                                            {type: "Effective_Period", value: '{"dateRange":{}}'},
+                                            {
+                                                type: "List_Of_Object_Property_References",
+                                                value: '{"List_Of_Object_Property_References":[]}'
+                                            },
+                                            {type: "Object_Identifier", value: "17,9902601"},
+                                            {type: "Exception_Schedule", value: '{"Exception_Schedule":[]}'},
+                                            {type: "Schedule_Default", value: "Off"},
+                                            {type: "Lock_Enable", value: "0"},
+                                            {type: "Weekly_Schedule", value: '{"Weekly_Schedule":{}}'},
+                                            {type: "Update_Time", value: "2016-04-28 11:25:42"},
+                                        ];
+                                        var store = Ext.create("Ext.data.Store", {
+                                            fields: ["type", "value"],
+                                            data: initData
+                                            /*,
+                                             proxy: {
+                                             type: 'ajax',
+                                             url: 'resources/test1.php?par=node&nodename=' + record.data.value
+                                             }*/
+                                        });
+
+                                        var win1 = Ext.create('Ext.window.Window', {
+
+                                            title: text + " Schedule Config",
+                                            constrainHeader: true,//禁止移出父窗口
+                                            height: 768,
+                                            width: 1024,
+                                            layout: 'fit',
+                                            items: [
+
+                                                {  // Let's put an empty grid in just to illustrate fit layout
+                                                    xtype: 'grid',
+                                                    border: false,
+                                                    plugins: {
+                                                        ptype: "cellediting",
+                                                        clicksToEdit: 1,
+                                                        listeners: {
+                                                            edit: function (editor, context) {
+
+                                                            },
+                                                            beforeedit: function (editor, context, eOpts) {
+
+                                                            }
+                                                        }
+                                                    }
+                                                    ,
+                                                    columns: [{
+                                                        header: 'Type',
+                                                        flex: 1,
+                                                        dataIndex: "type",
+                                                        sortable: true
+                                                    },
+                                                        {
+                                                            header: "Value",
+                                                            flex: 1,
+                                                            dataIndex: "value",
+                                                            sortable: true,
+                                                            editor: {
+                                                                xtype: 'textfield',
+                                                                allowBlank: false//允许空白
+                                                            }
+                                                        }
+                                                    ],
+                                                    store: store
+                                                }
+
+                                            ],
+                                            buttons: [
+                                                {
+                                                    text: "OK", handler: function () {
+                                                    var devName = getNullSchedule(text);
+                                                    if (devName == "null") {
+                                                        Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
+                                                        win1.close()
+                                                        return;
+                                                    }
+                                                    for (var i = 0; i < initData.length; i++) {
+                                                        changeDevValue(devName, initData[i].type, initData[i].value)
+                                                    }
+                                                    delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
+                                                    win1.close();
+                                                }
+                                                }, {
+                                                    text: "Close", handler: function () {
+                                                        Ext.Msg.show({
+                                                            title: 'Save Changes?',
+                                                            message: 'You are closing a tab that has unsaved changes. Would you like to save your changes?',
+                                                            buttons: Ext.Msg.YESNOCANCEL,
+                                                            icon: Ext.Msg.QUESTION,
+                                                            fn: function (btn) {
+                                                                if (btn === 'yes') {
+
+                                                                    win1.close();
+                                                                } else if (btn === 'no') {
+
+                                                                    win1.close();
+                                                                } else {
+
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            ]
+                                        }).show();
+                                        win.close();
+                                    }
+                                    },
+                                    {
+                                        text: 'Cancel', handler: function () {
+
+                                        win.close();
+                                    }
+                                    }
+                                ]
+                            })
+
+
+                        }
                     }, "-", {
                         text: "Property",
                         disabled: true
@@ -133,10 +293,150 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 }
             )
         }
+        //{text: "Shedule Config"}, {text: "event"}, {text: "week"},
         if (record.data.depth == 4) {
+
+
             var sDevNodeName = record.data.value;
             var sNodeType = record.data.type;
             var sDevName = sDevNodeName.substr(0, 4);
+
+            if (record.parentNode.data.text == "Schedule") {
+
+                Ext.create("Ext.menu.Menu", {
+                    //floating: true,
+                    autoShow: true,
+                    x: e.pageX,
+                    y: e.pageY,
+                    items: [
+                        {
+                            text: "Schedule Config"
+                        }, {text: "References"}, {
+                            text: "week",
+                            handler: function () {
+
+                                Ext.create('Ext.window.Window', {
+                                        id: "drawWindow",
+                                        title: record.data.value + " Property",
+                                        constrainHeader: true,//禁止移出父窗口
+                                        height: 768,
+                                        width: 1024,
+                                        autoShow: true,
+                                        layout: 'fit',
+                                        viewModel: {
+                                            stores: {
+                                                priceData: {
+                                                    fields: ['month', 'price'],
+                                                    data: [
+                                                        {month: 'Sun', price: 16400000},
+                                                        {month: 'Mon', price: 26400000},
+                                                        {month: 'Tue', price: 36400000},
+                                                        {month: 'Wed', price: 46400000},
+                                                        {month: 'Thu', price: 56400000},
+                                                        {month: 'Fri', price: 66400000},
+                                                        {month: 'Sat', price: 76400000}
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        items: [Ext.create({
+                                            xtype: 'cartesian',
+                                            width: 600,
+                                            height: 400,
+                                            insetPadding: 40,
+                                            store: {
+                                                fields: ['time', 'open', 'high', 'low', 'close'],
+                                                data: [{
+                                                    'time': new Date('Jan 1 2010').getTime(),
+                                                    'open': 600,
+                                                    'high': 614,
+                                                    'low': 578,
+                                                    'close': 590
+                                                }, {
+                                                    'time': new Date('Jan 2 2010').getTime(),
+                                                    'open': 590,
+                                                    'high': 609,
+                                                    'low': 580,
+                                                    'close': 580
+                                                }, {
+                                                    'time': new Date('Jan 3 2010').getTime(),
+                                                    'open': 580,
+                                                    'high': 602,
+                                                    'low': 578,
+                                                    'close': 602
+                                                }, {
+                                                    'time': new Date('Jan 4 2010').getTime(),
+                                                    'open': 602,
+                                                    'high': 614,
+                                                    'low': 586,
+                                                    'close': 586
+                                                }, {
+                                                    'time': new Date('Jan 5 2010').getTime(),
+                                                    'open': 586,
+                                                    'high': 602,
+                                                    'low': 565,
+                                                    'close': 565
+                                                }]
+                                            },
+                                            axes: [{
+                                                type: 'numeric',
+
+                                                position: 'bottom',
+                                                fields: ['open', 'high', 'low', 'close'],
+                                                title: {
+                                                    text: 'Sample Values',
+                                                    fontSize: 15
+                                                },
+                                                grid: true,
+                                                minimum: 560,
+                                                maximum: 640
+                                            }, {
+                                                type: 'time',
+                                                position: 'left',
+                                                fields: ['time'],
+                                                fromDate: new Date('Dec 31 2009'),
+                                                toDate: new Date('Jan 6 2010'),
+                                                title: {
+                                                    text: 'Sample Values',
+                                                    fontSize: 15
+                                                },
+                                                style: {
+                                                    axisLine: false
+                                                }
+                                            }],
+                                            series: {
+                                                type: 'candlestick',
+                                                xField: 'time',
+                                                openField: 'open',
+                                                highField: 'high',
+                                                lowField: 'low',
+                                                closeField: 'close',
+                                                style: {
+                                                    dropStyle: {
+                                                        fill: 'rgb(222, 87, 87)',
+                                                        stroke: 'rgb(222, 87, 87)',
+                                                        lineWidth: 3
+                                                    },
+                                                    raiseStyle: {
+                                                        fill: 'rgb(48, 189, 167)',
+                                                        stroke: 'rgb(48, 189, 167)',
+                                                        lineWidth: 3
+                                                    }
+                                                }
+                                            }
+                                        })
+                                        ]
+                                    }
+                                );
+                            }
+                        }, {text: "exception"}
+                    ],
+                })
+
+                return false;
+            }
+
+
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
@@ -166,135 +466,133 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         Ext.create('Ext.window.Window', {
                             id: "devNodeWindow",
                             title: record.data.value + " Property",
-                            //enableColumnHide: false,
                             constrainHeader: true,//禁止移出父窗口
-                            //hideable:false,
-                            //plain: true,
                             height: 768,
                             width: 1024,
                             layout: 'fit',
-                            items: [{  // Let's put an empty grid in just to illustrate fit layout
-                                xtype: 'grid',
-                                border: false,
-                                plugins: {
-                                    ptype: "rowediting",
-                                    clicksToEdit: 1,
-                                    listeners: {
-                                        edit: function (editor, context) {
-                                            console.log(arguments)
-                                            if (context.value == context.newValues.value) {
-                                                return false
-                                            }
-                                            var rowRecord = context.record;
-                                            Ext.Ajax.request({
-                                                url: "resources/test1.php",
-                                                method: "GET",
-                                                params: {
-                                                    par: "changevalue",
-                                                    nodename: record.data.value,
-                                                    type: rowRecord.data.type,
-                                                    value: rowRecord.data.value
-                                                },
-                                                success: function (response) {
-                                                    var text = response.responseText;
-                                                    if (text == "0") {
-                                                        delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
-                                                    } else {
-                                                        delayToast('Error', ' Servers Change the failure.')
-                                                    }
+                            items: [
+                                {  // Let's put an empty grid in just to illustrate fit layout
+                                    xtype: 'grid',
+                                    border: false,
+                                    plugins: {
+                                        ptype: "rowediting",
+                                        clicksToEdit: 1,
+                                        listeners: {
+                                            edit: function (editor, context) {
+                                                console.log(arguments)
+                                                if (context.value == context.newValues.value) {
+                                                    return false
                                                 }
-                                            });
-
-                                        },
-                                        beforeedit: function (editor, context, eOpts) {
-                                            console.log(arguments)
-
-                                            if (context.field == "type") {
-                                                return false;
-                                            }
-
-                                            var aWriteArr = ["Object_Name", "Hide", "Offset", "Present_Value", "Description", "Device_Type",
-                                                "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                                                "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
-
-                                            console.log(sDevName);
-                                            console.log(sNodeType);
-                                            console.log(record);
-                                            var rowRecord = context.record;
-                                            for (var i = 0; i < aWriteArr.length; i++) {
-                                                if (rowRecord.data.type == aWriteArr[i]) {
-                                                    if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
-                                                        return false;
+                                                var rowRecord = context.record;
+                                                Ext.Ajax.request({
+                                                    url: "resources/test1.php",
+                                                    method: "GET",
+                                                    params: {
+                                                        par: "changevalue",
+                                                        nodename: record.data.value,
+                                                        type: rowRecord.data.type,
+                                                        value: rowRecord.data.value
+                                                    },
+                                                    success: function (response) {
+                                                        var text = response.responseText;
+                                                        if (text == "0") {
+                                                            delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
+                                                        } else {
+                                                            delayToast('Error', ' Servers Change the failure.')
+                                                        }
                                                     }
-                                                    if (sNodeType != "0" & rowRecord.data.type == "Offset") {
-                                                        return false;
-                                                    }
-                                                    if (rowRecord.data.type == "Device_Type") {
+                                                });
 
-                                                        var combostore = Ext.create('Ext.data.Store', {
+                                            },
+                                            beforeedit: function (editor, context, eOpts) {
+                                                console.log(arguments)
 
-                                                            autoLoad: false,
-                                                            fields: ['name'],
-                                                            data: [
-                                                                {"name": "0-10=0-100"},
-                                                                {"name": "NTC10K"},
-                                                                {"name": "NTC20K"}
-                                                            ]
-                                                        })
-                                                        context.column.setEditor({
-                                                            xtype: "combobox",
-                                                            store: combostore,
-                                                            validator: function (val) {
-                                                                if (val == "NTC10K" || val == "NTC20K") {
-                                                                    return true
-                                                                }
-                                                                var arr = val.split("=");
-                                                                if (arr.length != 2) {
-                                                                    return false;
-                                                                }
-                                                                for (var i = 0; i < arr.length; i++) {
-                                                                    var arr_ = arr[i].split("-");
-                                                                    if (arr_.length < 2 || arr_.length > 3) {
+                                                if (context.field == "type") {
+                                                    return false;
+                                                }
+
+                                                var aWriteArr = ["Object_Name", "Hide", "Offset", "Present_Value", "Description", "Device_Type",
+                                                    "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
+                                                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
+
+                                                console.log(sDevName);
+                                                console.log(sNodeType);
+                                                console.log(record);
+                                                var rowRecord = context.record;
+                                                for (var i = 0; i < aWriteArr.length; i++) {
+                                                    if (rowRecord.data.type == aWriteArr[i]) {
+                                                        if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
+                                                            return false;
+                                                        }
+                                                        if (sNodeType != "0" & rowRecord.data.type == "Offset") {
+                                                            return false;
+                                                        }
+                                                        if (rowRecord.data.type == "Device_Type") {
+
+                                                            var combostore = Ext.create('Ext.data.Store', {
+
+                                                                autoLoad: false,
+                                                                fields: ['name'],
+                                                                data: [
+                                                                    {"name": "0-10=0-100"},
+                                                                    {"name": "NTC10K"},
+                                                                    {"name": "NTC20K"}
+                                                                ]
+                                                            })
+                                                            context.column.setEditor({
+                                                                xtype: "combobox",
+                                                                store: combostore,
+                                                                validator: function (val) {
+                                                                    if (val == "NTC10K" || val == "NTC20K") {
+                                                                        return true
+                                                                    }
+                                                                    var arr = val.split("=");
+                                                                    if (arr.length != 2) {
                                                                         return false;
                                                                     }
-                                                                    isNaN(arr_[0])
-                                                                    isNaN(arr_[1])
-                                                                }
-                                                                return true;
-                                                            },
-                                                            displayField: 'name',
-                                                            valueField: 'name'
-                                                        })
+                                                                    for (var i = 0; i < arr.length; i++) {
+                                                                        var arr_ = arr[i].split("-");
+                                                                        if (arr_.length < 2 || arr_.length > 3) {
+                                                                            return false;
+                                                                        }
+                                                                        isNaN(arr_[0])
+                                                                        isNaN(arr_[1])
+                                                                    }
+                                                                    return true;
+                                                                },
+                                                                displayField: 'name',
+                                                                valueField: 'name'
+                                                            })
 
-                                                    } else {
+                                                        } else {
 
-                                                        context.column.setEditor({xtype: "textfield"})
+                                                            context.column.setEditor({xtype: "textfield"})
+                                                        }
+                                                        return arguments;
                                                     }
-                                                    return arguments;
                                                 }
+                                                console.log(arguments)
+                                                return false
                                             }
-                                            console.log(arguments)
-                                            return false
                                         }
                                     }
-                                }
-                                ,
-                                columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: true},
-                                    {
-                                        header: "Value", flex: 1, dataIndex: "value", sortable: true, editor: {
-                                        xtype: 'textfield',
-                                        allowBlank: false//允许空白
-                                    }
-                                    }
-                                ],
-                                /* listeners:{
-                                 rowclick:function(){
-                                 console.log(arguments)
+                                    ,
+                                    columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: true},
+                                        {
+                                            header: "Value", flex: 1, dataIndex: "value", sortable: true, editor: {
+                                            xtype: 'textfield',
+                                            allowBlank: false//允许空白
+                                        }
+                                        }
+                                    ],
+                                    /* listeners:{
+                                     rowclick:function(){
+                                     console.log(arguments)
 
-                                 }
-                                 },*/
-                                store: store
-                            }
+                                     }
+                                     },*/
+                                    store: store
+                                }
                             ],
                             buttons: [
                                 {
@@ -353,6 +651,35 @@ function getTreeJsonByUrl(url) {
     };
 }
 
+function getNullSchedule(text) {
+    var devName = "";
+    Ext.Ajax.request({
+        url: "resources/test1.php",
+        method: "GET",
+        async: false,
+        params: {
+            par: "getnullschedule",
+            nodename: text
+        },
+        success: function (response) {
+            var text = response.responseText;
+            devName = text;
+        }
+    });
+    return devName;
+}
+function changeDevValue(nodename, type, value) {
+    Ext.Ajax.request({
+        url: "resources/test1.php",
+        method: "GET",
+        params: {
+            par: "changevalue",
+            nodename: nodename,
+            type: type,
+            value: value
+        }
+    });
+}
 function getDevAll() {
     var aNames = getDevNamesAll();
     aNames = getArrayBeforeFour(aNames);
@@ -396,22 +723,28 @@ function getTypeByDev(devName) {
         };
         childrenArr.push(typeJson);
     }
-    childrenArr.push({text: "Schedule", expanded: false, allowDrop: false, allowDrag: false, children: getScheduleByDev(devName)})
+    childrenArr.push({
+        text: "Schedule",
+        expanded: false,
+        allowDrop: false,
+        allowDrag: false,
+        children: getScheduleByDev(devName)
+    })
     return childrenArr;
 }
 function getScheduleByDev(devName) {
-    var devjson=null;
+    var devjson = null;
     Ext.Ajax.request({
         url: 'resources/test1.php',
         async: false,
-        method:"GET",
+        method: "GET",
         params: {
             par: "schedule",
             nodename: devName
         },
         success: function (response) {
             var text = response.responseText;
-            devjson=eval(text);
+            devjson = eval(text);
         }
     });
     return devjson;

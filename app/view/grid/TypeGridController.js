@@ -16,20 +16,21 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             return;
         }
 
+        var gridWidth=120;
         th.getHeader().on({
             click: function () {
-                console.log(this.getWidth() == 140)
-                if (this.getWidth() == 140) {
+                console.log(this.getWidth() == gridWidth)
+                if (this.getWidth() == gridWidth) {
                     th.animate({
                         to: {
-                            width: (th.title.length * 13 < 140 ) ? 140 : th.title.length * 13
+                            width: (th.title.length * 13 < gridWidth ) ? gridWidth : th.title.length * 13
                             //height: (th.getHeight() == 300) ? 400 : 300,
                         }
                     });
                 } else {
                     th.animate({
                         to: {
-                            width: 140
+                            width: gridWidth
                             //height: (th.getHeight() == 300) ? 400 : 300,
                         }
                     });

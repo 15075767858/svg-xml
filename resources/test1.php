@@ -4,6 +4,19 @@ $redis = new Redis();
 $redis->connect("192.168.253.253", 6379);
 $arList = $redis->keys("*");
 
+
+if($par=="getnullschedule"){
+$nodeName=$_GET["nodename"];
+$count=array("601","602","603","604","605","606","607","608","609","610");
+foreach ($count as $key => $value) {
+$is = $redis->exists($nodeName.$value);
+if(!$is){
+echo $nodeName.$value;
+return ;
+}
+}
+echo "null";
+}
 if($par=="changevalue"){
 	$nodeName = $_GET["nodename"];
 	$type=$_GET["type"];

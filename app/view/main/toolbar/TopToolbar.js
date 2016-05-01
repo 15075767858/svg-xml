@@ -21,7 +21,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                     text: 'File',
                     glyph: 70,
                     menu: [{
-                        text: 'New •••',
+                        text: 'New',
                         handler: function () {
                             //saveGridpanelsConfigs()
                             //saveXml()
@@ -31,12 +31,12 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }
                     },
                         {
-                            text: 'Open •••',
+                            text: 'Open',
                             listeners: {
                                 click: "openXmlClick1"
                             }
                         }, {
-                            text: 'Save •••',
+                            text: 'Save',
                             handler: function () {
                                 var title = getCurrentDrawPanel().title;
                                 saveGridpanelsConfigs(title);
@@ -58,9 +58,9 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                 click: "uploadClick"
                             }
                         }, {
-                            text: "Backup...", handler: "backupClick"
+                            text: "Backup •••", handler: "backupClick"
                         }, {
-                            text: "Restor...", handler: "restorClick"
+                            text: "Restor •••", handler: "restorClick"
                         }, "-", {
                             text: "Exit", handler: function () {
                                 Ext.Msg.show({
