@@ -379,7 +379,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         for (var i = 0; i < fileNames.length; i++) {
             namesJsonArr.push({name: fileNames[i]})
         }
-       var win= Ext.create("Ext.window.Window", {
+        var win = Ext.create("Ext.window.Window", {
             title: "Backup •••",
             frame: true,
             width: 310,
@@ -423,7 +423,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     }
                     Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
                     for (var i = 0; i < records.length; i++) {
-                            Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
+                        Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
                         fileNames += records[i].data.name + ",";
                     }
                     setTimeout(function () {
@@ -440,38 +440,40 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         })
     },
     restorClick: function () {
-   /*     var win= Ext.create("Ext.window.Window", {
-            title: "Restor •••",
-            frame: true,
-            width: 310,
-            bodyPadding: 10,
-            autoShow: true,
-            items:{
-            xtype: 'filefield',
-                name: 'photo',
-            fieldLabel: 'Photo',
-            labelWidth: 50,
-            msgTarget: 'side',
-            allowBlank: false,
-            anchor: '100%',
-            buttonText: 'Select Photo...'
+        /*     var win= Ext.create("Ext.window.Window", {
+         title: "Restor •••",
+         frame: true,
+         width: 310,
+         bodyPadding: 10,
+         autoShow: true,
+         items:{
+         xtype: 'filefield',
+         name: 'photo',
+         fieldLabel: 'Photo',
+         labelWidth: 50,
+         msgTarget: 'side',
+         allowBlank: false,
+         anchor: '100%',
+         buttonText: 'Select Photo...'
 
-            }  ,
-            buttons: [{
-                text: 'Select Path',
-                handler: function () {
-
-
-
-                    var grid = this.up("window").down("grid")
-                    var records = grid.getSelection();
+         }  ,
+         buttons: [{
+         text: 'Select Path',
+         handler: function () {
 
 
-                }
-            }]
-        })*/
+
+         var grid = this.up("window").down("grid")
+         var records = grid.getSelection();
+
+
+         }
+         }]
+         })*/
     }
 });
+
+
 
 function filePublish(key, value) {
     Ext.Ajax.request({

@@ -68,11 +68,12 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         }
 
                                         var initData = [
-                                            {type: "Present_Value", value: "1"},
-                                            {type: "Description", value: "Description 1"},
+                                            //{type: "Object_Name", value: "1"},
+                                            //{type: "Present_Value", value: "1"},
+                                            //{type: "Description", value: "Description 1"},
+                                            //{type: "Priority_For_Writing", value: "8"},
+                                            //{type: "Effective_Period", value: '{"dateRange":{}}'},
                                             {type: "Object_Type", value: "17"},
-                                            {type: "Priority_For_Writing", value: "8"},
-                                            {type: "Effective_Period", value: '{"dateRange":{}}'},
                                             {
                                                 type: "List_Of_Object_Property_References",
                                                 value: '{"List_Of_Object_Property_References":[]}'
@@ -82,78 +83,241 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             {type: "Schedule_Default", value: "Off"},
                                             {type: "Lock_Enable", value: "0"},
                                             {type: "Weekly_Schedule", value: '{"Weekly_Schedule":{}}'},
-                                            {type: "Update_Time", value: "2016-04-28 11:25:42"},
+                                            {type: "Update_Time", value: Ext.Date.format(new Date(), "Y-m-d H:i:s")}
                                         ];
-                                        var store = Ext.create("Ext.data.Store", {
-                                            fields: ["type", "value"],
-                                            data: initData
-                                            /*,
-                                             proxy: {
-                                             type: 'ajax',
-                                             url: 'resources/test1.php?par=node&nodename=' + record.data.value
-                                             }*/
-                                        });
+                                        /*var store = Ext.create("Ext.data.Store", {
+                                         fields: ["type", "value"],
+                                         data: initData
+
+                                         });*/
 
                                         var win1 = Ext.create('Ext.window.Window', {
-
                                             title: text + " Schedule Config",
                                             constrainHeader: true,//禁止移出父窗口
-                                            height: 768,
-                                            width: 1024,
-                                            layout: 'fit',
-                                            items: [
-
-                                                {  // Let's put an empty grid in just to illustrate fit layout
-                                                    xtype: 'grid',
-                                                    border: false,
-                                                    plugins: {
-                                                        ptype: "cellediting",
-                                                        clicksToEdit: 1,
-                                                        listeners: {
-                                                            edit: function (editor, context) {
-
+                                            height: 400,
+                                            width: 450,
+                                            resizeable: false,
+                                            layout: 'auto',
+                                            items: {
+                                                xtype: "form",
+                                                items: [
+                                                    {
+                                                        xtype: 'fieldset',
+                                                        title: 'Input Value',
+                                                        defaultType: 'textfield',
+                                                        margin: 10,
+                                                        defaults: {
+                                                            anchor: '100%'
+                                                        },
+                                                        items: [
+                                                            {
+                                                                allowBlank: false,
+                                                                fieldLabel: 'Object_Name',
+                                                                name: 'Object_Name',
+                                                                emptyText: 'object name'
                                                             },
-                                                            beforeedit: function (editor, context, eOpts) {
-
+                                                            {
+                                                                allowBlank: false,
+                                                                fieldLabel: 'Present_Value',
+                                                                name: 'Present_Value',
+                                                                emptyText: 'present value'
+                                                            },
+                                                            {
+                                                                allowBlank: false,
+                                                                fieldLabel: 'Description',
+                                                                name: 'Description',
+                                                                emptyText: 'description'
+                                                                //inputType: 'password'
                                                             }
-                                                        }
-                                                    }
-                                                    ,
-                                                    columns: [{
-                                                        header: 'Type',
-                                                        flex: 1,
-                                                        dataIndex: "type",
-                                                        sortable: true
+                                                        ]
                                                     },
-                                                        {
-                                                            header: "Value",
-                                                            flex: 1,
-                                                            dataIndex: "value",
-                                                            sortable: true,
-                                                            editor: {
-                                                                xtype: 'textfield',
-                                                                allowBlank: false//允许空白
+                                                    {
+                                                        xtype: 'fieldset',
+                                                        title: 'Select Value',
+                                                        defaultType: 'textfield',
+                                                        margin: 10,
+                                                        defaults: {
+                                                            anchor: '100%'
+                                                        },
+                                                        items: [
+                                                            {
+                                                                fieldLabel: 'Priority_For_Writing',
+                                                                xtype: 'combobox',
+                                                                labelPad: 30,
+                                                                name: 'Priority_For_Writing',
+                                                                store: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                                                                //valueField: 'abbr',
+                                                                value: "8",
+                                                                //displayField: 'abbr',
+                                                                //typeAhead: true,
+                                                                autoSelect: false,
+                                                                queryMode: 'local'
                                                             }
-                                                        }
-                                                    ],
-                                                    store: store
-                                                }
+                                                        ]
+                                                    },
+                                                    {
+                                                        xtype: 'fieldset',
+                                                        title: 'indate',
+                                                        margin: 10,
+                                                        layout: {
+                                                            type: "table",
+                                                            columns: 5,
+                                                            tableAttrs: {
+                                                                style: {
+                                                                    //width:"100%"
+                                                                }
+                                                            }
+                                                        },
+                                                        defaults: {
+                                                            //anchor: '100%'
+                                                            format: "d-m-Y",
+                                                            labelWidth: 45
+                                                        },
+                                                        items: [
+                                                            {
+                                                                xtype: "displayfield",
+                                                                fieldLabel: "Effective_Period",
+                                                                name: "Effective_Period",
+                                                                labelWidth: 110,
+                                                                rowspan: 3,
+                                                                colspan: 1
+                                                            },
+                                                            {
+                                                                xtype: "fieldcontainer",
+                                                                rowspan: 3,
+                                                                colspan: 1,
+                                                                width: 20,
+                                                                layout: {
+                                                                    type: "table",
+                                                                    columns: 1
+                                                                },
+                                                                defaults: {
+                                                                    width: 20,
+                                                                    name: "dataradios"
+                                                                },
+                                                                items: [{
+                                                                    xtype: "radio",
+                                                                    checked: true,
+                                                                    handler: function (th, bl) {
+                                                                        if (!bl)
+                                                                            return;
+                                                                        Ext.getCmp("ScheduleConfig_after").setDisabled(false);
+                                                                        Ext.getCmp("ScheduleConfig_front").setDisabled(true);
+                                                                        Ext.getCmp("ScheduleConfig_fromstart").setDisabled(true);
+                                                                        Ext.getCmp("ScheduleConfig_fromend").setDisabled(true);
+                                                                    }
+                                                                },
+                                                                    {
+                                                                        xtype: "radio",
+                                                                        handler: function (th, bl) {
+                                                                            if (!bl)
+                                                                                return;
+                                                                            Ext.getCmp("ScheduleConfig_after").setDisabled(true);
+                                                                            Ext.getCmp("ScheduleConfig_front").setDisabled(false);
+                                                                            Ext.getCmp("ScheduleConfig_fromstart").setDisabled(true);
+                                                                            Ext.getCmp("ScheduleConfig_fromend").setDisabled(true);
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        xtype: "radio",
+                                                                        handler: function (th, bl) {
+                                                                            if (!bl)
+                                                                                return;
+                                                                            Ext.getCmp("ScheduleConfig_after").setDisabled(true);
+                                                                            Ext.getCmp("ScheduleConfig_front").setDisabled(true);
+                                                                            Ext.getCmp("ScheduleConfig_fromstart").setDisabled(false);
+                                                                            Ext.getCmp("ScheduleConfig_fromend").setDisabled(false);
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                allowBlank: false,
+                                                                fieldLabel: "after",
+                                                                xtype: "datefield",
+                                                                id: "ScheduleConfig_after",
+                                                                name: "after",
+                                                                width: 260,
+                                                                rowspan: 1,
+                                                                colspan: 3
+                                                            },
 
-                                            ],
+                                                            {
+                                                                allowBlank: false,
+                                                                disabled: true,
+                                                                xtype: "datefield",
+                                                                fieldLabel: "front",
+                                                                id: "ScheduleConfig_front",
+                                                                name: "front",
+                                                                width: 260,
+                                                                rowspan: 1,
+                                                                colspan: 3
+                                                            },
+                                                            {
+                                                                allowBlank: false,
+                                                                disabled: true,
+                                                                xtype: "datefield",
+                                                                fieldLabel: "from",
+                                                                id: "ScheduleConfig_fromstart",
+                                                                name: "fromstart",
+                                                                width: 150,
+                                                                listeners: {
+                                                                    change: function (th, newValue, oldValue, eOpts) {
+                                                                        var maxValue = new Date(new Date(newValue).getTime() + 777600000000);
+                                                                        var minValue = new Date(new Date(newValue).getTime() - 777600000000);
+                                                                        Ext.getCmp("ScheduleConfig_fromend").setMaxValue(maxValue);
+                                                                        Ext.getCmp("ScheduleConfig_fromend").setMinValue(minValue);
+                                                                    }
+                                                                }
+                                                            }, {
+                                                                xtype: "displayfield",
+                                                                value: "-",
+                                                                width: 5
+                                                            }, {
+                                                                allowBlank: false,
+                                                                disabled: true,
+                                                                id: "ScheduleConfig_fromend",
+                                                                xtype: "datefield",
+                                                                name: "fromend",
+                                                                maxValue: "",
+                                                                width: 103,
+                                                                listeners: {
+                                                                    change: function (th, newValue, oldValue, eOpts) {
+                                                                        var maxValue = new Date(new Date(newValue).getTime() + 777600000000);
+                                                                        var minValue = new Date(new Date(newValue).getTime() - 777600000000);
+                                                                        Ext.getCmp("ScheduleConfig_fromstart").setMaxValue(maxValue);
+                                                                        Ext.getCmp("ScheduleConfig_fromstart").setMinValue(minValue);
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
                                             buttons: [
                                                 {
                                                     text: "OK", handler: function () {
-                                                    var devName = getNullSchedule(text);
+                                                    var devName = getNullSchedule(text)
                                                     if (devName == "null") {
                                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
                                                         win1.close()
                                                         return;
                                                     }
+                                                    win1.down("form").submit({
+                                                        url: "resources/test1.php?par=ScheduleConfig&nodename=" + devName,
+                                                        async:true,
+                                                        method: "GET"
+                                                    })
+
                                                     for (var i = 0; i < initData.length; i++) {
-                                                        changeDevValue(devName, initData[i].type, initData[i].value)
+                                                         changeDevValue(devName, initData[i].type, initData[i].value)
                                                     }
                                                     delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
-                                                    win1.close();
+
+                                                    setTimeout(function(){
+                                                        win1.close();
+                                                    },1000)
+
                                                 }
                                                 }, {
                                                     text: "Close", handler: function () {
@@ -178,6 +342,225 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 }
                                             ]
                                         }).show();
+                                        /* var win1 = Ext.create('Ext.window.Window', {
+
+                                         title: text + " Schedule Config",
+                                         constrainHeader: true,//禁止移出父窗口
+                                         height: 380,
+                                         width: 410,
+                                         layout: 'fit',
+                                         items: [{
+                                         xtype: 'fieldset',
+                                         title: 'User Info',
+                                         defaultType: 'textfield',
+                                         margin:10,
+                                         defaults: {
+                                         anchor: '100%'
+                                         },
+                                         items: [
+                                         {
+                                         allowBlank: false,
+                                         fieldLabel: 'User ID',
+                                         name: 'user',
+                                         emptyText: 'user id'
+                                         },
+                                         {
+                                         allowBlank: false,
+                                         fieldLabel: 'Password',
+                                         name: 'pass',
+                                         emptyText: 'password',
+                                         inputType: 'password'
+                                         },
+                                         {
+                                         allowBlank: false,
+                                         fieldLabel: 'Verify',
+                                         name: 'pass',
+                                         emptyText: 'password',
+                                         inputType: 'password'
+                                         },
+                                         {
+                                         fieldLabel: 'First Name',
+                                         emptyText: 'First Name',
+                                         name: 'first'
+                                         },
+                                         {
+                                         fieldLabel: 'Last Name',
+                                         emptyText: 'Last Name',
+                                         name: 'last'
+                                         },
+                                         {
+                                         fieldLabel: 'Company',
+                                         name: 'company'
+                                         },
+                                         {
+                                         fieldLabel: 'Email',
+                                         name: 'email',
+                                         vtype: 'email'
+                                         },
+                                         {
+                                         xtype: 'combobox',
+                                         fieldLabel: 'State',
+                                         name: 'state',
+                                         store: Ext.create('Ext.data.Store'),
+                                         valueField: 'abbr',
+                                         displayField: 'state',
+                                         typeAhead: true,
+                                         queryMode: 'local',
+                                         emptyText: 'Select a state...'
+                                         },
+                                         {
+                                         xtype: 'datefield',
+                                         fieldLabel: 'Date of Birth',
+                                         name: 'dob',
+                                         allowBlank: false,
+                                         maxValue: new Date()
+                                         }
+                                         ]
+                                         }
+                                         ],
+                                         buttons: [
+                                         {
+                                         text: "OK", handler: function () {
+
+                                         var devName = getNullSchedule(text);
+                                         if (devName == "null") {
+                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
+                                         win1.close()
+                                         return;
+                                         }
+                                         for (var i = 0; i < initData.length; i++) {
+                                         changeDevValue(devName, initData[i].type, initData[i].value)
+                                         }
+                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
+                                         win1.close();
+
+                                         }
+                                         }, {
+                                         text: "Close", handler: function () {
+                                         Ext.Msg.show({
+                                         title: 'Save Changes?',
+                                         message: 'You are closing a tab that has unsaved changes. Would you like to save your changes?',
+                                         buttons: Ext.Msg.YESNOCANCEL,
+                                         icon: Ext.Msg.QUESTION,
+                                         fn: function (btn) {
+                                         if (btn === 'yes') {
+
+                                         win1.close();
+                                         } else if (btn === 'no') {
+
+                                         win1.close();
+                                         } else {
+
+                                         }
+                                         }
+                                         });
+                                         }
+                                         }
+                                         ]
+                                         }).show();*/
+                                        /* var win1 = Ext.create('Ext.window.Window', {
+
+                                         title: text + " Schedule Config",
+                                         constrainHeader: true,//禁止移出父窗口
+                                         height: 768,
+                                         width: 1024,
+                                         layout: 'fit',
+                                         items: [
+
+                                         {  // Let's put an empty grid in just to illustrate fit layout
+                                         xtype: 'grid',
+                                         border: false,
+                                         plugins: {
+                                         ptype: "cellediting",
+                                         clicksToEdit: 1,
+                                         listeners: {
+                                         edit: function (editor, context) {
+
+                                         },
+                                         beforeedit: function (editor, context, eOpts) {
+
+                                         var aWriteArr = ["Object_Name", "Present_Value", "Description","Priority_For_Writing","Lock_Enable"];
+                                         console.log(arguments)
+                                         var rowRecord = context.record;
+                                         for (var i = 0; i < aWriteArr.length; i++) {
+                                         if (rowRecord.data.type == aWriteArr[i]) {
+                                         return true;
+                                         }
+                                         }
+                                         return false;
+                                         }
+                                         }
+                                         }
+                                         ,
+                                         columns: [{
+                                         header: 'Type',
+                                         flex: 1,
+                                         dataIndex: "type",
+                                         sortable: true
+                                         },
+                                         {
+                                         header: "Value",
+                                         flex: 1,
+                                         dataIndex: "value",
+                                         sortable: true,
+                                         editor: {
+                                         xtype: 'textfield',
+                                         allowBlank: false//允许空白
+                                         }
+                                         }
+                                         ],
+                                         store: store
+                                         }
+
+                                         ],
+                                         buttons: [
+                                         {
+                                         text: "OK", handler: function () {
+
+                                         var devName = getNullSchedule(text);
+                                         if (devName == "null") {
+                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
+                                         win1.close()
+                                         return;
+                                         }
+                                         for (var i = 0; i < initData.length; i++) {
+                                         changeDevValue(devName, initData[i].type, initData[i].value)
+                                         }
+                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
+                                         win1.close();
+                                         }
+                                         }, {
+                                         text: "Close", handler: function () {
+                                         Ext.Msg.show({
+                                         title: 'Save Changes?',
+                                         message:  'You are closing a tab that has unsaved changes. Would you like to save your changes?',
+                                         buttons: Ext.Msg.YESNOCANCEL,
+                                         icon: Ext.Msg.QUESTION,
+                                         fn: function (btn) {
+                                         if (btn === 'yes') {
+                                         var devName = getNullSchedule(text);
+                                         if (devName == "null") {
+                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
+                                         win1.close()
+                                         return;
+                                         }
+                                         for (var i = 0; i < initData.length; i++) {
+                                         changeDevValue(devName, initData[i].type, initData[i].value)
+                                         }
+                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
+                                         win1.close();
+                                         } else if (btn === 'no') {
+
+                                         win1.close();
+                                         } else {
+
+                                         }
+                                         }
+                                         });
+                                         }
+                                         }
+                                         ]
+                                         }).show();*/
                                         win.close();
                                     }
                                     },
@@ -323,114 +706,121 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         width: 1024,
                                         autoShow: true,
                                         layout: 'fit',
-                                        viewModel: {
-                                            stores: {
-                                                priceData: {
-                                                    fields: ['month', 'price'],
-                                                    data: [
-                                                        {month: 'Sun', price: 16400000},
-                                                        {month: 'Mon', price: 26400000},
-                                                        {month: 'Tue', price: 36400000},
-                                                        {month: 'Wed', price: 46400000},
-                                                        {month: 'Thu', price: 56400000},
-                                                        {month: 'Fri', price: 66400000},
-                                                        {month: 'Sat', price: 76400000}
-                                                    ]
-                                                }
-                                            }
-                                        },
-                                        items: [Ext.create({
-                                            xtype: 'cartesian',
-                                            width: 600,
-                                            height: 400,
-                                            insetPadding: 40,
-                                            store: {
-                                                fields: ['time', 'open', 'high', 'low', 'close'],
-                                                data: [{
-                                                    'time': new Date('Jan 1 2010').getTime(),
-                                                    'open': 600,
-                                                    'high': 614,
-                                                    'low': 578,
-                                                    'close': 590
-                                                }, {
-                                                    'time': new Date('Jan 2 2010').getTime(),
-                                                    'open': 590,
-                                                    'high': 609,
-                                                    'low': 580,
-                                                    'close': 580
-                                                }, {
-                                                    'time': new Date('Jan 3 2010').getTime(),
-                                                    'open': 580,
-                                                    'high': 602,
-                                                    'low': 578,
-                                                    'close': 602
-                                                }, {
-                                                    'time': new Date('Jan 4 2010').getTime(),
-                                                    'open': 602,
-                                                    'high': 614,
-                                                    'low': 586,
-                                                    'close': 586
-                                                }, {
-                                                    'time': new Date('Jan 5 2010').getTime(),
-                                                    'open': 586,
-                                                    'high': 602,
-                                                    'low': 565,
-                                                    'close': 565
-                                                }]
-                                            },
-                                            axes: [{
-                                                type: 'numeric',
+                                        /* viewModel: {
+                                         stores: {
+                                         priceData: {
+                                         fields: ['month', 'price'],
+                                         data: [
+                                         {month: 'Sun', price: 16400000},
+                                         {month: 'Mon', price: 26400000},
+                                         {month: 'Tue', price: 36400000},
+                                         {month: 'Wed', price: 46400000},
+                                         {month: 'Thu', price: 56400000},
+                                         {month: 'Fri', price: 66400000},
+                                         {month: 'Sat', price: 76400000}
+                                         ]
+                                         }
+                                         }
+                                         },*/
+                                        items: [
+                                            Ext.create({
+                                                xtype: 'cartesian',
+                                                width: 600,
+                                                height: 400,
+                                                insetPadding: 40,
+                                                store: {
+                                                    fields: ['time', 'open', 'high', 'low', 'close'],
+                                                    data: [{
+                                                        'time': new Date('Jan 1 2010').getTime(),
+                                                        'open': 600,
+                                                        'high': 614,
+                                                        'low': 578,
+                                                        'close': 590
+                                                    }, {
+                                                        'time': new Date('Jan 2 2010').getTime(),
+                                                        'open': 590,
+                                                        'high': 609,
+                                                        'low': 580,
+                                                        'close': 580
+                                                    }, {
+                                                        'time': new Date('Jan 3 2010').getTime(),
+                                                        'open': 580,
+                                                        'high': 602,
+                                                        'low': 578,
+                                                        'close': 602
+                                                    }, {
+                                                        'time': new Date('Jan 4 2010').getTime(),
+                                                        'open': 602,
+                                                        'high': 614,
+                                                        'low': 586,
+                                                        'close': 586
+                                                    }, {
+                                                        'time': new Date('Jan 5 2010').getTime(),
+                                                        'open': 586,
+                                                        'high': 602,
+                                                        'low': 565,
+                                                        'close': 565
+                                                    }]
+                                                },
+                                                axes: [{
+                                                    type: 'numeric',
+                                                    position: 'bottom',
 
-                                                position: 'bottom',
-                                                fields: ['open', 'high', 'low', 'close'],
-                                                title: {
-                                                    text: 'Sample Values',
-                                                    fontSize: 15
-                                                },
-                                                grid: true,
-                                                minimum: 560,
-                                                maximum: 640
-                                            }, {
-                                                type: 'time',
-                                                position: 'left',
-                                                fields: ['time'],
-                                                fromDate: new Date('Dec 31 2009'),
-                                                toDate: new Date('Jan 6 2010'),
-                                                title: {
-                                                    text: 'Sample Values',
-                                                    fontSize: 15
-                                                },
-                                                style: {
-                                                    axisLine: false
-                                                }
-                                            }],
-                                            series: {
-                                                type: 'candlestick',
-                                                xField: 'time',
-                                                openField: 'open',
-                                                highField: 'high',
-                                                lowField: 'low',
-                                                closeField: 'close',
-                                                style: {
-                                                    dropStyle: {
-                                                        fill: 'rgb(222, 87, 87)',
-                                                        stroke: 'rgb(222, 87, 87)',
-                                                        lineWidth: 3
+                                                    fields: ['open', 'high', 'low', 'close'],
+                                                    title: {
+                                                        text: 'Sample Values',
+                                                        fontSize: 15
                                                     },
-                                                    raiseStyle: {
-                                                        fill: 'rgb(48, 189, 167)',
-                                                        stroke: 'rgb(48, 189, 167)',
-                                                        lineWidth: 3
+                                                    grid: true,
+                                                    minimum: 0,
+                                                    maximum: 640
+                                                }, {
+                                                    type: 'time',
+                                                    position: 'left',
+
+                                                    fields: ['time'],
+                                                    fromDate: new Date('Jan 6 2010'),
+                                                    toDate: new Date('Jan 7 2010'),
+                                                    renderer:function(){
+                                                      console.log(arguments)
+                                                    },
+                                                    title: {
+                                                        text: 'Sample Values',
+                                                        fontSize: 15
+                                                    },
+                                                    style: {
+                                                        axisLine: false
                                                     }
-                                                }
-                                            }
-                                        })
+                                                }],
+                                                series: [
+                                                    {
+                                                        type: 'candlestick',
+                                                        xField: 'time',
+                                                        openField: 'open',
+                                                        highField: 'high',
+                                                        lowField: 'low',
+                                                        closeField: 'close',
+                                                        style: {
+                                                            dropStyle: {
+                                                                fill: 'rgb(222, 87, 87)',
+                                                                stroke: 'rgb(222, 87, 87)',
+                                                                lineWidth: 13
+                                                            },
+                                                            raiseStyle: {
+                                                                fill: 'rgb(48, 189, 167)',
+                                                                stroke: 'rgb(48, 189, 167)',
+                                                                lineWidth: 13
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            })
                                         ]
                                     }
                                 );
                             }
                         }, {text: "exception"}
-                    ],
+                    ]
                 })
 
                 return false;

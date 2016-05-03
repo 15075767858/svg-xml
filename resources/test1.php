@@ -1,21 +1,60 @@
 <?php
+
 $par=$_GET["par"];
 $redis = new Redis();
 $redis->connect("192.168.253.253", 6379);
 $arList = $redis->keys("*");
 
+if($par=="ScheduleConfig"){
+	$nodeName=$_GET["nodename"];
 
+	$Object_Name=$_GET["Object_Name"];
+	$redis->hSet($nodeName,"Object_Name",$Object_Name);
+	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Object_Name"."\r\n".$Object_Name);
+	$Present_Value=$_GET["Present_Value"];
+	$redis->hSet($nodeName,"Present_Value",$Present_Value);
+	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Present_Value"."\r\n".$Present_Value);
+	$Description=$_GET["Description"];
+	$redis->hSet($nodeName,"Description",$Description);
+	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Description"."\r\n".$Description);
+	$Priority_For_Writing=$_GET["Priority_For_Writing"];
+	$redis->hSet($nodeName,"Priority_For_Writing",$Priority_For_Writing);
+	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Priority_For_Writing"."\r\n".$Priority_For_Writing);
+
+	if(isset($_GET["after"])){
+		$after=$_GET["after"];
+		$value = '{"dateRange":	{"after":{'.dateToJson($after).'}}}';
+		$redis->hSet($nodeName,"Effective_Period",$value);
+		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+		dateToJson("after");
+
+	}
+	if(isset($_GET["front"])){
+		$front=$_GET["front"];
+		$value = '{"dateRange":	{"front":{'.dateToJson($front).'}}}';
+		$redis->hSet($nodeName,"Effective_Period",$front);
+		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+	}
+	if(isset($_GET["fromstart"])){
+		$fromstart=$_GET["fromstart"];
+		$fromend=$_GET["fromend"];
+		$value='{"dateRange":{"startDate":{'.dateToJson($fromstart).'},"endDate":{'.dateToJson($fromend).'}}}';
+		$redis->hSet($nodeName,"Effective_Period",$Object_Name);
+		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+	}
+
+}
 if($par=="getnullschedule"){
-$nodeName=$_GET["nodename"];
-$count=array("601","602","603","604","605","606","607","608","609","610");
-foreach ($count as $key => $value) {
-$is = $redis->exists($nodeName.$value);
-if(!$is){
-echo $nodeName.$value;
-return ;
-}
-}
-echo "null";
+	$nodeName=$_GET["nodename"];
+	$count=array("601","602","603","604","605","606","607","608","609","610");
+	foreach ($count as $key => $value) {
+		$is = $redis->exists($nodeName.$value);
+		if(!$is){
+			echo $nodeName.$value;
+			return ;
+		}
+	}
+	echo "null";
 }
 if($par=="changevalue"){
 	$nodeName = $_GET["nodename"];
@@ -82,7 +121,20 @@ if($par=="dev"){
 	echo substr($str,0,strlen($str)-1);
 	echo "]";
 }
+	function dateToJson($riqi){
+		$riqiarr=explode("-",$riqi);
+		$yue = current($riqiarr);
+		$ri = next($riqiarr);
+		$nian = next($riqiarr);
+		$zhou=date("W",mktime(0, 0, 0, $yue, $ri, $nian));
+		$jsstr='"year":	'.$nian.',
+		"month":	'.$yue.',
+		"day_of_month":	'.$ri.',
+		"day_of_week":	'.$zhou;
+		return $jsstr;
+	}
 
 	//$fn=$_POST['fileName'];
 //$rw=$_POST['rw'];
 ?>
+
