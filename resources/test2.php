@@ -3,7 +3,6 @@ $par = $_GET["par"];
 $redis = new Redis();
 $redis->connect("192.168.253.253", 6379);
 $pv = current($redis->hmGet('Send_File', Array("Present_Value")));
-
 if($par=="filePublish"){
 $key=$_GET["key"];
 $value=$_GET["value"];

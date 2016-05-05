@@ -1,10 +1,23 @@
 <?php
-
 $par=$_GET["par"];
 $redis = new Redis();
 $redis->connect("192.168.253.253", 6379);
 $arList = $redis->keys("*");
-
+if($par=="clear"){
+	if(file_exists("/var/run/bac_client.pid")){
+	$myfile = fopen("/var/run/bac_client.pid", "r");
+	$jc = fgets($myfile);
+	$test = "kill ".$jc;
+	exec($test,$array);
+	}
+	if(file_exists("/var/run/bip_client.pid")){
+   $myfile1 = fopen("/var/run/bip_client.pid", "r");
+	$jc1 = fgets($myfile1);
+	$test1 = "kill ".$jc1;
+	exec($test1,$array1);
+	}
+	echo $redis->delete($arList);
+}
 if($par=="ScheduleConfig"){
 	$nodeName=$_GET["nodename"];
 
@@ -26,7 +39,7 @@ if($par=="ScheduleConfig"){
 		$value = '{"dateRange":	{"after":{'.dateToJson($after).'}}}';
 		$redis->hSet($nodeName,"Effective_Period",$value);
 		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
-		dateToJson("after");
+		//dateToJson("after");
 
 	}
 	if(isset($_GET["front"])){
@@ -72,7 +85,8 @@ if($par=="schedule"){
 		if(strlen($value)==7){
 			$devName = substr($value,0,4);
 			if(strcmp($devName,$nodeName)==0){
-				$dev= $redis->hGet($value,'Postion');
+				//$dev= $redis->sIsMember($value, "Position");
+				$dev= $redis->hGet($value,'Position');
 				if($dev){
 					$Object_Name =$redis->hGet($value, 'Object_Name');
 					$str.= '{leaf: true, text :"'. $Object_Name.'",value:"'.$value.'"},';
@@ -85,11 +99,14 @@ if($par=="schedule"){
 }
 if($par=="node"){
 	$nodeName=$_GET["nodename"];
-	//$arList = $redis->hVals(nodeName);
+	$sortarr=Array("Object_Identifier","Object_Name","Description","Priority_Array","Status_Flags","Max_Pres_Value","Min_pres_Value","High_Limit","Limit_Enable","COV_Increment","Event_Enable");
 	$arList = $redis->hKeys($nodeName);
+	$arr1=array_intersect($sortarr,$arList);
+	$arr2=array_diff($arList,$sortarr);
+	$arr3=array_merge($arr1,$arr2);
 	$str = "";
 	echo "[";
-	foreach ($arList as $key) {
+	foreach ($arr3 as $key) {
 		$value = $redis->hGet($nodeName,$key);
 		$str.="{type:'".$key."',value:'".$value."'},";
 	}
@@ -121,18 +138,18 @@ if($par=="dev"){
 	echo substr($str,0,strlen($str)-1);
 	echo "]";
 }
-	function dateToJson($riqi){
-		$riqiarr=explode("-",$riqi);
-		$yue = current($riqiarr);
-		$ri = next($riqiarr);
-		$nian = next($riqiarr);
-		$zhou=date("W",mktime(0, 0, 0, $yue, $ri, $nian));
-		$jsstr='"year":	'.$nian.',
-		"month":	'.$yue.',
-		"day_of_month":	'.$ri.',
-		"day_of_week":	'.$zhou;
-		return $jsstr;
-	}
+function dateToJson($riqi){
+	$riqiarr=explode("-",$riqi);
+	$yue = current($riqiarr);
+	$ri = next($riqiarr);
+	$nian = next($riqiarr);
+	$zhou=date("W",mktime(0, 0, 0, $yue, $ri, $nian));
+	$jsstr='"year":	'.$nian.',
+	"month":	'.$yue.',
+	"day_of_month":	'.$ri.',
+	"day_of_week":	'.$zhou;
+	return $jsstr;
+}
 
 	//$fn=$_POST['fileName'];
 //$rw=$_POST['rw'];

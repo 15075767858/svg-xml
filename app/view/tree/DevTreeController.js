@@ -10,18 +10,57 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     },
     itemcontextmenu: function (th, record, item, index, e, eOpts) {
         e.stopEvent();
+
         if (record.data.depth == 1) {
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
-                x: e.pageX,
-                y: e.pageY,
+                x: e.pageX + 5,
+                y: e.pageY + 5,
                 items: [{
-                    text: "SaveDB",
+                    text: "DB ••• ",
                     menu: [{
                         text: "save •••"
                     },
-                        {text: "clean •••"}]
+                        {
+                            text: "clean •••",
+                            handler: function () {
+
+                                Ext.Msg.show({
+                                    title: 'Warning !!',
+                                    message: 'Click Ok will <i style="color:red;">clear the database</i> !!',
+                                    buttons: Ext.Msg.YESNOCANCEL,
+                                    icon: Ext.Msg.WARNING,
+                                    fn: function (btn) {
+                                        if (btn === 'yes') {
+                                            Ext.Ajax.request({
+                                                url: "resources/test1.php",
+                                                method: "GET",
+                                                async: false,
+                                                params: {
+                                                    par: "clear"
+                                                },
+                                                success: function (response) {
+                                                    var text = response.responseText;
+                                                    Ext.Msg.alert('Status', 'OK , Clear ' + text + ' successfully .');
+                                                    setTimeout(function () {
+                                                        location.reload();
+                                                    }, 3000);
+
+                                                }
+                                            });
+
+                                        } else if (btn === 'no') {
+
+                                        } else {
+
+                                        }
+                                    }
+                                });
+
+
+                            }
+                        }]
                 },
                     {
                         text: "Addpoint •••",
@@ -33,7 +72,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         text: "NetNumber •••",
                         handler: function () {
 
-                            var aDevNames = getDevInfoFileNames();
+                            var aDevNames = getDevNamesAllDataStore();
                             var win = Ext.create('Ext.window.Window', {
                                 title: 'NetNumber •••',
                                 frame: true,
@@ -45,18 +84,18 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     anchor: '100%'
                                 },
                                 items: [
-                                    {
-                                        margin: 10,
-                                        xtype: "combobox",
-                                        allowBlank: false,
-                                        fieldLabel: 'select file name',
-                                        store: aDevNames,
-                                        editable: false,
-                                        queryMode: 'local',
-                                        displayField: 'name',
-                                        valueField: 'name',
-                                        autoSelect: false
-                                    }
+                                     {
+                                     margin: 10,
+                                     xtype: "combobox",
+                                     allowBlank: false,
+                                     fieldLabel: 'select file name',
+                                     store: aDevNames,
+                                     editable: true,
+                                     queryMode: 'local',
+                                     displayField: 'name',
+                                     valueField: 'name',
+                                     autoSelect: false
+                                     }
                                 ],
                                 buttons: [
                                     {
@@ -72,7 +111,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             //{type: "Present_Value", value: "1"},
                                             //{type: "Description", value: "Description 1"},
                                             //{type: "Priority_For_Writing", value: "8"},
-                                            //{type: "Effective_Period", value: '{"dateRange":{}}'},
+                                            {type: "Position", value: '2'},
                                             {type: "Object_Type", value: "17"},
                                             {
                                                 type: "List_Of_Object_Property_References",
@@ -85,10 +124,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             {type: "Weekly_Schedule", value: '{"Weekly_Schedule":{}}'},
                                             {type: "Update_Time", value: Ext.Date.format(new Date(), "Y-m-d H:i:s")}
                                         ];
+
                                         /*var store = Ext.create("Ext.data.Store", {
                                          fields: ["type", "value"],
                                          data: initData
-
                                          });*/
 
                                         var win1 = Ext.create('Ext.window.Window', {
@@ -305,18 +344,18 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     }
                                                     win1.down("form").submit({
                                                         url: "resources/test1.php?par=ScheduleConfig&nodename=" + devName,
-                                                        async:true,
+                                                        async: true,
                                                         method: "GET"
                                                     })
 
                                                     for (var i = 0; i < initData.length; i++) {
-                                                         changeDevValue(devName, initData[i].type, initData[i].value)
+                                                        changeDevValue(devName, initData[i].type, initData[i].value)
                                                     }
                                                     delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
 
-                                                    setTimeout(function(){
+                                                    setTimeout(function () {
                                                         win1.close();
-                                                    },1000)
+                                                    }, 1000)
 
                                                 }
                                                 }, {
@@ -342,225 +381,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 }
                                             ]
                                         }).show();
-                                        /* var win1 = Ext.create('Ext.window.Window', {
 
-                                         title: text + " Schedule Config",
-                                         constrainHeader: true,//禁止移出父窗口
-                                         height: 380,
-                                         width: 410,
-                                         layout: 'fit',
-                                         items: [{
-                                         xtype: 'fieldset',
-                                         title: 'User Info',
-                                         defaultType: 'textfield',
-                                         margin:10,
-                                         defaults: {
-                                         anchor: '100%'
-                                         },
-                                         items: [
-                                         {
-                                         allowBlank: false,
-                                         fieldLabel: 'User ID',
-                                         name: 'user',
-                                         emptyText: 'user id'
-                                         },
-                                         {
-                                         allowBlank: false,
-                                         fieldLabel: 'Password',
-                                         name: 'pass',
-                                         emptyText: 'password',
-                                         inputType: 'password'
-                                         },
-                                         {
-                                         allowBlank: false,
-                                         fieldLabel: 'Verify',
-                                         name: 'pass',
-                                         emptyText: 'password',
-                                         inputType: 'password'
-                                         },
-                                         {
-                                         fieldLabel: 'First Name',
-                                         emptyText: 'First Name',
-                                         name: 'first'
-                                         },
-                                         {
-                                         fieldLabel: 'Last Name',
-                                         emptyText: 'Last Name',
-                                         name: 'last'
-                                         },
-                                         {
-                                         fieldLabel: 'Company',
-                                         name: 'company'
-                                         },
-                                         {
-                                         fieldLabel: 'Email',
-                                         name: 'email',
-                                         vtype: 'email'
-                                         },
-                                         {
-                                         xtype: 'combobox',
-                                         fieldLabel: 'State',
-                                         name: 'state',
-                                         store: Ext.create('Ext.data.Store'),
-                                         valueField: 'abbr',
-                                         displayField: 'state',
-                                         typeAhead: true,
-                                         queryMode: 'local',
-                                         emptyText: 'Select a state...'
-                                         },
-                                         {
-                                         xtype: 'datefield',
-                                         fieldLabel: 'Date of Birth',
-                                         name: 'dob',
-                                         allowBlank: false,
-                                         maxValue: new Date()
-                                         }
-                                         ]
-                                         }
-                                         ],
-                                         buttons: [
-                                         {
-                                         text: "OK", handler: function () {
-
-                                         var devName = getNullSchedule(text);
-                                         if (devName == "null") {
-                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
-                                         win1.close()
-                                         return;
-                                         }
-                                         for (var i = 0; i < initData.length; i++) {
-                                         changeDevValue(devName, initData[i].type, initData[i].value)
-                                         }
-                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
-                                         win1.close();
-
-                                         }
-                                         }, {
-                                         text: "Close", handler: function () {
-                                         Ext.Msg.show({
-                                         title: 'Save Changes?',
-                                         message: 'You are closing a tab that has unsaved changes. Would you like to save your changes?',
-                                         buttons: Ext.Msg.YESNOCANCEL,
-                                         icon: Ext.Msg.QUESTION,
-                                         fn: function (btn) {
-                                         if (btn === 'yes') {
-
-                                         win1.close();
-                                         } else if (btn === 'no') {
-
-                                         win1.close();
-                                         } else {
-
-                                         }
-                                         }
-                                         });
-                                         }
-                                         }
-                                         ]
-                                         }).show();*/
-                                        /* var win1 = Ext.create('Ext.window.Window', {
-
-                                         title: text + " Schedule Config",
-                                         constrainHeader: true,//禁止移出父窗口
-                                         height: 768,
-                                         width: 1024,
-                                         layout: 'fit',
-                                         items: [
-
-                                         {  // Let's put an empty grid in just to illustrate fit layout
-                                         xtype: 'grid',
-                                         border: false,
-                                         plugins: {
-                                         ptype: "cellediting",
-                                         clicksToEdit: 1,
-                                         listeners: {
-                                         edit: function (editor, context) {
-
-                                         },
-                                         beforeedit: function (editor, context, eOpts) {
-
-                                         var aWriteArr = ["Object_Name", "Present_Value", "Description","Priority_For_Writing","Lock_Enable"];
-                                         console.log(arguments)
-                                         var rowRecord = context.record;
-                                         for (var i = 0; i < aWriteArr.length; i++) {
-                                         if (rowRecord.data.type == aWriteArr[i]) {
-                                         return true;
-                                         }
-                                         }
-                                         return false;
-                                         }
-                                         }
-                                         }
-                                         ,
-                                         columns: [{
-                                         header: 'Type',
-                                         flex: 1,
-                                         dataIndex: "type",
-                                         sortable: true
-                                         },
-                                         {
-                                         header: "Value",
-                                         flex: 1,
-                                         dataIndex: "value",
-                                         sortable: true,
-                                         editor: {
-                                         xtype: 'textfield',
-                                         allowBlank: false//允许空白
-                                         }
-                                         }
-                                         ],
-                                         store: store
-                                         }
-
-                                         ],
-                                         buttons: [
-                                         {
-                                         text: "OK", handler: function () {
-
-                                         var devName = getNullSchedule(text);
-                                         if (devName == "null") {
-                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
-                                         win1.close()
-                                         return;
-                                         }
-                                         for (var i = 0; i < initData.length; i++) {
-                                         changeDevValue(devName, initData[i].type, initData[i].value)
-                                         }
-                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
-                                         win1.close();
-                                         }
-                                         }, {
-                                         text: "Close", handler: function () {
-                                         Ext.Msg.show({
-                                         title: 'Save Changes?',
-                                         message:  'You are closing a tab that has unsaved changes. Would you like to save your changes?',
-                                         buttons: Ext.Msg.YESNOCANCEL,
-                                         icon: Ext.Msg.QUESTION,
-                                         fn: function (btn) {
-                                         if (btn === 'yes') {
-                                         var devName = getNullSchedule(text);
-                                         if (devName == "null") {
-                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
-                                         win1.close()
-                                         return;
-                                         }
-                                         for (var i = 0; i < initData.length; i++) {
-                                         changeDevValue(devName, initData[i].type, initData[i].value)
-                                         }
-                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + devName + " .", 1000);
-                                         win1.close();
-                                         } else if (btn === 'no') {
-
-                                         win1.close();
-                                         } else {
-
-                                         }
-                                         }
-                                         });
-                                         }
-                                         }
-                                         ]
-                                         }).show();*/
                                         win.close();
                                     }
                                     },
@@ -775,14 +596,19 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     minimum: 0,
                                                     maximum: 640
                                                 }, {
-                                                    type: 'time',
+                                                    type: 'time3d',
                                                     position: 'left',
 
                                                     fields: ['time'],
-                                                    fromDate: new Date('Jan 6 2010'),
-                                                    toDate: new Date('Jan 7 2010'),
-                                                    renderer:function(){
-                                                      console.log(arguments)
+                                                    toDate: 1262707200000,
+                                                    fromDate: 1262793599000,
+                                                    renderer: function (label, layout, lastLabel) {
+                                                        console.log(arguments)
+                                                        var time = new Date(label)
+                                                        var hours = time.getHours();
+                                                        var min = time.getMinutes();
+
+                                                        return hours + " : " + min;
                                                     },
                                                     title: {
                                                         text: 'Sample Values',
@@ -853,6 +679,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             }
                         })
                         store.load()
+                        console.log(store.data.items.sort(function (a, b) {
+                            console.log(a + b)
+                            return a.value - b.value
+                        }))
                         Ext.create('Ext.window.Window', {
                             id: "devNodeWindow",
                             title: record.data.value + " Property",
@@ -885,29 +715,40 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     },
                                                     success: function (response) {
                                                         var text = response.responseText;
-                                                        if (text == "0") {
                                                             delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
+                                                        /*if (text == "0") {
                                                         } else {
                                                             delayToast('Error', ' Servers Change the failure.')
-                                                        }
+                                                        }*/
                                                     }
                                                 });
 
                                             },
                                             beforeedit: function (editor, context, eOpts) {
-                                                console.log(arguments)
 
                                                 if (context.field == "type") {
                                                     return false;
                                                 }
 
-                                                var aWriteArr = ["Object_Name", "Hide", "Offset", "Present_Value", "Description", "Device_Type",
+                                                var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type",
                                                     "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
                                                     "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
 
-                                                console.log(sDevName);
-                                                console.log(sNodeType);
-                                                console.log(record);
+                                               /* {
+                                                    fieldLabel: 'Priority_For_Writing',
+                                                        xtype: 'combobox',
+                                                    labelPad: 30,
+                                                    name: 'Priority_For_Writing',
+                                                    store: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                                                    //valueField: 'abbr',
+                                                    value: "8",
+                                                    //displayField: 'abbr',
+                                                    //typeAhead: true,
+                                                    autoSelect: false,
+                                                    queryMode: 'local'
+                                                }*/
+
+
                                                 var rowRecord = context.record;
                                                 for (var i = 0; i < aWriteArr.length; i++) {
                                                     if (rowRecord.data.type == aWriteArr[i]) {
@@ -926,14 +767,15 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                 data: [
                                                                     {"name": "0-10=0-100"},
                                                                     {"name": "NTC10K"},
-                                                                    {"name": "NTC20K"}
+                                                                    {"name": "NTC20K"},
+                                                                    {"name": "BI"}
                                                                 ]
                                                             })
                                                             context.column.setEditor({
                                                                 xtype: "combobox",
                                                                 store: combostore,
                                                                 validator: function (val) {
-                                                                    if (val == "NTC10K" || val == "NTC20K") {
+                                                                    if (val == "NTC10K" || val == "NTC20K" || val=="BI") {
                                                                         return true
                                                                     }
                                                                     var arr = val.split("=");
@@ -967,9 +809,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         }
                                     }
                                     ,
-                                    columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: true},
+                                    columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: false},
                                         {
-                                            header: "Value", flex: 1, dataIndex: "value", sortable: true, editor: {
+                                            header: "Value", flex: 1, dataIndex: "value", sortable: false, editor: {
                                             xtype: 'textfield',
                                             allowBlank: false//允许空白
                                         }

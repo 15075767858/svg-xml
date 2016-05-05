@@ -34,5 +34,15 @@
             <type>0</type>
             <key>1003002</key>
         </master_node>
+        <master_node  number="6">
+            <type>0</type>
+            <key>1002002</key>
+        </master_node>
+    </plant>
+    <plant  name="002">
+    </plant>
+    <plant  name="003">
+    </plant>
+    <plant  name="004">
     </plant>
 </root>

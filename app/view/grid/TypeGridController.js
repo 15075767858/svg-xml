@@ -8,11 +8,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     render1: function (th) {
         var plant = getCurrentPlant();
         if (!plant) {
-
             Ext.Msg.alert("Exception", "please choose one plant.")
             //th.close()
             th.destroy()
-
             return;
         }
 

@@ -53,9 +53,9 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //width: "100%",
             listeners: {
                 itemclick: function (grid, record, item, index, e, eOpts) {
-
+                    console.log(arguments)
+                    console.log(grid.el.dom.childNodes[0].childNodes[index])
                     ogridpanle.datas = {index: index}
-                    //currentPlantsGrid=item
                     setCurrentPlant(index)
                     selectPlant(getCurrentPlant())
                     //双击事件的操作
@@ -71,8 +71,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     }
                     ostore.setData(aItems)
                     grid.setStore(ostore)
-                    console.log(th.datas.datasArray)
                     drawlines(th)
+                    grid.el.dom.childNodes[0].childNodes[index].style.backgroundColor="skyblue";
                 },
                 edit: function (grid, e) {
                     // 编辑完成后，提交更改

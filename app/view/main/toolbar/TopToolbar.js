@@ -6,6 +6,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
         "svgxml.view.main.toolbar.TopToolbarController",
         "svgxml.view.main.toolbar.TopToolbarModel",
         "Ext.window.*"
+        //"Ext.chart.CartesianChart"
     ],
 
     controller: "main-toolbar-toptoolbar",
@@ -82,7 +83,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                 }, {
                     text: "About",
                     glyph: 65,handler:function(){
-                        Ext.Msg.alert('Version', 'SmartIO Programtools 1.05  ');
+                        Ext.Msg.alert('Version', 'SmartIO Programtools 1.07  ');
                     }
                 }
             ]
