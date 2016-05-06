@@ -3,7 +3,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     alias: 'controller.imgtree',
     render: function (th) {
         var store = Ext.create("Ext.data.TreeStore")
-        var url = "192.168.253.253";
+        var url = window.location.host;
+
         var oJson = getTreeJsonByUrl(url)
         store.setRoot(oJson);
         th.setStore(store);
@@ -84,18 +85,18 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     anchor: '100%'
                                 },
                                 items: [
-                                     {
-                                     margin: 10,
-                                     xtype: "combobox",
-                                     allowBlank: false,
-                                     fieldLabel: 'select file name',
-                                     store: aDevNames,
-                                     editable: true,
-                                     queryMode: 'local',
-                                     displayField: 'name',
-                                     valueField: 'name',
-                                     autoSelect: false
-                                     }
+                                    {
+                                        margin: 10,
+                                        xtype: "combobox",
+                                        allowBlank: false,
+                                        fieldLabel: 'select file name',
+                                        store: aDevNames,
+                                        editable: true,
+                                        queryMode: 'local',
+                                        displayField: 'name',
+                                        valueField: 'name',
+                                        autoSelect: false
+                                    }
                                 ],
                                 buttons: [
                                     {
@@ -660,38 +661,52 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [
                     {
+
                         text: "Property", handler: function () {
 
                         if (Ext.getCmp("devNodeWindow")) {
-                            Ext.getCmp("devNodeWindow").setTitle(record.data.value + " Property")
-                            var store = Ext.data.StoreManager.lookup('devNodeStore');
-                            store.getProxy().setUrl('resources/test1.php?par=node&nodename=' + record.data.value)
+                            var win = Ext.getCmp("devNodeWindow")
+                                win.setTitle(sDevNodeName + " Property")
+                            win.datas.record=record;
+                            var store = Ext.data.StoreManager.lookup('ParametersStore');
+                            store.getProxy().setUrl('resources/test1.php?par=node&type=parameters&&nodename=' + sDevNodeName)
                             store.load()
+                            var store1 = Ext.data.StoreManager.lookup('PropertypegridStore');
+                            store1.getProxy().setUrl('resources/test1.php?par=node&type=event&nodename=' + sDevNodeName)
+                            store1.load()
                             return;
                         }
-                        var store = Ext.create("Ext.data.Store", {
+                       /* var store = Ext.create("Ext.data.Store", {
                             id: "devNodeStore",
                             fields: ["type", "value"],
                             //data: serversData,
                             proxy: {
                                 type: 'ajax',
-                                url: 'resources/test1.php?par=node&nodename=' + record.data.value
+                                url: 'resources/test1.php?par=node&nodename=' + sDevNodeName
                             }
                         })
+
                         store.load()
-                        console.log(store.data.items.sort(function (a, b) {
+                        store.data.items.sort(function (a, b) {
                             console.log(a + b)
                             return a.value - b.value
-                        }))
+                        })*/
                         Ext.create('Ext.window.Window', {
                             id: "devNodeWindow",
-                            title: record.data.value + " Property",
+                            title: sDevNodeName + " Property",
                             constrainHeader: true,//禁止移出父窗口
                             height: 768,
                             width: 1024,
-                            layout: 'fit',
+                            layout: 'accordion',
+                            listeners:{
+                               show:function(th){
+                                   th.datas={'record':record};
+                               }
+                            },
                             items: [
-                                {  // Let's put an empty grid in just to illustrate fit layout
+                               /* {
+                                    title: "Parameters",
+                                  // Let's put an empty grid in just to illustrate fit layout
                                     xtype: 'grid',
                                     border: false,
                                     plugins: {
@@ -709,17 +724,17 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     method: "GET",
                                                     params: {
                                                         par: "changevalue",
-                                                        nodename: record.data.value,
+                                                        nodename: sDevNodeName,
                                                         type: rowRecord.data.type,
                                                         value: rowRecord.data.value
                                                     },
                                                     success: function (response) {
                                                         var text = response.responseText;
-                                                            delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
-                                                        /*if (text == "0") {
-                                                        } else {
-                                                            delayToast('Error', ' Servers Change the failure.')
-                                                        }*/
+                                                        delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
+                                                        /!*if (text == "0") {
+                                                         } else {
+                                                         delayToast('Error', ' Servers Change the failure.')
+                                                         }*!/
                                                     }
                                                 });
 
@@ -732,22 +747,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                                                 var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type",
                                                     "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                                                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable"];
-
-                                               /* {
-                                                    fieldLabel: 'Priority_For_Writing',
-                                                        xtype: 'combobox',
-                                                    labelPad: 30,
-                                                    name: 'Priority_For_Writing',
-                                                    store: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-                                                    //valueField: 'abbr',
-                                                    value: "8",
-                                                    //displayField: 'abbr',
-                                                    //typeAhead: true,
-                                                    autoSelect: false,
-                                                    queryMode: 'local'
-                                                }*/
-
+                                                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value"];
 
                                                 var rowRecord = context.record;
                                                 for (var i = 0; i < aWriteArr.length; i++) {
@@ -755,9 +755,225 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
                                                             return false;
                                                         }
+
+                                                        if ((sNodeType == "4" || sNodeType == "5") & rowRecord.data.type == "Present_Value") {
+                                                            if (Ext.getCmp("Priority_Array_combobox2")) {
+                                                                return false;
+                                                            }
+                                                            Ext.create('Ext.window.Window', {
+                                                                title: 'Write -- Priority_Array',
+                                                                frame: true,
+                                                                width: 315,
+                                                                bodyPadding: 10,
+                                                                autoShow: true,
+                                                                defaultType: 'textfield',
+                                                                defaults: {
+                                                                    anchor: '100%'
+                                                                },
+                                                                modal: true,
+                                                                layout: "auto",
+                                                                items: [
+                                                                    {
+                                                                        margin: 10,
+                                                                        xtype: "combobox",
+                                                                        allowBlank: false,
+                                                                        id: "Priority_Array_combobox1",
+                                                                        fieldLabel: 'Set Value',
+                                                                        store: Ext.create("Ext.data.Store", {
+                                                                            fields: ['abbr', 'name'],
+                                                                            data: [{name: "On", abbr: "1"},
+                                                                                {name: "Off", abbr: "0"},
+                                                                                {name: "NULL", abbr: "NULL"}
+                                                                            ]
+                                                                        }),
+                                                                        editable: false,
+                                                                        queryMode: 'local',
+                                                                        displayField: 'name',
+                                                                        valueField: 'abbr',
+                                                                        autoSelect: true
+                                                                    }
+                                                                    , {
+                                                                        margin: 10,
+                                                                        xtype: "combobox",
+                                                                        allowBlank: false,
+                                                                        id: "Priority_Array_combobox2",
+                                                                        fieldLabel: 'Priority',
+                                                                        store: Ext.create("Ext.data.Store", {
+                                                                            fields: ['abbr', 'name'],
+                                                                            data: [{name: "Priority1", abbr: "1"},
+                                                                                {name: "Priority2", abbr: "2"},
+                                                                                {name: "Priority3", abbr: "3"},
+                                                                                {name: "Priority4", abbr: "4"},
+                                                                                {name: "Priority5", abbr: "5"},
+                                                                                {name: "Priority6", abbr: "6"},
+                                                                                {name: "Priority7", abbr: "7"},
+                                                                                {name: "Priority8", abbr: "8"},
+                                                                                {name: "Priority9", abbr: "9"},
+                                                                                {name: "Priority10", abbr: "10"},
+                                                                                {name: "Priority11", abbr: "11"},
+                                                                                {name: "Priority12", abbr: "12"},
+                                                                                {name: "Priority13", abbr: "13"},
+                                                                                {name: "Priority14", abbr: "14"},
+                                                                                {name: "Priority15", abbr: "15"},
+                                                                                {name: "Priority16", abbr: "16"}
+                                                                            ]
+                                                                        }),
+                                                                        editable: false,
+                                                                        queryMode: 'local',
+                                                                        displayField: 'name',
+                                                                        valueField: 'abbr',
+                                                                        autoSelect: true
+                                                                    }
+                                                                ],
+
+                                                                buttons: [
+                                                                    {
+                                                                        text: 'Ok', handler: function () {
+
+                                                                        var text1 = Ext.getCmp("Priority_Array_combobox1").value;
+                                                                        var text2 = Ext.getCmp("Priority_Array_combobox2").value;
+                                                                        if (text2 == null && text1 == null) {
+                                                                            Ext.Msg.alert('Exception', 'Not null.');
+                                                                            return false;
+                                                                        }
+                                                                        if (text1 == "NULL") {
+                                                                            setPresent_Value(sDevNodeName, text1, text2);
+                                                                            /!* devPublish(sDevName + ".8.*", sDevNodeName + "\r\nCancel_Priority_Array\r\n" + text2, function () {
+                                                                             delayToast('Success', 'Publish Ok.', 0)
+                                                                             })*!/
+                                                                        } else {
+                                                                            setPresent_Value(sDevNodeName, text1, text2);
+                                                                        }
+                                                                        this.up("window").close();
+                                                                    }
+                                                                    },
+                                                                    {
+                                                                        text: 'Cancel', handler: function () {
+                                                                        this.up("window").close();
+                                                                    }
+                                                                    }
+                                                                ]
+                                                            })
+
+                                                            return false;
+                                                        }
+
+                                                        if ((sNodeType == "1" || sNodeType == "2") & rowRecord.data.type == "Present_Value") {
+                                                            if (Ext.getCmp("Priority_Array_combobox3")) {
+                                                                return false;
+                                                            }
+                                                            Ext.create('Ext.window.Window', {
+                                                                title: 'Write -- Priority_Array',
+                                                                frame: true,
+                                                                width: 315,
+                                                                bodyPadding: 10,
+                                                                autoShow: true,
+                                                                defaultType: 'textfield',
+                                                                defaults: {
+                                                                    anchor: '100%'
+                                                                },
+                                                                modal: true,
+                                                                layout: "auto",
+                                                                items: [
+                                                                    {
+                                                                        margin: 10,
+                                                                        xtype: "combobox",
+                                                                        allowBlank: false,
+                                                                        id: "Priority_Array_combobox3",
+                                                                        fieldLabel: 'Set Value',
+                                                                        store: ["NULL"],
+                                                                        editable: true,
+                                                                        queryMode: 'local',
+                                                                        validator: function (val) {
+                                                                            if (val == "NULL") {
+                                                                                return true;
+                                                                            }
+                                                                            if (!isNaN(val)) {
+                                                                                return true;
+                                                                            } else {
+                                                                                return "Must enter the Numbers";
+                                                                            }
+                                                                        },
+                                                                        displayField: 'name',
+                                                                        valueField: 'name',
+                                                                        autoSelect: true
+                                                                    }, {
+                                                                        margin: 10,
+                                                                        xtype: "combobox",
+                                                                        allowBlank: false,
+                                                                        id: "Priority_Array_combobox4",
+                                                                        fieldLabel: 'Priority',
+                                                                        store: Ext.create("Ext.data.Store", {
+                                                                            fields: ['abbr', 'name'],
+                                                                            data: [{name: "Priority1", abbr: "1"},
+                                                                                {name: "Priority2", abbr: "2"},
+                                                                                {name: "Priority3", abbr: "3"},
+                                                                                {name: "Priority4", abbr: "4"},
+                                                                                {name: "Priority5", abbr: "5"},
+                                                                                {name: "Priority6", abbr: "6"},
+                                                                                {name: "Priority7", abbr: "7"},
+                                                                                {name: "Priority8", abbr: "8"},
+                                                                                {name: "Priority9", abbr: "9"},
+                                                                                {name: "Priority10", abbr: "10"},
+                                                                                {name: "Priority11", abbr: "11"},
+                                                                                {name: "Priority12", abbr: "12"},
+                                                                                {name: "Priority13", abbr: "13"},
+                                                                                {name: "Priority14", abbr: "14"},
+                                                                                {name: "Priority15", abbr: "15"},
+                                                                                {name: "Priority16", abbr: "16"}
+                                                                            ]
+                                                                        }),
+                                                                        editable: false,
+                                                                        queryMode: 'local',
+                                                                        displayField: 'name',
+                                                                        valueField: 'abbr',
+                                                                        autoSelect: true
+                                                                    }
+                                                                ],
+
+                                                                buttons: [
+                                                                    {
+                                                                        text: 'Ok', handler: function () {
+
+                                                                        var text1 = Ext.getCmp("Priority_Array_combobox3").value;
+                                                                        var text2 = Ext.getCmp("Priority_Array_combobox4").value;
+
+                                                                        if (text2 == null || text1 == null) {
+                                                                            Ext.Msg.alert('Exception', 'Input Error.');
+                                                                            return false;
+                                                                        }
+
+
+                                                                        if (text1 == "NULL") {
+                                                                            setPresent_Value(sDevNodeName, text1, text2);
+                                                                            /!*devPublish(sDevName + ".8.*", sDevNodeName + "\r\nCancel_Priority_Array\r\n" + text2, function () {
+                                                                             delayToast('Success', 'Publish Ok.', 0)
+                                                                             })*!/
+                                                                        } else {
+                                                                            if (isNaN(text1)) {
+                                                                                Ext.Msg.alert('Exception', 'Input Error.');
+                                                                                return false;
+                                                                            }
+                                                                            setPresent_Value(sDevNodeName, text1, text2);
+
+                                                                        }
+                                                                        this.up("window").close();
+                                                                    }
+                                                                    },
+                                                                    {
+                                                                        text: 'Cancel', handler: function () {
+                                                                        this.up("window").close();
+                                                                    }
+                                                                    }
+                                                                ]
+                                                            })
+                                                            return false;
+                                                        }
+
                                                         if (sNodeType != "0" & rowRecord.data.type == "Offset") {
                                                             return false;
                                                         }
+
                                                         if (rowRecord.data.type == "Device_Type") {
 
                                                             var combostore = Ext.create('Ext.data.Store', {
@@ -775,7 +991,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                 xtype: "combobox",
                                                                 store: combostore,
                                                                 validator: function (val) {
-                                                                    if (val == "NTC10K" || val == "NTC20K" || val=="BI") {
+                                                                    if (val == "NTC10K" || val == "NTC20K" || val == "BI") {
                                                                         return true
                                                                     }
                                                                     var arr = val.split("=");
@@ -817,14 +1033,48 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         }
                                         }
                                     ],
-                                    /* listeners:{
+                                    /!* listeners:{
                                      rowclick:function(){
                                      console.log(arguments)
 
                                      }
-                                     },*/
+                                     },*!/
                                     store: store
-                                }
+
+                                },*/
+                                Ext.create("propertypegrid",{title: "Parameters",
+                                store:Ext.create("Ext.data.Store", {
+                                    id: "ParametersStore",
+                                    autoLoad:true,
+                                    fields: ["type", "value"],
+                                    proxy: {
+                                        type: 'ajax',
+                                        url: 'resources/test1.php?par=node&type=parameters&nodename=' + sDevNodeName
+                                    }
+                                })
+                                }),
+                                Ext.create("propertypegrid",{
+
+                                    title: "Other",
+                                    store:Ext.create("Ext.data.Store", {
+                                        id: "PropertypegridStore",
+                                        autoLoad:true,
+                                        fields: ["type", "value"],
+                                        proxy: {
+                                            type: 'ajax',
+                                            url: 'resources/test1.php?par=node&type=event&nodename=' + sDevNodeName
+                                        }
+                                    })
+                                })
+                                ,
+                                {
+                                    title: "Alarm",
+                                    html:"empty ... "
+                                }, {
+                                    title: "Event",
+                                    html:"empty ... "
+                                },
+
                             ],
                             buttons: [
                                 {
@@ -845,8 +1095,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         }
 
     }
-})
-;
+});
 
 function getNameByType(type) {
     if (type == 0) {
@@ -871,6 +1120,50 @@ function getNameByType(type) {
 }
 
 
+function setPresent_Value(sDevNodeName, text1, text2) {
+
+    var sDevName = sDevNodeName.substr(0, 4)
+    var strnull = "";
+    var pubstr = "";
+    var url = "resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=Priority_Array";
+    myAjax(url, function (response) {
+        var aPriority = response.responseText.split(",");
+        for (var i = 0; i < 16; i++) {
+            if (i + 1 == parseInt(text2)) {
+                strnull += text1 + ",";
+                pubstr += text1 + ",";
+            } else {
+                strnull += aPriority[i] + ","
+                pubstr += "NULL,";
+            }
+        }
+    })
+
+    myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Priority_Array&value=" + strnull.substr(0, strnull.length - 1), function () {
+        delayToast('Success', sDevNodeName + ' Change value Priority_Array success new value is ' + strnull.substr(0, strnull.length - 1), 0)
+    })
+
+    if (text1 == "NULL") {
+        var value = sDevNodeName + "\r\nCancel_Priority_Array\r\n" + text2;
+        //alert(sDevNodeName + "\r\nCancel_Priority_Array\r\n" + text2)
+        devPublish(sDevName + ".8.*",
+            value,
+            function () {
+                delayToast('Success', 'Publish Ok.', 1000)
+            })
+
+    } else {
+        var value = sDevNodeName + "\r\nPriority_Array\r\n" + pubstr.substr(0, pubstr.length - 1);
+        //alert(sDevNodeName + "\r\nPriority_Array\r\n" + strnull.substr(0, strnull.length - 3))
+        devPublish(sDevName + ".8.*",
+            value,
+            function () {
+                delayToast('Success', 'Publish Ok.', 1000)
+            })
+
+    }
+}
+
 function getTreeJsonByUrl(url) {
     return {
         expanded: true,
@@ -881,6 +1174,17 @@ function getTreeJsonByUrl(url) {
         }
         ]
     };
+}
+
+function myAjax(url, success) {
+    var devName = "";
+    Ext.Ajax.request({
+        url: url,
+        method: "GET",
+        async: false,
+        params: {},
+        success: success
+    });
 }
 
 function getNullSchedule(text) {
@@ -945,7 +1249,9 @@ function getTypeByDev(devName) {
                 childrenArr1.push(nodes[j]);
             }
         }
-
+        childrenArr1.sort(function (a, b) {
+            return a.value - b.value;
+        })
         var typeJson = {
             text: getNameByType(i),
             expanded: false,

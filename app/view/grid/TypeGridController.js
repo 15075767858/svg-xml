@@ -14,14 +14,14 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             return;
         }
 
-        var gridWidth=120;
+        var gridWidth=90;
         th.getHeader().on({
             click: function () {
                 console.log(this.getWidth() == gridWidth)
                 if (this.getWidth() == gridWidth) {
                     th.animate({
                         to: {
-                            width: (th.title.length * 13 < gridWidth ) ? gridWidth : th.title.length * 13
+                            width: (th.title.length * 13 < gridWidth-50 ) ? gridWidth : th.title.length * 13+50
                             //height: (th.getHeight() == 300) ? 400 : 300,
                         }
                     });
@@ -253,7 +253,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
     render: function (th) {
         alert("render")
-
     }
     ,
     girditemdblclick: function (me, record, item, index, e, eopts) {

@@ -1,23 +1,32 @@
+
 <?php
+$ip=$_SERVER["SERVER_ADDR"];
 $par=$_GET["par"];
 $redis = new Redis();
-$redis->connect("192.168.253.253", 6379);
+if($ip=="192.168.1.88"){
+	$redis->connect("192.168.253.253", 6379);
+}else{
+	$redis->connect($ip, 6379);
+}
 $arList = $redis->keys("*");
+
+
 if($par=="clear"){
 	if(file_exists("/var/run/bac_client.pid")){
-	$myfile = fopen("/var/run/bac_client.pid", "r");
-	$jc = fgets($myfile);
-	$test = "kill ".$jc;
-	exec($test,$array);
+		$myfile = fopen("/var/run/bac_client.pid", "r");
+		$jc = fgets($myfile);
+		$test = "kill ".$jc;
+		exec($test,$array);
 	}
 	if(file_exists("/var/run/bip_client.pid")){
-   $myfile1 = fopen("/var/run/bip_client.pid", "r");
-	$jc1 = fgets($myfile1);
-	$test1 = "kill ".$jc1;
-	exec($test1,$array1);
+		$myfile1 = fopen("/var/run/bip_client.pid", "r");
+		$jc1 = fgets($myfile1);
+		$test1 = "kill ".$jc1;
+		exec($test1,$array1);
 	}
 	echo $redis->delete($arList);
 }
+
 if($par=="ScheduleConfig"){
 	$nodeName=$_GET["nodename"];
 
@@ -69,6 +78,23 @@ if($par=="getnullschedule"){
 	}
 	echo "null";
 }
+
+//http://127.0.0.1/svgxml/resources/test1.php?par=getvalue&nodename=1100&type=Object_Name
+
+if($par=="getvalue"){
+	$nodeName = $_GET["nodename"];
+	$type=$_GET["type"];
+	//echo "{type:'".$type."',value:'"."12313"."'}";
+	echo $redis->hGet($nodeName,$type);
+}
+
+if($par=="changevaluenopublish"){
+	$nodeName = $_GET["nodename"];
+	$type=$_GET["type"];
+	$value=$_GET["value"];
+	//echo "{type:'".$type."',value:'"."12313"."'}";
+	echo $redis->hSet($nodeName,$type,$value);
+}
 if($par=="changevalue"){
 	$nodeName = $_GET["nodename"];
 	$type=$_GET["type"];
@@ -104,14 +130,27 @@ if($par=="node"){
 	$arr1=array_intersect($sortarr,$arList);
 	$arr2=array_diff($arList,$sortarr);
 	$arr3=array_merge($arr1,$arr2);
-	$str = "";
-	echo "[";
-	foreach ($arr3 as $key) {
-		$value = $redis->hGet($nodeName,$key);
-		$str.="{type:'".$key."',value:'".$value."'},";
+
+
+	$parameters=Array("Object_Name","Description","Present_Value","Max_Pres_Value","Min_pres_Value","High_Limit","Low_Limit","COV_Increment","Device_Type");
+
+	if(isset($_GET["type"])){
+		$type=$_GET["type"];
+		if($type=="parameters"){
+			$arr3=array_intersect($arr3,$parameters);
+		}else{
+			$arr3=array_diff($arr3,$parameters);
+		}
 	}
-	echo substr($str,0,strlen($str)-1);
-	echo "]";
+		$str = "";
+		echo "[";
+		foreach ($arr3 as $key) {
+			$value = $redis->hGet($nodeName,$key);
+			$str.="{type:'".$key."',value:'".$value."'},";
+		}
+		echo substr($str,0,strlen($str)-1);
+		echo "]";
+
 }
 if($par=="nodes"){
 	echo "[";

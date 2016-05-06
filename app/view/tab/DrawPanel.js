@@ -3,7 +3,8 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     xtype: "drawpanel",
     requires: [
         "svgxml.view.tab.DrawPanelController",
-        "svgxml.view.tab.DrawPanelModel"
+        "svgxml.view.tab.DrawPanelModel",
+        "svgxml.view.grid.PropertypeGrid"
     ],
     //engine: "Ext.draw.engine.Svg",
     controller: "tab-drawpanel",

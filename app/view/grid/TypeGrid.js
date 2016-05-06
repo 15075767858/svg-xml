@@ -46,7 +46,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     hideHeaders :true,
     columnLines : true,
     initComponent: function () {
-        this.width = 120;
+        this.width = 90;
         this.columns = [
             {
                 multiColumnSort: false,

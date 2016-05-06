@@ -656,7 +656,7 @@ function filePublish(key, value) {
         }
     })
 }
-function devPublish(key, value) {
+function devPublish(key, value,success) {
 
     Ext.Ajax.request({
         url: "resources/test2.php",
@@ -667,12 +667,12 @@ function devPublish(key, value) {
             key: key,
             value: value
         },
-        success: function (response) {
+        success:success||function (response) {
             var text = response.responseText;
             if (text == 1) {
                 delayToast('Success', 'Publish Ok.', 0)
             } else {
-                Ext.Msg.alert('Info', 'Please download later.');
+              //  Ext.Msg.alert('Info', 'Please download later.');
             }
         }
     })
