@@ -5,15 +5,12 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
     requires: [
         "svgxml.view.main.toolbar.TopToolbarController",
         "svgxml.view.main.toolbar.TopToolbarModel",
-        "Ext.window.*"
-        //"Ext.chart.CartesianChart"
+        "Ext.window.*",
     ],
-
     controller: "main-toolbar-toptoolbar",
     viewModel: {
         type: "main-toolbar-toptoolbar"
     },
-
     initComponent: function () {
         Ext.apply(this, {
             width: "100%",
@@ -73,7 +70,9 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                         if (btn === 'yes') {
                                             location.href = "../index.html";
                                         } else if (btn === 'no') {
+
                                         } else {
+
                                         }
                                     }
                                 });

@@ -2,11 +2,11 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.tab-drawpanel',
     boxready: function (th, width, height, eOpts) {
-         th.el.dom.childNodes[0].childNodes[0].style.height="300%"
-         th.el.dom.childNodes[0].childNodes[0].style.width="150%"
+        th.el.dom.childNodes[0].childNodes[0].style.height = "300%"
+        th.el.dom.childNodes[0].childNodes[0].style.width = "150%"
         console.log(th.el.getViewSize())
 
-        var svg = d3.select(th.el.dom).select(".x-autocontainer-innerCt").append("svg").attr("class", "tempSVG"+th.id)
+        var svg = d3.select(th.el.dom).select(".x-autocontainer-innerCt").append("svg").attr("class", "tempSVG" + th.id)
             .attr("width", "150%").attr("height", "300%")
             //.style("border","1px solid red")
             .style("position", "absolute")
@@ -52,6 +52,32 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             store: "store" + th.getTitle(),
             //width: "100%",
             listeners: {
+                griditemmouseup: function (th, record, item, index, e, eOpts) {
+                    th.datas = {"index": index}
+                    th.el.dom.oncontextmenu = function (eve) {
+                        return false;
+                    }
+                    if (e.button == 2) {
+                        Ext.create("Ext.menu.Menu", {
+                                //floating: true,
+                                autoShow: true,
+                                x: e.pageX,
+                                y: e.pageY,
+                                items: [
+                                    {
+                                        text: "copy..."
+                                        //disabled: true
+                                    },
+                                    {
+                                        text: "paste...",
+                                    }
+                                ]
+                            }
+                        )
+                    }
+
+                    
+                },
                 itemclick: function (grid, record, item, index, e, eOpts) {
                     console.log(arguments)
                     console.log(grid.el.dom.childNodes[0].childNodes[index])
@@ -72,7 +98,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     ostore.setData(aItems)
                     grid.setStore(ostore)
                     drawlines(th)
-                    grid.el.dom.childNodes[0].childNodes[index].style.backgroundColor="skyblue";
+                    grid.el.dom.childNodes[0].childNodes[index].style.backgroundColor = "skyblue";
                 },
                 edit: function (grid, e) {
                     // 编辑完成后，提交更改
@@ -198,6 +224,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             overflowY: "scroll",
             items: ogridpanle,
             listeners: {
+
                 resize: function (th) {
                     ogridpanle.setWidth(th.getWidth() - 20)
                 },
@@ -336,8 +363,8 @@ function drawlines(drawpanel) {
     var JIANGE = 10;
     var currentDrawPanel = drawpanel;
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
-    var drawpanelScrollTop=drawpanel.el.dom.querySelector("div").scrollTop
-    var drawpanelScrollLeft=drawpanel.el.dom.querySelector("div").scrollLeft
+    var drawpanelScrollTop = drawpanel.el.dom.querySelector("div").scrollTop
+    var drawpanelScrollLeft = drawpanel.el.dom.querySelector("div").scrollLeft
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
 
@@ -364,11 +391,11 @@ function drawlines(drawpanel) {
 
             var iElWidth = oElStart.el.getWidth();
             var iElHeight = oElStart.el.getHeight() / 2;
-            var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth+drawpanelScrollLeft;
-            var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight+drawpanelScrollTop;
-            var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft+drawpanelScrollLeft;
-            var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight+drawpanelScrollTop;
-            var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG"+currentDrawPanel.id)
+            var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
+            var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
+            var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft + drawpanelScrollLeft;
+            var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
+            var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id)
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
 

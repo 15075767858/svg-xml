@@ -11,7 +11,7 @@ Ext.define("svgxml.view.tree.DevTree", {
      type: "imgtree"
      },*/
     //height:200,
-    minHeight: 200,
+    //minHeight: 200,
     title: "Device",
     //titleAlign:"center",//标题居中
     titleCollapse: true,

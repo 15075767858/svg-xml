@@ -68,14 +68,12 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         disabled: true
                     }, {
                         text: "Schedule •••",
-                        disabled: true
-                    }, {
-                        text: "NetNumber •••",
                         handler: function () {
 
-                            var aDevNames = getDevNamesAllDataStore();
+                            //var aDevNames = getDevNamesAllDataStore()
+                            var strnumbervalue = getNetNumberValue();
                             var win = Ext.create('Ext.window.Window', {
-                                title: 'NetNumber •••',
+                                title: 'new schedule',
                                 frame: true,
                                 width: 310,
                                 bodyPadding: 10,
@@ -85,23 +83,33 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     anchor: '100%'
                                 },
                                 items: [
-                                    {
+                                   /* {
                                         margin: 10,
                                         xtype: "combobox",
                                         allowBlank: false,
                                         fieldLabel: 'select file name',
-                                        store: aDevNames,
-                                        editable: true,
+                                        store: strnumbervalue,
+                                        editable: false,
                                         queryMode: 'local',
                                         displayField: 'name',
                                         valueField: 'name',
                                         autoSelect: false
+                                    },*/
+                                    {
+                                        margin: 10,
+                                        allowBlank: false,
+                                        editable: false,
+                                        value:strnumbervalue,
+                                        fieldLabel: 'select file name',
+                                        xtype: 'textfield',
+                                        name: 'name',
+                                        allowBlank: false
                                     }
                                 ],
                                 buttons: [
                                     {
                                         text: 'Ok', handler: function () {
-                                        var text = win.down("combobox").getValue();
+                                        var text = win.down("textfield").getValue();
                                         if (text == null) {
                                             Ext.Msg.alert('Info', 'Plase select file name.');
                                             return;
@@ -337,7 +345,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             buttons: [
                                                 {
                                                     text: "OK", handler: function () {
-                                                    var devName = getNullSchedule(text)
+                                                    var devName = getNullSchedule(text).trim();
                                                     if (devName == "null") {
                                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
                                                         win1.close()
@@ -395,6 +403,97 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 ]
                             })
 
+
+                        }
+                    }, {
+                        text: "NetNumber •••",
+                        handler: function () {
+                            var NetCount = 1100;
+                            var storeData = []
+                            for (var i = 0; i < 89; i++) {
+                                storeData.push(NetCount)
+                                NetCount += 100;
+                            }
+                            var win = Ext.create('Ext.window.Window', {
+                                title: 'NetNumber •••',
+                                frame: true,
+                                width: 310,
+                                bodyPadding: 10,
+                                autoShow: true,
+                                defaultType: 'textfield',
+                                defaults: {
+                                    anchor: '100%'
+                                },
+                                items: [
+                                    {
+                                        id: "NetNumberCombobx",
+                                        margin: 10,
+                                        xtype: "combobox",
+                                        allowBlank: false,
+                                        fieldLabel: 'select value',
+                                        store: storeData,
+                                        editable: false,
+                                        queryMode: 'local',
+                                        displayField: 'name',
+                                        valueField: 'name',
+                                        autoSelect: false,
+                                        value: "9900"
+                                    }
+                                ],
+                                buttons: [
+                                    {
+                                        text: 'Ok', handler: function () {
+                                        var text = win.down("combobox").getValue();
+                                        if (text == null) {
+                                            Ext.Msg.alert('Info', 'Plase select NetNumber ..');
+                                            return;
+                                        }
+                                        Ext.Ajax.request({
+                                            url: "resources/xmlRW.php",
+                                            async: false,
+                                            params: {
+                                                fileName: "../../bac_config.xml",
+                                                rw: "r"
+                                            },
+                                            success: function (response) {
+                                                var xml = $($.parseXML(response.responseText));
+                                                xml.find("root net").text(text);
+                                                var xmlstr = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n' + $("<div></div>").append(xml[0].childNodes[0]).html()
+
+                                                Ext.Ajax.request({
+                                                    url: "resources/xmlRW.php",
+                                                    async: false,
+                                                    params: {
+                                                        fileName: "../../bac_config.xml",
+                                                        rw: "w",
+                                                        content: xmlstr
+                                                    },
+                                                    success: function (response) {
+                                                        delayToast("Success", "NetNumber new value is " + text, 1000)
+                                                    }
+                                                })
+
+                                            }
+                                        })
+
+                                        win.close();
+                                    }
+                                    },
+                                    {
+                                        text: 'Cancel', handler: function () {
+                                        win.close();
+                                    }
+                                    }
+                                ], listeners: {
+                                    show: function () {
+                                        var combox = Ext.getCmp("NetNumberCombobx");
+
+                                        combox.setValue(getNetNumberValue());
+
+
+                                    }
+                                }
+                            })
 
                         }
                     }, "-", {
@@ -484,6 +583,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
             })
         }
         if (record.data.depth == 3) {
+
+
             Ext.create("Ext.menu.Menu", {
                     //floating: true,
                     autoShow: true,
@@ -522,129 +623,191 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                                 Ext.create('Ext.window.Window', {
                                         id: "drawWindow",
-                                        title: record.data.value + " Property",
+                                        //title: record.data.value + " Property",
+                                        title: "property",
+
                                         constrainHeader: true,//禁止移出父窗口
                                         height: 768,
                                         width: 1024,
                                         autoShow: true,
-                                        layout: 'fit',
-                                        /* viewModel: {
-                                         stores: {
-                                         priceData: {
-                                         fields: ['month', 'price'],
-                                         data: [
-                                         {month: 'Sun', price: 16400000},
-                                         {month: 'Mon', price: 26400000},
-                                         {month: 'Tue', price: 36400000},
-                                         {month: 'Wed', price: 46400000},
-                                         {month: 'Thu', price: 56400000},
-                                         {month: 'Fri', price: 66400000},
-                                         {month: 'Sat', price: 76400000}
-                                         ]
-                                         }
-                                         }
-                                         },*/
+                                        layout: 'auto',
+
                                         items: [
                                             Ext.create({
-                                                xtype: 'cartesian',
-                                                width: 600,
-                                                height: 400,
-                                                insetPadding: 40,
+                                                xtype: 'chart',
+                                                width: 1000,
+                                                height: 700,
+                                                padding: '10 0 0 0',
+
+                                                /*                interactions: [
+                                                 'itemhighlight',
+                                                 {
+                                                 type: 'panzoom',
+                                                 zoomOnPanGesture: true
+                                                 }
+                                                 ],*/
+                                                interactions: {
+                                                    type: 'crosshair',
+                                                    axes: {
+                                                        left: {
+                                                            label: {
+                                                                fillStyle: 'white'
+                                                            },
+                                                            rect: {
+                                                                fillStyle: 'brown',
+                                                                radius: 6
+                                                            }
+                                                        },
+                                                        bottom: {
+                                                            label: {
+                                                                fontSize: '14px',
+                                                                fontWeight: 'bold'
+                                                            }
+                                                        }
+                                                    },
+                                                    lines: {
+                                                        horizontal: {
+                                                            strokeStyle: 'brown',
+                                                            lineWidth: 2,
+                                                            lineDash: [20, 2, 2, 2, 2, 2, 2, 2]
+                                                        }
+                                                    }
+                                                },
                                                 store: {
                                                     fields: ['time', 'open', 'high', 'low', 'close'],
                                                     data: [{
-                                                        'time': new Date('Jan 1 2010').getTime(),
-                                                        'open': 600,
-                                                        'high': 614,
-                                                        'low': 578,
-                                                        'close': 590
+                                                        'time': "Sunday",
+                                                        'open': 2649600000,
+                                                        'low': 2649600000,
+                                                        'high': 2736000000,
+                                                        'close': 2736000000
                                                     }, {
-                                                        'time': new Date('Jan 2 2010').getTime(),
-                                                        'open': 590,
-                                                        'high': 609,
-                                                        'low': 580,
-                                                        'close': 580
+                                                        'time': "Monday",
+                                                        'open': 2649600000,
+                                                        'low': 2699600000,
+                                                        'high': 2706000000,
+                                                        'close': 2730000000
                                                     }, {
-                                                        'time': new Date('Jan 3 2010').getTime(),
-                                                        'open': 580,
-                                                        'high': 602,
-                                                        'low': 578,
-                                                        'close': 602
+                                                        'time': "Tuesday",
+                                                        'open': 2649600000,
+                                                        'low': 2699600000,
+                                                        'high': 2706000000,
+                                                        'close': 2730000000
                                                     }, {
-                                                        'time': new Date('Jan 4 2010').getTime(),
-                                                        'open': 602,
-                                                        'high': 614,
-                                                        'low': 586,
-                                                        'close': 586
+                                                        'time': "Wednesday",
+                                                        'open': 2649600000,
+                                                        'high': 2726000000,
+                                                        'low': 2659600000,
+                                                        'close': 2726000000
                                                     }, {
-                                                        'time': new Date('Jan 5 2010').getTime(),
-                                                        'open': 586,
-                                                        'high': 602,
-                                                        'low': 565,
-                                                        'close': 565
-                                                    }]
+                                                        'time': "Thursday",
+                                                        'open': 2649600000,
+                                                        'low': 2699600000,
+                                                        'high': 2706000000,
+                                                        'close': 2730000000
+                                                    }, {
+                                                        'time': "Friday",
+                                                        'open': 2649600000,
+                                                        'low': 2699600000,
+                                                        'high': 2706000000,
+                                                        'close': 2730000000
+                                                    }, {
+                                                        'time': "Saturday",
+                                                        'open': 2649600000,
+                                                        'low': 2699600000,
+                                                        'high': 2706000000,
+                                                        'close': 2730000000
+                                                    }
+
+                                                    ]
                                                 },
                                                 axes: [{
-                                                    type: 'numeric',
+                                                    type: 'category',
                                                     position: 'bottom',
-
-                                                    fields: ['open', 'high', 'low', 'close'],
                                                     title: {
                                                         text: 'Sample Values',
                                                         fontSize: 15
                                                     },
-                                                    grid: true,
-                                                    minimum: 0,
-                                                    maximum: 640
+                                                    fields: 'time'
                                                 }, {
-                                                    type: 'time3d',
+                                                    type: 'numeric',
                                                     position: 'left',
-
-                                                    fields: ['time'],
-                                                    toDate: 1262707200000,
-                                                    fromDate: 1262793599000,
+                                                    fields: 'open',
+                                                    grid: true,
+                                                    minimum: 2649600000,
+                                                    maximum: 2736000000,
+                                                    //minimum: 2736000000,
+                                                    //maximum: 2649600000,
                                                     renderer: function (label, layout, lastLabel) {
-                                                        console.log(arguments)
+                                                        //console.log(arguments)
                                                         var time = new Date(label)
                                                         var hours = time.getHours();
                                                         var min = time.getMinutes();
-
-                                                        return hours + " : " + min;
+                                                        var sec = time.getSeconds();
+                                                        //return new Date(label).toLocaleTimeString();
+                                                        return hours + ":" + min + ":" + sec;
                                                     },
+
                                                     title: {
-                                                        text: 'Sample Values',
+                                                        text: 'Date',
                                                         fontSize: 15
                                                     },
+
                                                     style: {
                                                         axisLine: false
                                                     }
                                                 }],
                                                 series: [
                                                     {
-                                                        type: 'candlestick',
+                                                        type: 'bar',
                                                         xField: 'time',
-                                                        openField: 'open',
-                                                        highField: 'high',
-                                                        lowField: 'low',
-                                                        closeField: 'close',
+                                                        id: "bar_Sec",
+                                                        listeners: {
+                                                            itemclick: function (series, item, event, eOpts) {
+                                                                console.log(arguments)
+                                                            }
+                                                        },
+                                                        tips: {
+                                                            trackMouse: true,
+                                                            style: 'background: #FFF',
+                                                            height: 20,
+                                                            renderer: function (storeItem, item) {
+                                                                //console.log(arguments)
+                                                                this.setTitle("Time ...")
+                                                                //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('data1') + '%');
+                                                            }
+                                                        },
+                                                        style: {
+                                                            width: 100
+                                                            //margin:40
+                                                        },
+                                                        yField: ["open", "high", "low", "close"],
+                                                        //xField: 'open',
+                                                        //yField: 'low',
+                                                        //openField: 'open',
+                                                        //highField: 'high',
+                                                        //lowField: 'low',
+                                                        //closeField: 'close',
                                                         style: {
                                                             dropStyle: {
                                                                 fill: 'rgb(222, 87, 87)',
                                                                 stroke: 'rgb(222, 87, 87)',
-                                                                lineWidth: 13
+                                                                lineWidth: 26
                                                             },
                                                             raiseStyle: {
                                                                 fill: 'rgb(48, 189, 167)',
                                                                 stroke: 'rgb(48, 189, 167)',
-                                                                lineWidth: 13
+                                                                lineWidth: 26
                                                             }
                                                         }
                                                     }
+
                                                 ]
                                             })
                                         ]
                                     }
-                                );
+                                )
+
                             }
                         }, {text: "exception"}
                     ]
@@ -666,8 +829,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                         if (Ext.getCmp("devNodeWindow")) {
                             var win = Ext.getCmp("devNodeWindow")
-                                win.setTitle(sDevNodeName + " Property")
-                            win.datas.record=record;
+                            win.setTitle(sDevNodeName + " Property")
+                            win.datas.record = record;
                             var store = Ext.data.StoreManager.lookup('ParametersStore');
                             store.getProxy().setUrl('resources/test1.php?par=node&type=parameters&&nodename=' + sDevNodeName)
                             store.load()
@@ -676,21 +839,21 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             store1.load()
                             return;
                         }
-                       /* var store = Ext.create("Ext.data.Store", {
-                            id: "devNodeStore",
-                            fields: ["type", "value"],
-                            //data: serversData,
-                            proxy: {
-                                type: 'ajax',
-                                url: 'resources/test1.php?par=node&nodename=' + sDevNodeName
-                            }
-                        })
+                        /* var store = Ext.create("Ext.data.Store", {
+                         id: "devNodeStore",
+                         fields: ["type", "value"],
+                         //data: serversData,
+                         proxy: {
+                         type: 'ajax',
+                         url: 'resources/test1.php?par=node&nodename=' + sDevNodeName
+                         }
+                         })
 
-                        store.load()
-                        store.data.items.sort(function (a, b) {
-                            console.log(a + b)
-                            return a.value - b.value
-                        })*/
+                         store.load()
+                         store.data.items.sort(function (a, b) {
+                         console.log(a + b)
+                         return a.value - b.value
+                         })*/
                         Ext.create('Ext.window.Window', {
                             id: "devNodeWindow",
                             title: sDevNodeName + " Property",
@@ -698,367 +861,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             height: 768,
                             width: 1024,
                             layout: 'accordion',
-                            listeners:{
-                               show:function(th){
-                                   th.datas={'record':record};
-                               }
+                            listeners: {
+                                show: function (th) {
+                                    th.datas = {'record': record};
+                                }
                             },
                             items: [
-                               /* {
+
+                                Ext.create("propertypegrid", {
                                     title: "Parameters",
-                                  // Let's put an empty grid in just to illustrate fit layout
-                                    xtype: 'grid',
-                                    border: false,
-                                    plugins: {
-                                        ptype: "rowediting",
-                                        clicksToEdit: 1,
-                                        listeners: {
-                                            edit: function (editor, context) {
-                                                console.log(arguments)
-                                                if (context.value == context.newValues.value) {
-                                                    return false
-                                                }
-                                                var rowRecord = context.record;
-                                                Ext.Ajax.request({
-                                                    url: "resources/test1.php",
-                                                    method: "GET",
-                                                    params: {
-                                                        par: "changevalue",
-                                                        nodename: sDevNodeName,
-                                                        type: rowRecord.data.type,
-                                                        value: rowRecord.data.value
-                                                    },
-                                                    success: function (response) {
-                                                        var text = response.responseText;
-                                                        delayToast('Status', 'Changes saved successfully,' + "New value is " + rowRecord.data.value + " .")
-                                                        /!*if (text == "0") {
-                                                         } else {
-                                                         delayToast('Error', ' Servers Change the failure.')
-                                                         }*!/
-                                                    }
-                                                });
-
-                                            },
-                                            beforeedit: function (editor, context, eOpts) {
-
-                                                if (context.field == "type") {
-                                                    return false;
-                                                }
-
-                                                var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type",
-                                                    "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                                                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value"];
-
-                                                var rowRecord = context.record;
-                                                for (var i = 0; i < aWriteArr.length; i++) {
-                                                    if (rowRecord.data.type == aWriteArr[i]) {
-                                                        if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
-                                                            return false;
-                                                        }
-
-                                                        if ((sNodeType == "4" || sNodeType == "5") & rowRecord.data.type == "Present_Value") {
-                                                            if (Ext.getCmp("Priority_Array_combobox2")) {
-                                                                return false;
-                                                            }
-                                                            Ext.create('Ext.window.Window', {
-                                                                title: 'Write -- Priority_Array',
-                                                                frame: true,
-                                                                width: 315,
-                                                                bodyPadding: 10,
-                                                                autoShow: true,
-                                                                defaultType: 'textfield',
-                                                                defaults: {
-                                                                    anchor: '100%'
-                                                                },
-                                                                modal: true,
-                                                                layout: "auto",
-                                                                items: [
-                                                                    {
-                                                                        margin: 10,
-                                                                        xtype: "combobox",
-                                                                        allowBlank: false,
-                                                                        id: "Priority_Array_combobox1",
-                                                                        fieldLabel: 'Set Value',
-                                                                        store: Ext.create("Ext.data.Store", {
-                                                                            fields: ['abbr', 'name'],
-                                                                            data: [{name: "On", abbr: "1"},
-                                                                                {name: "Off", abbr: "0"},
-                                                                                {name: "NULL", abbr: "NULL"}
-                                                                            ]
-                                                                        }),
-                                                                        editable: false,
-                                                                        queryMode: 'local',
-                                                                        displayField: 'name',
-                                                                        valueField: 'abbr',
-                                                                        autoSelect: true
-                                                                    }
-                                                                    , {
-                                                                        margin: 10,
-                                                                        xtype: "combobox",
-                                                                        allowBlank: false,
-                                                                        id: "Priority_Array_combobox2",
-                                                                        fieldLabel: 'Priority',
-                                                                        store: Ext.create("Ext.data.Store", {
-                                                                            fields: ['abbr', 'name'],
-                                                                            data: [{name: "Priority1", abbr: "1"},
-                                                                                {name: "Priority2", abbr: "2"},
-                                                                                {name: "Priority3", abbr: "3"},
-                                                                                {name: "Priority4", abbr: "4"},
-                                                                                {name: "Priority5", abbr: "5"},
-                                                                                {name: "Priority6", abbr: "6"},
-                                                                                {name: "Priority7", abbr: "7"},
-                                                                                {name: "Priority8", abbr: "8"},
-                                                                                {name: "Priority9", abbr: "9"},
-                                                                                {name: "Priority10", abbr: "10"},
-                                                                                {name: "Priority11", abbr: "11"},
-                                                                                {name: "Priority12", abbr: "12"},
-                                                                                {name: "Priority13", abbr: "13"},
-                                                                                {name: "Priority14", abbr: "14"},
-                                                                                {name: "Priority15", abbr: "15"},
-                                                                                {name: "Priority16", abbr: "16"}
-                                                                            ]
-                                                                        }),
-                                                                        editable: false,
-                                                                        queryMode: 'local',
-                                                                        displayField: 'name',
-                                                                        valueField: 'abbr',
-                                                                        autoSelect: true
-                                                                    }
-                                                                ],
-
-                                                                buttons: [
-                                                                    {
-                                                                        text: 'Ok', handler: function () {
-
-                                                                        var text1 = Ext.getCmp("Priority_Array_combobox1").value;
-                                                                        var text2 = Ext.getCmp("Priority_Array_combobox2").value;
-                                                                        if (text2 == null && text1 == null) {
-                                                                            Ext.Msg.alert('Exception', 'Not null.');
-                                                                            return false;
-                                                                        }
-                                                                        if (text1 == "NULL") {
-                                                                            setPresent_Value(sDevNodeName, text1, text2);
-                                                                            /!* devPublish(sDevName + ".8.*", sDevNodeName + "\r\nCancel_Priority_Array\r\n" + text2, function () {
-                                                                             delayToast('Success', 'Publish Ok.', 0)
-                                                                             })*!/
-                                                                        } else {
-                                                                            setPresent_Value(sDevNodeName, text1, text2);
-                                                                        }
-                                                                        this.up("window").close();
-                                                                    }
-                                                                    },
-                                                                    {
-                                                                        text: 'Cancel', handler: function () {
-                                                                        this.up("window").close();
-                                                                    }
-                                                                    }
-                                                                ]
-                                                            })
-
-                                                            return false;
-                                                        }
-
-                                                        if ((sNodeType == "1" || sNodeType == "2") & rowRecord.data.type == "Present_Value") {
-                                                            if (Ext.getCmp("Priority_Array_combobox3")) {
-                                                                return false;
-                                                            }
-                                                            Ext.create('Ext.window.Window', {
-                                                                title: 'Write -- Priority_Array',
-                                                                frame: true,
-                                                                width: 315,
-                                                                bodyPadding: 10,
-                                                                autoShow: true,
-                                                                defaultType: 'textfield',
-                                                                defaults: {
-                                                                    anchor: '100%'
-                                                                },
-                                                                modal: true,
-                                                                layout: "auto",
-                                                                items: [
-                                                                    {
-                                                                        margin: 10,
-                                                                        xtype: "combobox",
-                                                                        allowBlank: false,
-                                                                        id: "Priority_Array_combobox3",
-                                                                        fieldLabel: 'Set Value',
-                                                                        store: ["NULL"],
-                                                                        editable: true,
-                                                                        queryMode: 'local',
-                                                                        validator: function (val) {
-                                                                            if (val == "NULL") {
-                                                                                return true;
-                                                                            }
-                                                                            if (!isNaN(val)) {
-                                                                                return true;
-                                                                            } else {
-                                                                                return "Must enter the Numbers";
-                                                                            }
-                                                                        },
-                                                                        displayField: 'name',
-                                                                        valueField: 'name',
-                                                                        autoSelect: true
-                                                                    }, {
-                                                                        margin: 10,
-                                                                        xtype: "combobox",
-                                                                        allowBlank: false,
-                                                                        id: "Priority_Array_combobox4",
-                                                                        fieldLabel: 'Priority',
-                                                                        store: Ext.create("Ext.data.Store", {
-                                                                            fields: ['abbr', 'name'],
-                                                                            data: [{name: "Priority1", abbr: "1"},
-                                                                                {name: "Priority2", abbr: "2"},
-                                                                                {name: "Priority3", abbr: "3"},
-                                                                                {name: "Priority4", abbr: "4"},
-                                                                                {name: "Priority5", abbr: "5"},
-                                                                                {name: "Priority6", abbr: "6"},
-                                                                                {name: "Priority7", abbr: "7"},
-                                                                                {name: "Priority8", abbr: "8"},
-                                                                                {name: "Priority9", abbr: "9"},
-                                                                                {name: "Priority10", abbr: "10"},
-                                                                                {name: "Priority11", abbr: "11"},
-                                                                                {name: "Priority12", abbr: "12"},
-                                                                                {name: "Priority13", abbr: "13"},
-                                                                                {name: "Priority14", abbr: "14"},
-                                                                                {name: "Priority15", abbr: "15"},
-                                                                                {name: "Priority16", abbr: "16"}
-                                                                            ]
-                                                                        }),
-                                                                        editable: false,
-                                                                        queryMode: 'local',
-                                                                        displayField: 'name',
-                                                                        valueField: 'abbr',
-                                                                        autoSelect: true
-                                                                    }
-                                                                ],
-
-                                                                buttons: [
-                                                                    {
-                                                                        text: 'Ok', handler: function () {
-
-                                                                        var text1 = Ext.getCmp("Priority_Array_combobox3").value;
-                                                                        var text2 = Ext.getCmp("Priority_Array_combobox4").value;
-
-                                                                        if (text2 == null || text1 == null) {
-                                                                            Ext.Msg.alert('Exception', 'Input Error.');
-                                                                            return false;
-                                                                        }
-
-
-                                                                        if (text1 == "NULL") {
-                                                                            setPresent_Value(sDevNodeName, text1, text2);
-                                                                            /!*devPublish(sDevName + ".8.*", sDevNodeName + "\r\nCancel_Priority_Array\r\n" + text2, function () {
-                                                                             delayToast('Success', 'Publish Ok.', 0)
-                                                                             })*!/
-                                                                        } else {
-                                                                            if (isNaN(text1)) {
-                                                                                Ext.Msg.alert('Exception', 'Input Error.');
-                                                                                return false;
-                                                                            }
-                                                                            setPresent_Value(sDevNodeName, text1, text2);
-
-                                                                        }
-                                                                        this.up("window").close();
-                                                                    }
-                                                                    },
-                                                                    {
-                                                                        text: 'Cancel', handler: function () {
-                                                                        this.up("window").close();
-                                                                    }
-                                                                    }
-                                                                ]
-                                                            })
-                                                            return false;
-                                                        }
-
-                                                        if (sNodeType != "0" & rowRecord.data.type == "Offset") {
-                                                            return false;
-                                                        }
-
-                                                        if (rowRecord.data.type == "Device_Type") {
-
-                                                            var combostore = Ext.create('Ext.data.Store', {
-
-                                                                autoLoad: false,
-                                                                fields: ['name'],
-                                                                data: [
-                                                                    {"name": "0-10=0-100"},
-                                                                    {"name": "NTC10K"},
-                                                                    {"name": "NTC20K"},
-                                                                    {"name": "BI"}
-                                                                ]
-                                                            })
-                                                            context.column.setEditor({
-                                                                xtype: "combobox",
-                                                                store: combostore,
-                                                                validator: function (val) {
-                                                                    if (val == "NTC10K" || val == "NTC20K" || val == "BI") {
-                                                                        return true
-                                                                    }
-                                                                    var arr = val.split("=");
-                                                                    if (arr.length != 2) {
-                                                                        return false;
-                                                                    }
-                                                                    for (var i = 0; i < arr.length; i++) {
-                                                                        var arr_ = arr[i].split("-");
-                                                                        if (arr_.length < 2 || arr_.length > 3) {
-                                                                            return false;
-                                                                        }
-                                                                        isNaN(arr_[0])
-                                                                        isNaN(arr_[1])
-                                                                    }
-                                                                    return true;
-                                                                },
-                                                                displayField: 'name',
-                                                                valueField: 'name'
-                                                            })
-
-                                                        } else {
-
-                                                            context.column.setEditor({xtype: "textfield"})
-                                                        }
-                                                        return arguments;
-                                                    }
-                                                }
-                                                console.log(arguments)
-                                                return false
-                                            }
+                                    store: Ext.create("Ext.data.Store", {
+                                        id: "ParametersStore",
+                                        autoLoad: true,
+                                        fields: ["type", "value"],
+                                        proxy: {
+                                            type: 'ajax',
+                                            url: 'resources/test1.php?par=node&type=parameters&nodename=' + sDevNodeName
                                         }
-                                    }
-                                    ,
-                                    columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: false},
-                                        {
-                                            header: "Value", flex: 1, dataIndex: "value", sortable: false, editor: {
-                                            xtype: 'textfield',
-                                            allowBlank: false//允许空白
-                                        }
-                                        }
-                                    ],
-                                    /!* listeners:{
-                                     rowclick:function(){
-                                     console.log(arguments)
-
-                                     }
-                                     },*!/
-                                    store: store
-
-                                },*/
-                                Ext.create("propertypegrid",{title: "Parameters",
-                                store:Ext.create("Ext.data.Store", {
-                                    id: "ParametersStore",
-                                    autoLoad:true,
-                                    fields: ["type", "value"],
-                                    proxy: {
-                                        type: 'ajax',
-                                        url: 'resources/test1.php?par=node&type=parameters&nodename=' + sDevNodeName
-                                    }
-                                })
+                                    })
                                 }),
-                                Ext.create("propertypegrid",{
-
-                                    title: "Other",
-                                    store:Ext.create("Ext.data.Store", {
+                                Ext.create("propertypegrid", {
+                                    title: "Event",
+                                    store: Ext.create("Ext.data.Store", {
                                         id: "PropertypegridStore",
-                                        autoLoad:true,
+                                        autoLoad: true,
                                         fields: ["type", "value"],
                                         proxy: {
                                             type: 'ajax',
@@ -1067,13 +893,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     })
                                 })
                                 ,
-                                {
+                                Ext.create("propertypegrid", {
                                     title: "Alarm",
-                                    html:"empty ... "
-                                }, {
-                                    title: "Event",
-                                    html:"empty ... "
-                                },
+                                    store: Ext.create("Ext.data.Store", {
+                                        id: "PropertypegridStore",
+                                        autoLoad: true,
+                                        fields: ["type", "value"],
+                                        proxy: {
+                                            type: 'ajax',
+                                            url: 'resources/test1.php?par=node&type=alarm&nodename=' + sDevNodeName
+                                        }
+                                    })
+                                }),
+                                Ext.create("propertypegrid", {
+                                    title: "Other",
+                                    store: Ext.create("Ext.data.Store", {
+                                        id: "PropertypegridStore",
+                                        autoLoad: true,
+                                        fields: ["type", "value"],
+                                        proxy: {
+                                            type: 'ajax',
+                                            url: 'resources/test1.php?par=node&type=other&nodename=' + sDevNodeName
+                                        }
+                                    })
+                                })
 
                             ],
                             buttons: [
@@ -1086,7 +929,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         }).show();
                         console.log(arguments)
                     }
-                    }, {
+                    },
+                    {
                         text: "delete"
                         // disable:true
                     }
@@ -1095,8 +939,26 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         }
 
     }
-});
+})
+;
 
+function getNetNumberValue() {
+    var str="";
+    Ext.Ajax.request({
+        url: "resources/xmlRW.php",
+        async: false,
+        params: {
+            fileName: "../../bac_config.xml",
+            rw: "r"
+        },
+        success: function (response) {
+            var text = response.responseText
+            var xml = $($.parseXML(text));
+            str = xml.find("root net").text()
+        }
+    })
+    return str;
+}
 function getNameByType(type) {
     if (type == 0) {
         return "AI"
@@ -1230,8 +1092,31 @@ function getDevAll() {
         })
     }
 
+    /*var scheduleArr=[];
+
+    childrenArr.push({
+        text: "Schedule",
+        expanded: false,
+        allowDrop: false,
+        allowDrag: false,
+        children: scheduleArr
+    })
+    var NetCount = 1100;
+    for (var i = 0; i < 89; i++) {
+        var netArr = getScheduleByDev(NetCount);
+        if(netArr.length!=0){
+        scheduleArr.push({
+            text:NetCount , allowDrop: false, allowDrag: false, expanded: false, children:netArr
+        })
+        }
+        NetCount += 100;
+    }*/
+
+
     return childrenArr;
 }
+
+
 
 function getTypeByDev(devName) {
     var type = [0, 1, 2, 3, 4, 5];
@@ -1261,6 +1146,7 @@ function getTypeByDev(devName) {
         };
         childrenArr.push(typeJson);
     }
+
     childrenArr.push({
         text: "Schedule",
         expanded: false,
@@ -1270,6 +1156,8 @@ function getTypeByDev(devName) {
     })
     return childrenArr;
 }
+
+
 function getScheduleByDev(devName) {
     var devjson = null;
     Ext.Ajax.request({

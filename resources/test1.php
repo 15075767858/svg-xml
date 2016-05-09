@@ -104,6 +104,7 @@ if($par=="changevalue"){
 	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n".$type."\r\n".$value);
 }
 if($par=="schedule"){
+
 	$str="";
 	echo "[";
 	$nodeName = $_GET["nodename"];
@@ -115,7 +116,7 @@ if($par=="schedule"){
 				$dev= $redis->hGet($value,'Position');
 				if($dev){
 					$Object_Name =$redis->hGet($value, 'Object_Name');
-					$str.= '{leaf: true, text :"'. $Object_Name.'",value:"'.$value.'"},';
+					$str.= '{leaf: true, text :"'. $value.'",value:"'.$value.'"},';
 				}
 			}
 		}
@@ -133,23 +134,32 @@ if($par=="node"){
 
 
 	$parameters=Array("Object_Name","Description","Present_Value","Max_Pres_Value","Min_pres_Value","High_Limit","Low_Limit","COV_Increment","Device_Type");
-
+	$event=Array("Event_State","Event_Enable");
+	$alarm=Array("Alarm_Enable","Limit_Enable","Time_Delay","Acked_Transitions");
 	if(isset($_GET["type"])){
 		$type=$_GET["type"];
 		if($type=="parameters"){
 			$arr3=array_intersect($arr3,$parameters);
-		}else{
+		}else if($type=="event"){
+			$arr3=array_intersect($arr3,$event);
+		}else if($type=="alarm"){
+			$arr3=array_intersect($arr3,$alarm);
+		}else if($type=="other"){
 			$arr3=array_diff($arr3,$parameters);
+			//echo print_r($arr3);
+			//echo "<br>";
+			$arr3=array_diff($arr3,$event);
+			$arr3=array_diff($arr3,$alarm);
 		}
 	}
-		$str = "";
-		echo "[";
-		foreach ($arr3 as $key) {
-			$value = $redis->hGet($nodeName,$key);
-			$str.="{type:'".$key."',value:'".$value."'},";
-		}
-		echo substr($str,0,strlen($str)-1);
-		echo "]";
+	$str = "";
+	echo "[";
+	foreach ($arr3 as $key) {
+		$value = $redis->hGet($nodeName,$key);
+		$str.="{type:'".$key."',value:'".$value."'},";
+	}
+	echo substr($str,0,strlen($str)-1);
+	echo "]";
 
 }
 if($par=="nodes"){

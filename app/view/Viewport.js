@@ -8,6 +8,3 @@ Ext.define("svgxml.view.Viewport",{
         xtype:"userlist"
     }
 });
-
-
-
