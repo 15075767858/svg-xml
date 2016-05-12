@@ -116,7 +116,7 @@ if($par=="schedule"){
 				$dev= $redis->hGet($value,'Position');
 				if($dev){
 					$Object_Name =$redis->hGet($value, 'Object_Name');
-					$str.= '{leaf: true, text :"'. $value.'",value:"'.$value.'"},';
+					$str.= '{allowDrop: false, allowDrag: false,leaf: true, text :"'. $value.'",value:"'.$value.'"},';
 				}
 			}
 		}
@@ -133,7 +133,7 @@ if($par=="node"){
 	$arr3=array_merge($arr1,$arr2);
 
 
-	$parameters=Array("Object_Name","Description","Present_Value","Max_Pres_Value","Min_pres_Value","High_Limit","Low_Limit","COV_Increment","Device_Type");
+	$parameters=Array("Object_Name","Description","Present_Value","Max_Pres_Value","Min_pres_Value","High_Limit","Low_Limit","COV_Increment","Device_Type","Offset");
 	$event=Array("Event_State","Event_Enable");
 	$alarm=Array("Alarm_Enable","Limit_Enable","Time_Delay","Acked_Transitions");
 	if(isset($_GET["type"])){

@@ -9,6 +9,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             if (drawpanels[i].title == "1000") {
                 drawpanels[i].close();
             }
+            drawpanels[i].close()
         }
         removeFile("../1000");
         removeFile("../1000.json");
@@ -17,135 +18,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         }));
         delayToast("Status", 'New file successfully..', 1000);
     },
-    /*    openXmlClick: function () {
-     var odrawpanel = getCurrentDrawPanel();
-     var form = new Ext.form.FormPanel({
-     baseCls: 'x-plain',
-     labelWidth: 70,
-     fileUpload: true,
-     defaultType: 'textfield',
-     items: [{
-     xtype: 'textfield',
-     fieldLabel: 'select XmlFile',
-     margin: '10 30 10 10',
-     id: 'xmlfile',
-     inputType: 'file',
-     blankText: 'File can\'t not empty.',
-     anchor: '100%', // anchor width by percentage
-     listeners: {
-     change: function (th, str, eOpts) {
-     var file = document.getElementById(th.getInputId()).files[0];
-     try {
-     if (file.type != "text/xml") {
-     }
-     } catch (e) {
-     Ext.get("openXmlTextArea").component.setValue();
-     return;
-     }
 
-     var reader = new FileReader();
-     reader.onload = function () {
-     Ext.get("openXmlTextArea").component.setValue(this.result);
-     };
-     reader.readAsText(file);
-     }
-     }
-     }]
-     });
-     var win = Ext.create('Ext.window.Window', {
-     title: 'Open •••',
-     width: 600,
-     height: 500,
-     bodyStyle: {},
-     layout: 'anchor',
-     items: [form, {
-     xtype: 'textareafield',
-     id: "openXmlTextArea",
-     grow: true,
-     name: 'message',
-     anchor: '100%',
-     growMax: "10",
-     maxHeight: "377",
-     height: "100%",
-     autoScroll: true
-     }], buttons: [{
-     text: 'Ok',
-     handler: function (th, e) {
-     var xmlContent = formatXml(Ext.get("openXmlTextArea").component.getValue());
-     var xmlDom;
-     try {
-     xmlDom = $.parseXML(xmlContent);
-     if (xmlContent.trim() == '') {
-     Ext.Msg.alert('Exception', 'The file content cannot be empty');
-     return;
-     }
-     } catch (e) {
-     Ext.Msg.alert('Error', 'This xml file format error!');
-     return;
-     }
-     console.log(xmlDom)
-     var masterNodes = $(xmlDom).find("master_node");
-     var drawPanel = getCurrentDrawPanel();
-     var aLineDatas = [];
-     for (var i = 0; i < masterNodes.length; i++) {
-     var type = masterNodes[i].getElementsByTagName("type")[0].innerHTML;
-
-     var typeName;
-     for (slot in  slotsJson) {
-     if (slotsJson[slot].type == type) {
-     typeName = slot;
-     }
-     }
-     var initData = slotsJson[typeName].initData();
-     //console.log(initData)
-     var startIndex = 1;
-     if (initData[0].name == "mode") {
-     initData[0].value = masterNodes[i].getElementsByTagName("mode")[0].innerHTML;
-     startIndex = 2;
-     }
-     var xmlSlots = masterNodes[i].getElementsByTagName("slots");
-     for (var j = 0; j < xmlSlots.length; j++, startIndex++) {
-     if (xmlSlots[j].getElementsByTagName("default")[0]) {
-     if (initData[startIndex]) {
-     initData[startIndex].value = xmlSlots[j].getElementsByTagName("default")[0].innerHTML;
-     }
-     else {
-     initData.push({
-     name: "In",
-     value: xmlSlots[j].getElementsByTagName("default")[0].innerHTML
-     })
-     }
-     } else {
-     var iNode = xmlSlots[j].getElementsByTagName("node")[0].innerHTML;
-     var iSlotNumber = xmlSlots[j].getElementsByTagName("slot_number")[0].innerHTML;
-     console.log(iNode)
-     console.log(iSlotNumber)
-     aLineDatas.push([iNode, iSlotNumber])
-     console.log(aLineDatas)
-     }
-     }
-     var store = Ext.create(typeName, {
-     data: initData
-     });
-     var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
-     title: typeName,
-     store: store,
-     x: 0,
-     y: 0,
-     icon: "resources/img/SVG/" + typeName + ".svg"
-     })
-     drawPanel.add(oTypeGrid);
-     win.close();
-     }
-     }
-     }, {
-     text: 'Close',
-     handler: function () {
-     win.close();
-     }
-     }]
-     }).show();
-     },*/
     openXmlClick1: function () {
 
         var aDevNames = getDevInfoFileNames();
@@ -191,6 +64,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         },
                         success: function (response) {
                             //var ojsonstr = response.responseText
+
                             var tabpanel = Ext.getCmp("frametab_drawpanel");
                             var drawpanels = Ext.ComponentQuery.query("drawpanel");
                             for (var i = 0; i < drawpanels.length; i++) {
@@ -198,10 +72,13 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                                     tabpanel.setActiveTab(drawpanels[i].id);
                                     return;
                                 }
+                                drawpanels[i].close()
                             }
+
                             var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
                                 title: text
                             })
+                            //console.log(tabpanel.items)
                             tabpanel.add(drawpanel)
                             tabpanel.setActiveTab(drawpanel.id);
                         }
@@ -493,7 +370,7 @@ function filePublish(key, value) {
         }
     })
 }
-function devPublish(key, value,success) {
+function devPublish(key, value, success) {
 
     Ext.Ajax.request({
         url: "resources/test2.php",
@@ -504,12 +381,12 @@ function devPublish(key, value,success) {
             key: key,
             value: value
         },
-        success:success||function (response) {
+        success: success || function (response) {
             var text = response.responseText;
             if (text == 1) {
                 delayToast('Success', 'Publish Ok.', 0)
             } else {
-              //  Ext.Msg.alert('Info', 'Please download later.');
+                //  Ext.Msg.alert('Info', 'Please download later.');
             }
         }
     })
@@ -620,9 +497,9 @@ function get_A_Master_node(gridpanel, index) {
             slots.append($("<node>" + aGirdPanelIII[0] + "</node>"));
             slots.append($("<slot_number>" + aGirdPanelIII[1] + "</slot_number>"));
         }
-        //masterNode.append(slots);
+        masterNode.append(slots);
 
-        if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
+        /*if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
             console.log(slots.find("default"))
             if (slots.find("default").length != 0) {
 
@@ -631,7 +508,7 @@ function get_A_Master_node(gridpanel, index) {
             }
         } else {
             masterNode.append(slots);
-        }
+        }*/
         aGirdPanelIII = null;
     }
     isLogic(gridpanel, masterNode)
@@ -883,7 +760,6 @@ function setCurrentPlant(index) {
         }
         updateCurrentDrawPanelPlant(plants[i], i)
     }
-
 }
 
 function getCurrentDrawPanelPlantByIndex(index) {
@@ -892,6 +768,7 @@ function getCurrentDrawPanelPlantByIndex(index) {
 function getCurrentDrawPanelPlants() {
     return getCurrentDrawPanel().datas.plants;
 }
+
 function selectPlant(plant) {
     var aTypeGrids = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < aTypeGrids.length; i++) {
@@ -916,6 +793,18 @@ function getCurrentPlant() {
     }
     return false;
 }
+
+function getCurrentPlantGridPanles(plant) {
+    var curPlantGridPanelArr = [];
+    var gridPanels = getCurrentDrawPanelGirdPanels();
+    for (var i = 0; i < gridPanels.length; i++) {
+        if (plant.id == gridPanels[i].datas.plantId) {
+            curPlantGridPanelArr.push(gridPanels[i])
+        }
+    }
+    return curPlantGridPanelArr;
+}
+
 function updateCurrentDrawPanelPlant(plant, index) {
     getCurrentDrawPanel().datas.plants.splice(index, 1, plant);
 }

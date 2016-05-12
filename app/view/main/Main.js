@@ -70,66 +70,95 @@ Ext.define('svgxml.view.main.Main', {
 
 
 //week
-/*
 Ext.create('Ext.window.Window', {
         id: "drawWindow",
         //title: record.data.value + " Property",
         title: "property",
-
-
         constrainHeader: true,//禁止移出父窗口
         height: 768,
+        //height: 900,
         width: 1024,
         autoShow: true,
-        layout: 'auto',
+        layout: 'card',
         resizable: false,
+        buttons: [
+            {
+                text: "Ok", handler: function () {
+                var WeekArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                var weekly = {
+                    "Weekly_Schedule": {}
+                }
+                for (var i = 0; i < WeekArr.length; i++) {
+                    //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
+                    var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
+                    if (dayTimeArr.length > 0) {
+                        weekly.Weekly_Schedule[WeekArr[i]] = []
+                        for (var j = 0; j < dayTimeArr.length; j++) {
+                            var hour;
+                            var minute;
+                            var second;
+                            var hundredths;
+                            weekly.Weekly_Schedule[WeekArr[i]].push({
+                                "hour": 1,
+                                "minute": 2,
+                                "second": 3,
+                                "hundredths": 4
+                            })
+                        }
+
+                    }
+                }
+                console.log(Ext.encode(weekly))
+
+            }
+            }
+            , {
+                text: "next", handler: function () {
+                    var me = this.up("window");
+                    var l = me.getLayout();
+                    console.log(l)
+                    l.setActiveItem(1)
+                }
+            }, {
+                text: "Previous", handler: function () {
+                    var me = this.up("window");
+                    var l = me.getLayout();
+                    l.setActiveItem(0)
+                }
+            }
+        ],
+
         listeners: {
+
             el: {
-                selectstart: function (th) {
-                    th.stopEvent();
-                    return;
-                },
-                contextmenu: function (th, el, eOpts) {
-                    var cxt = el.getContext("2d");
+
+                contextmenu: function (win, el, eOpts) {
                     console.log(arguments)
                     //柱子间隔 27  宽100  高625
-                    var div = $("<div id=aaaaa></div>")
-                    div.css("width", "100px")
-                        .css("height", "100px")
-                        .css("backgroundColor", "red")
-                        .css("zIndex", "9")
-                        .css("left", "115px")
-                        .css("top", "100px")
-                        .css("position", "absolute")
-                    console.log(div)
-                    $(th.currentTarget).append(div)
-                    console.log(th.pageX)
-                    console.log(th.pageY)
                     if (el.tagName != "CANVAS") {
                         return;
                     }
                     ;
 
-                    function getTimeDiv() {
-
-                    }
-
-                    Ext.create('svgxml.view.grid.menu.gridmenu', {
-                        x: th.pageX,
-                        y: th.pageY,
-                        listeners: {
-                            show: function (thi, eOpts) {
-                                try {
-                                    if (hideCom)
-                                        thi.getComponent("addSlot").setDisabled(false);
-                                } catch (e) {
-
-                                }
+                    Ext.create('Ext.menu.Menu', {
+                        width: 100,
+                        plain: true,
+                        x: win.pageX + 5,
+                        y: win.pageY + 5,
+                        autoShow: true,
+                        floating: true,  // usually you want this set to True (default)
+                        items: [{
+                            text: 'Add Time',
+                            handler: function () {
+                                addNewBar(win)
 
                             }
                         }
-                    })
-                    th.stopEvent();
+                        ]
+                    });
+                    //addNewBar(th)
+
+                    win.stopEvent();
                 }
             }
         },
@@ -137,43 +166,9 @@ Ext.create('Ext.window.Window', {
             Ext.create({
                 xtype: 'chart',
                 width: 1000,
-                height: 700,
+                height: 800,
                 padding: '10 0 0 0',
 
-                /!*                interactions: [
-                 'itemhighlight',
-                 {
-                 type: 'panzoom',
-                 zoomOnPanGesture: true
-                 }
-                 ],*!/
-                interactions: {
-                    type: 'crosshair',
-                    axes: {
-                        left: {
-                            label: {
-                                fillStyle: 'white'
-                            },
-                            rect: {
-                                fillStyle: 'brown',
-                                radius: 6
-                            }
-                        },
-                        bottom: {
-                            label: {
-                                fontSize: '14px',
-                                fontWeight: 'bold'
-                            }
-                        }
-                    },
-                    lines: {
-                        horizontal: {
-                            strokeStyle: 'brown',
-                            lineWidth: 2,
-                            lineDash: [20, 2, 2, 2, 2, 2, 2, 2]
-                        }
-                    }
-                },
                 store: {
                     fields: ['time', 'open', 'high', 'low', 'close'],
                     data: [{
@@ -224,9 +219,10 @@ Ext.create('Ext.window.Window', {
                 },
                 axes: [{
                     type: 'category',
-                    position: 'bottom',
+
+                    position: 'top',
                     title: {
-                        text: 'Sample Values',
+                        text: 'Week',
                         fontSize: 15
                     },
                     fields: 'time'
@@ -237,11 +233,10 @@ Ext.create('Ext.window.Window', {
                     grid: true,
                     minimum: 2649600000,
                     maximum: 2736000000,
-                    //minimum: 2736000000,
-                    //maximum: 2649600000,
                     renderer: function (label, layout, lastLabel) {
-                        //console.log(arguments)
-                        var time = new Date(label)
+                        var chaTime = (2736000000 - label) + 2649600000;
+
+                        var time = new Date(chaTime)
                         var hours = time.getHours();
                         var min = time.getMinutes();
                         var sec = time.getSeconds();
@@ -268,45 +263,168 @@ Ext.create('Ext.window.Window', {
                                 console.log(arguments)
                             }
                         },
-                        tips: {
+                        /*tips: {
                             trackMouse: true,
                             style: 'background: #FFF',
                             height: 20,
                             renderer: function (storeItem, item) {
-
-                                //console.log(arguments)
                                 this.setTitle("aa")
-                                //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('data1') + '%');
+                                console.log(arguments)
                             }
-                        },
+                        },*/
                         style: {
                             width: 100
                             //margin:40
                         },
                         yField: ["open", "high", "low", "close"],
-                        //xField: 'open',
-                        //yField: 'low',
-                        //openField: 'open',
-                        //highField: 'high',
-                        //lowField: 'low',
-                        //closeField: 'close',
                         style: {
-                            dropStyle: {
-                                fill: 'rgb(222, 87, 87)',
-                                stroke: 'rgb(222, 87, 87)',
-                                lineWidth: 26
-                            },
-                            raiseStyle: {
-                                fill: 'rgb(48, 189, 167)',
-                                stroke: 'rgb(48, 189, 167)',
-                                lineWidth: 26
-                            }
+                            fill: "steelblue"
                         }
                     }
 
                 ]
-            })
+            }),
+            {
+                xtype: "panel",
+                html: "asdf"
+            }
         ]
     }
 )
-*/
+
+function addNewBar(win) {
+    console.log(win)
+    //var posLeftArr;
+    var WeekArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var oCanvas=$(win.el.dom.querySelectorAll("canvas")[4]);
+    
+    var bWidth = 100;
+    var bMarginLeft = $(win.target).offset().left - $("#" + win.currentTarget.id).offset().left;
+    var bMaxWidth = win.target.width;
+    var interval = (bMaxWidth - bWidth * WeekArr.length) / 7;
+    var startPoint = bMarginLeft + interval / 2 - 6;
+    var posLeftArr = [];
+    posLeftArr.push(startPoint)
+    for (var i = 0; i < 7; i++) {
+        posLeftArr.push(Math.ceil(startPoint += bWidth + interval))
+    }
+    var bMarginTop = $(win.target).offset().top - win.currentTarget.offsetTop - 6;
+
+    var bMaxHeight = win.target.height;
+    var bMarginTopHeight = bMarginTop + bMaxHeight;
+    var bLeft;
+    var winOffsetLeft = win.currentTarget.offsetLeft;
+    var oneDay = 86400000;
+    var div = $("<div></div>")
+    div.css("width", bWidth + "px")
+        .css("height", "20px")
+        .css("backgroundColor", "rgba(91,164,60,1)")
+        .css("zIndex", "9")
+        .css("top", win.pageY - win.currentTarget.offsetTop + "px")
+        .css("position", "absolute")
+        .addClass("week")
+        .attr("id", "bar" + Math.floor(Math.random() * 100000000000000));
+
+    for (var i = 0; i < posLeftArr.length; i++) {
+        if (isBarCollsion(win.pageX, win.pageY, posLeftArr[i] + winOffsetLeft, bMarginTop, bWidth, bMaxHeight)) {
+            bLeft = posLeftArr[i];
+            div.addClass(WeekArr[i]);
+        }
+    }
+
+    div.css("left", bLeft + "px")
+
+    function isBarCollsion(x1, y1, x2, y2, w, h) {
+        if (x1 >= x2 && x1 <= x2 + w && y1 >= y2 && y1 <= y2 + h) {
+            return true;
+        }
+        return false;
+    }
+
+    if (bLeft) {
+        $(win.currentTarget).append(div)
+    } else {
+        div.remove()
+    }
+    div.contextmenu(function (e) {
+        e.stopPropagation()
+        Ext.create('Ext.menu.Menu', {
+            width: 100,
+            plain: true,
+            x: e.pageX,
+            y: e.pageY,
+            autoShow: true,
+            floating: true,  // usually you want this set to True (default)
+            items: [{
+                text: 'Delete Time',
+                handler: function () {
+                    div.remove()
+                }
+            }
+            ]
+        });
+        return false;
+    })
+    var tmStart = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop);
+    var tmEnd = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
+    div.attr("startTime", tmStart).attr("endTime", tmEnd)
+    div.hover(
+        function () {
+            //var tmStart = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop);
+            //var tmEnd = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
+            var tmStart = new Date(div.attr("startTime"))
+            var tmEnd = new Date(div.attr("endTime"))
+            console.log(div.attr("startTime"))
+            console.log(div.attr("endTime"))
+            //div.attr("startTime", tmStart.getTime()).attr("endTime", tmEnd.getTime())
+            Ext.create('Ext.tip.ToolTip', {
+                target: div.attr("id"),
+                float: true,
+                trackMouse: true,
+                showDelay: 0,
+                hideDelay: 100,
+                dissmissDelay: 30000,
+                html: "StartTime:" + tmStart.toTimeString() + "<br>EndTime:&nbsp;" + tmEnd.toTimeString()
+            });
+        },
+        function () {
+        }
+    );
+
+    function getTimeByLocation(weizhi) {
+        var time = new Date(oneDay * (weizhi / bMaxHeight) + 2649600000);
+        return time;
+    }
+
+    Ext.create("Ext.resizer.Resizer", {
+        target: div.attr("id"),
+        handles: 'n,s',
+        maxHeight: bMaxHeight,
+        minHeight: 1,
+        //constrainTo:th.id,
+        pinned: true,
+        listeners: {
+            resize: function (th, width, height, e, eOpts) {
+                var tmStart = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop);
+                var tmEnd = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
+                div.attr("startTime", tmStart).attr("endTime", tmEnd)
+                var top = th.el.getTop(true)
+                if (top < bMarginTop) {
+                    th.el.setTop(bMarginTop + "px")
+                }
+
+                var bt = height + top;
+                if (bt > bMarginTopHeight) {
+                    var cha = bt - bMarginTopHeight;
+                    th.el.setTop(top - cha);
+                }
+
+            },
+            resizedrag: function (th, width, height, e, eOpts) {
+            }
+        }
+    })
+}
+
+
+

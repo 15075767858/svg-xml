@@ -83,23 +83,23 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     anchor: '100%'
                                 },
                                 items: [
-                                   /* {
-                                        margin: 10,
-                                        xtype: "combobox",
-                                        allowBlank: false,
-                                        fieldLabel: 'select file name',
-                                        store: strnumbervalue,
-                                        editable: false,
-                                        queryMode: 'local',
-                                        displayField: 'name',
-                                        valueField: 'name',
-                                        autoSelect: false
-                                    },*/
+                                    /* {
+                                     margin: 10,
+                                     xtype: "combobox",
+                                     allowBlank: false,
+                                     fieldLabel: 'select file name',
+                                     store: strnumbervalue,
+                                     editable: false,
+                                     queryMode: 'local',
+                                     displayField: 'name',
+                                     valueField: 'name',
+                                     autoSelect: false
+                                     },*/
                                     {
                                         margin: 10,
                                         allowBlank: false,
                                         editable: false,
-                                        value:strnumbervalue,
+                                        value: strnumbervalue,
                                         fieldLabel: 'select file name',
                                         xtype: 'textfield',
                                         name: 'name',
@@ -351,6 +351,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         win1.close()
                                                         return;
                                                     }
+                                                    if (!win1.down("form").isValid()) {
+                                                        Ext.Msg.alert('Exception', "Please enter the form fields .");
+                                                        return;
+                                                    }
                                                     win1.down("form").submit({
                                                         url: "resources/test1.php?par=ScheduleConfig&nodename=" + devName,
                                                         async: true,
@@ -583,8 +587,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
             })
         }
         if (record.data.depth == 3) {
-
-
             Ext.create("Ext.menu.Menu", {
                     //floating: true,
                     autoShow: true,
@@ -620,59 +622,106 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         }, {text: "References"}, {
                             text: "week",
                             handler: function () {
-
                                 Ext.create('Ext.window.Window', {
                                         id: "drawWindow",
-                                        //title: record.data.value + " Property",
-                                        title: "property",
-
+                                        title: record.data.value + " Property",
+                                        //title: "property",
                                         constrainHeader: true,//禁止移出父窗口
                                         height: 768,
+                                        //height: 900,
                                         width: 1024,
                                         autoShow: true,
-                                        layout: 'auto',
+                                        layout: 'card',
+                                        resizable: false,
+                                        buttons: [
+                                            {
+                                                text: "Ok", handler: function () {
+                                                var WeekArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                                                var weekly = {
+                                                    "Weekly_Schedule": {}
+                                                }
+                                                for (var i = 0; i < WeekArr.length; i++) {
+                                                    //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
+                                                    var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
+                                                    if (dayTimeArr.length > 0) {
+                                                        weekly.Weekly_Schedule[WeekArr[i]] = []
+                                                        for (var j = 0; j < dayTimeArr.length; j++) {
+                                                            var hour;
+                                                            var minute;
+                                                            var second;
+                                                            var hundredths;
+                                                            weekly.Weekly_Schedule[WeekArr[i]].push({
+                                                                "hour": 1,
+                                                                "minute": 2,
+                                                                "second": 3,
+                                                                "hundredths": 4
+                                                            })
+                                                        }
 
+                                                    }
+                                                }
+                                                console.log(Ext.encode(weekly))
+
+                                            }
+                                            }
+                                            ,{
+                                                text:"next",handler:function (){
+                                                    var me = this.up("window");
+                                                    var l = me.getLayout();
+                                                    console.log(l)
+                                                    l.setActiveItem(1)
+                                                    $(".week").hide()
+                                                }
+                                            },{
+                                                text:"Previous",handler:function (){
+                                                    var me = this.up("window");
+                                                    var l = me.getLayout();
+                                                    l.setActiveItem(0)
+                                                    $(".week").show()
+                                                }
+                                            }
+                                        ],
+
+                                        listeners: {
+
+                                            el: {
+
+                                                contextmenu: function (win, el, eOpts) {
+                                                    console.log(arguments)
+                                                    //柱子间隔 27  宽100  高625
+                                                    if (el.tagName != "CANVAS") {
+                                                        return;
+                                                    }
+                                                    ;
+
+                                                    Ext.create('Ext.menu.Menu', {
+                                                        width: 100,
+                                                        plain: true,
+                                                        x: win.pageX + 5,
+                                                        y: win.pageY + 5,
+                                                        autoShow: true,
+                                                        floating: true,  // usually you want this set to True (default)
+                                                        items: [{
+                                                            text: 'Add Time',
+                                                            handler: function () {
+                                                                addNewBar(win)
+                                                            }
+                                                        }
+                                                        ]
+                                                    });
+                                                    //addNewBar(th)
+
+                                                    win.stopEvent();
+                                                }
+                                            }
+                                        },
                                         items: [
                                             Ext.create({
                                                 xtype: 'chart',
                                                 width: 1000,
-                                                height: 700,
+                                                height: 800,
                                                 padding: '10 0 0 0',
 
-                                                /*                interactions: [
-                                                 'itemhighlight',
-                                                 {
-                                                 type: 'panzoom',
-                                                 zoomOnPanGesture: true
-                                                 }
-                                                 ],*/
-                                                interactions: {
-                                                    type: 'crosshair',
-                                                    axes: {
-                                                        left: {
-                                                            label: {
-                                                                fillStyle: 'white'
-                                                            },
-                                                            rect: {
-                                                                fillStyle: 'brown',
-                                                                radius: 6
-                                                            }
-                                                        },
-                                                        bottom: {
-                                                            label: {
-                                                                fontSize: '14px',
-                                                                fontWeight: 'bold'
-                                                            }
-                                                        }
-                                                    },
-                                                    lines: {
-                                                        horizontal: {
-                                                            strokeStyle: 'brown',
-                                                            lineWidth: 2,
-                                                            lineDash: [20, 2, 2, 2, 2, 2, 2, 2]
-                                                        }
-                                                    }
-                                                },
                                                 store: {
                                                     fields: ['time', 'open', 'high', 'low', 'close'],
                                                     data: [{
@@ -723,9 +772,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 },
                                                 axes: [{
                                                     type: 'category',
-                                                    position: 'bottom',
+
+                                                    position: 'top',
                                                     title: {
-                                                        text: 'Sample Values',
+                                                        text: 'Week',
                                                         fontSize: 15
                                                     },
                                                     fields: 'time'
@@ -736,11 +786,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     grid: true,
                                                     minimum: 2649600000,
                                                     maximum: 2736000000,
-                                                    //minimum: 2736000000,
-                                                    //maximum: 2649600000,
                                                     renderer: function (label, layout, lastLabel) {
-                                                        //console.log(arguments)
-                                                        var time = new Date(label)
+                                                        var chaTime=(2736000000-label)+2649600000;
+
+                                                        var time = new Date(chaTime)
                                                         var hours = time.getHours();
                                                         var min = time.getMinutes();
                                                         var sec = time.getSeconds();
@@ -767,16 +816,14 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                 console.log(arguments)
                                                             }
                                                         },
-                                                        tips: {
-                                                            trackMouse: true,
-                                                            style: 'background: #FFF',
-                                                            height: 20,
-                                                            renderer: function (storeItem, item) {
-                                                                //console.log(arguments)
-                                                                this.setTitle("Time ...")
-                                                                //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('data1') + '%');
-                                                            }
-                                                        },
+                                                        /*tips: {
+                                                         trackMouse: true,
+                                                         style: 'background: #FFF',
+                                                         height: 20,
+                                                         renderer: function (storeItem, item) {
+                                                         this.setTitle("aa")
+                                                         }
+                                                         },*/
                                                         style: {
                                                             width: 100
                                                             //margin:40
@@ -789,24 +836,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         //lowField: 'low',
                                                         //closeField: 'close',
                                                         style: {
-                                                            dropStyle: {
-                                                                fill: 'rgb(222, 87, 87)',
-                                                                stroke: 'rgb(222, 87, 87)',
-                                                                lineWidth: 26
-                                                            },
-                                                            raiseStyle: {
-                                                                fill: 'rgb(48, 189, 167)',
-                                                                stroke: 'rgb(48, 189, 167)',
-                                                                lineWidth: 26
-                                                            }
+                                                            fill: "steelblue"
+                                                            /* dropStyle: {
+                                                             fill: 'rgb(222, 87, 87)',
+                                                             stroke: 'rgb(222, 87, 87)',
+                                                             lineWidth: 26
+                                                             },
+                                                             raiseStyle: {
+                                                             fill: 'rgb(48, 189, 167)',
+                                                             stroke: 'rgb(48, 189, 167)',
+                                                             lineWidth: 26
+                                                             }*/
                                                         }
                                                     }
 
                                                 ]
-                                            })
+                                            }),
+                                            {
+                                                xtype:"panel",
+                                                html:"Times ..."
+                                            }
                                         ]
                                     }
                                 )
+
 
                             }
                         }, {text: "exception"}
@@ -816,7 +869,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 return false;
             }
 
-
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
@@ -824,9 +876,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [
                     {
-
                         text: "Property", handler: function () {
-
                         if (Ext.getCmp("devNodeWindow")) {
                             var win = Ext.getCmp("devNodeWindow")
                             win.setTitle(sDevNodeName + " Property")
@@ -839,6 +889,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             store1.load()
                             return;
                         }
+
                         /* var store = Ext.create("Ext.data.Store", {
                          id: "devNodeStore",
                          fields: ["type", "value"],
@@ -858,6 +909,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             id: "devNodeWindow",
                             title: sDevNodeName + " Property",
                             constrainHeader: true,//禁止移出父窗口
+                            style:{
+                              boxShadow:"rgb(0, 0, 25) 5px 5px 10px"
+                            },
                             height: 768,
                             width: 1024,
                             layout: 'accordion',
@@ -943,7 +997,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 ;
 
 function getNetNumberValue() {
-    var str="";
+    var str = "";
     Ext.Ajax.request({
         url: "resources/xmlRW.php",
         async: false,
@@ -1091,31 +1145,26 @@ function getDevAll() {
             text: aNames[i], allowDrop: false, allowDrag: false, expanded: false, children: getTypeByDev(aNames[i])
         })
     }
-
     /*var scheduleArr=[];
-
-    childrenArr.push({
-        text: "Schedule",
-        expanded: false,
-        allowDrop: false,
-        allowDrag: false,
-        children: scheduleArr
-    })
-    var NetCount = 1100;
-    for (var i = 0; i < 89; i++) {
-        var netArr = getScheduleByDev(NetCount);
-        if(netArr.length!=0){
-        scheduleArr.push({
-            text:NetCount , allowDrop: false, allowDrag: false, expanded: false, children:netArr
-        })
-        }
-        NetCount += 100;
-    }*/
-
-
+     childrenArr.push({
+     text: "Schedule",
+     expanded: false,
+     allowDrop: false,
+     allowDrag: false,
+     children: scheduleArr
+     })
+     var NetCount = 1100;
+     for (var i = 0; i < 89; i++) {
+     var netArr = getScheduleByDev(NetCount);
+     if(netArr.length!=0){
+     scheduleArr.push({
+     text:NetCount , allowDrop: false, allowDrag: false, expanded: false, children:netArr
+     })
+     }
+     NetCount += 100;
+     }*/
     return childrenArr;
 }
-
 
 
 function getTypeByDev(devName) {
@@ -1125,6 +1174,7 @@ function getTypeByDev(devName) {
     for (var i = 0; i < type.length; i++) {
         var childrenArr1 = [];
         var devAndType = devName + type[i];
+
         for (var j = 0; j < nodes.length; j++) {
             //console.log(nodes[j]["value"])
             if (nodes[j]["value"].substr(0, 5) == devAndType) {
@@ -1137,6 +1187,7 @@ function getTypeByDev(devName) {
         childrenArr1.sort(function (a, b) {
             return a.value - b.value;
         })
+
         var typeJson = {
             text: getNameByType(i),
             expanded: false,
@@ -1144,7 +1195,9 @@ function getTypeByDev(devName) {
             allowDrag: false,
             children: childrenArr1
         };
-        childrenArr.push(typeJson);
+        if (childrenArr1.length != 0) {
+            childrenArr.push(typeJson);
+        }
     }
 
     childrenArr.push({
@@ -1255,7 +1308,6 @@ function getNodesAll(url) {
         },
         success: function (response) {
             var text = response.responseText;
-            //document.write(text)
             var ojson = Ext.decode(text);
             aNames = ojson
         }
@@ -1279,7 +1331,7 @@ function getTypeAllByDev() {
 
 function getArrayBeforeFour(aArr) {
     var aArray = [];
-    for (var i = 0; i < aArr.length - 1; i++) {
+    for (var i = 0; i < aArr.length ; i++) {
         var devName = aArr[i] + "";
         if (devName.length == 6) {
             devName = "0" + devName;

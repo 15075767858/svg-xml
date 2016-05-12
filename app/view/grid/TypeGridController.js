@@ -299,7 +299,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             valueField: 'name'
                         });
                     } else {
-                        th.down("form").add({xtype: "textfield", name: "value", fieldLabel: "type"});
+                        th.down("form").add({xtype: "textfield", name: "value", fieldLabel: "value"});
                     }
                 }
             },
@@ -506,6 +506,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     }
 
     console.log(aRowsAll)
+
     d3.select("#tempLineStart").remove();
 
     var tempLineStart = oSvg.append("rect").attr("x", eItemWidth).attr("y", eItemHeight).attr("id", "tempLineStart");
@@ -538,11 +539,9 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         }
 
         document.onmousemove = function (e) {
-
-
             _this.attr("cx",drawpanelScrollLeft+ e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
             _this.attr("cy",drawpanelScrollTop+ e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
-            console.log(document.onmousemove)
+            //console.log(document.onmousemove)
             drawTempline();
         };
         document.onmouseup = function (e) {

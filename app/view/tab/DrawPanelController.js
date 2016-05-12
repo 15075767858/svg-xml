@@ -52,31 +52,73 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             store: "store" + th.getTitle(),
             //width: "100%",
             listeners: {
-                griditemmouseup: function (th, record, item, index, e, eOpts) {
-                    th.datas = {"index": index}
+                itemmouseup: function (th, record, item, index, e, eOpts) {
                     th.el.dom.oncontextmenu = function (eve) {
                         return false;
                     }
+                    
+                    e.stopEvent();
                     if (e.button == 2) {
                         Ext.create("Ext.menu.Menu", {
                                 //floating: true,
                                 autoShow: true,
-                                x: e.pageX,
-                                y: e.pageY,
+                                x: e.pageX + 5,
+                                y: e.pageY + 5,
                                 items: [
                                     {
-                                        text: "copy..."
+                                        text: "copy...",
                                         //disabled: true
+                                        handler: function () {
+                                            var plant = getCurrentDrawPanelPlantByIndex(index);
+                                            var gridPanels = getCurrentPlantGridPanles(plant)
+
+
+                                            var drawpanel = getCurrentDrawPanel();
+                                            for (var i = 0; i < gridPanels.length; i++) {
+                                                var config = gridPanels[i].config;
+                                                var datas = gridPanels[i].datas;
+                                                var gridPanelItems = gridPanels[i].store.data.items;
+                                                var storeData = getStoreData(gridPanelItems);
+                                                var ostore = Ext.create("Ext.data.Store", {
+                                                    fields: ["name", "value"],
+                                                    data: storeData
+                                                })
+
+                                                var typegrid = Ext.create("svgxml.view.grid.TypeGrid", {
+                                                    title: config.title,
+                                                    store: ostore,
+                                                    x: gridPanels[i].x + 10,
+                                                    y: gridPanels[i].y + 10,
+                                                    icon: config.icon,
+                                                    listeners: {
+                                                        add: function () {
+                                                            setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                                                        },
+                                                        render: function (thi) {
+                                                            thi.datas = {
+                                                                isAddSlot: datas.isAddSlot,
+                                                                //plantId: "",
+                                                                plantId: datas.plantId,
+                                                                type: datas.type,
+                                                                value: datas.value
+                                                            };
+                                                            //console.log(thi.getStore().data);
+                                                        }
+                                                    }
+                                                })
+                                                drawpanel.add(typegrid)
+                                            }
+
+                                        }
                                     },
                                     {
                                         text: "paste...",
+                                        disabled: true
                                     }
                                 ]
                             }
                         )
                     }
-
-                    
                 },
                 itemclick: function (grid, record, item, index, e, eOpts) {
                     console.log(arguments)
@@ -243,6 +285,18 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
     }
 });
+
+function getStoreData(gridPanelItems) {
+    var storeData = [];
+    for (var i = 0; i < gridPanelItems.length; i++) {
+        var name = gridPanelItems[i].data.name;
+        var value = gridPanelItems[i].data.value;
+        storeData.push({name: name, value: value})
+    }
+    console.log(storeData)
+    return storeData;
+}
+
 function typegridCache(th) {
 
     th = th || getCurrentDrawPanel();
@@ -338,6 +392,7 @@ function typegridCache(th) {
         console.log(data)
         try {
             data[1].value = item.store.data[1].value;
+            data[2].value = item.store.data[2].value;
         } catch (e) {
         }
         typegrid.store.setData(data)
@@ -615,6 +670,7 @@ function drawlines(drawpanel) {
         return oJson;
     }
 
+
     function isCollsion(LineToRect) {
         var aObsDivs = currentDrawPanel.items.items;
         for (var i = 0; i < aObsDivs.length; i++) {
@@ -635,6 +691,8 @@ function drawlines(drawpanel) {
         return false;
     }
 }
+
+
 function isCollsionWithRect(x1, y1, w1, h1,
                             x2, y2, w2, h2) {
     if (x1 >= x2 && x1 >= x2 + w2) {

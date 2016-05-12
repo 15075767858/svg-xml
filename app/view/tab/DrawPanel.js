@@ -79,7 +79,6 @@ Ext.define("svgxml.view.tab.DrawPanel", {
             notifyDrop: function (ddSource, e, data) {
                 var selectRecord = ddSource.dragData.records[0].data;
                 console.info(selectRecord)
-
                 var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
                 console.log(typeName)
                 aData = slotsJson[typeName].initData();
@@ -95,7 +94,8 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                  },1000)*/
                 console.info(ostore)
 
-                getCurrentDrawPanel().add(Ext.create("svgxml.view.grid.TypeGrid", {
+                getCurrentDrawPanel().add(
+                    Ext.create("svgxml.view.grid.TypeGrid", {
                         title: title,
                         store: ostore,
                         x: e.browserEvent.offsetX,

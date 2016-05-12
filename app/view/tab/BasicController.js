@@ -23,30 +23,30 @@ Ext.define('svgxml.view.tab.BasicController', {
                 isTarget: false
             })
             dd.afterDragDrop = function (target, e, id) {
-                var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
-                console.log(typeName)
-                Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
-                    title: typeName,
-                    store: Ext.create(typeName, {
+                    var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
+                    console.log(typeName)
+                    Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
+                        title: typeName,
+                        store: Ext.create(typeName, {
+                            listeners: {
+                                add: function () {
+                                    setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                                }
+                            }
+                        }),
+                        x: e.browserEvent.offsetX,
+                        y: e.browserEvent.offsetY,
+                        icon: "resources/img/SVG/" + typeName + ".svg",
                         listeners: {
-                            add: function () {
-                                setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                            render: function (thi) {
+                                thi.datas = {
+                                    isAddSlot: slotsJson[typeName].isAddSlot,
+                                    plantId: "",
+                                    type: slotsJson[typeName].type
+                                };
                             }
                         }
-                    }),
-                    x: e.browserEvent.offsetX,
-                    y: e.browserEvent.offsetY,
-                    icon: "resources/img/SVG/" + typeName + ".svg",
-                    listeners: {
-                        render: function (thi) {
-                            thi.datas = {
-                                isAddSlot: slotsJson[typeName].isAddSlot,
-                                plantId: "",
-                                type: slotsJson[typeName].type
-                            };
-                        }
-                    }
-                }));
+                    }));
             }
 
             Ext.apply(dd, overrides);

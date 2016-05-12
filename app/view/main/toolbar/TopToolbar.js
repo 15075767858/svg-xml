@@ -5,7 +5,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
     requires: [
         "svgxml.view.main.toolbar.TopToolbarController",
         "svgxml.view.main.toolbar.TopToolbarModel",
-        "Ext.window.*",
+        "Ext.window.*"
     ],
     controller: "main-toolbar-toptoolbar",
     viewModel: {
@@ -82,7 +82,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                 }, {
                     text: "About",
                     glyph: 65,handler:function(){
-                        Ext.Msg.alert('Version', 'SmartIO Programtools 1.09  ');
+                        Ext.Msg.alert('Version', 'SmartIO Programtools 1.10  ');
                     }
                 }
             ]
@@ -116,7 +116,26 @@ function saveGridpanelsConfigs(fileName) {
         }
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
+    /*var datasArray = drawpanel.datas.datasArray
+    var datasArrayStr='"[';
+    for(var i=0;i<datasArray.length;i++){
+        for(var skey in datasArray[i]){
+            var key = "t"+parseInt((skey).substr(1,skey.length)-1);
+            var value="t"+parseInt((datasArray[i][skey]).substr(1,datasArray[i][skey].length)-1);
+            console.log(datasArray[i])
+            console.log(key+"  "+value)
+            if(i!=datasArray.length-1){
+                datasArrayStr+='{\"'+key+'\":\"'+value+'\"},';
+            }else{
+                datasArrayStr+='{\"'+key+'\":\"'+value+'\"}';
+            }
+        }
+    }
+    datasArrayStr+=']"';
+    console.log(datasArrayStr)*/
+
     var oJson = {
+        //datasArray:datasArrayStr,
         datasArray: Ext.encode(drawpanel.datas.datasArray),
         plants: Ext.encode(drawpanel.datas.plants),
         gridpanelConfigs: Ext.encode(aGridPanels)
@@ -142,7 +161,9 @@ function getGridPanelRowsIds(gridpanel) {
         /*if (trs[i].length < 3) {
          currentDrawPanelGridPanelsTrSetId()
          }*/
-        console.log(trs[i])
+        /*var sid = "t"+parseInt((trs[i].id).substr(1,trs[i].id.length)-1);
+        console.log(trs[i].id)
+        console.log(sid)*/
         ids.push(trs[i].id)
     }
     return ids;
@@ -159,7 +180,7 @@ function getGridPanelConfig(gridpanel) {
 function getStoreConfig(gridpanel) {
     var store = gridpanel.getStore();
     var datas = store.data.items;
-    console.info(gridpanel)
+    //console.info(gridpanel)
     store.commitChanges()
     var data = [];
     for (var i = 0; i < datas.length; i++) {

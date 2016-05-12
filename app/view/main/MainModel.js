@@ -133,8 +133,8 @@ var slotsJson = {
 
             arr[0] = {
                 "name": "mode", value: "<", select: [{name: "<", value: "0"},
-                    {name: ">", value: "1"},
-                    {name: "=", value: "2"}
+                    {name: ">", value: "2"},
+                    {name: "=", value: "1"}
                 ]
             }
             arr[1] = {'name': 'Out', 'value': "0"}

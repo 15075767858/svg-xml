@@ -49,7 +49,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     deplicateclick: function (menu, e, eOpts) {
         var typegrid = menu.up("typegrid");
         hideCom = cloneTypegrid(typegrid, e);
-        hideCom.datas = {plantId: getCurrentPlant().id};
+        //hideCom.datas.plantId=getCurrentPlant().id;
         menu.up("drawpanel").add(hideCom)
         hideCom.setPagePosition(typegrid.x + hideCom.up().getX() + hideCom.width + 50, typegrid.y + hideCom.up().getY(), true)
     },
@@ -263,7 +263,8 @@ function getTypeGridRowIdByIndex(typegrid, index) {
 
 function cloneTypegrid(typegrid, e) {
 
-    console.log(e)
+    console.log(arguments)
+
     var typeName = typegrid.getTitle();
     var dataitems = typegrid.getStore().data.items;
     var data = [];
@@ -273,15 +274,25 @@ function cloneTypegrid(typegrid, e) {
         otempjson['value'] = dataitems[i].data['value']
         data[i] = otempjson
     }
-    var store = Ext.create(typeName, {
-        data: data
+    var store = Ext.create("Ext.data.Store", {
+        fields: ["name", "value"],
+        data: data,
+        listeners: {
+            add: function () {
+                setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+            }
+        }
     });
+
     var oTypeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
-        title: typeName,
+        title: typegrid.config.title,
         store: store,
-        x: e.x || 100,
-        y: e.y || 100,
-        icon: "resources/img/SVG/" + typeName + ".svg"
+        icon: typegrid.config.icon,
+        listeners:{
+            render: function (thi) {
+                thi.datas = typegrid.datas
+            }
+        }
     });
     return oTypeGrid;
 }

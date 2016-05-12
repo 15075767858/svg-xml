@@ -30,7 +30,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
                 region: "north",
                 id:"leftDevTree",
                 height:300,
-                minHeight:200,
+                minHeight:200
                 //maxHeight: 400
             }),
             Ext.create("Ext.grid.Panel", {
