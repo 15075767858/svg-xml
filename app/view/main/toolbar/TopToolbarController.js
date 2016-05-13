@@ -303,6 +303,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
                         fileNames += records[i].data.name + ",";
                     }
+
                     setTimeout(function () {
                         Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
                         setTimeout(function () {

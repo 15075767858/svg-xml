@@ -70,7 +70,12 @@ Ext.define('svgxml.view.main.Main', {
 
 
 var WeekArr = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-
+var drawWindowData = [
+    {divId: "2311", Week: 'Lisa', StartTime: "11:11:11", EndTime: "22:22:22"},
+    {divId: "2311", Week: 'Bart', StartTime: "11:11:11", EndTime: "22:22:22"},
+    {divId: "2311", Week: 'Homer', StartTime: "11:11:11", EndTime: "22:22:22"},
+    {divId: "2311", Week: 'Marge', StartTime: "11:11:11", EndTime: "22:22:22"}
+]
 //week
 Ext.create('Ext.window.Window', {
         id: "drawWindow",
@@ -85,12 +90,37 @@ Ext.create('Ext.window.Window', {
         resizable: false,
         buttons: [
             {
+                text: "next",
+                id: "drawWindow_next",
+                handler: function () {
+                    var me = this.up("window");
+                    var l = me.getLayout();
+                    this.hide()
+                    $(".week").hide()
+                    weekDivResetPosition()
+                    Ext.getCmp("drawWindow_previous").show()
+                    l.setActiveItem(1)
+                }
+            }, {
+                text: "Previous",
+                id: "drawWindow_previous",
+                hidden: true,
+                handler: function () {
+                    var me = this.up("window");
+                    var l = me.getLayout();
+                    this.hide()
+                    $(".week").show()
+                    weekDivResetPosition()
+                    Ext.getCmp("drawWindow_next").show()
+                    l.setActiveItem(0)
+                }
+            },
+            {
                 text: "Ok", handler: function () {
-
-
                 var weekly = {
                     "Weekly_Schedule": {}
                 }
+                drawWindowData = []
                 for (var i = 0; i < WeekArr.length; i++) {
                     //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
                     var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
@@ -100,20 +130,34 @@ Ext.create('Ext.window.Window', {
                             console.log(dayTimeArr)
                             var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
                             var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
+
+                            var sH = starttime.getHours()
+                            var sM = starttime.getMinutes()
+                            var sS = starttime.getSeconds()
+                            var eH = endtime.getHours()
+                            var eM = endtime.getMinutes()
+                            var eS = endtime.getSeconds()
+
+                            drawWindowData.push({
+                                divId: dayTimeArr[j].id,
+                                Week: WeekArr[i],
+                                StartTime: sH + ":" + sM + ":" + sS,
+                                EndTime: eH + ":" + eM + ":" + eS
+                            })
                             weekly.Weekly_Schedule[WeekArr[i]].push(
                                 {
                                     time: {
-                                        "hour": starttime.getHours(),
-                                        "minute": starttime.getMinutes(),
-                                        "second": starttime.getSeconds(),
+                                        "hour": sH,
+                                        "minute": sM,
+                                        "second": sS,
                                         "hundredths": 0
                                     },
                                     value: "1"
                                 }, {
                                     time: {
-                                        "hour": endtime.getHours(),
-                                        "minute": endtime.getMinutes(),
-                                        "second": endtime.getSeconds(),
+                                        "hour": eH,
+                                        "minute": eM,
+                                        "second": eS,
                                         "hundredths": 0
                                     },
                                     value: "0"
@@ -124,26 +168,38 @@ Ext.create('Ext.window.Window', {
                     }
                 }
                 console.log(Ext.encode(weekly))
+                var store = Ext.data.StoreManager.lookup('drawWindowStore');
+                store.setData(drawWindowData)
+            }
+            }
 
-            }
-            }
-            , {
-                text: "next", handler: function () {
-                    var me = this.up("window");
-                    var l = me.getLayout();
-                    console.log(l)
-                    l.setActiveItem(1)
-                }
-            }, {
-                text: "Previous", handler: function () {
-                    var me = this.up("window");
-                    var l = me.getLayout();
-                    l.setActiveItem(0)
-                }
-            }
         ],
 
         listeners: {
+            boxready: function () {
+                setTimeout(function () {
+                    Ext.MessageBox.progress('Message', {msg: 'Server Ready ...'});
+                    var count = 0;
+                    var interval_0 = setInterval(function () {
+                        Ext.MessageBox.updateProgress(count / 9, 'Loading,please wait... ');
+                        count++
+                        if (count == 10) {
+                            clearInterval(interval_0)
+                            Ext.MessageBox.close();
+                            myAjax("resources/test1.php?par=getvalue&nodename=1200601&type=Weekly_Schedule", function (response) {
+                                try{
+                                var text =Ext.decode(response.responseText);
+                                if(text){
+                                drawWindowAddDiv(text)
+                                }}catch(e){
+                                    Ext.Msg.alert('Error', 'load data failure .');
+                                }
+                            })
+                        }
+                    }, 100)
+
+                }, 3000)
+            },
             el: {
                 contextmenu: function (win, el, eOpts) {
                     console.log(arguments)
@@ -163,7 +219,6 @@ Ext.create('Ext.window.Window', {
                             text: 'Add Time',
                             handler: function () {
                                 addNewBar(win)
-
                             }
                         }
                         ]
@@ -281,6 +336,7 @@ Ext.create('Ext.window.Window', {
                          console.log(arguments)
                          }
                          },*/
+
                         style: {
                             width: 100
                             //margin:40
@@ -294,42 +350,81 @@ Ext.create('Ext.window.Window', {
                 ]
             }),
             {
-                xtype: "panel",
-                html: "asdf"
+                xtype: "gridpanel",
+                store: Ext.create('Ext.data.Store', {
+                    storeId: "drawWindowStore",
+                    fields: ["divId", 'Week', 'StartTime', 'EndTime'],
+                    data: drawWindowData
+                }),
+
+                columnLines: true,
+                rowLines: true,
+                plugins: {
+                    ptype: 'rowediting',
+                    clicksToEdit: 1,
+                    listeners: {
+                        edit: function (edit, context, eOpts) {
+                            var aStarttime = context.newValues.StartTime.split(":");
+                            var aEndtime = context.newValues.EndTime.split(":");
+                            var starttime = new Date(1970, 1, 1, aStarttime[0], aStarttime[1], aStarttime[2])
+                            var endtime = new Date(1970, 1, 1, aEndtime[0], aEndtime[1], aEndtime[2])
+                            edit.cancelEdit()
+                            if (starttime > endtime) {
+                                context.store.config.data[context.rowIdx].EndTime = context.originalValues.EndTime
+                                context.store.config.data[context.rowIdx].StartTime = context.originalValues.StartTime
+                                context.store.reload()
+                            }
+                            console.log($("#" + context.originalValues.divId))
+                            $("#" + context.originalValues.divId).attr("starttime", starttime).attr("endtime", endtime)
+                            console.log(arguments)
+                            //return false
+                        }
+                    }
+                },
+                selModel: 'rowmodel',
+                columns: [
+                    {text: 'divId', dataIndex: 'divId', hidden: true},
+                    {text: 'Week', dataIndex: 'Week', flex: 1},
+                    {
+                        text: 'StartTime', dataIndex: 'StartTime', flex: 1, editor: {
+                        xtype: 'textfield',
+                        allowBlank: false,
+                        validator: isTime
+                    }
+                    },
+                    {
+                        text: 'EndTime', dataIndex: 'EndTime', flex: 1
+                        , editor: {
+                        xtype: 'textfield',
+                        allowBlank: false,
+                        validator: isTime
+                    }
+                    }
+                ]
             }
         ]
     }
 )
-function drawWindowAddDiv() {
-    var d = {
-        "Weekly_Schedule": {
-            "sunday": [{
-                "time": {"hour": 2, "minute": 8, "second": 46, "hundredths": 0},
-                "value": "1"
-            }, {"time": {"hour": 2, "minute": 55, "second": 36, "hundredths": 0}, "value": "0"}],
-            "monday": [{
-                "time": {"hour": 9, "minute": 19, "second": 36, "hundredths": 0},
-                "value": "1"
-            }, {"time": {"hour": 10, "minute": 6, "second": 26, "hundredths": 0}, "value": "0"}],
-            "thursday": [{
-                "time": {"hour": 11, "minute": 14, "second": 20, "hundredths": 0},
-                "value": "1"
-            }, {"time": {"hour": 12, "minute": 1, "second": 10, "hundredths": 0}, "value": "0"}]
+
+function isTime(val) {
+    var vals = val.split(":")
+    if (vals.length != 3) {
+        return "This field error";
+    }
+    if (!(vals[0] >= 0 & vals[0] <= 23 & vals[1] >= 0 & vals[1] <= 59 & vals[2] >= 0 & vals[2] <= 59)) {
+        return "This field error";
+    }
+    for (var i = 0; i < vals.length; i++) {
+        if (isNaN(vals[i]) || (vals[i] + "") == "-0") {
+            return "This field error";
         }
     }
-    var dw = dwPars.dw;
-    var oCanvas = dwPars.oCanvas;
-    var oneDay = dwPars.oneDay;
-    var bWidth = dwPars.bWidth;
-    var winOffsetLeft = dwPars.winOffsetLeft;
-    var winOffsetTop = dwPars.winOffsetTop;
-    var bMarginLeft = dwPars.bMarginLeft;
-    var bMaxWidth = dwPars.bMaxWidth;
-    var interval = dwPars.interval;
-    var startPoint = dwPars.startPoint;
-    var posLeftArr = dwPars.posLeftArr;
-    var oneDay = dwPars.oneDay;
+    return true;
+}
 
+function drawWindowAddDiv(d) {
+
+    var dw = dwPars.dw;
     for (var i = 0; i < WeekArr.length; i++) {
         if (d['Weekly_Schedule'][WeekArr[i]]) {
             var div = dwPars.div()
@@ -344,12 +439,8 @@ function drawWindowAddDiv() {
                 $(dw.el.dom).append(div)
                 weekDivAddEvent(div)
             }
-
-
         }
     }
-
-
     weekDivResetPosition()
 
     console.log(d)
@@ -422,7 +513,6 @@ Ext.onReady(function () {
 
         //.css("top", bMarginTop + "px");
         //.css("top", win.pageY - winOffsetTop + "px");
-
         var e = {
             WeekArrJson: WeekArrJson,
             dw: dw,
@@ -457,10 +547,15 @@ function weekDivResetPosition() {
             for (var j = 0; j < dayTimeArr.length; j++) {
                 var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
                 var divStartPageY = parseInt(oCanvas.css("height")) * ((starttime - 2649600000) / oneDay);
-                $(dayTimeArr[j]).css("top", divStartPageY + bMarginTop)
+                //$(dayTimeArr[j]).css("top", divStartPageY + bMarginTop)
                 var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
                 var divEndPageY = parseInt(oCanvas.css("height")) * ((endtime - 2649600000) / oneDay);
-                $(dayTimeArr[j]).css("height", divEndPageY - divStartPageY + "px");
+                //$(dayTimeArr[j]).css("height", divEndPageY - divStartPageY + "px");
+                $(dayTimeArr[j]).animate({
+                    top: divStartPageY + bMarginTop,
+                    height: divEndPageY - divStartPageY
+                }, 1000)
+
             }
         }
     }
@@ -469,6 +564,7 @@ function weekDivResetPosition() {
         for (var j = 0; j < WeekArrJson.length; j++) {
             if ($(aWeeks[i]).hasClass(WeekArrJson[j].name)) {
                 $(aWeeks[i]).css("left", WeekArrJson[j].left);
+
             }
         }
     }
@@ -477,22 +573,14 @@ function weekDivResetPosition() {
 
 function addNewBar(win) {
     console.log(win)
-    //var posLeftArr;
     var WeekArr = dwPars.WeekArrJson
     var dw = dwPars.dw;
-    //var oCanvas = dwPars.oCanvas;
-    var oneDay = dwPars.oneDay;
     var bWidth = dwPars.bWidth;
     var winOffsetLeft = dwPars.winOffsetLeft
     var winOffsetTop = dwPars.winOffsetTop
-    /*var bMarginLeft =dwPars.bMarginLeft
-     var bMaxWidth =dwPars.bMaxWidth
-     var interval =dwPars.interval*/
     var posLeftArr = dwPars.posLeftArr;
-    console.log(posLeftArr)
     var bMarginTop = dwPars.bMarginTop
     var bMaxHeight = dwPars.bMaxHeight
-    var bMarginTopHeight = dwPars.bMarginTopHeight
     var bLeft;
 
     var div = dwPars.div()
@@ -503,7 +591,6 @@ function addNewBar(win) {
             div.addClass(WeekArr[i].name);
         }
     }
-    // div.css("left", bLeft + "px")
     if (bLeft) {
         $(dw.el.dom).append(div)
     } else {
@@ -511,25 +598,18 @@ function addNewBar(win) {
     }
     weekDivResetPosition()
     weekDivAddEvent(div)
-
-
     var tmStart = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop);
     var tmEnd = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
     div.attr("startTime", tmStart).attr("endTime", tmEnd)
-
-
 }
 function weekDivAddEvent(div) {
     console.log(div)
     div.hover(
         function () {
-            //var tmStart = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop);
-            //var tmEnd = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
             var tmStart = new Date(div.attr("startTime"))
             var tmEnd = new Date(div.attr("endTime"))
             console.log(div.attr("startTime"))
             console.log(div.attr("endTime"))
-            //div.attr("startTime", tmStart.getTime()).attr("endTime", tmEnd.getTime())
             Ext.create('Ext.tip.ToolTip', {
                 target: div.attr("id"),
                 float: true,
@@ -601,3 +681,13 @@ function isBarCollsion(x1, y1, x2, y2, w, h) {
     return false;
 }
 
+function myAjax(url, success) {
+    var devName = "";
+    Ext.Ajax.request({
+        url: url,
+        method: "GET",
+        async: false,
+        params: {},
+        success: success
+    });
+}

@@ -624,8 +624,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             handler: function () {
                                 Ext.create('Ext.window.Window', {
                                         id: "drawWindow",
-                                        title: record.data.value + " Property",
-                                        //title: "property",
+                                        //title: record.data.value + " Property",
+                                        title: "property",
                                         constrainHeader: true,//禁止移出父窗口
                                         height: 768,
                                         //height: 900,
@@ -635,8 +635,31 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         resizable: false,
                                         buttons: [
                                             {
+                                                text: "next",
+                                                id: "drawWindow_next",
+                                                handler: function () {
+                                                    var me = this.up("window");
+                                                    var l = me.getLayout();
+                                                    this.hide()
+                                                    $(".week").hide()
+                                                    Ext.getCmp("drawWindow_previous").show()
+                                                    l.setActiveItem(1)
+                                                }
+                                            }, {
+                                                text: "Previous",
+                                                id: "drawWindow_previous",
+                                                hidden: true,
+                                                handler: function () {
+                                                    var me = this.up("window");
+                                                    var l = me.getLayout();
+                                                    this.hide()
+                                                    $(".week").show()
+                                                    Ext.getCmp("drawWindow_next").show()
+                                                    l.setActiveItem(0)
+                                                }
+                                            },
+                                            {
                                                 text: "Ok", handler: function () {
-                                                var WeekArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                                                 var weekly = {
                                                     "Weekly_Schedule": {}
                                                 }
@@ -646,16 +669,28 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     if (dayTimeArr.length > 0) {
                                                         weekly.Weekly_Schedule[WeekArr[i]] = []
                                                         for (var j = 0; j < dayTimeArr.length; j++) {
-                                                            var hour;
-                                                            var minute;
-                                                            var second;
-                                                            var hundredths;
-                                                            weekly.Weekly_Schedule[WeekArr[i]].push({
-                                                                "hour": 1,
-                                                                "minute": 2,
-                                                                "second": 3,
-                                                                "hundredths": 4
-                                                            })
+                                                            console.log(dayTimeArr)
+                                                            var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
+                                                            var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
+                                                            weekly.Weekly_Schedule[WeekArr[i]].push(
+                                                                {
+                                                                    time: {
+                                                                        "hour": starttime.getHours(),
+                                                                        "minute": starttime.getMinutes(),
+                                                                        "second": starttime.getSeconds(),
+                                                                        "hundredths": 0
+                                                                    },
+                                                                    value: "1"
+                                                                }, {
+                                                                    time: {
+                                                                        "hour": endtime.getHours(),
+                                                                        "minute": endtime.getMinutes(),
+                                                                        "second": endtime.getSeconds(),
+                                                                        "hundredths": 0
+                                                                    },
+                                                                    value: "0"
+                                                                }
+                                                            )
                                                         }
 
                                                     }
@@ -664,28 +699,11 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                                             }
                                             }
-                                            ,{
-                                                text:"next",handler:function (){
-                                                    var me = this.up("window");
-                                                    var l = me.getLayout();
-                                                    console.log(l)
-                                                    l.setActiveItem(1)
-                                                    $(".week").hide()
-                                                }
-                                            },{
-                                                text:"Previous",handler:function (){
-                                                    var me = this.up("window");
-                                                    var l = me.getLayout();
-                                                    l.setActiveItem(0)
-                                                    $(".week").show()
-                                                }
-                                            }
+
                                         ],
 
                                         listeners: {
-
                                             el: {
-
                                                 contextmenu: function (win, el, eOpts) {
                                                     console.log(arguments)
                                                     //柱子间隔 27  宽100  高625
@@ -693,7 +711,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         return;
                                                     }
                                                     ;
-
                                                     Ext.create('Ext.menu.Menu', {
                                                         width: 100,
                                                         plain: true,
@@ -705,6 +722,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                             text: 'Add Time',
                                                             handler: function () {
                                                                 addNewBar(win)
+
                                                             }
                                                         }
                                                         ]
@@ -721,7 +739,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 width: 1000,
                                                 height: 800,
                                                 padding: '10 0 0 0',
-
                                                 store: {
                                                     fields: ['time', 'open', 'high', 'low', 'close'],
                                                     data: [{
@@ -787,7 +804,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     minimum: 2649600000,
                                                     maximum: 2736000000,
                                                     renderer: function (label, layout, lastLabel) {
-                                                        var chaTime=(2736000000-label)+2649600000;
+                                                        var chaTime = (2736000000 - label) + 2649600000;
 
                                                         var time = new Date(chaTime)
                                                         var hours = time.getHours();
@@ -796,12 +813,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         //return new Date(label).toLocaleTimeString();
                                                         return hours + ":" + min + ":" + sec;
                                                     },
-
                                                     title: {
                                                         text: 'Date',
                                                         fontSize: 15
                                                     },
-
                                                     style: {
                                                         axisLine: false
                                                     }
@@ -822,6 +837,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                          height: 20,
                                                          renderer: function (storeItem, item) {
                                                          this.setTitle("aa")
+                                                         console.log(arguments)
                                                          }
                                                          },*/
                                                         style: {
@@ -829,32 +845,57 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                             //margin:40
                                                         },
                                                         yField: ["open", "high", "low", "close"],
-                                                        //xField: 'open',
-                                                        //yField: 'low',
-                                                        //openField: 'open',
-                                                        //highField: 'high',
-                                                        //lowField: 'low',
-                                                        //closeField: 'close',
                                                         style: {
                                                             fill: "steelblue"
-                                                            /* dropStyle: {
-                                                             fill: 'rgb(222, 87, 87)',
-                                                             stroke: 'rgb(222, 87, 87)',
-                                                             lineWidth: 26
-                                                             },
-                                                             raiseStyle: {
-                                                             fill: 'rgb(48, 189, 167)',
-                                                             stroke: 'rgb(48, 189, 167)',
-                                                             lineWidth: 26
-                                                             }*/
                                                         }
                                                     }
 
                                                 ]
                                             }),
                                             {
-                                                xtype:"panel",
-                                                html:"Times ..."
+                                                xtype: "gridpanel",
+                                                store: Ext.create('Ext.data.Store', {
+                                                    fields: ["divId", 'Week', 'StartTime', 'EndTime'],
+                                                    data: tempDate
+                                                }),
+                                                plugins: {
+                                                    ptype: 'rowediting',
+                                                    clicksToEdit: 1,
+                                                    listeners: {
+                                                        edit: function (edit, context, eOpts) {
+
+                                                            console.log(arguments)
+                                                            edit.cancelEdit()
+                                                        }
+                                                    }
+                                                },
+                                                selModel: 'rowmodel',
+                                                columns: [
+                                                    {text: 'divId', dataIndex: 'divId', hidden: true},
+                                                    {text: 'Week', dataIndex: 'Week', flex: 1},
+                                                    {
+                                                        text: 'StartTime', dataIndex: 'StartTime', flex: 1, editor: {
+                                                        xtype: 'textfield',
+                                                        increment: 1,
+                                                        allowBlank: false
+                                                    },
+
+                                                        renderer: function (value) {
+                                                            return Ext.Date.format(value, "h:i:s")
+                                                        }
+                                                    },
+                                                    {
+                                                        text: 'EndTime', dataIndex: 'EndTime', flex: 1
+                                                        , editor: {
+                                                        xtype: 'textfield',
+                                                        increment: 1,
+                                                        allowBlank: false
+                                                    },
+                                                        renderer: function (value) {
+                                                            return Ext.Date.format(value, "h:i:s")
+                                                        }
+                                                    }
+                                                ]
                                             }
                                         ]
                                     }
@@ -909,8 +950,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             id: "devNodeWindow",
                             title: sDevNodeName + " Property",
                             constrainHeader: true,//禁止移出父窗口
-                            style:{
-                              boxShadow:"rgb(0, 0, 25) 5px 5px 10px"
+                            style: {
+                                boxShadow: "rgb(0, 0, 25) 5px 5px 10px"
                             },
                             height: 768,
                             width: 1024,
@@ -1092,16 +1133,7 @@ function getTreeJsonByUrl(url) {
     };
 }
 
-function myAjax(url, success) {
-    var devName = "";
-    Ext.Ajax.request({
-        url: url,
-        method: "GET",
-        async: false,
-        params: {},
-        success: success
-    });
-}
+
 
 function getNullSchedule(text) {
     var devName = "";
@@ -1331,7 +1363,7 @@ function getTypeAllByDev() {
 
 function getArrayBeforeFour(aArr) {
     var aArray = [];
-    for (var i = 0; i < aArr.length ; i++) {
+    for (var i = 0; i < aArr.length; i++) {
         var devName = aArr[i] + "";
         if (devName.length == 6) {
             devName = "0" + devName;
