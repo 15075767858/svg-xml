@@ -68,14 +68,11 @@ Ext.define('svgxml.view.main.Main', {
     ]
 });
 
-
-var WeekArr = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-var drawWindowData = [
-    {divId: "2311", Week: 'Lisa', StartTime: "11:11:11", EndTime: "22:22:22"},
-    {divId: "2311", Week: 'Bart', StartTime: "11:11:11", EndTime: "22:22:22"},
-    {divId: "2311", Week: 'Homer', StartTime: "11:11:11", EndTime: "22:22:22"},
-    {divId: "2311", Week: 'Marge', StartTime: "11:11:11", EndTime: "22:22:22"}
-]
+var ogroup =new Ext.grid.feature.Grouping({
+    groupHeaderTpl: '{name} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
+    hideGroupedHeader: true,
+    startCollapsed: true
+})
 //week
 Ext.create('Ext.window.Window', {
         id: "drawWindow",
@@ -93,6 +90,9 @@ Ext.create('Ext.window.Window', {
                 text: "next",
                 id: "drawWindow_next",
                 handler: function () {
+                    getDivData()
+                    var store = Ext.data.StoreManager.lookup('drawWindowStore');
+                    store.setData(dwPars.drawWindowData)
                     var me = this.up("window");
                     var l = me.getLayout();
                     this.hide()
@@ -116,61 +116,7 @@ Ext.create('Ext.window.Window', {
                 }
             },
             {
-                text: "Ok", handler: function () {
-                var weekly = {
-                    "Weekly_Schedule": {}
-                }
-                drawWindowData = []
-                for (var i = 0; i < WeekArr.length; i++) {
-                    //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
-                    var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
-                    if (dayTimeArr.length > 0) {
-                        weekly.Weekly_Schedule[WeekArr[i]] = []
-                        for (var j = 0; j < dayTimeArr.length; j++) {
-                            console.log(dayTimeArr)
-                            var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
-                            var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
-
-                            var sH = starttime.getHours()
-                            var sM = starttime.getMinutes()
-                            var sS = starttime.getSeconds()
-                            var eH = endtime.getHours()
-                            var eM = endtime.getMinutes()
-                            var eS = endtime.getSeconds()
-
-                            drawWindowData.push({
-                                divId: dayTimeArr[j].id,
-                                Week: WeekArr[i],
-                                StartTime: sH + ":" + sM + ":" + sS,
-                                EndTime: eH + ":" + eM + ":" + eS
-                            })
-                            weekly.Weekly_Schedule[WeekArr[i]].push(
-                                {
-                                    time: {
-                                        "hour": sH,
-                                        "minute": sM,
-                                        "second": sS,
-                                        "hundredths": 0
-                                    },
-                                    value: "1"
-                                }, {
-                                    time: {
-                                        "hour": eH,
-                                        "minute": eM,
-                                        "second": eS,
-                                        "hundredths": 0
-                                    },
-                                    value: "0"
-                                }
-                            )
-                        }
-
-                    }
-                }
-                console.log(Ext.encode(weekly))
-                var store = Ext.data.StoreManager.lookup('drawWindowStore');
-                store.setData(drawWindowData)
-            }
+                text: "Ok", handler: getDivData
             }
 
         ],
@@ -178,6 +124,8 @@ Ext.create('Ext.window.Window', {
         listeners: {
             boxready: function () {
                 setTimeout(function () {
+                    dwParsInit()
+
                     Ext.MessageBox.progress('Message', {msg: 'Server Ready ...'});
                     var count = 0;
                     var interval_0 = setInterval(function () {
@@ -187,11 +135,12 @@ Ext.create('Ext.window.Window', {
                             clearInterval(interval_0)
                             Ext.MessageBox.close();
                             myAjax("resources/test1.php?par=getvalue&nodename=1200601&type=Weekly_Schedule", function (response) {
-                                try{
-                                var text =Ext.decode(response.responseText);
-                                if(text){
-                                drawWindowAddDiv(text)
-                                }}catch(e){
+                                try {
+                                    var text = Ext.decode(response.responseText);
+                                    if (text) {
+                                        drawWindowAddDiv(text)
+                                    }
+                                } catch (e) {
                                     Ext.Msg.alert('Error', 'load data failure .');
                                 }
                             })
@@ -353,10 +302,33 @@ Ext.create('Ext.window.Window', {
                 xtype: "gridpanel",
                 store: Ext.create('Ext.data.Store', {
                     storeId: "drawWindowStore",
+                    groupField: 'SortWeek',
+                    //groupDir:"DESC",
+                    sortOnLoad:false,
                     fields: ["divId", 'Week', 'StartTime', 'EndTime'],
-                    data: drawWindowData
+                    //data: dwPars.drawWindowData
                 }),
-
+                /*features: [{
+                    ftype: 'grouping',
+                    groupHeaderTpl: '{columnName}: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
+                    hideGroupedHeader: true,
+                    startCollapsed: true,
+                    id: 'restaurantGrouping'
+                }],*/
+                features: [ogroup],
+                tbar: [{
+                    text: 'Expand All',
+                    scope: this,
+                    handler: function () {
+                        ogroup.expandAll()
+                    }
+                }, {
+                    text: 'Collapse All',
+                    scope: this,
+                    handler: function () {
+                        ogroup.collapseAll()
+                    }
+                }],
                 columnLines: true,
                 rowLines: true,
                 plugins: {
@@ -368,32 +340,38 @@ Ext.create('Ext.window.Window', {
                             var aEndtime = context.newValues.EndTime.split(":");
                             var starttime = new Date(1970, 1, 1, aStarttime[0], aStarttime[1], aStarttime[2])
                             var endtime = new Date(1970, 1, 1, aEndtime[0], aEndtime[1], aEndtime[2])
-                            edit.cancelEdit()
+                            //edit.cancelEdit()
                             if (starttime > endtime) {
-                                context.store.config.data[context.rowIdx].EndTime = context.originalValues.EndTime
-                                context.store.config.data[context.rowIdx].StartTime = context.originalValues.StartTime
-                                context.store.reload()
+                                dwPars.drawWindowData[context.rowIdx].StartTime = context.originalValues.StartTime
+                                dwPars.drawWindowData[context.rowIdx].EndTime = context.originalValues.EndTime
+                                context.store.store.loadData(dwPars.drawWindowData)
+                                return false;
                             }
                             console.log($("#" + context.originalValues.divId))
                             $("#" + context.originalValues.divId).attr("starttime", starttime).attr("endtime", endtime)
-                            console.log(arguments)
                             //return false
                         }
                     }
                 },
                 selModel: 'rowmodel',
                 columns: [
-                    {text: 'divId', dataIndex: 'divId', hidden: true},
-                    {text: 'Week', dataIndex: 'Week', flex: 1},
                     {
-                        text: 'StartTime', dataIndex: 'StartTime', flex: 1, editor: {
+                        text: 'divId', dataIndex: 'divId', hidden: true
+                    },
+                    {
+                        text: 'Week',
+                        dataIndex: 'Week',
+                        flex: 1
+                    },
+                    {
+                        text: 'Start time', dataIndex: 'StartTime', flex: 1, editor: {
                         xtype: 'textfield',
                         allowBlank: false,
                         validator: isTime
                     }
                     },
                     {
-                        text: 'EndTime', dataIndex: 'EndTime', flex: 1
+                        text: 'End time', dataIndex: 'EndTime', flex: 1
                         , editor: {
                         xtype: 'textfield',
                         allowBlank: false,
@@ -405,6 +383,64 @@ Ext.create('Ext.window.Window', {
         ]
     }
 )
+
+function getDivData() {
+    var weekly = {
+        "Weekly_Schedule": {}
+    }
+    dwPars.drawWindowData = []
+    WeekArr = dwPars.WeekArr
+    for (var i = 0; i < WeekArr.length; i++) {
+        //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
+        var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
+        if (dayTimeArr.length > 0) {
+            weekly.Weekly_Schedule[WeekArr[i]] = []
+            for (var j = 0; j < dayTimeArr.length; j++) {
+                console.log(dayTimeArr)
+                var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
+                var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
+
+                var sH = starttime.getHours()
+                var sM = starttime.getMinutes()
+                var sS = starttime.getSeconds()
+                var eH = endtime.getHours()
+                var eM = endtime.getMinutes()
+                var eS = endtime.getSeconds()
+
+                dwPars.drawWindowData.push({
+                    divId: dayTimeArr[j].id,
+                    SortWeek:(i+1)+"_"+WeekArr[i],
+                    Week: WeekArr[i],
+                    StartTime: sH + ":" + sM + ":" + sS,
+                    EndTime: eH + ":" + eM + ":" + eS
+                })
+                weekly.Weekly_Schedule[WeekArr[i]].push(
+                    {
+                        time: {
+                            "hour": sH,
+                            "minute": sM,
+                            "second": sS,
+                            "hundredths": 0
+                        },
+                        value: "1"
+                    }, {
+                        time: {
+                            "hour": eH,
+                            "minute": eM,
+                            "second": eS,
+                            "hundredths": 0
+                        },
+                        value: "0"
+                    }
+                )
+            }
+
+        }
+    }
+    console.log(Ext.encode(weekly))
+    return weekly;
+
+}
 
 function isTime(val) {
     var vals = val.split(":")
@@ -423,7 +459,7 @@ function isTime(val) {
 }
 
 function drawWindowAddDiv(d) {
-
+    WeekArr = dwPars.WeekArr
     var dw = dwPars.dw;
     for (var i = 0; i < WeekArr.length; i++) {
         if (d['Weekly_Schedule'][WeekArr[i]]) {
@@ -441,7 +477,7 @@ function drawWindowAddDiv(d) {
             }
         }
     }
-    weekDivResetPosition()
+    weekDivResetPosition(true)
 
     console.log(d)
 }
@@ -465,9 +501,10 @@ var single = (function () {
     }
 })();
 var dwPars;
-Ext.onReady(function () {
+function dwParsInit() {
     dwPars = (function () {
-
+        var drawWindowData = []
+        var WeekArr = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
         var WeekArrJson = [{name: "sunday", left: ""},
             {name: "monday", left: ""},
             {name: "tuesday", left: ""},
@@ -529,18 +566,21 @@ Ext.onReady(function () {
             posLeftArr: posLeftArr,
             bMaxHeight: bMaxHeight,
             bMarginTopHeight: bMarginTopHeight,
-            div: newDiv
+            div: newDiv,
+            WeekArr: WeekArr,
+            drawWindowData: drawWindowData
         }
         return e;
     })()
-})
 
+}
 
-function weekDivResetPosition() {
+function weekDivResetPosition(banimate) {
     var WeekArrJson = dwPars.WeekArrJson
     var oCanvas = dwPars.oCanvas
     var oneDay = dwPars.oneDay;
     var bMarginTop = dwPars.bMarginTop;
+    WeekArr = dwPars.WeekArr;
     for (var i = 0; i < WeekArr.length; i++) {
         var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
         if (dayTimeArr.length > 0) {
@@ -555,7 +595,6 @@ function weekDivResetPosition() {
                     top: divStartPageY + bMarginTop,
                     height: divEndPageY - divStartPageY
                 }, 1000)
-
             }
         }
     }
@@ -563,7 +602,26 @@ function weekDivResetPosition() {
     for (var i = 0; i < aWeeks.length; i++) {
         for (var j = 0; j < WeekArrJson.length; j++) {
             if ($(aWeeks[i]).hasClass(WeekArrJson[j].name)) {
-                $(aWeeks[i]).css("left", WeekArrJson[j].left);
+                if (banimate) {
+                    $(aWeeks[i]).css("left", dwPars.dw.el.getWidth() / 2.5);
+                    function randomlingdao() {
+                        for (var i = 0; i < 10; i++) {
+                            var a = (Math.random() * 2.5);
+                            if (a > 2 & a < 2.5) {
+                                return a
+                            }
+                        }
+                        return 2;
+                    }
+
+                    $(aWeeks[i]).animate({
+                        left: WeekArrJson[j].left
+                    }, 1000)
+                }
+                else {
+                    $(aWeeks[i]).css("left", WeekArrJson[j].left);
+                }
+
 
             }
         }
