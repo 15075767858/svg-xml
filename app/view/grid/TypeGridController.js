@@ -523,7 +523,8 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             var columnid = d3.select(aRowsAll[i]).attr("id");
             var tempLineEnd;
 
-            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "mode" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
+            if (aRowsAll[i].querySelector("di" +
+                    "v").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "mode" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
 
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 
@@ -564,6 +565,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             }
         };
     };
+
 
     function drawTempline() {
         var drawpanel = getCurrentDrawPanel()

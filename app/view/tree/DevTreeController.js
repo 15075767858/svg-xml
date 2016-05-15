@@ -590,8 +590,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
             Ext.create("Ext.menu.Menu", {
                     //floating: true,
                     autoShow: true,
-                    x: e.pageX,
-                    y: e.pageY,
+                    x: e.pageX + 5,
+                    y: e.pageY + 5,
                     items: [
                         {
                             text: "new..."
@@ -614,18 +614,29 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 Ext.create("Ext.menu.Menu", {
                     //floating: true,
                     autoShow: true,
-                    x: e.pageX,
-                    y: e.pageY,
+                    x: e.pageX + 5,
+                    y: e.pageY + 5,
                     items: [
                         {
                             text: "Schedule Config"
                         }, {text: "References"}, {
                             text: "week",
                             handler: function () {
+                                var dwwin = Ext.getCmp("drawWindow")
+                                if(dwwin){
+                                    dwwin.close()
+                                }
+                                var ogroup = new Ext.grid.feature.Grouping({
+                                    groupHeaderTpl: '{name} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
+                                    hideGroupedHeader: true,
+                                    startCollapsed: true
+                                })
+
+//week
                                 Ext.create('Ext.window.Window', {
                                         id: "drawWindow",
-                                        //title: record.data.value + " Property",
-                                        title: "property",
+                                        title: record.data.value + " Property",
+                                        //title: "property",
                                         constrainHeader: true,//禁止移出父窗口
                                         height: 768,
                                         //height: 900,
@@ -638,10 +649,14 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 text: "next",
                                                 id: "drawWindow_next",
                                                 handler: function () {
+                                                    getDivData()
+                                                    var store = Ext.data.StoreManager.lookup('drawWindowStore');
+                                                    store.setData(dwPars.drawWindowData)
                                                     var me = this.up("window");
                                                     var l = me.getLayout();
                                                     this.hide()
                                                     $(".week").hide()
+                                                    weekDivResetPosition()
                                                     Ext.getCmp("drawWindow_previous").show()
                                                     l.setActiveItem(1)
                                                 }
@@ -654,48 +669,28 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     var l = me.getLayout();
                                                     this.hide()
                                                     $(".week").show()
+                                                    weekDivResetPosition()
                                                     Ext.getCmp("drawWindow_next").show()
                                                     l.setActiveItem(0)
                                                 }
                                             },
                                             {
-                                                text: "Ok", handler: function () {
-                                                var weekly = {
-                                                    "Weekly_Schedule": {}
-                                                }
-                                                for (var i = 0; i < WeekArr.length; i++) {
-                                                    //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
-                                                    var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
-                                                    if (dayTimeArr.length > 0) {
-                                                        weekly.Weekly_Schedule[WeekArr[i]] = []
-                                                        for (var j = 0; j < dayTimeArr.length; j++) {
-                                                            console.log(dayTimeArr)
-                                                            var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
-                                                            var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
-                                                            weekly.Weekly_Schedule[WeekArr[i]].push(
-                                                                {
-                                                                    time: {
-                                                                        "hour": starttime.getHours(),
-                                                                        "minute": starttime.getMinutes(),
-                                                                        "second": starttime.getSeconds(),
-                                                                        "hundredths": 0
-                                                                    },
-                                                                    value: "1"
-                                                                }, {
-                                                                    time: {
-                                                                        "hour": endtime.getHours(),
-                                                                        "minute": endtime.getMinutes(),
-                                                                        "second": endtime.getSeconds(),
-                                                                        "hundredths": 0
-                                                                    },
-                                                                    value: "0"
-                                                                }
-                                                            )
-                                                        }
-
+                                                text: "Ok",
+                                                handler: function () {
+                                                var oJson = getDivData()
+                                                console.log(oJson)
+                                                Ext.Ajax.request({
+                                                    url: "resources/test1.php?par=changevaluenopublish&nodename="+sDevNodeName+"&type=Weekly_Schedule",
+                                                    params: {
+                                                        value:Ext.encode(oJson.weekly)
+                                                    },
+                                                    success: function(response){
+                                                        var text = response.responseText;
+                                                        delayToast("Status","Changes saved successfully .",1000)
                                                     }
-                                                }
-                                                console.log(Ext.encode(weekly))
+                                                });
+                                                devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + Ext.encode(oJson.pubweekly));
+                                                this.up("window").close()
 
                                             }
                                             }
@@ -703,6 +698,33 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         ],
 
                                         listeners: {
+                                            boxready: function (th) {
+                                                setTimeout(function () {
+                                                    dwParsInit()
+
+                                                    Ext.MessageBox.progress('Message', {msg: 'Server Ready ...'});
+                                                    var count = 0;
+                                                    var interval_0 = setInterval(function () {
+                                                        Ext.MessageBox.updateProgress(count / 9, 'Loading,please wait... ');
+                                                        count++
+                                                        if (count == 10) {
+                                                            clearInterval(interval_0)
+                                                            Ext.MessageBox.close();
+                                                            myAjax("resources/test1.php?par=getvalue&nodename=1200601&type=Weekly_Schedule", function (response) {
+                                                                try {
+                                                                    var text = Ext.decode(response.responseText);
+                                                                    if (text) {
+                                                                        drawWindowAddDiv(text)
+                                                                    }
+                                                                } catch (e) {
+                                                                    Ext.Msg.alert('Error', 'load data failure .');
+                                                                }
+                                                            })
+                                                        }
+                                                    }, 100)
+
+                                                }, 50)
+                                            },
                                             el: {
                                                 contextmenu: function (win, el, eOpts) {
                                                     console.log(arguments)
@@ -722,7 +744,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                             text: 'Add Time',
                                                             handler: function () {
                                                                 addNewBar(win)
-
                                                             }
                                                         }
                                                         ]
@@ -743,45 +764,24 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     fields: ['time', 'open', 'high', 'low', 'close'],
                                                     data: [{
                                                         'time': "Sunday",
-                                                        'open': 2649600000,
-                                                        'low': 2649600000,
-                                                        'high': 2736000000,
                                                         'close': 2736000000
                                                     }, {
                                                         'time': "Monday",
-                                                        'open': 2649600000,
-                                                        'low': 2699600000,
-                                                        'high': 2706000000,
                                                         'close': 2730000000
                                                     }, {
                                                         'time': "Tuesday",
-                                                        'open': 2649600000,
-                                                        'low': 2699600000,
-                                                        'high': 2706000000,
                                                         'close': 2730000000
                                                     }, {
                                                         'time': "Wednesday",
-                                                        'open': 2649600000,
-                                                        'high': 2726000000,
-                                                        'low': 2659600000,
                                                         'close': 2726000000
                                                     }, {
                                                         'time': "Thursday",
-                                                        'open': 2649600000,
-                                                        'low': 2699600000,
-                                                        'high': 2706000000,
                                                         'close': 2730000000
                                                     }, {
                                                         'time': "Friday",
-                                                        'open': 2649600000,
-                                                        'low': 2699600000,
-                                                        'high': 2706000000,
                                                         'close': 2730000000
                                                     }, {
                                                         'time': "Saturday",
-                                                        'open': 2649600000,
-                                                        'low': 2699600000,
-                                                        'high': 2706000000,
                                                         'close': 2730000000
                                                     }
 
@@ -831,20 +831,13 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                 console.log(arguments)
                                                             }
                                                         },
-                                                        /*tips: {
-                                                         trackMouse: true,
-                                                         style: 'background: #FFF',
-                                                         height: 20,
-                                                         renderer: function (storeItem, item) {
-                                                         this.setTitle("aa")
-                                                         console.log(arguments)
-                                                         }
-                                                         },*/
+
+
                                                         style: {
                                                             width: 100
                                                             //margin:40
                                                         },
-                                                        yField: ["open", "high", "low", "close"],
+                                                        yField: ["close"],
                                                         style: {
                                                             fill: "steelblue"
                                                         }
@@ -855,45 +848,119 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             {
                                                 xtype: "gridpanel",
                                                 store: Ext.create('Ext.data.Store', {
+                                                    storeId: "drawWindowStore",
+                                                    groupField: 'SortWeek',
+                                                    //groupDir:"DESC",
+                                                    sortOnLoad: false,
                                                     fields: ["divId", 'Week', 'StartTime', 'EndTime'],
-                                                    data: tempDate
+                                                    //data: dwPars.drawWindowData
                                                 }),
+
+                                                features: [ogroup],
+                                                tbar: [{
+                                                    text: 'Expand All',
+                                                    scope: this,
+                                                    handler: function () {
+                                                        ogroup.expandAll()
+                                                    }
+                                                }, {
+                                                    text: 'Collapse All',
+                                                    scope: this,
+                                                    handler: function () {
+                                                        ogroup.collapseAll()
+                                                    }
+                                                }],
+                                                columnLines: true,
+                                                rowLines: true,
                                                 plugins: {
                                                     ptype: 'rowediting',
                                                     clicksToEdit: 1,
                                                     listeners: {
                                                         edit: function (edit, context, eOpts) {
-
-                                                            console.log(arguments)
-                                                            edit.cancelEdit()
+                                                            var aStarttime = context.newValues.StartTime.split(":");
+                                                            var aEndtime = context.newValues.EndTime.split(":");
+                                                            var starttime = new Date(1970, 1, 1, aStarttime[0], aStarttime[1], aStarttime[2])
+                                                            var endtime = new Date(1970, 1, 1, aEndtime[0], aEndtime[1], aEndtime[2])
+                                                            //edit.cancelEdit()
+                                                            if (starttime > endtime) {
+                                                                dwPars.drawWindowData[context.rowIdx].StartTime = context.originalValues.StartTime
+                                                                dwPars.drawWindowData[context.rowIdx].EndTime = context.originalValues.EndTime
+                                                                context.store.store.loadData(dwPars.drawWindowData)
+                                                                Ext.Msg.alert('Error', 'Start time is not greater than end time .');
+                                                                return false;
+                                                            }
+                                                            console.log($("#" + context.originalValues.divId))
+                                                            $("#" + context.originalValues.divId).attr("starttime", starttime).attr("endtime", endtime)
+                                                            //return false
                                                         }
                                                     }
                                                 },
                                                 selModel: 'rowmodel',
                                                 columns: [
-                                                    {text: 'divId', dataIndex: 'divId', hidden: true},
-                                                    {text: 'Week', dataIndex: 'Week', flex: 1},
                                                     {
-                                                        text: 'StartTime', dataIndex: 'StartTime', flex: 1, editor: {
-                                                        xtype: 'textfield',
-                                                        increment: 1,
-                                                        allowBlank: false
+                                                        text: 'divId', dataIndex: 'divId', hidden: true
                                                     },
-
-                                                        renderer: function (value) {
-                                                            return Ext.Date.format(value, "h:i:s")
+                                                    {
+                                                        text: 'Week',
+                                                        dataIndex: 'Week',
+                                                        flex: 1
+                                                    },
+                                                    {
+                                                        text: 'Start time', dataIndex: 'StartTime', flex: 1, editor: {
+                                                        xtype: 'spinnerfield',
+                                                        allowBlank: false,
+                                                        validator: isTime,
+                                                        onSpinUp: function () {
+                                                            var oldValue = this.getValue().split(":");
+                                                            var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
+                                                            time+=10000;
+                                                            var newTime = new Date(time)
+                                                            var H = newTime.getHours()
+                                                            var M = newTime.getMinutes()
+                                                            var S = newTime.getSeconds()
+                                                            //if(newTime>2649600000&newTime<2736000000)
+                                                            this.setValue(H+":"+M+":"+S);
+                                                        },
+                                                        onSpinDown: function () {
+                                                            var oldValue = this.getValue().split(":");
+                                                            var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
+                                                            time-=10000;
+                                                            var newTime = new Date(time)
+                                                            var H = newTime.getHours()
+                                                            var M = newTime.getMinutes()
+                                                            var S = newTime.getSeconds()
+                                                            this.setValue(H+":"+M+":"+S);
                                                         }
+                                                    }
                                                     },
                                                     {
-                                                        text: 'EndTime', dataIndex: 'EndTime', flex: 1
+                                                        text: 'End time', dataIndex: 'EndTime', flex: 1
                                                         , editor: {
-                                                        xtype: 'textfield',
-                                                        increment: 1,
-                                                        allowBlank: false
-                                                    },
-                                                        renderer: function (value) {
-                                                            return Ext.Date.format(value, "h:i:s")
+                                                        xtype: 'spinnerfield',
+                                                        allowBlank: false,
+                                                        validator: isTime,
+                                                        onSpinUp: function () {
+                                                            var oldValue = this.getValue().split(":");
+                                                            var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
+                                                            time+=10000;
+                                                            var newTime = new Date(time)
+                                                            var H = newTime.getHours()
+                                                            var M = newTime.getMinutes()
+                                                            var S = newTime.getSeconds()
+                                                            //if(newTime>2649600000&newTime<2736000000)
+                                                            this.setValue(H+":"+M+":"+S);
+                                                        },
+                                                        onSpinDown: function () {
+                                                            var oldValue = this.getValue().split(":");
+                                                            var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
+                                                            time-=10000;
+                                                            var newTime = new Date(time)
+                                                            var H = newTime.getHours()
+                                                            var M = newTime.getMinutes()
+                                                            var S = newTime.getSeconds()
+                                                            this.setValue(H+":"+M+":"+S);
                                                         }
+                                                    }
                                                     }
                                                 ]
                                             }
@@ -1132,7 +1199,6 @@ function getTreeJsonByUrl(url) {
         ]
     };
 }
-
 
 
 function getNullSchedule(text) {
