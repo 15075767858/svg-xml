@@ -167,6 +167,7 @@ if($par=="node"){
 	echo "[";
 	foreach ($arr3 as $key) {
 		$value = $redis->hGet($nodeName,$key);
+		
 		$str.="{type:'".$key."',value:'".$value."'},";
 	}
 	echo substr($str,0,strlen($str)-1);

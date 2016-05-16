@@ -162,13 +162,17 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                 allowBlank: false,
                                                                 fieldLabel: 'Object_Name',
                                                                 name: 'Object_Name',
-                                                                emptyText: 'object name'
+                                                                emptyText: 'object name',
+
                                                             },
                                                             {
                                                                 allowBlank: false,
                                                                 fieldLabel: 'Present_Value',
                                                                 name: 'Present_Value',
-                                                                emptyText: 'present value'
+                                                                emptyText: 'present value',
+                                                                xtype: "combobox",
+                                                                store: ["On", "Off"],
+                                                                editable: false
                                                             },
                                                             {
                                                                 allowBlank: false,
@@ -611,6 +615,46 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
             if (record.parentNode.data.text == "Schedule") {
 
+
+                var Object_Name = Ext.create("Ext.form.field.Text", {
+                    name: 'Object_Name',
+                    allowBlank: false,
+                    fieldLabel: 'Object_Name',
+                    itemId: "Object_Name",
+                    emptyText: 'object name'
+                })
+                var Present_Value = Ext.create("Ext.form.field.ComboBox", {
+                    itemId: "Present_Value",
+                    allowBlank: false,
+                    fieldLabel: 'Present_Value',
+                    name: 'Present_Value',
+                    emptyText: 'present value',
+                    xtype: "combobox",
+                    store: ["On", "Off"],
+                    editable: false
+                })
+                var Description = Ext.create("Ext.form.field.Text", {
+                    itemId: "Description",
+                    allowBlank: false,
+                    fieldLabel: 'Description',
+                    name: 'Description',
+                    emptyText: 'description'
+                    //inputType: 'password'
+                })
+
+                myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=Object_Name", function (response) {
+                    var text = response.responseText.trim();
+                    Object_Name.setValue(text)
+                })
+                myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=Present_Value", function (response) {
+                    var text = response.responseText.trim();
+                    Present_Value.setValue(text)
+                })
+                myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=Description", function (response) {
+                    var text = response.responseText.trim();
+                    Description.setValue(text)
+                })
+
                 Ext.create("Ext.menu.Menu", {
                     //floating: true,
                     autoShow: true,
@@ -618,12 +662,249 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                     y: e.pageY + 5,
                     items: [
                         {
-                            text: "Schedule Config"
+                            text: "Schedule Config", handler: function () {
+                            var win1 = Ext.create('Ext.window.Window', {
+                                title: sDevNodeName + " Schedule Config",
+                                constrainHeader: true,//禁止移出父窗口
+                                height: 400,
+                                width: 450,
+                                resizeable: false,
+                                layout: 'auto',
+                                items: {
+                                    xtype: "form",
+                                    items: [
+                                        {
+                                            xtype: 'fieldset',
+                                            title: 'Input Value',
+                                            defaultType: 'textfield',
+                                            margin: 10,
+                                            defaults: {
+                                                anchor: '100%'
+                                            },
+                                            items: [Object_Name, Present_Value, Description]
+                                        },
+                                        {
+                                            xtype: 'fieldset',
+                                            title: 'Select Value',
+                                            defaultType: 'textfield',
+                                            margin: 10,
+                                            defaults: {
+                                                anchor: '100%'
+                                            },
+                                            items: [
+                                                {
+                                                    itemId: "Priority_For_Writing",
+                                                    fieldLabel: 'Priority_For_Writing',
+                                                    xtype: 'combobox',
+                                                    labelPad: 30,
+                                                    name: 'Priority_For_Writing',
+                                                    store: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                                                    //valueField: 'abbr',
+                                                    value: "8",
+                                                    //displayField: 'abbr',
+                                                    //typeAhead: true,
+                                                    autoSelect: false,
+                                                    queryMode: 'local'
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'fieldset',
+                                            title: 'indate',
+                                            margin: 10,
+                                            layout: {
+                                                type: "table",
+                                                columns: 5,
+                                                tableAttrs: {
+                                                    style: {
+                                                        //width:"100%"
+                                                    }
+                                                }
+                                            },
+                                            defaults: {
+                                                //anchor: '100%'
+                                                format: "d-m-Y",
+                                                labelWidth: 45
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: "displayfield",
+                                                    fieldLabel: "Effective_Period",
+                                                    name: "Effective_Period",
+                                                    labelWidth: 110,
+                                                    rowspan: 3,
+                                                    colspan: 1
+                                                },
+                                                {
+                                                    xtype: "fieldcontainer",
+                                                    rowspan: 3,
+                                                    colspan: 1,
+                                                    width: 20,
+                                                    layout: {
+                                                        type: "table",
+                                                        columns: 1
+                                                    },
+                                                    defaults: {
+                                                        width: 20,
+                                                        name: "dataradios"
+                                                    },
+                                                    items: [{
+                                                        xtype: "radio",
+                                                        checked: true,
+                                                        handler: function (th, bl) {
+                                                            if (!bl)
+                                                                return;
+                                                            Ext.getCmp("ScheduleConfig_after").setDisabled(false);
+                                                            Ext.getCmp("ScheduleConfig_front").setDisabled(true);
+                                                            Ext.getCmp("ScheduleConfig_fromstart").setDisabled(true);
+                                                            Ext.getCmp("ScheduleConfig_fromend").setDisabled(true);
+                                                        }
+                                                    },
+                                                        {
+                                                            xtype: "radio",
+                                                            handler: function (th, bl) {
+                                                                if (!bl)
+                                                                    return;
+                                                                Ext.getCmp("ScheduleConfig_after").setDisabled(true);
+                                                                Ext.getCmp("ScheduleConfig_front").setDisabled(false);
+                                                                Ext.getCmp("ScheduleConfig_fromstart").setDisabled(true);
+                                                                Ext.getCmp("ScheduleConfig_fromend").setDisabled(true);
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: "radio",
+                                                            handler: function (th, bl) {
+                                                                if (!bl)
+                                                                    return;
+                                                                Ext.getCmp("ScheduleConfig_after").setDisabled(true);
+                                                                Ext.getCmp("ScheduleConfig_front").setDisabled(true);
+                                                                Ext.getCmp("ScheduleConfig_fromstart").setDisabled(false);
+                                                                Ext.getCmp("ScheduleConfig_fromend").setDisabled(false);
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    allowBlank: false,
+                                                    fieldLabel: "after",
+                                                    xtype: "datefield",
+                                                    id: "ScheduleConfig_after",
+                                                    name: "after",
+                                                    width: 260,
+                                                    rowspan: 1,
+                                                    colspan: 3
+                                                },
+
+                                                {
+                                                    allowBlank: false,
+                                                    disabled: true,
+                                                    xtype: "datefield",
+                                                    fieldLabel: "front",
+                                                    id: "ScheduleConfig_front",
+                                                    name: "front",
+                                                    width: 260,
+                                                    rowspan: 1,
+                                                    colspan: 3
+                                                },
+                                                {
+                                                    allowBlank: false,
+                                                    disabled: true,
+                                                    xtype: "datefield",
+                                                    fieldLabel: "from",
+                                                    id: "ScheduleConfig_fromstart",
+                                                    name: "fromstart",
+                                                    width: 150,
+                                                    listeners: {
+                                                        change: function (th, newValue, oldValue, eOpts) {
+                                                            var maxValue = new Date(new Date(newValue).getTime() + 777600000000);
+                                                            var minValue = new Date(new Date(newValue).getTime() - 777600000000);
+                                                            Ext.getCmp("ScheduleConfig_fromend").setMaxValue(maxValue);
+                                                            Ext.getCmp("ScheduleConfig_fromend").setMinValue(minValue);
+                                                        }
+                                                    }
+                                                }, {
+                                                    xtype: "displayfield",
+                                                    value: "-",
+                                                    width: 5
+                                                }, {
+                                                    allowBlank: false,
+                                                    disabled: true,
+                                                    id: "ScheduleConfig_fromend",
+                                                    xtype: "datefield",
+                                                    name: "fromend",
+                                                    maxValue: "",
+                                                    width: 103,
+                                                    listeners: {
+                                                        change: function (th, newValue, oldValue, eOpts) {
+                                                            var maxValue = new Date(new Date(newValue).getTime() + 777600000000);
+                                                            var minValue = new Date(new Date(newValue).getTime() - 777600000000);
+                                                            Ext.getCmp("ScheduleConfig_fromstart").setMaxValue(maxValue);
+                                                            Ext.getCmp("ScheduleConfig_fromstart").setMinValue(minValue);
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                buttons: [
+                                    {
+                                        text: "OK", handler: function () {
+                                        /*var devName = getNullSchedule(sDevName).trim();
+                                         if (devName == "null") {
+                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
+                                         win1.close()
+                                         return;
+                                         }*/
+                                        if (!win1.down("form").isValid()) {
+                                            Ext.Msg.alert('Exception', "Please enter the form fields .");
+                                            return;
+                                        }
+                                        win1.down("form").submit({
+                                            url: "resources/test1.php?par=ScheduleConfig&nodename=" + sDevNodeName,
+                                            async: true,
+                                            method: "GET"
+                                        })
+
+                                        /*  for (var i = 0; i < initData.length; i++) {
+                                         changeDevValue(devName, initData[i].type, initData[i].value)
+                                         }*/
+                                        delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + sDevNodeName + " .", 1000);
+
+                                        setTimeout(function () {
+                                            win1.close();
+                                        }, 1000)
+
+                                    }
+                                    }, {
+                                        text: "Close", handler: function () {
+                                            Ext.Msg.show({
+                                                title: 'Save Changes?',
+                                                message: 'You are closing a tab that has unsaved changes. Would you like to save your changes?',
+                                                buttons: Ext.Msg.YESNOCANCEL,
+                                                icon: Ext.Msg.QUESTION,
+                                                fn: function (btn) {
+                                                    if (btn === 'yes') {
+
+                                                        win1.close();
+                                                    } else if (btn === 'no') {
+
+                                                        win1.close();
+                                                    } else {
+
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                ]
+                            }).show();
+                        }
                         }, {text: "References"}, {
                             text: "week",
                             handler: function () {
                                 var dwwin = Ext.getCmp("drawWindow")
-                                if(dwwin){
+                                if (dwwin) {
                                     dwwin.close()
                                 }
                                 var ogroup = new Ext.grid.feature.Grouping({
@@ -677,22 +958,22 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             {
                                                 text: "Ok",
                                                 handler: function () {
-                                                var oJson = getDivData()
-                                                console.log(oJson)
-                                                Ext.Ajax.request({
-                                                    url: "resources/test1.php?par=changevaluenopublish&nodename="+sDevNodeName+"&type=Weekly_Schedule",
-                                                    params: {
-                                                        value:Ext.encode(oJson.weekly)
-                                                    },
-                                                    success: function(response){
-                                                        var text = response.responseText;
-                                                        delayToast("Status","Changes saved successfully .",1000)
-                                                    }
-                                                });
-                                                devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + Ext.encode(oJson.pubweekly));
-                                                this.up("window").close()
+                                                    var oJson = getDivData()
+                                                    console.log(oJson)
+                                                    Ext.Ajax.request({
+                                                        url: "resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Weekly_Schedule",
+                                                        params: {
+                                                            value: Ext.encode(oJson.weekly)
+                                                        },
+                                                        success: function (response) {
+                                                            var text = response.responseText;
+                                                            delayToast("Status", "Changes saved successfully .", 1000)
+                                                        }
+                                                    });
+                                                    devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + Ext.encode(oJson.pubweekly));
+                                                    this.up("window").close()
 
-                                            }
+                                                }
                                             }
 
                                         ],
@@ -710,7 +991,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         if (count == 10) {
                                                             clearInterval(interval_0)
                                                             Ext.MessageBox.close();
-                                                            myAjax("resources/test1.php?par=getvalue&nodename=1200601&type=Weekly_Schedule", function (response) {
+                                                            myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=Weekly_Schedule", function (response) {
                                                                 try {
                                                                     var text = Ext.decode(response.responseText);
                                                                     if (text) {
@@ -913,23 +1194,23 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         onSpinUp: function () {
                                                             var oldValue = this.getValue().split(":");
                                                             var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
-                                                            time+=10000;
+                                                            time += 10000;
                                                             var newTime = new Date(time)
                                                             var H = newTime.getHours()
                                                             var M = newTime.getMinutes()
                                                             var S = newTime.getSeconds()
                                                             //if(newTime>2649600000&newTime<2736000000)
-                                                            this.setValue(H+":"+M+":"+S);
+                                                            this.setValue(H + ":" + M + ":" + S);
                                                         },
                                                         onSpinDown: function () {
                                                             var oldValue = this.getValue().split(":");
                                                             var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
-                                                            time-=10000;
+                                                            time -= 10000;
                                                             var newTime = new Date(time)
                                                             var H = newTime.getHours()
                                                             var M = newTime.getMinutes()
                                                             var S = newTime.getSeconds()
-                                                            this.setValue(H+":"+M+":"+S);
+                                                            this.setValue(H + ":" + M + ":" + S);
                                                         }
                                                     }
                                                     },
@@ -942,23 +1223,23 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         onSpinUp: function () {
                                                             var oldValue = this.getValue().split(":");
                                                             var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
-                                                            time+=10000;
+                                                            time += 10000;
                                                             var newTime = new Date(time)
                                                             var H = newTime.getHours()
                                                             var M = newTime.getMinutes()
                                                             var S = newTime.getSeconds()
                                                             //if(newTime>2649600000&newTime<2736000000)
-                                                            this.setValue(H+":"+M+":"+S);
+                                                            this.setValue(H + ":" + M + ":" + S);
                                                         },
                                                         onSpinDown: function () {
                                                             var oldValue = this.getValue().split(":");
                                                             var time = new Date(1970, 1, 1, oldValue[0], oldValue[1], oldValue[2]).getTime()
-                                                            time-=10000;
+                                                            time -= 10000;
                                                             var newTime = new Date(time)
                                                             var H = newTime.getHours()
                                                             var M = newTime.getMinutes()
                                                             var S = newTime.getSeconds()
-                                                            this.setValue(H+":"+M+":"+S);
+                                                            this.setValue(H + ":" + M + ":" + S);
                                                         }
                                                     }
                                                     }

@@ -15,7 +15,6 @@ Ext.define('svgxml.view.main.Main', {
         "svgxml.view.tab.FramedTabs",
         "svgxml.view.Viewport",
         "Ext.chart.*"
-
     ],
     style: {
         //background: "rgb(21,127,214)"
