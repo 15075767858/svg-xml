@@ -42,7 +42,7 @@
  *
  *     @example
  *     var filterPanel = Ext.create('Ext.panel.Panel', {
- *         bodyPadding: 5,  // Don't want content to crunch against the borders
+ *         bodyPadding: 5,  //c
  *         width: 300,
  *         title: 'Filters',
  *         items: [{

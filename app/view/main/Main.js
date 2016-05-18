@@ -464,7 +464,7 @@ function getDivData() {
         }
     }
     console.log(Ext.encode(weekly))
-    return {weekly:weekly,pubweekly:pubweekly};
+    return {weekly: weekly, pubweekly: pubweekly};
 
 }
 
@@ -778,3 +778,189 @@ function myAjax(url, success) {
         success: success
     });
 }
+/*
+
+Ext.onReady(function () {
+
+    myAjax("resources/test1.php?par=getreferencesdev&nodename=9900201", function (response) {
+        var text = Ext.decode(response.responseText.trim());
+        console.log(text)
+        var sourceData = [];
+        var targetData = [];
+        myAjax("resources/test1.php?par=getvalue&nodename=" + "9900201" + "&type=List_Of_Object_Property_References", function (response) {
+            var text = Ext.decode(response.responseText)["List_Of_Object_Property_References"];
+            for (var i = 0; i < text.length; i++) {
+                var dev = "9900";
+                var type = text[i].objectIdentifier["type"];
+                var instance = text[i].objectIdentifier["instance"];
+                targetData.push( {'name': dev+type+instance, "identifier": text[i].propertyArrayIndex, "arrayIndex": text[i].propertyIdentifier});
+
+            }
+        })
+
+        console.log(targetData)
+        for (var i = 0; i < text.length; i++) {
+            sourceData.push({'name': text[i], "identifier": "85", "arrayIndex": "-1"})
+            for(var j=0;j<targetData.length;j++){
+                if(text[i]==targetData[j].name){
+                    sourceData.pop()
+                }
+            }
+        }
+console.log(targetData)
+        console.log(sourceData)
+
+
+        Ext.create("Ext.window.Window", {
+            //title: record.data.value + " References",
+            title: "References",
+            constrainHeader: true,//禁止移出父窗口
+            height: 600,
+            width: 750,
+            autoShow: true,
+            layout: 'hbox',
+            //resizable: false,
+            buttons: [
+                {
+                    text: "Ok",
+                    handler: function () {
+                        var target = Ext.data.StoreManager.lookup('refTargetStore');
+                        var aItems = target.getData().items;
+                        var oJson = {
+                            "List_Of_Object_Property_References": []
+                        }
+                        for (var i = 0; i < aItems.length; i++) {
+                            console.log(aItems[i].data.name)
+                            oJson['List_Of_Object_Property_References'].push({
+                                "objectIdentifier": {
+                                    "type": (aItems[i].data.name + "").substr(4, 1),
+                                    "instance": (aItems[i].data.name + "").substr(5, 2)
+                                },
+                                "propertyIdentifier": aItems[i].data.identifier,
+                                "propertyArrayIndex": aItems[i].data.arrayIndex
+                            })
+                        }
+                        console.log(Ext.encode(oJson))
+                        Ext.Ajax.request({
+                            url: "resources/test1.php?par=changevaluenopublish&nodename=" + "9900201" + "&type=List_Of_Object_Property_References",
+                            params: {
+                                value: Ext.encode(oJson)
+                            },
+                            success: function (response) {
+                                var text = response.responseText;
+                                delayToast("Status", "Changes saved successfully .", 1000)
+                            }
+                        });
+
+
+                    }
+                }
+            ],
+            defaults: {
+                height: "100%"
+            },
+
+            items: [
+                {
+                    xtype: "gridpanel",
+                    flex: 4,
+                    border: true,
+                    margin: 5,
+                    title: "Wait to be selected",
+                    viewConfig: {
+                        plugins: {
+                            ptype: 'gridviewdragdrop',
+                            dragText: 'Drag and drop to reorganize'
+                        }
+                    },
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['name', 'identifier', 'arrayIndex'],
+                        storeId: "refSourceStore",
+                        data: sourceData
+                    }),
+                    columns: [
+                        {header: 'Name', dataIndex: 'name', flex: 1},
+                        {header: 'Identifier', dataIndex: 'identifier', flex: 1, hidden: true},
+                        {header: 'ArrayIndex', dataIndex: 'arrayIndex', flex: 1, hidden: true}
+                    ]
+
+
+                },
+                {
+                    xtype: "panel",
+                    //flex:1,
+                    //border: "1 0 1 0",
+                    width: 80,
+                    layout: {
+                        type: 'center',
+
+                    },
+                    items: [
+                        /!*{
+                         xtype: 'button',
+                         margin: "0 0 20 0",
+                         text: "→",
+                         scale: 'large'
+                         },
+                         {
+                         xtype: 'button',
+                         margin: "0 0 0 0",
+                         text: "←",
+                         scale: 'large'
+                         }*!/
+                        {
+                            xtype: 'button',
+                            margin: "0 0 20 0",
+                            text: "Select All →",
+                            scale: 'small',
+                            handler: function () {
+                                var source = Ext.data.StoreManager.lookup('refSourceStore');
+                                var target = Ext.data.StoreManager.lookup('refTargetStore');
+                                target.add(source.removeAll())
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            margin: "0 0 0 0",
+                            text: "Clear All ←",
+                            scale: 'small',
+                            handler: function () {
+                                var source = Ext.data.StoreManager.lookup('refSourceStore');
+                                var target = Ext.data.StoreManager.lookup('refTargetStore');
+                                source.add(target.removeAll())
+                            }
+                        }
+
+                    ]
+                },
+                {
+                    xtype: "gridpanel",
+                    title: "Has been selected",
+                    flex: 4,
+                    border: true,
+                    margin: 5,
+                    viewConfig: {
+                        plugins: {
+                            ptype: 'gridviewdragdrop',
+                            dragText: 'Drag and drop to reorganize'
+                        },
+
+                    },
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['name', 'identifier', 'arrayIndex'],
+                        storeId: "refTargetStore",
+                        data: targetData
+                    }),
+                    columns: [
+                        {header: 'Name', dataIndex: 'name', flex: 1},
+                        {header: 'Identifier', dataIndex: 'identifier', flex: 1, hidden: true},
+                        {header: 'ArrayIndex', dataIndex: 'arrayIndex', flex: 1, hidden: true}
+                    ]
+                }
+            ]
+        })
+    })
+
+
+})
+*/

@@ -22,4 +22,10 @@
             </slots>
         </master_node>
     </plant>
+    <plant  name="002">
+    </plant>
+    <plant  name="003">
+    </plant>
+    <plant  name="004">
+    </plant>
 </root>

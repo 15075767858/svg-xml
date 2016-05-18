@@ -54,17 +54,16 @@ if($par=="ScheduleConfig"){
 	if(isset($_GET["front"])){
 		$front=$_GET["front"];
 		$value = '{"dateRange":	{"front":{'.dateToJson($front).'}}}';
-		$redis->hSet($nodeName,"Effective_Period",$front);
+		$redis->hSet($nodeName,"Effective_Period",$value);
 		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
 	}
 	if(isset($_GET["fromstart"])){
 		$fromstart=$_GET["fromstart"];
 		$fromend=$_GET["fromend"];
 		$value='{"dateRange":{"startDate":{'.dateToJson($fromstart).'},"endDate":{'.dateToJson($fromend).'}}}';
-		$redis->hSet($nodeName,"Effective_Period",$Object_Name);
+		$redis->hSet($nodeName,"Effective_Period",$value);
 		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
 	}
-
 }
 if($par=="getnullschedule"){
 	$nodeName=$_GET["nodename"];
@@ -187,6 +186,23 @@ if($par=="nodes"){
 	echo substr($str,0,strlen($str)-1);
 	echo "]";
 }
+if($par=="getreferencesdev"){
+	echo "[";
+	$str ="";
+	$nodeName=substr($_GET["nodename"],0,4);
+
+	foreach ($arList as $value) {
+		$value = "$value";
+		$sfive = substr($value,4,1);
+		if(strlen($value)==7&substr($value,0,4)==$nodeName){
+			if($sfive==1||$sfive==2||$sfive==4||$sfive==5){
+				$str.= $value.',';
+			}
+		}
+	};
+	echo substr($str,0,strlen($str)-1);
+	echo "]";
+}
 if($par=="dev"){
 	echo "[";
 	$str ="";
@@ -201,8 +217,8 @@ if($par=="dev"){
 }
 function dateToJson($riqi){
 	$riqiarr=explode("-",$riqi);
-	$yue = current($riqiarr);
-	$ri = next($riqiarr);
+	$ri = current($riqiarr);
+	$yue = next($riqiarr)-1;
 	$nian = next($riqiarr);
 	$zhou=date("W",mktime(0, 0, 0, $yue, $ri, $nian));
 	$jsstr='"year":	'.$nian.',
