@@ -1,4 +1,3 @@
-
 <?php
 $ip=$_SERVER["SERVER_ADDR"];
 $par=$_GET["par"];
@@ -29,40 +28,69 @@ if($par=="clear"){
 
 if($par=="ScheduleConfig"){
 	$nodeName=$_GET["nodename"];
-
 	$Object_Name=$_GET["Object_Name"];
-	$redis->hSet($nodeName,"Object_Name",$Object_Name);
-	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Object_Name"."\r\n".$Object_Name);
+	if($redis->hGet($nodeName,"Object_Name")!=$Object_Name){
+		$redis->hSet($nodeName,"Object_Name",$Object_Name);	
+		if(isset($_GET["ispublish"])){
+			$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Object_Name"."\r\n".$Object_Name);
+		}
+	}
 	$Present_Value=$_GET["Present_Value"];
-	$redis->hSet($nodeName,"Present_Value",$Present_Value);
-	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Present_Value"."\r\n".$Present_Value);
+	if($redis->hGet($nodeName,"Present_Value")!=$Present_Value){
+		$redis->hSet($nodeName,"Present_Value",$Present_Value);	
+		if(isset($_GET["ispublish"])){
+			$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Present_Value"."\r\n".$Present_Value);
+		}
+	}
 	$Description=$_GET["Description"];
-	$redis->hSet($nodeName,"Description",$Description);
-	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Description"."\r\n".$Description);
+	if($redis->hGet($nodeName,"Description")!=$Description){
+		$redis->hSet($nodeName,"Description",$Description);	
+		if(isset($_GET["ispublish"])){
+			$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Description"."\r\n".$Description);
+		}
+	}
 	$Priority_For_Writing=$_GET["Priority_For_Writing"];
-	$redis->hSet($nodeName,"Priority_For_Writing",$Priority_For_Writing);
-	$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Priority_For_Writing"."\r\n".$Priority_For_Writing);
-
+	if($redis->hGet($nodeName,"Priority_For_Writing")!=$Priority_For_Writing){
+		$redis->hSet($nodeName,"Priority_For_Writing",$Priority_For_Writing);
+		if(isset($_GET["ispublish"])){
+			$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Priority_For_Writing"."\r\n".$Priority_For_Writing);
+		}
+	}
+	
 	if(isset($_GET["after"])){
 		$after=$_GET["after"];
 		$value = '{"dateRange":	{"after":{'.dateToJson($after).'}}}';
-		$redis->hSet($nodeName,"Effective_Period",$value);
-		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+		if($redis->hGet($nodeName,"Effective_Period")!=$value){
+			$redis->hSet($nodeName,"Effective_Period",$value);
+			if(isset($_GET["ispublish"])){
+				$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+			}
+		}
 		//dateToJson("after");
 
 	}
 	if(isset($_GET["front"])){
 		$front=$_GET["front"];
+
 		$value = '{"dateRange":	{"front":{'.dateToJson($front).'}}}';
-		$redis->hSet($nodeName,"Effective_Period",$value);
-		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+		if($redis->hGet($nodeName,"Effective_Period")!=$value){
+			$redis->hSet($nodeName,"Effective_Period",$value);
+			if(isset($_GET["ispublish"])){
+				$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+			}
+		}
 	}
 	if(isset($_GET["fromstart"])){
 		$fromstart=$_GET["fromstart"];
 		$fromend=$_GET["fromend"];
+
 		$value='{"dateRange":{"startDate":{'.dateToJson($fromstart).'},"endDate":{'.dateToJson($fromend).'}}}';
-		$redis->hSet($nodeName,"Effective_Period",$value);
-		$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+		if($redis->hGet($nodeName,"Effective_Period")!=$value){
+			$redis->hSet($nodeName,"Effective_Period",$value);
+			if(isset($_GET["ispublish"])){
+				$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
+			}
+		}
 	}
 }
 if($par=="getnullschedule"){
@@ -173,6 +201,26 @@ if($par=="node"){
 	echo "]";
 
 }
+if($par=="getbackupfiles"){
+	$dir="devsinfo";
+	$scanned_directory=array_diff(scandir($dir),array('..','.'));
+	$str ="";
+	echo "[";
+	foreach ($scanned_directory as $key => $value) {
+		//$time =fileatime($dir."/".$value);
+		date_default_timezone_set("UTC");
+		$time=date("Y-m-d H:i:s",filectime($dir."/".$value));
+		$size=filesize($dir."/".$value);
+		$filetype=filetype($dir."/".$value);
+		$str.="{name:'".$value."',lasttime:'".$time."',size:'".$size."',filetype:'".$filetype."'},";
+		//echo filectime($dir."/".$value)."   ";
+		//if(strlen($value)==4||$value=='local'){
+			//$str.= "'".$value."',  ".$key."  ";
+		//}
+	}
+	echo substr($str,0,strlen($str)-1);
+	echo "]";
+}
 if($par=="nodes"){
 	echo "[";
 	$str ="";
@@ -194,7 +242,8 @@ if($par=="getreferencesdev"){
 	foreach ($arList as $value) {
 		$value = "$value";
 		$sfive = substr($value,4,1);
-		if(strlen($value)==7&substr($value,0,4)==$nodeName){
+		//if(strlen($value)==7&substr($value,0,4)==$nodeName){
+		if(strlen($value)==7){
 			if($sfive==1||$sfive==2||$sfive==4||$sfive==5){
 				$str.= $value.',';
 			}
@@ -218,7 +267,7 @@ if($par=="dev"){
 function dateToJson($riqi){
 	$riqiarr=explode("-",$riqi);
 	$ri = current($riqiarr);
-	$yue = next($riqiarr)-1;
+	$yue = next($riqiarr);
 	$nian = next($riqiarr);
 	$zhou=date("W",mktime(0, 0, 0, $yue, $ri, $nian));
 	$jsstr='"year":	'.$nian.',

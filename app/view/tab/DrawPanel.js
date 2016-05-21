@@ -98,8 +98,8 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                     Ext.create("svgxml.view.grid.TypeGrid", {
                         title: title,
                         store: ostore,
-                        x: e.browserEvent.offsetX,
-                        y: e.browserEvent.offsetY,
+                        x: e.browserEvent.offsetX+5,
+                        y: e.browserEvent.offsetY+5,
                         icon: "resources/img/SVG/" + typeName + ".svg",
                         listeners: {
                             add: function () {

@@ -173,8 +173,9 @@
  * ## State saving
  *
  * When configured {@link #stateful}, grids save their column state (order and width)
- * encapsulated within the default Panel state of changed width and height and
  * collapsed/expanded state.
+ *
+ *
  *
  * Each {@link #columns column} of the grid may be configured with a
  * {@link Ext.grid.column.Column#stateId stateId} which identifies that column locally

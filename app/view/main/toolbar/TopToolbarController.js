@@ -251,33 +251,65 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         })
     },
     backupClick: function () {
-        var fileNames = getDevInfoFileNames()
-        var namesJsonArr = [];
-        for (var i = 0; i < fileNames.length; i++) {
-            namesJsonArr.push({name: fileNames[i]})
-        }
+        /* var fileNames = getDevInfoFileNames()
+
+         var namesJsonArr = [];
+         for (var i = 0; i < fileNames.length; i++) {
+         namesJsonArr.push({name: fileNames[i]})
+         }*/
+
         var win = Ext.create("Ext.window.Window", {
             title: "Backup •••",
             frame: true,
-            width: 310,
+            width: 800,
+            height: 600,
             bodyPadding: 10,
             autoShow: true,
             items: {
                 xtype: "grid",
-                selModel: {
-                    mode: "SIMPLE",
-                    selType: 'checkboxmodel'
-                },
+                width: "100%",
+                /*selModel: {
+                 mode: "SIMPLE",
+                 selType: 'checkboxmodel'
+                 },*/
                 store: Ext.create("Ext.data.Store", {
-                    fields: [
-                        "name"
-                    ],
-                    data: namesJsonArr
+                    fields: ["name", "lasttime", "size", "filetype"],
+                    proxy: {
+                        type: "ajax",
+                        url: "resources/test1.php?par=getbackupfiles"
+                    },
+                    autoLoad: true
                 }),
                 columns: [
-                    {text: "File Name", dataIndex: "name", flex: 1}
+                    {
+                        text: "File Name", dataIndex: "name", flex: 4,
+                        renderer: function (val) {
+
+                            return "<a class='adownload' download=" + val + " target='_black' href=resources/devsinfo/" + val + ">" + val + "<span class='x-col-move-top'></span></a>";
+                        }
+                    },
+                    {text: "Last Post", dataIndex: "lasttime", flex: 2},
+                    {text: "File Type", dataIndex: "filetype", flex: 1},
+                    {
+                        text: "File Size", dataIndex: "size", flex: 1, renderer: function (val) {
+                        console.log(arguments)
+                        return Ext.util.Format.fileSize(val)
+                    }
+                    }
                 ],
                 listeners: {
+                    boxready: function () {
+                        setTimeout(function () {
+                            var aTag= document.createElement("a");
+                            if(aTag.download==undefined){
+                                $(".adownload").mousedown(function(e){
+                                    Ext.Msg.alert('Message', "If you can't download properly , Please right click on the save .<br>如果不能正常下载请点击鼠标右键，选择目标另存为。");
+                                    //e.preventDefault();
+                                    //return false;
+                                })
+                            }
+                        }, 1000)
+                    },
                     select: function () {
                         console.log(arguments)
                     },
@@ -306,7 +338,9 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
                     setTimeout(function () {
                         Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
+
                         setTimeout(function () {
+
                             location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
                             Ext.MessageBox.close();
                             win.close();
@@ -501,15 +535,15 @@ function get_A_Master_node(gridpanel, index) {
         masterNode.append(slots);
 
         /*if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
-            console.log(slots.find("default"))
-            if (slots.find("default").length != 0) {
+         console.log(slots.find("default"))
+         if (slots.find("default").length != 0) {
 
-            } else {
-                masterNode.append(slots);
-            }
-        } else {
-            masterNode.append(slots);
-        }*/
+         } else {
+         masterNode.append(slots);
+         }
+         } else {
+         masterNode.append(slots);
+         }*/
         aGirdPanelIII = null;
     }
     isLogic(gridpanel, masterNode)

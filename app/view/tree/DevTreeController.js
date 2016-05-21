@@ -70,7 +70,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         text: "Schedule •••",
                         handler: function () {
 
-                            //var aDevNames = getDevNamesAllDataStore()
+                            var aDevNames = getDevNamesAllDataStore()
                             var strnumbervalue = getNetNumberValue();
                             var win = Ext.create('Ext.window.Window', {
                                 title: 'new schedule',
@@ -162,8 +162,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                 allowBlank: false,
                                                                 fieldLabel: 'Object_Name',
                                                                 name: 'Object_Name',
-                                                                emptyText: 'object name',
-
+                                                                emptyText: 'object name'
                                                             },
                                                             {
                                                                 allowBlank: false,
@@ -590,22 +589,25 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 ]
             })
         }
-        if (record.data.depth == 3) {
-            Ext.create("Ext.menu.Menu", {
-                    //floating: true,
-                    autoShow: true,
-                    x: e.pageX + 5,
-                    y: e.pageY + 5,
-                    items: [
-                        {
-                            text: "new..."
-                            //disabled: true
-                        }
-                    ]
-                }
-            )
-        }
+
         //{text: "Shedule Config"}, {text: "event"}, {text: "week"},
+        if (record.data.depth == 3) {
+            if (record.data.text != "Schedule") {
+                Ext.create("Ext.menu.Menu", {
+                        //floating: true,
+                        autoShow: true,
+                        x: e.pageX + 5,
+                        y: e.pageY + 5,
+                        items: [
+                            {
+                                text: "new..."
+                                //disabled: true
+                            }
+                        ]
+                    }
+                )
+            }
+        }
         if (record.data.depth == 4) {
 
 
@@ -840,27 +842,20 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 buttons: [
                                     {
                                         text: "OK", handler: function () {
-                                        /*var devName = getNullSchedule(sDevName).trim();
-                                         if (devName == "null") {
-                                         Ext.Msg.alert('Error', "Cannot create Schedule , There can be at most ten .");
-                                         win1.close()
-                                         return;
-                                         }*/
                                         if (!win1.down("form").isValid()) {
                                             Ext.Msg.alert('Exception', "Please enter the form fields .");
                                             return;
+                                        };
+                                        var url ="resources/test1.php?par=ScheduleConfig&ispublish=true&nodename=" + sDevNodeName;
+                                        if (sDevName == getNetNumberValue()) {
+                                            url="resources/test1.php?par=ScheduleConfig&nodename=" + sDevNodeName;
                                         }
                                         win1.down("form").submit({
-                                            url: "resources/test1.php?par=ScheduleConfig&nodename=" + sDevNodeName,
+                                            url: url,
                                             async: true,
                                             method: "GET"
-                                        })
-
-                                        /*  for (var i = 0; i < initData.length; i++) {
-                                         changeDevValue(devName, initData[i].type, initData[i].value)
-                                         }*/
+                                        });
                                         delayToast("Status", 'Create Schedule successfully. New Schedule name is ' + sDevNodeName + " .", 1000);
-
                                         setTimeout(function () {
                                             win1.close();
                                         }, 1000)
@@ -907,7 +902,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         var syear = oJson.dateRange['after']["year"];
                                         var smon = oJson.dateRange['after']["month"];
                                         var sday = oJson.dateRange['after']["day_of_month"];
-                                        cAfter.setValue(new Date(syear, smon, sday));
+                                        cAfter.setValue(new Date(syear, smon-1, sday));
                                     }
                                 } catch (e) {
                                 }
@@ -918,7 +913,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         var syear = oJson.dateRange['front']["year"];
                                         var smon = oJson.dateRange['front']["month"];
                                         var sday = oJson.dateRange['front']["day_of_month"];
-                                        cFront.setValue(new Date(syear, smon, sday));
+                                        cFront.setValue(new Date(syear, smon-1, sday));
                                     }
                                 } catch (e) {
                                 }
@@ -933,8 +928,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         var emon = oJson.dateRange['endDate']["month"];
                                         var eday = oJson.dateRange['endDate']["day_of_month"];
 
-                                        cFormstart.setValue(new Date(syear, smon, sday));
-                                        cFormend.setValue(new Date(eyear, emon, eday));
+                                        cFormstart.setValue(new Date(syear, smon-1, sday));
+                                        cFormend.setValue(new Date(eyear, emon-1, eday));
                                         Ext.getCmp("Effective_Period_radio3").setValue(true)
                                     }
                                 } catch (e) {
@@ -946,34 +941,80 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             text: "References",
                             handler: function () {
 
-                                myAjax("resources/test1.php?par=getreferencesdev&nodename="+sDevNodeName, function (response) {
-                                    var text = Ext.decode(response.responseText.trim());
+                                myAjax("resources/test1.php?par=getreferencesdev&nodename=" + sDevNodeName, function (response) {
+                                    var text = eval(response.responseText.trim());
                                     console.log(text)
+
                                     var sourceData = [];
                                     var targetData = [];
+
                                     myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=List_Of_Object_Property_References", function (response) {
                                         var text = Ext.decode(response.responseText)["List_Of_Object_Property_References"];
                                         for (var i = 0; i < text.length; i++) {
-                                            var dev = sDevName;
-                                            var type = text[i].objectIdentifier["type"];
-                                            var instance = text[i].objectIdentifier["instance"];
-                                            targetData.push( {'name': dev+type+instance, "identifier": text[i].propertyArrayIndex, "arrayIndex": text[i].propertyIdentifier});
-
+                                            var dev = text[i].device_id+"" || sDevName+"";
+                                            if ((dev + "").length == 3) {
+                                                dev = "0" + dev;
+                                            }
+                                            if ((dev + "").length == 2) {
+                                                dev = "00" + dev;
+                                            }
+                                            if ((dev + "").length == 1) {
+                                                dev = "000" + dev;
+                                            }
+                                            var type = text[i].objectIdentifier["type"]+"";
+                                            var instance = text[i].objectIdentifier["instance"]+"";
+                                            if(instance.length==1){
+                                                instance="0"+instance;
+                                            }
+                                            targetData.push({
+                                                'name': dev + type + instance,
+                                                "identifier": text[i].propertyArrayIndex,
+                                                "arrayIndex": text[i].propertyIdentifier
+                                            });
                                         }
                                     })
-
                                     console.log(targetData)
                                     for (var i = 0; i < text.length; i++) {
-                                        sourceData.push({'name': text[i], "identifier": "85", "arrayIndex": "-1"})
-                                        for(var j=0;j<targetData.length;j++){
-                                            if(text[i]==targetData[j].name){
+
+                                        if (sDevName == getNetNumberValue()) {
+                                            sourceData.push({'name': text[i], "identifier": "85", "arrayIndex": "-1"})
+                                        } else {
+                                            if (sDevName == (text[i] + "").substr(0, 4)) {
+                                                sourceData.push({
+                                                    'name': text[i],
+                                                    "identifier": "85",
+                                                    "arrayIndex": "-1"
+                                                })
+                                            }
+                                        }
+                                        for (var j = 0; j < targetData.length; j++) {
+                                            if (text[i] == targetData[j].name) {
                                                 sourceData.pop()
                                             }
                                         }
                                     }
                                     console.log(targetData)
                                     console.log(sourceData)
-
+                                    Ext.create('Ext.data.Store', {
+                                        fields: [{name: "name", type: "string",convert:function(val){
+                                            if ((val + "").length == 6) {
+                                                val = "0" + val;
+                                            }
+                                            if ((val + "").length == 5) {
+                                                val = "00" + val;
+                                            }
+                                            if ((val + "").length == 4) {
+                                                val = "000" + val;
+                                            }
+                                            console.log(val)
+                                            return val;
+                                        }},
+                                            {name: "identifier", type: "string"},
+                                            {name: "arrayIndex", type: "string"}
+                                        ],
+                                        storeId: "refSourceStore",
+                                        data: sourceData
+                                    }),
 
                                     Ext.create("Ext.window.Window", {
                                         title: sDevNodeName + " References",
@@ -995,16 +1036,29 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     }
                                                     for (var i = 0; i < aItems.length; i++) {
                                                         console.log(aItems[i].data.name)
-                                                        oJson['List_Of_Object_Property_References'].push({
-                                                            "objectIdentifier": {
-                                                                "type": (aItems[i].data.name + "").substr(4, 1),
-                                                                "instance": (aItems[i].data.name + "").substr(5, 2)
-                                                            },
-                                                            "propertyIdentifier": aItems[i].data.identifier,
-                                                            "propertyArrayIndex": aItems[i].data.arrayIndex
-                                                        })
+                                                        if (sDevName == "1000" || sDevName == getNetNumberValue()) {
+                                                            oJson['List_Of_Object_Property_References'].push({
+                                                                "objectIdentifier": {
+                                                                    "type": parseInt((aItems[i].data.name + "").substr(4, 1)),
+                                                                    "instance": parseInt((aItems[i].data.name + "").substr(5, 2))
+                                                                },
+                                                                "device_id": parseInt((aItems[i].data.name + "").substr(0, 4)),
+                                                                "propertyIdentifier": parseInt(aItems[i].data.identifier),
+                                                                "propertyArrayIndex": parseInt(aItems[i].data.arrayIndex)
+                                                            })
+                                                        } else {
+                                                            oJson['List_Of_Object_Property_References'].push({
+                                                                "objectIdentifier": {
+                                                                    "type": parseInt((aItems[i].data.name + "").substr(4, 1)),
+                                                                    "instance": parseInt((aItems[i].data.name + "").substr(5, 2))
+                                                                },
+                                                                "propertyIdentifier": parseInt(aItems[i].data.identifier),
+                                                                "propertyArrayIndex": parseInt(aItems[i].data.arrayIndex)
+                                                            })
+                                                        }
                                                     }
                                                     console.log(Ext.encode(oJson))
+
                                                     Ext.Ajax.request({
                                                         url: "resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=List_Of_Object_Property_References",
                                                         params: {
@@ -1016,6 +1070,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         }
                                                     });
 
+                                                    myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2")
+                                                    if (sDevName != getNetNumberValue()) {
+                                                        devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + Ext.encode(oJson));
+                                                    }
                                                     this.up("window").close()
 
                                                 }
@@ -1038,26 +1096,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         dragText: 'Drag and drop to reorganize'
                                                     }
                                                 },
-                                                store: Ext.create('Ext.data.Store', {
-                                                    fields: ['name', 'identifier', 'arrayIndex'],
-                                                    storeId: "refSourceStore",
-                                                    data: sourceData
-                                                }),
+                                                store: "refSourceStore",
                                                 columns: [
                                                     {header: 'Name', dataIndex: 'name', flex: 1},
-                                                    {header: 'Identifier', dataIndex: 'identifier', flex: 1, hidden: true},
-                                                    {header: 'ArrayIndex', dataIndex: 'arrayIndex', flex: 1, hidden: true}
+                                                    {
+                                                        header: 'Identifier',
+                                                        dataIndex: 'identifier',
+                                                        flex: 1,
+                                                        hidden: true
+                                                    },
+                                                    {
+                                                        header: 'ArrayIndex',
+                                                        dataIndex: 'arrayIndex',
+                                                        flex: 1,
+                                                        hidden: true
+                                                    }
                                                 ]
-
-
                                             },
                                             {
                                                 xtype: "panel",
                                                 //flex:1,
                                                 //border: "1 0 1 0",
-                                                width: 80,
+                                                width: 90,
                                                 layout: {
-                                                    type: 'center',
+                                                    type: 'center'
 
                                                 },
                                                 items: [
@@ -1075,7 +1137,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                      }*/
                                                     {
                                                         xtype: 'button',
-                                                        margin: "0 0 20 0",
+                                                        margin: "0 0 70 0",
                                                         text: "Select All →",
                                                         scale: 'small',
                                                         handler: function () {
@@ -1086,7 +1148,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     },
                                                     {
                                                         xtype: 'button',
-                                                        margin: "0 0 0 0",
+                                                        //margin: "0 0 0 0",
                                                         text: "Clear All ←",
                                                         scale: 'small',
                                                         handler: function () {
@@ -1108,27 +1170,35 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     plugins: {
                                                         ptype: 'gridviewdragdrop',
                                                         dragText: 'Drag and drop to reorganize'
-                                                    },
-
+                                                    }
                                                 },
                                                 store: Ext.create('Ext.data.Store', {
-                                                    fields: ['name', 'identifier', 'arrayIndex'],
+                                                    fields: [{name: "name", type: "string"},
+                                                        {name: "identifier", type: "string"},
+                                                        {name: "arrayIndex", type: "string"}
+                                                    ],
                                                     storeId: "refTargetStore",
                                                     data: targetData
                                                 }),
                                                 columns: [
                                                     {header: 'Name', dataIndex: 'name', flex: 1},
-                                                    {header: 'Identifier', dataIndex: 'identifier', flex: 1, hidden: true},
-                                                    {header: 'ArrayIndex', dataIndex: 'arrayIndex', flex: 1, hidden: true}
+                                                    {
+                                                        header: 'Identifier',
+                                                        dataIndex: 'identifier',
+                                                        flex: 1,
+                                                        hidden: true
+                                                    },
+                                                    {
+                                                        header: 'ArrayIndex',
+                                                        dataIndex: 'arrayIndex',
+                                                        flex: 1,
+                                                        hidden: true
+                                                    }
                                                 ]
                                             }
                                         ]
                                     })
                                 })
-
-
-
-
                             }
                         }, {
                             text: "week",
@@ -1138,7 +1208,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     dwwin.close()
                                 }
                                 var ogroup = new Ext.grid.feature.Grouping({
-                                    groupHeaderTpl: '{name} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
+                                    groupHeaderTpl: '{name}{renderedGroupValue} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
                                     hideGroupedHeader: true,
                                     startCollapsed: true
                                 })
@@ -1198,7 +1268,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                             delayToast("Status", "Changes saved successfully .", 1000)
                                                         }
                                                     });
-                                                    devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + Ext.encode(oJson.pubweekly));
+                                                    if (sDevName != getNetNumberValue()) {
+                                                        devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + Ext.encode(oJson.pubweekly));
+                                                    }
                                                     this.up("window").close()
 
                                                 }
@@ -1272,9 +1344,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 store: {
                                                     fields: ['time', 'open', 'high', 'low', 'close'],
                                                     data: [{
-                                                        'time': "Sunday",
-                                                        'close': 2736000000
-                                                    }, {
                                                         'time': "Monday",
                                                         'close': 2730000000
                                                     }, {
@@ -1292,8 +1361,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     }, {
                                                         'time': "Saturday",
                                                         'close': 2730000000
+                                                    }, {
+                                                        'time': "Sunday",
+                                                        'close': 2736000000
                                                     }
-
                                                     ]
                                                 },
                                                 axes: [{
@@ -1361,7 +1432,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     groupField: 'SortWeek',
                                                     //groupDir:"DESC",
                                                     sortOnLoad: false,
-                                                    fields: ["divId", 'Week', 'StartTime', 'EndTime'],
+                                                    fields: ["divId", 'Week', 'StartTime', 'EndTime']
                                                     //data: dwPars.drawWindowData
                                                 }),
 
@@ -1476,8 +1547,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         ]
                                     }
                                 )
-
-
                             }
                         }, {text: "exception"}
                     ]
@@ -1490,8 +1559,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
-                x: e.pageX,
-                y: e.pageY,
+                x: e.pageX + 5,
+                y: e.pageY + 5,
                 items: [
                     {
                         text: "Property", handler: function () {
@@ -1539,7 +1608,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 }
                             },
                             items: [
-
                                 Ext.create("propertypegrid", {
                                     title: "Parameters",
                                     store: Ext.create("Ext.data.Store", {
@@ -1847,11 +1915,15 @@ function getDevInfoFileNames() {
         success: function (response) {
             var text = response.responseText;
             aNames = eval(text);
+            console.log(aNames)
             aNames.splice(0, 2);
+            console.log(aNames)
         }
     });
     return aNames;
 }
+
+
 function getDevNamesAllDataStore(isLocal) {
     var aDevs = getDevNamesAll()
     var tempArr = [];
