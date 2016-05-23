@@ -9,7 +9,6 @@ if($ip=="192.168.1.88"){
 }
 $arList = $redis->keys("*");
 
-
 if($par=="clear"){
 	if(file_exists("/var/run/bac_client.pid")){
 		$myfile = fopen("/var/run/bac_client.pid", "r");
@@ -59,7 +58,8 @@ if($par=="ScheduleConfig"){
 	
 	if(isset($_GET["after"])){
 		$after=$_GET["after"];
-		$value = '{"dateRange":	{"after":{'.dateToJson($after).'}}}';
+		$value = trimall('{"dateRange":	{"after":{'.dateToJson($after).'}}}');
+		echo $value;
 		if($redis->hGet($nodeName,"Effective_Period")!=$value){
 			$redis->hSet($nodeName,"Effective_Period",$value);
 			if(isset($_GET["ispublish"])){
@@ -72,7 +72,8 @@ if($par=="ScheduleConfig"){
 	if(isset($_GET["front"])){
 		$front=$_GET["front"];
 
-		$value = '{"dateRange":	{"front":{'.dateToJson($front).'}}}';
+		$value = trimall('{"dateRange":	{"front":{'.dateToJson($front).'}}}');
+		echo $value;
 		if($redis->hGet($nodeName,"Effective_Period")!=$value){
 			$redis->hSet($nodeName,"Effective_Period",$value);
 			if(isset($_GET["ispublish"])){
@@ -80,11 +81,12 @@ if($par=="ScheduleConfig"){
 			}
 		}
 	}
+
 	if(isset($_GET["fromstart"])){
 		$fromstart=$_GET["fromstart"];
 		$fromend=$_GET["fromend"];
-
-		$value='{"dateRange":{"startDate":{'.dateToJson($fromstart).'},"endDate":{'.dateToJson($fromend).'}}}';
+		$value=trimall('{"dateRange":{"startDate":{'.dateToJson($fromstart).'},"endDate":{'.dateToJson($fromend).'}}}');
+		echo $value;
 		if($redis->hGet($nodeName,"Effective_Period")!=$value){
 			$redis->hSet($nodeName,"Effective_Period",$value);
 			if(isset($_GET["ispublish"])){
@@ -235,22 +237,22 @@ if($par=="nodes"){
 	echo "]";
 }
 if($par=="getreferencesdev"){
-	echo "[";
-	$str ="";
-	$nodeName=substr($_GET["nodename"],0,4);
 
+	$nodeName=substr($_GET["nodename"],0,4);
+	$newArry=array();
 	foreach ($arList as $value) {
 		$value = "$value";
 		$sfive = substr($value,4,1);
+		//echo $sfive.'<br>';
 		//if(strlen($value)==7&substr($value,0,4)==$nodeName){
 		if(strlen($value)==7){
-			if($sfive==1||$sfive==2||$sfive==4||$sfive==5){
-				$str.= $value.',';
+			if($sfive==4||$sfive==5){
+				array_push($newArry,$value);
 			}
 		}
 	};
-	echo substr($str,0,strlen($str)-1);
-	echo "]";
+	
+	echo json_encode($newArry);
 }
 if($par=="dev"){
 	echo "[";
@@ -264,6 +266,9 @@ if($par=="dev"){
 	echo substr($str,0,strlen($str)-1);
 	echo "]";
 }
+if($par=="updateapp"){
+	move_uploaded_file($_FILES["file"]["tmp_name"],$_FILES["file"]["name"]);
+}
 function dateToJson($riqi){
 	$riqiarr=explode("-",$riqi);
 	$ri = current($riqiarr);
@@ -276,8 +281,17 @@ function dateToJson($riqi){
 	"day_of_week":	'.$zhou;
 	return $jsstr;
 }
+if($par=="uploadfiles"){
 
+echo move_uploaded_file($_FILES["file"]["tmp_name"],"devsinfo/".$_FILES["file"]["name"]);
+}
+
+function trimall($str){
+    $qian=array(" ","　","\t","\n","\r");
+    return str_replace($qian, '', $str);   
+}
 	//$fn=$_POST['fileName'];
 //$rw=$_POST['rw'];
+
 ?>
 

@@ -19,6 +19,12 @@
                 <default>0</default>
             </slots>
         </master_node>
+        <master_node  number="3">
+            <type>58</type>
+            <slots  number="1">
+                <default>0</default>
+            </slots>
+        </master_node>
     </plant>
     <plant  name="002">
     </plant>

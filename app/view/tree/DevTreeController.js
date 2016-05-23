@@ -71,6 +71,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         handler: function () {
 
                             var aDevNames = getDevNamesAllDataStore()
+
                             var strnumbervalue = getNetNumberValue();
                             var win = Ext.create('Ext.window.Window', {
                                 title: 'new schedule',
@@ -898,7 +899,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     if (oJson.dateRange['after']) {
                                         Ext.getCmp("Effective_Period_radio1").setValue(true)
                                         var cAfter = Ext.getCmp("ScheduleConfig_after");
-                                        var cFront = Ext.getCmp("ScheduleConfig_front");
+                                        //var cFront = Ext.getCmp("ScheduleConfig_front");
                                         var syear = oJson.dateRange['after']["year"];
                                         var smon = oJson.dateRange['after']["month"];
                                         var sday = oJson.dateRange['after']["day_of_month"];
@@ -949,9 +950,17 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     var targetData = [];
 
                                     myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=List_Of_Object_Property_References", function (response) {
-                                        var text = Ext.decode(response.responseText)["List_Of_Object_Property_References"];
+                                        var text;
+                                            try{
+                                                text = Ext.decode(response.responseText)["List_Of_Object_Property_References"];
+                                            }catch(e){
+                                                delayToast("Message","invalid data , This attribute is initialized, ok .")
+                                                text=[]
+                                            }
+
                                         for (var i = 0; i < text.length; i++) {
-                                            var dev = text[i].device_id+"" || sDevName+"";
+                                            var dev = text[i].device_id || sDevName;
+                                            dev+=""
                                             if ((dev + "").length == 3) {
                                                 dev = "0" + dev;
                                             }
@@ -968,8 +977,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             }
                                             targetData.push({
                                                 'name': dev + type + instance,
-                                                "identifier": text[i].propertyArrayIndex,
-                                                "arrayIndex": text[i].propertyIdentifier
+                                                "identifier": text[i].propertyIdentifier,
+                                                "arrayIndex": text[i].propertyArrayIndex
                                             });
                                         }
                                     })
@@ -1072,7 +1081,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                                                     myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2")
                                                     if (sDevName != getNetNumberValue()) {
-                                                        devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + Ext.encode(oJson));
+                                                        devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + (Ext.encode(oJson).replaceAll("\\s*|\t|\r|\n", "")));
+
                                                     }
                                                     this.up("window").close()
 
@@ -1269,7 +1279,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         }
                                                     });
                                                     if (sDevName != getNetNumberValue()) {
-                                                        devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + Ext.encode(oJson.pubweekly));
+                                                        devPublish(sDevName + ".8.*", sDevNodeName + "\r\nWeekly_Schedule\r\n" + (Ext.encode(oJson.pubweekly)).replaceAll("\\s*|\t|\r|\n", ""));
                                                     }
                                                     this.up("window").close()
 
@@ -1900,6 +1910,10 @@ function getScheduleByDev(devName) {
         success: function (response) {
             var text = response.responseText;
             devjson = eval(text);
+            console.log(devjson)
+            devjson.sort(function(a,b){
+                return a.text- b.text
+            })
         }
     });
     return devjson;

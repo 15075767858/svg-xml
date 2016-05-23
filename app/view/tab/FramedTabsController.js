@@ -8,3 +8,4 @@ Ext.define('svgxml.view.tab.FramedTabsController', {
         }))
     }
 });
+

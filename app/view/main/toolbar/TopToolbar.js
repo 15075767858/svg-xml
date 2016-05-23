@@ -5,6 +5,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
     requires: [
         "svgxml.view.main.toolbar.TopToolbarController",
         "svgxml.view.main.toolbar.TopToolbarModel",
+        "svgxml.view.window.UploadWindow",
         "Ext.window.*"
     ],
     controller: "main-toolbar-toptoolbar",
@@ -58,7 +59,9 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "Backup •••", handler: "backupClick"
                         }, {
-                            text: "Restor •••", handler: "restorClick"
+                            text: "Restor •••", handler: function () {
+                                Ext.create("uploadwindow", {})
+                            }
                         }, "-", {
                             text: "Exit", handler: function () {
                                 Ext.Msg.show({
@@ -79,12 +82,68 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             }
                         }
                     ]
-                }, {
-                    text: "About",
-                    glyph: 65,handler:function(){
-                        Ext.Msg.alert('Version', 'SmartIO Programtools 1.12  ');
-                    }
                 }
+                , {
+                    text: "Help",
+                    glyph: 72,
+                    menu: [
+                        {
+                            text: "Update",hidden:true, handler: function () {
+
+                            var win = Ext.create("Ext.window.Window", {
+                                title: 'Upload Programming Software',
+                                width: 400,
+                                height:300,
+                                bodyPadding: 10,
+                                frame: true,
+                                autoShow: true,
+                                layout:"auto",
+                                items: {
+                                    xtype: "form",
+                                    width:"100%",
+                                    height:"100%",
+                                    defaults: {
+                                        anchor: '100%'
+                                    },
+
+                                    items: [{
+                                        xtype: 'filefield',
+                                        //name: 'updatefile',
+                                        fieldLabel: 'Select install package',
+                                        //labelWidth: 50,
+                                        //msgTarget: 'side',
+                                        //allowBlank: false,
+                                        //anchor: '100%',
+                                        //buttonText: 'Select File...'
+                                    }]
+                                },
+                                buttons: [{
+                                    text: 'Upload',
+                                    handler: function () {
+                                        console.log(this)
+                                        var form = win.down('form').getForm();
+                                        if (form.isValid()) {
+                                            form.submit({
+                                                url: 'resources/test1.php?par=uploadfiles',
+                                                waitMsg: 'Uploading your photo...',
+                                                success: function (fp, o) {
+                                                    Ext.Msg.alert('Success', 'Your photo "' + o.result.file + '" has been uploaded.');
+                                                }
+                                            });
+                                        }
+                                    }
+                                }]
+                            })
+                        }
+                        }, {
+                            text: "About",
+                            handler: function () {
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.13  ');
+                            }
+                        }
+                    ]
+                },
+
             ]
         });
         this.callParent();
@@ -117,22 +176,22 @@ function saveGridpanelsConfigs(fileName) {
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
     }
     /*var datasArray = drawpanel.datas.datasArray
-    var datasArrayStr='"[';
-    for(var i=0;i<datasArray.length;i++){
-        for(var skey in datasArray[i]){
-            var key = "t"+parseInt((skey).substr(1,skey.length)-1);
-            var value="t"+parseInt((datasArray[i][skey]).substr(1,datasArray[i][skey].length)-1);
-            console.log(datasArray[i])
-            console.log(key+"  "+value)
-            if(i!=datasArray.length-1){
-                datasArrayStr+='{\"'+key+'\":\"'+value+'\"},';
-            }else{
-                datasArrayStr+='{\"'+key+'\":\"'+value+'\"}';
-            }
-        }
-    }
-    datasArrayStr+=']"';
-    console.log(datasArrayStr)*/
+     var datasArrayStr='"[';
+     for(var i=0;i<datasArray.length;i++){
+     for(var skey in datasArray[i]){
+     var key = "t"+parseInt((skey).substr(1,skey.length)-1);
+     var value="t"+parseInt((datasArray[i][skey]).substr(1,datasArray[i][skey].length)-1);
+     console.log(datasArray[i])
+     console.log(key+"  "+value)
+     if(i!=datasArray.length-1){
+     datasArrayStr+='{\"'+key+'\":\"'+value+'\"},';
+     }else{
+     datasArrayStr+='{\"'+key+'\":\"'+value+'\"}';
+     }
+     }
+     }
+     datasArrayStr+=']"';
+     console.log(datasArrayStr)*/
 
     var oJson = {
         //datasArray:datasArrayStr,
@@ -162,8 +221,8 @@ function getGridPanelRowsIds(gridpanel) {
          currentDrawPanelGridPanelsTrSetId()
          }*/
         /*var sid = "t"+parseInt((trs[i].id).substr(1,trs[i].id.length)-1);
-        console.log(trs[i].id)
-        console.log(sid)*/
+         console.log(trs[i].id)
+         console.log(sid)*/
         ids.push(trs[i].id)
     }
     return ids;
