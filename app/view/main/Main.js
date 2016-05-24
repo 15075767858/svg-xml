@@ -102,6 +102,7 @@ function getDivData() {
                 var eH = endtime.getHours()
                 var eM = endtime.getMinutes()
                 var eS = endtime.getSeconds()
+
                 dwPars.drawWindowData.push({
                     divId: dayTimeArr[j].id,
                     SortWeek: (i + 1) + "_" + WeekArr[i],
@@ -155,6 +156,7 @@ function getDivData() {
             }
 
         }
+
         if (pubTimeArr.length == 0) {
             pubweekly.Weekly_Schedule.pop()
         }
@@ -358,6 +360,7 @@ function weekDivResetPosition(banimate) {
 
 function addNewBar(win) {
     console.log(win)
+
     var WeekArr = dwPars.WeekArrJson
     var dw = dwPars.dw;
     var bWidth = dwPars.bWidth;
@@ -478,3 +481,10 @@ function myAjax(url, success) {
         success: success
     });
 }
+
+
+Ext.create( 'svgxml.view.window.DrawWeeksWindow',{
+    sDevNodeName:"9900601",
+    sDevName:"9900",
+
+})

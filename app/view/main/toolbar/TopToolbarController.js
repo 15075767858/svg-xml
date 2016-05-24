@@ -263,11 +263,13 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             frame: true,
             width: 800,
             height: 600,
-            bodyPadding: 10,
+            //bodyPadding: 10,
             autoShow: true,
+            layout:"border",
             items: {
                 xtype: "grid",
                 width: "100%",
+                region: 'center',
                 /*selModel: {
                  mode: "SIMPLE",
                  selType: 'checkboxmodel'

@@ -846,10 +846,11 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         if (!win1.down("form").isValid()) {
                                             Ext.Msg.alert('Exception', "Please enter the form fields .");
                                             return;
-                                        };
-                                        var url ="resources/test1.php?par=ScheduleConfig&ispublish=true&nodename=" + sDevNodeName;
+                                        }
+                                        ;
+                                        var url = "resources/test1.php?par=ScheduleConfig&ispublish=true&nodename=" + sDevNodeName;
                                         if (sDevName == getNetNumberValue()) {
-                                            url="resources/test1.php?par=ScheduleConfig&nodename=" + sDevNodeName;
+                                            url = "resources/test1.php?par=ScheduleConfig&nodename=" + sDevNodeName;
                                         }
                                         win1.down("form").submit({
                                             url: url,
@@ -903,7 +904,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         var syear = oJson.dateRange['after']["year"];
                                         var smon = oJson.dateRange['after']["month"];
                                         var sday = oJson.dateRange['after']["day_of_month"];
-                                        cAfter.setValue(new Date(syear, smon-1, sday));
+                                        cAfter.setValue(new Date(syear, smon - 1, sday));
                                     }
                                 } catch (e) {
                                 }
@@ -914,7 +915,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         var syear = oJson.dateRange['front']["year"];
                                         var smon = oJson.dateRange['front']["month"];
                                         var sday = oJson.dateRange['front']["day_of_month"];
-                                        cFront.setValue(new Date(syear, smon-1, sday));
+                                        cFront.setValue(new Date(syear, smon - 1, sday));
                                     }
                                 } catch (e) {
                                 }
@@ -929,8 +930,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         var emon = oJson.dateRange['endDate']["month"];
                                         var eday = oJson.dateRange['endDate']["day_of_month"];
 
-                                        cFormstart.setValue(new Date(syear, smon-1, sday));
-                                        cFormend.setValue(new Date(eyear, emon-1, eday));
+                                        cFormstart.setValue(new Date(syear, smon - 1, sday));
+                                        cFormend.setValue(new Date(eyear, emon - 1, eday));
                                         Ext.getCmp("Effective_Period_radio3").setValue(true)
                                     }
                                 } catch (e) {
@@ -951,16 +952,16 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                                     myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=List_Of_Object_Property_References", function (response) {
                                         var text;
-                                            try{
-                                                text = Ext.decode(response.responseText)["List_Of_Object_Property_References"];
-                                            }catch(e){
-                                                delayToast("Message","invalid data , This attribute is initialized, ok .")
-                                                text=[]
-                                            }
+                                        try {
+                                            text = Ext.decode(response.responseText)["List_Of_Object_Property_References"];
+                                        } catch (e) {
+                                            delayToast("Message", "invalid data , This attribute is initialized, ok .")
+                                            text = []
+                                        }
 
                                         for (var i = 0; i < text.length; i++) {
                                             var dev = text[i].device_id || sDevName;
-                                            dev+=""
+                                            dev += ""
                                             if ((dev + "").length == 3) {
                                                 dev = "0" + dev;
                                             }
@@ -970,10 +971,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             if ((dev + "").length == 1) {
                                                 dev = "000" + dev;
                                             }
-                                            var type = text[i].objectIdentifier["type"]+"";
-                                            var instance = text[i].objectIdentifier["instance"]+"";
-                                            if(instance.length==1){
-                                                instance="0"+instance;
+                                            var type = text[i].objectIdentifier["type"] + "";
+                                            var instance = text[i].objectIdentifier["instance"] + "";
+                                            if (instance.length == 1) {
+                                                instance = "0" + instance;
                                             }
                                             targetData.push({
                                                 'name': dev + type + instance,
@@ -1005,19 +1006,21 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     console.log(targetData)
                                     console.log(sourceData)
                                     Ext.create('Ext.data.Store', {
-                                        fields: [{name: "name", type: "string",convert:function(val){
-                                            if ((val + "").length == 6) {
-                                                val = "0" + val;
+                                        fields: [{
+                                            name: "name", type: "string", convert: function (val) {
+                                                if ((val + "").length == 6) {
+                                                    val = "0" + val;
+                                                }
+                                                if ((val + "").length == 5) {
+                                                    val = "00" + val;
+                                                }
+                                                if ((val + "").length == 4) {
+                                                    val = "000" + val;
+                                                }
+                                                console.log(val)
+                                                return val;
                                             }
-                                            if ((val + "").length == 5) {
-                                                val = "00" + val;
-                                            }
-                                            if ((val + "").length == 4) {
-                                                val = "000" + val;
-                                            }
-                                            console.log(val)
-                                            return val;
-                                        }},
+                                        },
                                             {name: "identifier", type: "string"},
                                             {name: "arrayIndex", type: "string"}
                                         ],
@@ -1025,189 +1028,189 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         data: sourceData
                                     }),
 
-                                    Ext.create("Ext.window.Window", {
-                                        title: sDevNodeName + " References",
-                                        //title: "References",
-                                        constrainHeader: true,//禁止移出父窗口
-                                        height: 600,
-                                        width: 750,
-                                        autoShow: true,
-                                        layout: 'hbox',
-                                        //resizable: false,
-                                        buttons: [
-                                            {
-                                                text: "Ok",
-                                                handler: function () {
-                                                    var target = Ext.data.StoreManager.lookup('refTargetStore');
-                                                    var aItems = target.getData().items;
-                                                    var oJson = {
-                                                        "List_Of_Object_Property_References": []
-                                                    }
-                                                    for (var i = 0; i < aItems.length; i++) {
-                                                        console.log(aItems[i].data.name)
-                                                        if (sDevName == "1000" || sDevName == getNetNumberValue()) {
-                                                            oJson['List_Of_Object_Property_References'].push({
-                                                                "objectIdentifier": {
-                                                                    "type": parseInt((aItems[i].data.name + "").substr(4, 1)),
-                                                                    "instance": parseInt((aItems[i].data.name + "").substr(5, 2))
-                                                                },
-                                                                "device_id": parseInt((aItems[i].data.name + "").substr(0, 4)),
-                                                                "propertyIdentifier": parseInt(aItems[i].data.identifier),
-                                                                "propertyArrayIndex": parseInt(aItems[i].data.arrayIndex)
-                                                            })
-                                                        } else {
-                                                            oJson['List_Of_Object_Property_References'].push({
-                                                                "objectIdentifier": {
-                                                                    "type": parseInt((aItems[i].data.name + "").substr(4, 1)),
-                                                                    "instance": parseInt((aItems[i].data.name + "").substr(5, 2))
-                                                                },
-                                                                "propertyIdentifier": parseInt(aItems[i].data.identifier),
-                                                                "propertyArrayIndex": parseInt(aItems[i].data.arrayIndex)
-                                                            })
+                                        Ext.create("Ext.window.Window", {
+                                            title: sDevNodeName + " References",
+                                            //title: "References",
+                                            constrainHeader: true,//禁止移出父窗口
+                                            height: 600,
+                                            width: 750,
+                                            autoShow: true,
+                                            layout: 'hbox',
+                                            //resizable: false,
+                                            buttons: [
+                                                {
+                                                    text: "Ok",
+                                                    handler: function () {
+                                                        var target = Ext.data.StoreManager.lookup('refTargetStore');
+                                                        var aItems = target.getData().items;
+                                                        var oJson = {
+                                                            "List_Of_Object_Property_References": []
                                                         }
-                                                    }
-                                                    console.log(Ext.encode(oJson))
-
-                                                    Ext.Ajax.request({
-                                                        url: "resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=List_Of_Object_Property_References",
-                                                        params: {
-                                                            value: Ext.encode(oJson)
-                                                        },
-                                                        success: function (response) {
-                                                            var text = response.responseText;
-                                                            delayToast("Status", "Changes saved successfully .", 1000)
+                                                        for (var i = 0; i < aItems.length; i++) {
+                                                            console.log(aItems[i].data.name)
+                                                            if (sDevName == "1000" || sDevName == getNetNumberValue()) {
+                                                                oJson['List_Of_Object_Property_References'].push({
+                                                                    "objectIdentifier": {
+                                                                        "type": parseInt((aItems[i].data.name + "").substr(4, 1)),
+                                                                        "instance": parseInt((aItems[i].data.name + "").substr(5, 2))
+                                                                    },
+                                                                    "device_id": parseInt((aItems[i].data.name + "").substr(0, 4)),
+                                                                    "propertyIdentifier": parseInt(aItems[i].data.identifier),
+                                                                    "propertyArrayIndex": parseInt(aItems[i].data.arrayIndex)
+                                                                })
+                                                            } else {
+                                                                oJson['List_Of_Object_Property_References'].push({
+                                                                    "objectIdentifier": {
+                                                                        "type": parseInt((aItems[i].data.name + "").substr(4, 1)),
+                                                                        "instance": parseInt((aItems[i].data.name + "").substr(5, 2))
+                                                                    },
+                                                                    "propertyIdentifier": parseInt(aItems[i].data.identifier),
+                                                                    "propertyArrayIndex": parseInt(aItems[i].data.arrayIndex)
+                                                                })
+                                                            }
                                                         }
-                                                    });
+                                                        console.log(Ext.encode(oJson))
 
-                                                    myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2")
-                                                    if (sDevName != getNetNumberValue()) {
-                                                        devPublish(sDevNodeName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + (Ext.encode(oJson).replaceAll("\\s*|\t|\r|\n", "")));
+                                                        Ext.Ajax.request({
+                                                            url: "resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=List_Of_Object_Property_References",
+                                                            params: {
+                                                                value: Ext.encode(oJson)
+                                                            },
+                                                            success: function (response) {
+                                                                var text = response.responseText;
+                                                                delayToast("Status", "Changes saved successfully .", 1000)
+                                                            }
+                                                        });
+
+                                                        myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2")
+                                                        if (sDevName != getNetNumberValue()) {
+                                                            devPublish(sDevName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + (Ext.encode(oJson).replaceAll("\\s*|\t|\r|\n", "")));
+
+                                                        }
+                                                        this.up("window").close()
 
                                                     }
-                                                    this.up("window").close()
-
                                                 }
-                                            }
-                                        ],
-                                        defaults: {
-                                            height: "100%"
-                                        },
-
-                                        items: [
-                                            {
-                                                xtype: "gridpanel",
-                                                flex: 4,
-                                                border: true,
-                                                margin: 5,
-                                                title: "Wait to be selected",
-                                                viewConfig: {
-                                                    plugins: {
-                                                        ptype: 'gridviewdragdrop',
-                                                        dragText: 'Drag and drop to reorganize'
-                                                    }
-                                                },
-                                                store: "refSourceStore",
-                                                columns: [
-                                                    {header: 'Name', dataIndex: 'name', flex: 1},
-                                                    {
-                                                        header: 'Identifier',
-                                                        dataIndex: 'identifier',
-                                                        flex: 1,
-                                                        hidden: true
-                                                    },
-                                                    {
-                                                        header: 'ArrayIndex',
-                                                        dataIndex: 'arrayIndex',
-                                                        flex: 1,
-                                                        hidden: true
-                                                    }
-                                                ]
+                                            ],
+                                            defaults: {
+                                                height: "100%"
                                             },
-                                            {
-                                                xtype: "panel",
-                                                //flex:1,
-                                                //border: "1 0 1 0",
-                                                width: 90,
-                                                layout: {
-                                                    type: 'center'
 
-                                                },
-                                                items: [
-                                                    /*{
-                                                     xtype: 'button',
-                                                     margin: "0 0 20 0",
-                                                     text: "→",
-                                                     scale: 'large'
-                                                     },
-                                                     {
-                                                     xtype: 'button',
-                                                     margin: "0 0 0 0",
-                                                     text: "←",
-                                                     scale: 'large'
-                                                     }*/
-                                                    {
-                                                        xtype: 'button',
-                                                        margin: "0 0 70 0",
-                                                        text: "Select All →",
-                                                        scale: 'small',
-                                                        handler: function () {
-                                                            var source = Ext.data.StoreManager.lookup('refSourceStore');
-                                                            var target = Ext.data.StoreManager.lookup('refTargetStore');
-                                                            target.add(source.removeAll())
+                                            items: [
+                                                {
+                                                    xtype: "gridpanel",
+                                                    flex: 4,
+                                                    border: true,
+                                                    margin: 5,
+                                                    title: "Wait to be selected",
+                                                    viewConfig: {
+                                                        plugins: {
+                                                            ptype: 'gridviewdragdrop',
+                                                            dragText: 'Drag and drop to reorganize'
                                                         }
                                                     },
-                                                    {
-                                                        xtype: 'button',
-                                                        //margin: "0 0 0 0",
-                                                        text: "Clear All ←",
-                                                        scale: 'small',
-                                                        handler: function () {
-                                                            var source = Ext.data.StoreManager.lookup('refSourceStore');
-                                                            var target = Ext.data.StoreManager.lookup('refTargetStore');
-                                                            source.add(target.removeAll())
+                                                    store: "refSourceStore",
+                                                    columns: [
+                                                        {header: 'Name', dataIndex: 'name', flex: 1},
+                                                        {
+                                                            header: 'Identifier',
+                                                            dataIndex: 'identifier',
+                                                            flex: 1,
+                                                            hidden: true
+                                                        },
+                                                        {
+                                                            header: 'ArrayIndex',
+                                                            dataIndex: 'arrayIndex',
+                                                            flex: 1,
+                                                            hidden: true
                                                         }
-                                                    }
-
-                                                ]
-                                            },
-                                            {
-                                                xtype: "gridpanel",
-                                                title: "Has been selected",
-                                                flex: 4,
-                                                border: true,
-                                                margin: 5,
-                                                viewConfig: {
-                                                    plugins: {
-                                                        ptype: 'gridviewdragdrop',
-                                                        dragText: 'Drag and drop to reorganize'
-                                                    }
+                                                    ]
                                                 },
-                                                store: Ext.create('Ext.data.Store', {
-                                                    fields: [{name: "name", type: "string"},
-                                                        {name: "identifier", type: "string"},
-                                                        {name: "arrayIndex", type: "string"}
-                                                    ],
-                                                    storeId: "refTargetStore",
-                                                    data: targetData
-                                                }),
-                                                columns: [
-                                                    {header: 'Name', dataIndex: 'name', flex: 1},
-                                                    {
-                                                        header: 'Identifier',
-                                                        dataIndex: 'identifier',
-                                                        flex: 1,
-                                                        hidden: true
+                                                {
+                                                    xtype: "panel",
+                                                    //flex:1,
+                                                    //border: "1 0 1 0",
+                                                    width: 90,
+                                                    layout: {
+                                                        type: 'center'
+
                                                     },
-                                                    {
-                                                        header: 'ArrayIndex',
-                                                        dataIndex: 'arrayIndex',
-                                                        flex: 1,
-                                                        hidden: true
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    })
+                                                    items: [
+                                                        /*{
+                                                         xtype: 'button',
+                                                         margin: "0 0 20 0",
+                                                         text: "→",
+                                                         scale: 'large'
+                                                         },
+                                                         {
+                                                         xtype: 'button',
+                                                         margin: "0 0 0 0",
+                                                         text: "←",
+                                                         scale: 'large'
+                                                         }*/
+                                                        {
+                                                            xtype: 'button',
+                                                            margin: "0 0 70 0",
+                                                            text: "Select All →",
+                                                            scale: 'small',
+                                                            handler: function () {
+                                                                var source = Ext.data.StoreManager.lookup('refSourceStore');
+                                                                var target = Ext.data.StoreManager.lookup('refTargetStore');
+                                                                target.add(source.removeAll())
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            //margin: "0 0 0 0",
+                                                            text: "Clear All ←",
+                                                            scale: 'small',
+                                                            handler: function () {
+                                                                var source = Ext.data.StoreManager.lookup('refSourceStore');
+                                                                var target = Ext.data.StoreManager.lookup('refTargetStore');
+                                                                source.add(target.removeAll())
+                                                            }
+                                                        }
+
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: "gridpanel",
+                                                    title: "Has been selected",
+                                                    flex: 4,
+                                                    border: true,
+                                                    margin: 5,
+                                                    viewConfig: {
+                                                        plugins: {
+                                                            ptype: 'gridviewdragdrop',
+                                                            dragText: 'Drag and drop to reorganize'
+                                                        }
+                                                    },
+                                                    store: Ext.create('Ext.data.Store', {
+                                                        fields: [{name: "name", type: "string"},
+                                                            {name: "identifier", type: "string"},
+                                                            {name: "arrayIndex", type: "string"}
+                                                        ],
+                                                        storeId: "refTargetStore",
+                                                        data: targetData
+                                                    }),
+                                                    columns: [
+                                                        {header: 'Name', dataIndex: 'name', flex: 1},
+                                                        {
+                                                            header: 'Identifier',
+                                                            dataIndex: 'identifier',
+                                                            flex: 1,
+                                                            hidden: true
+                                                        },
+                                                        {
+                                                            header: 'ArrayIndex',
+                                                            dataIndex: 'arrayIndex',
+                                                            flex: 1,
+                                                            hidden: true
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        })
                                 })
                             }
                         }, {
@@ -1223,7 +1226,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     startCollapsed: true
                                 })
 //week
-                                Ext.create('Ext.window.Window', {
+                                Ext.create('Ext.window.Window',
+                                    {
                                         id: "drawWindow",
                                         title: record.data.value + " Property",
                                         //title: "property",
@@ -1322,8 +1326,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     //柱子间隔 27  宽100  高625
                                                     if (el.tagName != "CANVAS") {
                                                         return;
-                                                    }
-                                                    ;
+                                                    };
                                                     Ext.create('Ext.menu.Menu', {
                                                         width: 100,
                                                         plain: true,
@@ -1911,8 +1914,8 @@ function getScheduleByDev(devName) {
             var text = response.responseText;
             devjson = eval(text);
             console.log(devjson)
-            devjson.sort(function(a,b){
-                return a.text- b.text
+            devjson.sort(function (a, b) {
+                return a.text - b.text
             })
         }
     });
@@ -2054,3 +2057,5 @@ Array.prototype.unique1 = function () {
     }
     return n;
 }
+
+
