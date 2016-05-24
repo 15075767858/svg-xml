@@ -23,40 +23,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DrawWeeksWindow.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DrawWeeksWindow.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65415245">
-              <caret line="425" column="8" selection-start-line="425" selection-start-column="8" selection-end-line="425" selection-end-column="8" />
-              <folding>
-                <element signature="e#6527#7891#0" expanded="false" />
-                <element signature="e#12443#12570#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Resizer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ext/src/resizer/Resizer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.593221">
-              <caret line="217" column="35" selection-start-line="217" selection-start-column="29" selection-end-line="217" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="211" column="50" selection-start-line="211" selection-start-column="50" selection-end-line="211" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DrawWeeksWindowController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-20.745762">
+              <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="461" column="0" selection-start-line="461" selection-start-column="0" selection-end-line="464" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.6433447">
+              <caret line="231" column="7" selection-start-line="231" selection-start-column="7" selection-end-line="231" selection-end-column="7" />
               <folding>
-                <element signature="n#!!block;n#weekDivResetPosition#0" expanded="false" />
-                <element signature="n#!!block;n#addNewBar#0" expanded="false" />
-                <element signature="n#!!block;n#weekDivAddEvent#0" expanded="false" />
-                <marker date="1464061170135" expanded="true" signature="917:1018" placeholder="..." />
-                <marker date="1464061170135" expanded="true" signature="1032:1044" placeholder="..." />
+                <element signature="e#2087#5365#0" expanded="false" />
+                <element signature="e#5809#7037#0" expanded="false" />
+                <element signature="e#7050#9819#0" expanded="false" />
+                <element signature="e#9821#11935#0" expanded="false" />
+                <element signature="e#11937#13049#0" expanded="false" />
+                <element signature="e#13051#15273#0" expanded="false" />
+                <element signature="e#15274#15417#0" expanded="false" />
+                <marker date="1464072727823" expanded="true" signature="917:1018" placeholder="..." />
+                <marker date="1464072727823" expanded="true" signature="1032:1044" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -66,9 +67,10 @@
         <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1196" column="0" selection-start-line="1196" selection-start-column="0" selection-end-line="1196" selection-end-column="0" />
+              <caret line="1224" column="74" selection-start-line="1224" selection-start-column="74" selection-end-line="1224" selection-end-column="74" />
               <folding>
-                <marker date="1464055785922" expanded="true" signature="1108:1118" placeholder="..." />
+                <element signature="e#79118#103549#0" expanded="false" />
+                <marker date="1464071956919" expanded="true" signature="1108:1118" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -89,9 +91,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/devsinfo/1000" />
-        <option value="$PROJECT_DIR$/resources/devsinfo/1000.json" />
-        <option value="$PROJECT_DIR$/app/view/tab/FramedTabs.js" />
         <option value="$PROJECT_DIR$/app/view/grid/LogicGridPanel.js" />
         <option value="$PROJECT_DIR$/resources/test3.php" />
         <option value="$PROJECT_DIR$/build/production/program/resources/Readme.md" />
@@ -134,12 +133,15 @@
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
         <option value="$PROJECT_DIR$/app/view/window/UploadWindow.js" />
-        <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js" />
         <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindowModel.js" />
-        <option value="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
         <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
-        <option value="$PROJECT_DIR$/app/view/main/Main.js" />
+        <option value="$PROJECT_DIR$/ext/src/resizer/Resizer.js" />
+        <option value="$PROJECT_DIR$/ext/src/resizer/ResizeTracker.js" />
+        <option value="$PROJECT_DIR$/ext/src/Component.js" />
+        <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js" />
+        <option value="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
         <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js" />
+        <option value="$PROJECT_DIR$/app/view/main/Main.js" />
       </list>
     </option>
   </component>
@@ -227,6 +229,60 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ext" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ext" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ext" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resizer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -420,7 +476,7 @@
     <frame x="-1088" y="-1080" width="1096" height="1896" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26203704" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26203704" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256855" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -474,25 +530,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="52" />
+      <option name="time" value="53" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09884393">
-          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/src/state/Stateful.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ext/packages/sencha-core/src/class/ClassManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35551763">
@@ -694,6 +736,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3566553">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -760,26 +803,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9351536">
           <caret line="176" column="0" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/src/Component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34414107">
-          <caret line="5360" column="39" selection-start-line="5360" selection-start-column="29" selection-end-line="5360" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -824,45 +851,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+    <entry file="file://$PROJECT_DIR$/ext/src/resizer/ResizeTracker.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1196" column="0" selection-start-line="1196" selection-start-column="0" selection-end-line="1196" selection-end-column="0" />
-          <folding>
-            <marker date="1464055785922" expanded="true" signature="1108:1118" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.010807736">
+          <caret line="8" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+    <entry file="file://$PROJECT_DIR$/ext/src/Component.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="461" column="0" selection-start-line="461" selection-start-column="0" selection-end-line="464" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.010807736">
+          <caret line="70" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="6465" selection-end-column="0" />
           <folding>
-            <element signature="n#!!block;n#weekDivResetPosition#0" expanded="false" />
-            <element signature="n#!!block;n#addNewBar#0" expanded="false" />
-            <element signature="n#!!block;n#weekDivAddEvent#0" expanded="false" />
-            <marker date="1464061170135" expanded="true" signature="917:1018" placeholder="..." />
-            <marker date="1464061170135" expanded="true" signature="1032:1044" placeholder="..." />
+            <marker date="1464062604403" expanded="true" signature="-1:-1" placeholder="/** @cfg {String} [alignTarget] ...*/" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/src/resizer/Resizer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.593221">
-          <caret line="217" column="35" selection-start-line="217" selection-start-column="29" selection-end-line="217" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.4095563">
+          <caret line="197" column="51" selection-start-line="197" selection-start-column="51" selection-end-line="197" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1224" column="74" selection-start-line="1224" selection-start-column="74" selection-end-line="1224" selection-end-column="74" />
+          <folding>
+            <element signature="e#79118#103549#0" expanded="false" />
+            <marker date="1464071956919" expanded="true" signature="1108:1118" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/production/program/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33872834">
+          <caret line="0" column="2206796" selection-start-line="0" selection-start-column="2206796" selection-end-line="0" selection-end-column="2206796" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.745762">
+          <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65415245">
-          <caret line="425" column="8" selection-start-line="425" selection-start-column="8" selection-end-line="425" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="211" column="50" selection-start-line="211" selection-start-column="50" selection-end-line="211" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6433447">
+          <caret line="231" column="7" selection-start-line="231" selection-start-column="7" selection-end-line="231" selection-end-column="7" />
           <folding>
-            <element signature="e#6527#7891#0" expanded="false" />
-            <element signature="e#12443#12570#0" expanded="false" />
+            <element signature="e#2087#5365#0" expanded="false" />
+            <element signature="e#5809#7037#0" expanded="false" />
+            <element signature="e#7050#9819#0" expanded="false" />
+            <element signature="e#9821#11935#0" expanded="false" />
+            <element signature="e#11937#13049#0" expanded="false" />
+            <element signature="e#13051#15273#0" expanded="false" />
+            <element signature="e#15274#15417#0" expanded="false" />
+            <marker date="1464072727823" expanded="true" signature="917:1018" placeholder="..." />
+            <marker date="1464072727823" expanded="true" signature="1032:1044" placeholder="..." />
           </folding>
         </state>
       </provider>

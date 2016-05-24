@@ -1220,14 +1220,20 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 if (dwwin) {
                                     dwwin.close()
                                 }
-                                var ogroup = new Ext.grid.feature.Grouping({
-                                    groupHeaderTpl: '{name}{renderedGroupValue} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
-                                    hideGroupedHeader: true,
-                                    startCollapsed: true
+
+
+                                Ext.create( 'svgxml.view.window.DrawWeeksWindow',{
+                                    sDevNodeName:sDevNodeName,
+                                    sDevName:sDevName,
+                                    id:"drawWindow"
                                 })
-//week
-                                Ext.create('Ext.window.Window',
-                                    {
+                               /*
+                                var ogroup = new Ext.grid.feature.Grouping({
+                                groupHeaderTpl: '{name}{renderedGroupValue} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
+                                hideGroupedHeader: true,
+                                startCollapsed: true
+                                })
+                               Ext.create('Ext.window.Window', {
                                         id: "drawWindow",
                                         title: record.data.value + " Property",
                                         //title: "property",
@@ -1559,7 +1565,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             }
                                         ]
                                     }
-                                )
+                                )*/
                             }
                         }, {text: "exception"}
                     ]

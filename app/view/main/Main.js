@@ -68,6 +68,7 @@ Ext.define('svgxml.view.main.Main', {
 });
 
 
+/*
 function getDivData() {
     var weekly = {
         "Weekly_Schedule": {}
@@ -167,6 +168,7 @@ function getDivData() {
     return {weekly: weekly, pubweekly: pubweekly};
 
 }
+*/
 
 function isTime(val) {
     var vals = val.split(":")
@@ -183,7 +185,7 @@ function isTime(val) {
     }
     return true;
 }
-
+/*
 function drawWindowAddDiv(d) {
     WeekArr = dwPars.WeekArr
     var dw = dwPars.dw;
@@ -227,8 +229,9 @@ var single = (function () {
     return {
         getInstance: getInstance
     }
-})();
+})();*/
 var dwPars;
+/*
 function dwParsInit() {
     dwPars = (function () {
         var drawWindowData = []
@@ -303,7 +306,9 @@ function dwParsInit() {
     })()
 
 }
+*/
 
+/*
 function weekDivResetPosition(banimate) {
     var WeekArrJson = dwPars.WeekArrJson
     var oCanvas = dwPars.oCanvas
@@ -357,7 +362,9 @@ function weekDivResetPosition(banimate) {
     }
 
 }
+*/
 
+/*
 function addNewBar(win) {
     console.log(win)
 
@@ -391,8 +398,9 @@ function addNewBar(win) {
     var tmEnd = getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
     div.attr("startTime", tmStart).attr("endTime", tmEnd)
 }
+*/
 
-function weekDivAddEvent(div) {
+/*function weekDivAddEvent(div) {
     console.log(div)
     div.hover(
         function () {
@@ -434,7 +442,7 @@ function weekDivAddEvent(div) {
     })
 
     Ext.create("Ext.resizer.Resizer", {
-        target: div.attr("id"),
+        target: div[0],
         handles: 'n,s',
         maxHeight: dwPars.bMaxHeight,
         minHeight: 1,
@@ -458,11 +466,11 @@ function weekDivAddEvent(div) {
             }
         }
     })
-}
-function getTimeByLocation(weizhi) {
+}*/
+/*function getTimeByLocation(weizhi) {
     var time = new Date(dwPars.oneDay * (weizhi / dwPars.bMaxHeight) + 2649600000);
     return time;
-}
+}*/
 
 function isBarCollsion(x1, y1, x2, y2, w, h) {
     if (x1 >= x2 && x1 <= x2 + w && y1 >= y2 && y1 <= y2 + h) {
@@ -483,8 +491,3 @@ function myAjax(url, success) {
 }
 
 
-Ext.create( 'svgxml.view.window.DrawWeeksWindow',{
-    sDevNodeName:"9900601",
-    sDevName:"9900",
-
-})

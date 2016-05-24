@@ -194,9 +194,9 @@ Ext.define('Ext.resizer.Resizer', {
             unselectableCls = Ext.dom.Element.unselectableCls,
             handleEls = [],
             resizeTarget, handleCls, possibles, tag,
-            len, i, pos, el, box, 
+            len, i, pos, el, box,
             wrapTarget, positioning, targetBaseCls;
-            
+
 
         if (Ext.isString(config) || Ext.isElement(config) || config.dom) {
             resizeTarget = config;
