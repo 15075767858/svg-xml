@@ -823,7 +823,7 @@ function updateCurrentDrawPanelPlant(plant, index) {
  */
 function removeFile(fileName) {
     Ext.Ajax.request({
-        url: "resources/delFile.php?fileName=" + fileName,
+        url: "resources/test1.php?par=delFile&fileName=" + fileName,
         async: false,
         /*params: {
          fileName:fileName

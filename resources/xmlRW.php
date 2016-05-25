@@ -17,7 +17,6 @@ if($rw=='r'){
 	} 
 }else{
 	$content=$_POST["content"];
-	echo "aaaaaaaaaa";
 	$fp = fopen($fn, 'w') or die("Unable to open file!");
 	fwrite($fp, $content);
 	fclose($fp);

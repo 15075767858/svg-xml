@@ -26,7 +26,10 @@ if($par=="devPublish"){
 	$value=$_GET["value"];
 	echo $redis->publish($key,$value);
 }
-
+if($par=="delFile"){
+	$fn=$_GET['fileName'];
+	echo unlink($fn);
+}
 if($par=="clear"){
 	if(file_exists("/var/run/bac_client.pid")){
 		$myfile = fopen("/var/run/bac_client.pid", "r");

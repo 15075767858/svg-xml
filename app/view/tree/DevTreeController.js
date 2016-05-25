@@ -449,7 +449,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             url: "resources/xmlRW.php",
                                             async: false,
                                             params: {
-                                                fileName: "../../bac_config.xml",
+                                                fileName: "../../../../bac_config.xml",
                                                 rw: "r"
                                             },
                                             success: function (response) {
@@ -461,7 +461,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     url: "resources/xmlRW.php",
                                                     async: false,
                                                     params: {
-                                                        fileName: "../../bac_config.xml",
+                                                        fileName: "../../../../bac_config.xml",
                                                         rw: "w",
                                                         content: xmlstr
                                                     },
@@ -1351,19 +1351,20 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 })
 ;
 
-function getNetNumberValue() {
+function getNetNumberValue(filename) {
     var str = "";
     Ext.Ajax.request({
         url: "resources/xmlRW.php",
         async: false,
         params: {
-            fileName: "../../bac_config.xml",
+            fileName: filename||"../../../../bac_config.xml",
             rw: "r"
         },
         success: function (response) {
             var text = response.responseText
             var xml = $($.parseXML(text));
             str = xml.find("root net").text()
+
         }
     })
     return str;
