@@ -17,10 +17,13 @@ Ext.define('svgxml.view.tab.FramedTabs', {
         //bodyPadding: 10,
         autoScroll: true
     },
+    items:{
+      xtype:"drawpanel",
+        title:"1000"
+    },
     listeners : {
       //  viewready: "viewready",
-        render:"render"
+      //  render:"render"
     }
 });
 
-//new Ext.dd.DDTarget("ssss", "IconDragDropGroup");

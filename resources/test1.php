@@ -9,6 +9,24 @@ if($ip=="192.168.1.88"||$ip=="127.0.0.1"){
 }
 $arList = $redis->keys("*");
 
+if($par=="filePublish"){
+	//$pv = current($redis->hmGet('Send_File', Array("Present_Value")));
+	$pv = $redis->hGet('Send_File',"Present_Value");
+	$key=$_GET["key"];
+	$value=$_GET["value"];
+	if($pv=="1"){
+		$redis->publish($key,$value);
+		echo $pv;
+	}else{
+		echo $pv;
+	}
+}
+if($par=="devPublish"){
+	$key=$_GET["key"];
+	$value=$_GET["value"];
+	echo $redis->publish($key,$value);
+}
+
 if($par=="clear"){
 	if(file_exists("/var/run/bac_client.pid")){
 		$myfile = fopen("/var/run/bac_client.pid", "r");
@@ -262,9 +280,18 @@ if($par=="getDevInfoFileNames"){
 		array_push($newArry,$value);
 	}
 	echo json_encode($newArry);
-
 }
-
+if($par == "getDevFileNames"){
+	$directory="../../../../";
+	$newArry=Array();
+	$scanned_directory=array_diff(scandir($directory),array('..','.'));
+	foreach ($scanned_directory as $key => $value) {
+		if(strlen($value)==4 & is_numeric($value)){
+			array_push($newArry,$value);
+		}
+	}
+	echo json_encode($newArry);
+}
 if($par=="dev"){
 	echo "[";
 	$str ="";

@@ -149,7 +149,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
         var data;
         Ext.Ajax.request({
-            url: "resources/test3.php",
+            url: "resources/test1.php?par=getDevFileNames",
             async: false,
             params: {},
             success: function (response) {
@@ -157,7 +157,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 data = Ext.decode(text)
             }
         })
-
         var win = Ext.create('Ext.window.Window', {
             title: 'Download •••',
             frame: true,
@@ -357,7 +356,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
 
 function filePublish(key, value) {
     Ext.Ajax.request({
-        url: "resources/test2.php",
+        url: "resources/test1.php",
         method: "GET",
         async: false,
         params: {
@@ -378,7 +377,7 @@ function filePublish(key, value) {
 function devPublish(key, value, success) {
 
     Ext.Ajax.request({
-        url: "resources/test2.php",
+        url: "resources/test1.php",
         method: "GET",
         async: false,
         params: {

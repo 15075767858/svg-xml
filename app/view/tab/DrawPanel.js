@@ -1,6 +1,7 @@
 Ext.define("svgxml.view.tab.DrawPanel", {
     extend: "Ext.panel.Panel",
     xtype: "drawpanel",
+
     requires: [
         "svgxml.view.tab.DrawPanelController",
         "svgxml.view.tab.DrawPanelModel",

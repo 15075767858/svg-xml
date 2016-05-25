@@ -68,107 +68,7 @@ Ext.define('svgxml.view.main.Main', {
 });
 
 
-/*
-function getDivData() {
-    var weekly = {
-        "Weekly_Schedule": {}
-    }
-    var pubweekly = {
-        "Weekly_Schedule": []
-    }
-    dwPars.drawWindowData = []
-    WeekArr = dwPars.WeekArr
-    for (var i = 0; i < WeekArr.length; i++) {
 
-        //console.log(this.up("window").el.dom.getElementsByClassName(WeekArr[i]))
-        var dayTimeArr = document.querySelectorAll("." + WeekArr[i]);
-        weekly.Weekly_Schedule[WeekArr[i]] = []
-        var pubTimeArr = []
-        pubweekly.Weekly_Schedule.push({
-            day: i + 1,
-            value: pubTimeArr
-        })
-        if (dayTimeArr.length > 0) {
-
-            //pubweekly.Weekly_Schedule[WeekArr[i]] = []
-            for (var j = 0; j < dayTimeArr.length; j++) {
-                console.log(dayTimeArr)
-
-                var starttime = new Date($(dayTimeArr[j]).attr("starttime"));
-                var endtime = new Date($(dayTimeArr[j]).attr("endtime"));
-
-                var sH = starttime.getHours()
-                var sM = starttime.getMinutes()
-                var sS = starttime.getSeconds()
-                var eH = endtime.getHours()
-                var eM = endtime.getMinutes()
-                var eS = endtime.getSeconds()
-
-                dwPars.drawWindowData.push({
-                    divId: dayTimeArr[j].id,
-                    SortWeek: (i + 1) + "_" + WeekArr[i],
-                    Week: WeekArr[i],
-                    StartTime: sH + ":" + sM + ":" + sS,
-                    EndTime: eH + ":" + eM + ":" + eS
-                })
-
-                if ($(dayTimeArr[j]).hasClass("new")) {
-
-                    pubTimeArr.push(
-                        {
-                            time: {
-                                "hour": sH,
-                                "minute": sM,
-                                "second": sS,
-                                "hundredths": 0
-                            },
-                            value: true
-                        }, {
-                            time: {
-                                "hour": eH,
-                                "minute": eM,
-                                "second": eS,
-                                "hundredths": 0
-                            },
-                            value: false
-                        }
-                    )
-                }
-
-                weekly.Weekly_Schedule[WeekArr[i]].push(
-                    {
-                        time: {
-                            "hour": sH,
-                            "minute": sM,
-                            "second": sS,
-                            "hundredths": 0
-                        },
-                        value: true
-                    }, {
-                        time: {
-                            "hour": eH,
-                            "minute": eM,
-                            "second": eS,
-                            "hundredths": 0
-                        },
-                        value: false
-                    }
-                )
-            }
-
-        }
-
-        if (pubTimeArr.length == 0) {
-            pubweekly.Weekly_Schedule.pop()
-        }
-    }
-    console.log(pubweekly)
-    console.log(Ext.encode(pubweekly))
-    console.log(Ext.encode(weekly))
-    return {weekly: weekly, pubweekly: pubweekly};
-
-}
-*/
 
 function isTime(val) {
     var vals = val.split(":")
@@ -195,7 +95,6 @@ function isBarCollsion(x1, y1, x2, y2, w, h) {
 }
 
 function myAjax(url, success) {
-    var devName = "";
     Ext.Ajax.request({
         url: url,
         method: "GET",

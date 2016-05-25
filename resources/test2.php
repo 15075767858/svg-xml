@@ -7,6 +7,7 @@ $redis->connect("192.168.253.253", 6379);
 }else{
 $redis->connect($ip, 6379);
 }
+
 $pv = current($redis->hmGet('Send_File', Array("Present_Value")));
 if($par=="filePublish"){
 $key=$_GET["key"];
