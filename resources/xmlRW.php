@@ -2,10 +2,7 @@
 $fn=$_POST['fileName'];
 $rw=$_POST['rw'];
 
-//if($rw=='d'){
-//echo unlink($fn)
-//return ;
-//}
+
 if($rw=='r'){
 	$isFile=file_exists($fn);
 	if($isFile==false){

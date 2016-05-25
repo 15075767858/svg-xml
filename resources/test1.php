@@ -2,7 +2,7 @@
 $ip=$_SERVER["SERVER_ADDR"];
 $par=$_GET["par"];
 $redis = new Redis();
-if($ip=="192.168.1.88"){
+if($ip=="192.168.1.88"||$ip=="127.0.0.1"){
 	$redis->connect("192.168.253.253", 6379);
 }else{
 	$redis->connect($ip, 6379);
@@ -254,6 +254,17 @@ if($par=="getreferencesdev"){
 	
 	echo json_encode($newArry);
 }
+if($par=="getDevInfoFileNames"){
+	$directory='devsinfo';
+	$newArry=Array();
+	$scanned_directory=array_diff(scandir($directory),array('..','.'));
+	foreach ($scanned_directory as $key => $value) {
+		array_push($newArry,$value);
+	}
+	echo json_encode($newArry);
+
+}
+
 if($par=="dev"){
 	echo "[";
 	$str ="";
@@ -283,12 +294,12 @@ function dateToJson($riqi){
 }
 if($par=="uploadfiles"){
 
-echo move_uploaded_file($_FILES["file"]["tmp_name"],"devsinfo/".$_FILES["file"]["name"]);
+	echo move_uploaded_file($_FILES["file"]["tmp_name"],"devsinfo/".$_FILES["file"]["name"]);
 }
 
 function trimall($str){
-    $qian=array(" ","　","\t","\n","\r");
-    return str_replace($qian, '', $str);   
+	$qian=array(" ","　","\t","\n","\r");
+	return str_replace($qian, '', $str);   
 }
 	//$fn=$_POST['fileName'];
 //$rw=$_POST['rw'];

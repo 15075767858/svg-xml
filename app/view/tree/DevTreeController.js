@@ -1580,7 +1580,8 @@ function getScheduleByDev(devName) {
 function getDevInfoFileNames() {
     var aNames = null;
     Ext.Ajax.request({
-        url: 'resources/test3.php?par=0',
+        //url: 'resources/test3.php?par=0',
+        url: 'resources/test1.php?par=getDevInfoFileNames',
         async: false,
         params: {
             // url: url,
@@ -1588,9 +1589,6 @@ function getDevInfoFileNames() {
         success: function (response) {
             var text = response.responseText;
             aNames = eval(text);
-            console.log(aNames)
-            aNames.splice(0, 2);
-            console.log(aNames)
         }
     });
     return aNames;
