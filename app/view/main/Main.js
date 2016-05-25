@@ -490,4 +490,15 @@ function myAjax(url, success) {
     });
 }
 
+Ext.onReady(function(){
+    setTimeout(function(){
 
+Ext.create( 'svgxml.view.window.DrawWeeksWindow',{
+    sDevNodeName:"9900601",
+    sDevName:"9900",
+    id:"drawWindow"
+})
+
+
+    },5000)
+})

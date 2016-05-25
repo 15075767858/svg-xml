@@ -109,7 +109,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                     items: [{
                                         xtype: 'filefield',
                                         //name: 'updatefile',
-                                        fieldLabel: 'Select install package',
+                                        fieldLabel: 'Select install package'
                                         //labelWidth: 50,
                                         //msgTarget: 'side',
                                         //allowBlank: false,
@@ -142,7 +142,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             }
                         }
                     ]
-                },
+                }
 
             ]
         });
