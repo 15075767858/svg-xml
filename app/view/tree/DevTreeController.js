@@ -599,14 +599,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
             }
         }
         if (record.data.depth == 4) {
-
-
             var sDevNodeName = record.data.value;
             var sNodeType = record.data.type;
             var sDevName = sDevNodeName.substr(0, 4);
-
             if (record.parentNode.data.text == "Schedule") {
-
                 Ext.create("Ext.menu.Menu", {
                     //floating: true,
                     autoShow: true,
@@ -1072,8 +1068,13 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         });
 
                                                         if (sDevName != getNetNumberValue()) {
-                                                            myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2")
+
+
                                                             devPublish(sDevName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + (Ext.encode(oJson).replaceAll("\\s*|\t|\r|\n", "")));
+                                                        }else{
+                                                            myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2",function(response){
+                                                                delayToast("Massage", "Change Position Ok .", 1000)
+                                                            })
                                                         }
                                                         this.up("window").close()
 
@@ -1210,14 +1211,31 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 }
 
 
-                                Ext.create( 'svgxml.view.window.DrawWeeksWindow',{
-                                    sDevNodeName:sDevNodeName,
-                                    sDevName:sDevName,
-                                    id:"drawWindow"
+                                Ext.create('svgxml.view.window.DrawWeeksWindow', {
+                                    sDevNodeName: sDevNodeName,
+                                    sDevName: sDevName,
+                                    id: "drawWindow"
                                 })
 
                             }
-                        }, {text: "exception"}
+                        }, {
+                            text: "exception"
+                        }, {
+                            text: "Synchronous",handler:function(){
+                                Ext.create('svgxml.view.window.SynchrnousWindow', {
+                                    sDevNodeName: sDevNodeName,
+                                    sDevName: sDevName
+                                })
+                            },
+                            listeners: {
+                                boxready: function (menu) {
+
+                                    if (sDevName.substr(2,2) != "00") {
+                                        menu.hide()
+                                    }
+                                }
+                            }
+                        }
                     ]
                 })
 
@@ -1357,7 +1375,7 @@ function getNetNumberValue(filename) {
         url: "resources/xmlRW.php",
         async: false,
         params: {
-            fileName: filename||"../../../../bac_config.xml",
+            fileName: filename || "../../../../bac_config.xml",
             rw: "r"
         },
         success: function (response) {

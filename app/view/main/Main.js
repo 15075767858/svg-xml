@@ -66,10 +66,6 @@ Ext.define('svgxml.view.main.Main', {
         })
     ]
 });
-
-
-
-
 function isTime(val) {
     var vals = val.split(":")
     if (vals.length != 3) {
@@ -103,18 +99,20 @@ function myAjax(url, success) {
         success: success
     });
 }
-/*
-
-Ext.onReady(function(){
-    setTimeout(function(){
-
-Ext.create( 'svgxml.view.window.DrawWeeksWindow',{
-    sDevNodeName:"9900601",
-    sDevName:"9900",
-    id:"drawWindow"
-})
 
 
-    },5000)
-})
-*/
+
+/*Ext.onReady(function () {
+    setTimeout(function () {
+
+        Ext.create('svgxml.view.window.SynchrnousWindow', {
+            sDevNodeName: "2000601",
+            sDevName: "2000",
+        })
+
+    }, 5000)
+})*/
+
+
+
+

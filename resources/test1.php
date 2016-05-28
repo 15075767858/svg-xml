@@ -46,6 +46,22 @@ if($par=="clear"){
 	echo $redis->delete($arList);
 }
 
+if($par=="getAllScheduleNamesOuter"){
+	$devname=$_GET['devname'];
+	$schduleType=array("601","602","603","604","605","606","607","608","609","610");
+	$newArray=Array();
+	foreach ($arList as $key => $value) {
+		if(strlen($value)==7){
+			if(in_array(substr($value,4,3),$schduleType)&substr($value,0,4)!=$devname){
+				array_push($newArray,$value);
+				
+			}
+		}
+	}
+	//$newArray=array_fill_keys($newArray,"name");
+	//$newArray=array_flip($newArray);
+	echo json_encode($newArray);
+}
 if($par=="ScheduleConfig"){
 	$nodeName=$_GET["nodename"];
 	$Object_Name=$_GET["Object_Name"];
@@ -192,8 +208,6 @@ if($par=="node"){
 	$arr1=array_intersect($sortarr,$arList);
 	$arr2=array_diff($arList,$sortarr);
 	$arr3=array_merge($arr1,$arr2);
-
-
 	$parameters=Array("Object_Name","Description","Present_Value","Max_Pres_Value","Min_pres_Value","High_Limit","Low_Limit","COV_Increment","Device_Type","Offset");
 	$event=Array("Event_State","Event_Enable");
 	$alarm=Array("Alarm_Enable","Limit_Enable","Time_Delay","Acked_Transitions");
@@ -257,8 +271,8 @@ if($par=="nodes"){
 	echo substr($str,0,strlen($str)-1);
 	echo "]";
 }
-if($par=="getreferencesdev"){
 
+if($par=="getreferencesdev"){
 	$nodeName=substr($_GET["nodename"],0,4);
 	$newArry=array();
 	foreach ($arList as $value) {
@@ -272,9 +286,9 @@ if($par=="getreferencesdev"){
 			}
 		}
 	};
-	
 	echo json_encode($newArry);
 }
+
 if($par=="getDevInfoFileNames"){
 	$directory='devsinfo';
 	$newArry=Array();
