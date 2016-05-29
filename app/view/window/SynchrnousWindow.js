@@ -62,13 +62,17 @@ Ext.define("svgxml.view.window.SynchrnousWindow", {
                                 Ext.Msg.alert('Massage', 'Please select Schedule .');
                                 return ;
                             }
+
                             var weekStr = ""
                             myAjax("resources/test1.php?par=getvalue&type=Weekly_Schedule&nodename=" + me.sDevNodeName, function (response) {
                                 weekStr = response.responseText
                             })
+                            var effectivePeriodStr="";
+                            myAjax("resources/test1.php?par=getvalue&type=Effective_Period&nodename=" + me.sDevNodeName, function (response) {
+                                effectivePeriodStr = response.responseText
+                            })
+                            console.log(effectivePeriodStr)
                             var publishweeks = me.publishWeek(Ext.decode(weekStr))
-
-
                             var models = me.items.items[2].getSelectionModel().selected.items;
 
                             for (var i = 0; i < models.length; i++) {
@@ -84,7 +88,19 @@ Ext.define("svgxml.view.window.SynchrnousWindow", {
                                         delayToast("Massage", "Change " + models[i].data.name + " Weekly_Schedule successfully .")
                                     }
                                 });
+                                Ext.Ajax.request({
+                                    url: "resources/test1.php?par=changevaluenopublish&type=Effective_Period&nodename=" + models[i].data.name,
+                                    params: {
+                                        value: effectivePeriodStr
+                                    },
+                                    async: false,
+                                    success: function (response) {
+                                        delayToast("Massage", "Change " + models[i].data.name + " Effective_Period successfully .")
+                                    }
+                                });
+
                                 console.log(publishweeks)
+                                devPublish((models[i].data.name).substr(0, 4) + ".8.*", models[i].data.name + "\r\nEffective_Period\r\n" + effectivePeriodStr.replaceAll("\\s*|\t|\r|\n", ""));
                                 for(var j=0;j<publishweeks.length;j++){
                                     var pubstr=Ext.encode(publishweeks[j]).replaceAll("\\s*|\t|\r|\n", "")
                                 devPublish((models[i].data.name).substr(0, 4) + ".8.*", models[i].data.name + "\r\nWeekly_Schedule\r\n" + pubstr);
