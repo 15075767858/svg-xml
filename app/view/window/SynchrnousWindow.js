@@ -141,8 +141,6 @@ Ext.define("svgxml.view.window.SynchrnousWindow", {
     publishWeek: function (weekJson) {
         var WeekArr = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
         console.log(weekJson)
-
-
         var pubweeks=[]
         for (var i = 0; i < WeekArr.length; i++) {
             var pubweekly = {

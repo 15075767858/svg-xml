@@ -102,16 +102,23 @@ function myAjax(url, success) {
 
 
 
-/*Ext.onReady(function () {
+Ext.onReady(function () {
     setTimeout(function () {
 
-        Ext.create('svgxml.view.window.SynchrnousWindow', {
+ /*       Ext.create('svgxml.view.window.SynchrnousWindow', {
             sDevNodeName: "2000601",
             sDevName: "2000",
         })
 
-    }, 5000)
-})*/
+    }, 5000)*/
+  /*  Ext.create('svgxml.view.window.DrawWeeksWindow', {
+        sDevNodeName: "2000601",
+        sDevName: "2000",
+    })*/
+
+}, 5000)
+
+})
 
 
 

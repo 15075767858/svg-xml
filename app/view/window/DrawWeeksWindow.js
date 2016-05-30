@@ -359,10 +359,21 @@ Ext.define("svgxml.view.window.DrawWeeksWindow", {
                                     me.addNewBar(win)
                                 }
                             },{
+                                text:"Paste Time",
+                                disabled:true,
+                                handler:function(){
+                                    me.addNewBar(win,me.copydiv);
+                                },
+                                listeners:{
+                                    boxready:function(menu){
+                                        console.log(me.copydiv)
+                                        if(me.copydiv){
+                                        menu.setDisabled(false);
+                                        }
+                                    }
+                                }
+                            },"-",{
                                 text:"Time Value",
-                                disabled:true
-                            },{
-                                text:"Paste",
                                 disabled:true
                             }
                             ]
@@ -378,7 +389,7 @@ Ext.define("svgxml.view.window.DrawWeeksWindow", {
             }
         }
     },
-    addNewBar: function (eve) {
+    addNewBar: function (eve,copydiv) {
         var win = this;
         var WeekArr = win.dwPars.WeekArrJson
         var dw = win.dwPars.dw;
@@ -406,11 +417,16 @@ Ext.define("svgxml.view.window.DrawWeeksWindow", {
             div.remove()
         }
         $(dw.el.dom).append(div)
-        win.weekDivResetPosition()
+
         win.controller.weekDivAddEvent.call(win, div)
         var tmStart = win.getTimeByLocation(parseInt(div.css("Top")) - bMarginTop);
         var tmEnd = win.getTimeByLocation(parseInt(div.css("Top")) - bMarginTop + parseInt(div.css("height")))
-        div.attr("startTime", tmStart).attr("endTime", tmEnd)
+        if(copydiv){
+            div.attr("startTime",copydiv.attr("startTime")).attr("endTime",copydiv.attr("endTime"));
+        }else{
+            div.attr("startTime", tmStart).attr("endTime", tmEnd)
+        }
+        win.weekDivResetPosition()
     },
     getTimeByLocation: function (weizhi) {
         var me=this;

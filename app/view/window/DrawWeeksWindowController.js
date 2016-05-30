@@ -36,8 +36,11 @@ Ext.define('svgxml.view.window.DrawWeeksWindowController', {
                 floating: true,  // usually you want this set to True (default)
                 items: [
                     {
-                        text:"Copy",
-                        disabled:true
+                        text:"Copy Time",
+                        handler:function(){
+                            me.copydiv=div;
+
+                        }
                     },{
                     text: 'Delete Time',
                     handler: function () {
