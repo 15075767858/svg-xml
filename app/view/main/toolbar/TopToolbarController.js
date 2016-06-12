@@ -723,7 +723,10 @@ function getCurrentDrawPanel() {
     }
     return drawpanel;
 }
-
+function getCurrentDrawPanelDatasArray(drawpanel){
+    var cdrawpanel =  drawpanel||getCurrentDrawPanel()
+    return cdrawpanel.datas.datasArray;
+}
 function getCurrentDrawPanelGirdPanels(drawpanel) {
     var drawpanel = drawpanel || getCurrentDrawPanel();
     var aGridpanels = [];
@@ -780,7 +783,7 @@ function selectPlant(plant) {
             console.log(aTypeGrids[i])
             aTypeGrids[i].show();
         } else {
-            console.log(aTypeGrids[i])
+            //console.log(aTypeGrids[i])
             aTypeGrids[i].hide();
         }
     }

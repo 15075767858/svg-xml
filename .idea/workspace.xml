@@ -23,11 +23,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.67918086">
+              <caret line="261" column="49" selection-start-line="261" selection-start-column="49" selection-end-line="261" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TopToolbarController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="771" column="9" selection-start-line="771" selection-start-column="9" selection-end-line="771" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="1000.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/1000.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="74" selection-start-line="0" selection-start-column="74" selection-end-line="0" selection-end-column="74" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageBox.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ext/src/window/MessageBox.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="125" column="4" selection-start-line="125" selection-start-column="4" selection-end-line="125" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DrawWeeksWindow.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="320" column="67" selection-start-line="320" selection-start-column="67" selection-end-line="320" selection-end-column="67" />
+              <caret line="38" column="55" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
               <folding>
                 <element signature="e#9566#10072#0" expanded="false" />
               </folding>
@@ -35,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DrawWeeksWindowController.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js">
+      <file leaf-file-name="TypeGridController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.069307">
-              <caret line="276" column="48" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="250" column="21" selection-start-line="250" selection-start-column="21" selection-end-line="250" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -60,7 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/ext/packages/sencha-charts/src/chart/series/sprite/CandleStick.js" />
         <option value="$PROJECT_DIR$/resources/FileUD.php" />
         <option value="$PROJECT_DIR$/app/view/grid/PropertypeGridModel.js" />
@@ -68,11 +107,7 @@
         <option value="$PROJECT_DIR$/app/view/Viewport.js" />
         <option value="$PROJECT_DIR$/app/view/tab/BasicTabs.js" />
         <option value="$PROJECT_DIR$/app/view/tab/BasicController.js" />
-        <option value="$PROJECT_DIR$/1000.json" />
-        <option value="$PROJECT_DIR$/app/view/main/MainModel.js" />
-        <option value="$PROJECT_DIR$/1000" />
         <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" />
-        <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
         <option value="$PROJECT_DIR$/app/view/tree/DevTree.js" />
         <option value="$PROJECT_DIR$/ext/src/panel/Panel.js" />
         <option value="$PROJECT_DIR$/ext/src/view/Table.js" />
@@ -88,29 +123,34 @@
         <option value="$PROJECT_DIR$/爱的.html" />
         <option value="$PROJECT_DIR$/.sencha/app/production.properties" />
         <option value="$PROJECT_DIR$/build/production/program/resources/devsinfo/1200" />
-        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
         <option value="$PROJECT_DIR$/app/view/tab/FramedTabsController.js" />
         <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindowModel.js" />
         <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
         <option value="$PROJECT_DIR$/ext/src/resizer/Resizer.js" />
         <option value="$PROJECT_DIR$/ext/src/resizer/ResizeTracker.js" />
         <option value="$PROJECT_DIR$/ext/src/Component.js" />
-        <option value="$PROJECT_DIR$/resources/test1.php" />
         <option value="$PROJECT_DIR$/app/view/grid/PropertypeGrid.js" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanel.js" />
-        <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
         <option value="$PROJECT_DIR$/app/view/tab/FramedTabs.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/app/view/window/UploadWindow.js" />
         <option value="$PROJECT_DIR$/resources/xmlRW.php" />
         <option value="$PROJECT_DIR$/app/model/mymodel.js" />
         <option value="$PROJECT_DIR$/app.json" />
-        <option value="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
         <option value="$PROJECT_DIR$/app/view/window/SynchrnousWindow.js" />
         <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js" />
         <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js" />
         <option value="$PROJECT_DIR$/app/view/main/Main.js" />
+        <option value="$PROJECT_DIR$/resources/test1.php" />
+        <option value="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
+        <option value="$PROJECT_DIR$/app/view/main/MainModel.js" />
+        <option value="$PROJECT_DIR$/app/view/grid/LogicGridPanel.js" />
+        <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
+        <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
+        <option value="$PROJECT_DIR$/1000" />
+        <option value="$PROJECT_DIR$/1000.json" />
+        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
       </list>
     </option>
   </component>
@@ -124,8 +164,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1096" />
+    <option name="height" value="1896" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -370,6 +410,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grid" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="store" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -405,7 +467,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../project1/project" />
-    <property name="SearchEverywhereHistoryKey" value="Publish Ok&#9;null&#9;null&#10;gridCon&#9;null&#9;null&#10;localS&#9;null&#9;null&#10;menu&#9;FILE&#9;file://E:/WWW/svgxml/app/view/grid/menu/gridmenu.js&#10;Icons&#9;null&#9;null&#10;ImgView&#9;FILE&#9;file://E:/WWW/svgxml/app/view/view/ImgViewController.js" />
+    <property name="SearchEverywhereHistoryKey" value="getCurrent&#9;null&#9;null&#10;Publish Ok&#9;null&#9;null&#10;gridCon&#9;null&#9;null&#10;localS&#9;null&#9;null&#10;menu&#9;FILE&#9;file://E:/WWW/svgxml/app/view/grid/menu/gridmenu.js&#10;Icons&#9;null&#9;null&#10;ImgView&#9;FILE&#9;file://E:/WWW/svgxml/app/view/view/ImgViewController.js" />
     <property name="recentsLimit" value="5" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
@@ -500,26 +562,26 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1096" height="1896" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24524158" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22685185" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256855" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24814126" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284055" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -543,41 +605,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33313712">
-          <caret line="36" column="30" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.043230943">
-          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGridModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -585,66 +612,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGridController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGrid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33313712">
-          <caret line="34" column="40" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanelModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanelController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16211604">
-          <caret line="15" column="9" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenuModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-34.457626">
-          <caret line="107" column="21" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/MainModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.12969284">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35551763">
-          <caret line="343" column="26" selection-start-line="343" selection-start-column="24" selection-end-line="343" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -666,13 +637,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05403868">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19453925">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -701,13 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12969284">
           <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/BasicController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3930603">
-          <caret line="198" column="8" selection-start-line="198" selection-start-column="6" selection-end-line="198" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -757,13 +714,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7121729">
-          <caret line="495" column="36" selection-start-line="495" selection-start-column="36" selection-end-line="495" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -830,31 +780,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.010807736">
-          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.778157">
           <caret line="174" column="9" selection-start-line="174" selection-start-column="9" selection-end-line="174" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTree.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33313712">
-          <caret line="66" column="32" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -879,31 +808,173 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4669967">
+          <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32992035">
+          <caret line="289" column="33" selection-start-line="289" selection-start-column="33" selection-end-line="289" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19453925">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/test1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06484642">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/BasicController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.97838455">
+          <caret line="198" column="8" selection-start-line="198" selection-start-column="6" selection-end-line="198" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4215017">
+          <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1564277">
+          <caret line="107" column="21" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanelModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGridController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35551763">
+          <caret line="427" column="49" selection-start-line="427" selection-start-column="48" selection-end-line="427" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanelController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41638225">
+          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/MainModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.109476164">
+          <caret line="247" column="0" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGrid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.45904437">
+          <caret line="208" column="12" selection-start-line="208" selection-start-column="12" selection-end-line="208" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.043230943">
+          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="320" column="67" selection-start-line="320" selection-start-column="67" selection-end-line="320" selection-end-column="67" />
+          <caret line="38" column="55" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
           <folding>
             <element signature="e#9566#10072#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+    <entry file="file://$PROJECT_DIR$/ext/src/window/MessageBox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4669967">
-          <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
-          <folding>
-            <marker date="1464570957720" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1464570957720" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="125" column="4" selection-start-line="125" selection-start-column="4" selection-end-line="125" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js">
+    <entry file="file://$PROJECT_DIR$/1000.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.069307">
-          <caret line="276" column="48" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="74" selection-start-line="0" selection-start-column="74" selection-end-line="0" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="250" column="21" selection-start-line="250" selection-start-column="21" selection-end-line="250" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="771" column="9" selection-start-line="771" selection-start-column="9" selection-end-line="771" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67918086">
+          <caret line="261" column="49" selection-start-line="261" selection-start-column="49" selection-end-line="261" selection-end-column="49" />
           <folding />
         </state>
       </provider>

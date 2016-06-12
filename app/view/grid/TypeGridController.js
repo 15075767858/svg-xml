@@ -14,22 +14,22 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             return;
         }
 
-        var gridWidth=90;
+        var gridWidth = 90;
         th.getHeader().on({
             click: function () {
                 console.log(this.getWidth() == gridWidth)
-                var curGridWidth=this.getWidth();
-                var setWidth ;
-                    if(th.title.length * 13>130){
-                        setWidth=th.title.length*13
-                    }else{
-                        setWidth=130
-                    }
+                var curGridWidth = this.getWidth();
+                var setWidth;
+                if (th.title.length * 13 > 130) {
+                    setWidth = th.title.length * 13
+                } else {
+                    setWidth = 130
+                }
                 if (this.getWidth() == gridWidth) {
                     th.animate({
                         to: {
                             //width: (th.title.length * 13 < gridWidth ) ? gridWidth : th.title.length * 13
-                            width: (curGridWidth < setWidth ) ?  setWidth:gridWidth
+                            width: (curGridWidth < setWidth ) ? setWidth : gridWidth
                             //height: (th.getHeight() == 300) ? 400 : 300,
                         }
                     });
@@ -63,7 +63,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     {'name': 'P', 'value': "15"},
                     {'name': 'I', 'value': "0.1"},
                     {'name': 'D', 'value': "0.01"},
-                    {'name':'Extime','value':"40"},
+                    {'name': 'Extime', 'value': "40"},
                     {'name': 'Max', 'value': "100"},
                     {'name': 'Min', 'value': "0"}
                 ]
@@ -132,7 +132,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                         }, {
                             xtype: "button",
                             text: "-", handler: function () {
-                                if (store.data.length <= 3) {
+                                if (store.data.length <= 2) {
                                     Ext.Msg.alert('Info', 'Cannot delete slot.');
                                     return
                                 }
@@ -162,7 +162,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             text: "-", handler: function () {
                                 var grid = win.down("grid");
                                 var columns = grid.getColumns();
-                                for (var i = columns.length - 1; i >= 5; i--) {
+                                for (var i = columns.length - 1; i >= 4; i--) {
                                     if (!columns[i].hidden) {
                                         columns[i].hide()
                                         joinRow0(grid)
@@ -248,8 +248,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
 
     girdmove: function (t, x, y, eOpts) {
-        console.log(t.datas)
+        if(!t.isAni){
         drawlines(t.up("drawpanel"))
+        }
         //console.log(t.data.x)
         //console.log(t.data.y)
         if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
@@ -257,6 +258,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
             t.setPagePosition(t.data.x, t.data.y, true)
         }
+
     }
     ,
     render: function (th) {
@@ -418,6 +420,7 @@ function currentDrawPanelGridPanelsTrSetId() {
     var aGridPanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < aGridPanels.length; i++) {
         var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
+
         for (var j = 0; j < aRowsAll.length; j++) {
             //console.log("1"+aRowsAll[j].id+"1")
             //console.log(aRowsAll[j].length)
@@ -428,6 +431,45 @@ function currentDrawPanelGridPanelsTrSetId() {
                 aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
             }
         }
+    }
+}
+function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
+    var drawpanel = getCurrentDrawPanel()
+    var datasArray= drawpanel.datas.datasArray
+    console.log(datasArray);
+    var newDatasArray=[]
+    for(var i=0;i<datasArray.length;i++){
+        var ojson = {};
+        for(okey in datasArray[i]){
+            var skey = idAddNumber(okey,randomnumber)
+            console.log(okey)
+            var svalue = idAddNumber(datasArray[i][okey],randomnumber)
+            ojson[skey]=svalue
+            console.log(ojson)
+        }
+        newDatasArray.push(ojson)
+        newDatasArray.push(datasArray[i])
+    }
+    for (var i = 0; i < aGridPanels.length; i++) {
+        console.log(aGridPanels[i])
+        var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
+        var aCloneRowsAll = aGridPanels[i].cloneGridpanel.el.dom.querySelectorAll("tr");
+        for (var j = 0; j < aRowsAll.length; j++) {
+            var sid = aCloneRowsAll[j].id;
+
+            if (sid) {
+                //console.log(sid)
+                //console.log(randomnumber)
+                //console.log("t"+(parseInt(sid.substr(1,sid.length))+randomnumber))
+                aRowsAll[j].id=idAddNumber(sid,randomnumber)
+                //aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
+            }
+        }
+    }
+    drawpanel.datas.datasArray=newDatasArray;
+    console.log(drawpanel.datas.datasArray);
+    function idAddNumber(sid,randomnumber){
+        return "t"+(parseInt(sid.substr(1,sid.length))+randomnumber);
     }
 }
 
@@ -468,16 +510,16 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     sStartItemTrId = item.querySelector("tr").id;
     console.log(arguments)
 
-    var drawpanelScrollTop=thi.el.dom.querySelector("div").scrollTop
-    var drawpanelScrollLeft=thi.el.dom.querySelector("div").scrollLeft
+    var drawpanelScrollTop = thi.el.dom.querySelector("div").scrollTop
+    var drawpanelScrollLeft = thi.el.dom.querySelector("div").scrollLeft
     var oDrawPanel = d3.select(thi.el.dom).select(".x-autocontainer-innerCt");
     var oSvg = oDrawPanel.select(".tempSVG" + thi.id);
     iDrawPanelLeft = thi.el.getLeft();
     iDrawPanelTop = thi.el.getTop();
 
     var eItem = Ext.get(item);
-    var eItemWidth = eItem.getLeft() - iDrawPanelLeft + eItem.getWidth()+drawpanelScrollLeft;
-    var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2 +drawpanelScrollTop;
+    var eItemWidth = eItem.getLeft() - iDrawPanelLeft + eItem.getWidth() + drawpanelScrollLeft;
+    var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2 + drawpanelScrollTop;
 
     //var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
 
@@ -505,7 +547,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         return aRowsAll;
     }
 
-    console.log(aRowsAll)
+//    console.log(aRowsAll)
 
     d3.select("#tempLineStart").remove();
 
@@ -517,8 +559,8 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
-            var left =drawpanelScrollLeft+ Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
-            var top =drawpanelScrollTop+  Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
+            var left = drawpanelScrollLeft + Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
+            var top = drawpanelScrollTop + Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
 
             var columnid = d3.select(aRowsAll[i]).attr("id");
             var tempLineEnd;
@@ -540,8 +582,8 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         }
 
         document.onmousemove = function (e) {
-            _this.attr("cx",drawpanelScrollLeft+ e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
-            _this.attr("cy",drawpanelScrollTop+ e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
+            _this.attr("cx", drawpanelScrollLeft + e.clientX - iDrawPanelLeft - parseInt(tempLineEnd.attr("width") / 2));
+            _this.attr("cy", drawpanelScrollTop + e.clientY - iDrawPanelTop - parseInt(tempLineEnd.attr("height") / 2));
             //console.log(document.onmousemove)
             drawTempline();
         };

@@ -44,6 +44,8 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
             sortable: false,
             menuDisabled: true,
             header: "configure",
+            width: 100,
+            minWidth: 100,
             columns: [{
                 sortable: false,
                 menuDisabled: true,
@@ -64,7 +66,7 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
                 {
                     sortable: false,
                     menuDisabled: true,
-                    dataIndex: "time1", width: 45, minWidth: 45, align: "center", editor: {
+                    dataIndex: "time1", width: 45, minWidth: 45, align: "center",hidden:true, editor: {
                     xtype: "spinnerfield",
                     value: 0,
                     onSpinUp: function () {
@@ -230,6 +232,7 @@ function joinRow0(th) {
             aTds[i].style.width = iWidth + "px";
             aTds[i].style.minWidth = iWidth + "px";
             aTds[i].style.maxWidth = iWidth + "px";
+            aTds[i].childNodes[0].style.textAlign="right";
         }
     }
 }

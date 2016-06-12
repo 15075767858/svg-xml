@@ -53,12 +53,17 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //width: "100%",
             listeners: {
                 itemmouseup: function (th, record, item, index, e, eOpts) {
+
                     th.el.dom.oncontextmenu = function (eve) {
                         return false;
                     }
-                    
+
                     e.stopEvent();
+                    var drawpanel = getCurrentDrawPanel()
                     if (e.button == 2) {
+                        ogridpanle.config.listeners.itemclick.call(ogridpanle,th, record, item, index, e, eOpts)
+
+
                         Ext.create("Ext.menu.Menu", {
                                 //floating: true,
                                 autoShow: true,
@@ -69,11 +74,9 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                         text: "copy...",
                                         //disabled: true
                                         handler: function () {
+                                            ogridpanle.copyGridPanels = [];
                                             var plant = getCurrentDrawPanelPlantByIndex(index);
                                             var gridPanels = getCurrentPlantGridPanles(plant)
-
-
-                                            var drawpanel = getCurrentDrawPanel();
                                             for (var i = 0; i < gridPanels.length; i++) {
                                                 var config = gridPanels[i].config;
                                                 var datas = gridPanels[i].datas;
@@ -87,12 +90,24 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                                 var typegrid = Ext.create("svgxml.view.grid.TypeGrid", {
                                                     title: config.title,
                                                     store: ostore,
-                                                    x: gridPanels[i].x + 10,
-                                                    y: gridPanels[i].y + 10,
+                                                    x: Ext.getBody().getWidth() / 2,
+                                                    y: Ext.getBody().getHeight() / 2,
+                                                    x1: gridPanels[i].x,
+                                                    y1: gridPanels[i].y,
+                                                    isAni: true,
                                                     icon: config.icon,
+                                                    cloneGridpanel: gridPanels[i],
                                                     listeners: {
                                                         add: function () {
                                                             setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                                                        },
+                                                        boxready: function () {
+                                                            var me=this;
+                                                            me.setPosition(this.x1, this.y1, true);
+                                                            setTimeout(function(){
+                                                                delete me.isAni;
+                                                                drawlines(drawpanel)
+                                                            },3000)
                                                         },
                                                         render: function (thi) {
                                                             thi.datas = {
@@ -106,14 +121,44 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                                         }
                                                     }
                                                 })
-                                                drawpanel.add(typegrid)
+                                                //drawpanel.add(typegrid)
+                                                ogridpanle.copyGridPanels.push(typegrid)
                                             }
 
                                         }
                                     },
                                     {
                                         text: "paste...",
-                                        disabled: true
+                                        listeners: {
+                                            boxready: function () {
+                                                if (ogridpanle.copyGridPanels) {
+                                                    this.setDisabled(false);
+                                                } else {
+                                                    this.setDisabled(true);
+                                                }
+                                            }
+                                        },
+                                        handler: function () {
+                                            var plant = getCurrentDrawPanelPlantByIndex(index);
+                                            console.log(plant)
+                                            var randomNumber = Math.floor(Math.random() * 100000);
+
+                                            var drawpanel = getCurrentDrawPanel();
+                                            var gridpanels = ogridpanle.copyGridPanels;
+                                            for (var i = 0; i < gridpanels.length; i++) {
+                                                console.log(gridpanels[i])
+                                                drawpanel.add(ogridpanle.copyGridPanels[i]);
+                                                gridpanels[i].datas.plantId = plant.id;
+                                                if (plant.id == getCurrentPlant().id) {
+                                                    gridpanels[i].show();
+                                                } else {
+                                                    gridpanels[i].hide();
+                                                }
+                                            }
+                                            gridPanelsTrIdAddRandom(gridpanels, randomNumber);
+
+                                            ogridpanle.copyGridPanels = false;
+                                        }
                                     }
                                 ]
                             }
@@ -190,21 +235,41 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                         tooltip: 'Delete Plant',
                         scope: this,
                         handler: function (grid, rowIndex) {
-                            try {
+
                                 var plant = getCurrentDrawPanelPlantByIndex(rowIndex);
                                 var aGirdPanels = getCurrentDrawPanelGirdPanels();
-                                for (var i = 0; aGirdPanels; i++) {
+                            console.log(aGirdPanels)
+                                for (var i = 0; aGirdPanels.length; i++) {
+                                    console.log(aGirdPanels[i])
                                     if (aGirdPanels[i].datas.plantId == plant.id) {
-                                        Ext.Msg.alert('Exception', 'This plant not null,Can node delete.');
-                                        return;
+                                        Ext.Msg.show({
+                                            title:'Massage',
+                                            message: 'Warning ! Current plant is not null . Would you remove this plant ? ',
+                                            buttons: Ext.Msg.YESNO,
+                                            icon: Ext.Msg.WARNING,
+                                            fn: function(btn) {
+                                                if (btn === 'yes') {
+                                                    delCurrentDrawPanelPlant(rowIndex);
+                                                    var data = getCurrentDrawPanel().datas.data;
+                                                    data.splice(rowIndex, 1);
+                                                    grid.store.setData(data);
+                                                    for(var j=0;j<aGirdPanels.length;j++){
+                                                        if(aGirdPanels[j].datas.plantId == plant.id){
+                                                            aGirdPanels[j].close();
+                                                        }else{
+                                                            aGirdPanels[j].hide()
+                                                        }
+                                                    }
+                                                    delayToast("Massage","Remove current plant successfully .")
+                                                } else if (btn === 'no') {
+
+                                                }
+                                            }
+                                        });
+                                        break;
                                     }
                                 }
-                            } catch (e) {
-                                delCurrentDrawPanelPlant(rowIndex);
-                                var data = getCurrentDrawPanel().datas.data;
-                                data.splice(rowIndex, 1);
-                                grid.store.setData(data);
-                            }
+
 
                         }
                     }]
@@ -272,6 +337,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                 },
                 collapse: function (th, eOpts) {
                     th.setPagePosition(0, 0, true)
+
                     console.log(arguments)
                 }
             }

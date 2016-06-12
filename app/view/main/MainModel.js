@@ -276,7 +276,7 @@ var slotsJson = {
                 time8: "0",
                 time9: "0"
             }
-            arr[2] = {
+           /* arr[2] = {
                 'name': 'In',
                 delay: "0",
                 'value': "0",
@@ -305,7 +305,7 @@ var slotsJson = {
                 time7: "0",
                 time8: "0",
                 time9: "0"
-            }
+            }*/
             return arr;
         },
         isAddSlot: true,

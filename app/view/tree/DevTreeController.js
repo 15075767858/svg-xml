@@ -881,45 +881,53 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             myAjax("resources/test1.php?par=getvalue&nodename=" + sDevNodeName + "&type=Effective_Period", function (response) {
                                 var text = response.responseText.trim();
                                 var oJson = Ext.decode(text)
-                                try {
-                                    if (oJson.dateRange['after']) {
-                                        Ext.getCmp("Effective_Period_radio1").setValue(true)
-                                        var cAfter = Ext.getCmp("ScheduleConfig_after");
-                                        //var cFront = Ext.getCmp("ScheduleConfig_front");
-                                        var syear = oJson.dateRange['after']["year"];
-                                        var smon = oJson.dateRange['after']["month"];
-                                        var sday = oJson.dateRange['after']["day_of_month"];
-                                        cAfter.setValue(new Date(syear, smon - 1, sday));
-                                    }
-                                } catch (e) {
+                                var dateType = "";
+                                var startYear = oJson.dateRange['startDate']["year"];
+                                var endYear = oJson.dateRange['endDate']["year"];
+                                if (startYear != 255 & endYear != 255) {
+                                    dateType = "from";
+                                } else if (startYear != 255 & endYear == 255) {
+                                    dateType = "after";
+                                } else if (startYear == 255 & endYear != 255) {
+                                    dateType = "front";
+                                }else{
+                                    Ext.Msg.alert('Massage', ' "invalid date , This attribute is initialized, ok .');
+                                    return ;
                                 }
-                                try {
-                                    if (oJson.dateRange['front']) {
-                                        Ext.getCmp("Effective_Period_radio2").setValue(true)
-                                        var cFront = Ext.getCmp("ScheduleConfig_front");
-                                        var syear = oJson.dateRange['front']["year"];
-                                        var smon = oJson.dateRange['front']["month"];
-                                        var sday = oJson.dateRange['front']["day_of_month"];
-                                        cFront.setValue(new Date(syear, smon - 1, sday));
-                                    }
-                                } catch (e) {
-                                }
-                                try {
-                                    if (oJson.dateRange['startDate']) {
-                                        var cFormstart = Ext.getCmp("ScheduleConfig_fromstart");
-                                        var cFormend = Ext.getCmp("ScheduleConfig_fromend");
-                                        var syear = oJson.dateRange['startDate']["year"];
-                                        var smon = oJson.dateRange['startDate']["month"];
-                                        var sday = oJson.dateRange['startDate']["day_of_month"];
-                                        var eyear = oJson.dateRange['endDate']["year"];
-                                        var emon = oJson.dateRange['endDate']["month"];
-                                        var eday = oJson.dateRange['endDate']["day_of_month"];
+                                console.log(oJson.dateRange['startDate']["year"])
+                                console.log(oJson.dateRange['endDate']["year"])
 
-                                        cFormstart.setValue(new Date(syear, smon - 1, sday));
-                                        cFormend.setValue(new Date(eyear, emon - 1, eday));
-                                        Ext.getCmp("Effective_Period_radio3").setValue(true)
-                                    }
-                                } catch (e) {
+                                if (dateType=='after') {
+                                    Ext.getCmp("Effective_Period_radio1").setValue(true)
+                                    var cAfter = Ext.getCmp("ScheduleConfig_after");
+                                    //var cFront = Ext.getCmp("ScheduleConfig_front");
+                                    console.log(oJson)
+                                    var syear = oJson.dateRange['startDate']["year"];
+                                    var smon = oJson.dateRange['startDate']["month"];
+                                    var sday = oJson.dateRange['startDate']["day_of_month"];
+                                    cAfter.setValue(new Date(syear, smon - 1, sday));
+                                }
+                                if (dateType=='front') {
+                                    Ext.getCmp("Effective_Period_radio2").setValue(true)
+                                    var cFront = Ext.getCmp("ScheduleConfig_front");
+                                    var syear = oJson.dateRange['endDate']["year"];
+                                    var smon = oJson.dateRange['endDate']["month"];
+                                    var sday = oJson.dateRange['endDate']["day_of_month"];
+                                    cFront.setValue(new Date(syear, smon - 1, sday));
+                                }
+                                if (dateType=='from') {
+                                    var cFormstart = Ext.getCmp("ScheduleConfig_fromstart");
+                                    var cFormend = Ext.getCmp("ScheduleConfig_fromend");
+                                    var syear = oJson.dateRange['startDate']["year"];
+                                    var smon = oJson.dateRange['startDate']["month"];
+                                    var sday = oJson.dateRange['startDate']["day_of_month"];
+                                    var eyear = oJson.dateRange['endDate']["year"];
+                                    var emon = oJson.dateRange['endDate']["month"];
+                                    var eday = oJson.dateRange['endDate']["day_of_month"];
+
+                                    cFormstart.setValue(new Date(syear, smon - 1, sday));
+                                    cFormend.setValue(new Date(eyear, emon - 1, eday));
+                                    Ext.getCmp("Effective_Period_radio3").setValue(true)
                                 }
                             })
 
@@ -1071,8 +1079,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
 
                                                             devPublish(sDevName + ".8.*", sDevNodeName + "\r\nList_Of_Object_Property_References\r\n" + (Ext.encode(oJson).replaceAll("\\s*|\t|\r|\n", "")));
-                                                        }else{
-                                                            myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2",function(response){
+                                                        } else {
+                                                            myAjax("resources/test1.php?par=changevaluenopublish&nodename=" + sDevNodeName + "&type=Position&value=2", function (response) {
                                                                 delayToast("Massage", "Change Position Ok .", 1000)
                                                             })
                                                         }
@@ -1221,7 +1229,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         }, {
                             text: "exception"
                         }, {
-                            text: "Synchronous",handler:function(){
+                            text: "Synchronous", handler: function () {
                                 Ext.create('svgxml.view.window.SynchrnousWindow', {
                                     sDevNodeName: sDevNodeName,
                                     sDevName: sDevName
@@ -1230,7 +1238,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             listeners: {
                                 boxready: function (menu) {
 
-                                    if (sDevName.substr(2,2) != "00") {
+                                    if (sDevName.substr(2, 2) != "00") {
                                         menu.hide()
                                     }
                                 }

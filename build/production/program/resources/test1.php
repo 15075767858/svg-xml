@@ -21,6 +21,7 @@ if($par=="filePublish"){
 		echo $pv;
 	}
 }
+
 if($par=="devPublish"){
 	$key=$_GET["key"];
 	$value=$_GET["value"];
@@ -95,7 +96,7 @@ if($par=="ScheduleConfig"){
 	
 	if(isset($_GET["after"])){
 		$after=$_GET["after"];
-		$value = trimall('{"dateRange":	{"after":{'.dateToJson($after).'}}}');
+		$value = trimall('{"dateRange":	{"startDate":{'.dateToJson($after).'},"endDate":{"year":255,"month":255,"day_of_month":255,"day_of_week":255}}}');
 		echo $value;
 		if($redis->hGet($nodeName,"Effective_Period")!=$value){
 			$redis->hSet($nodeName,"Effective_Period",$value);
@@ -103,13 +104,11 @@ if($par=="ScheduleConfig"){
 				$redis->publish(substr($nodeName,0,4).".8.*",$nodeName."\r\n"."Effective_Period"."\r\n".$value);
 			}
 		}
-		//dateToJson("after");
-
 	}
+
 	if(isset($_GET["front"])){
 		$front=$_GET["front"];
-
-		$value = trimall('{"dateRange":	{"front":{'.dateToJson($front).'}}}');
+		$value = trimall('{"dateRange":	{"startDate":{"year":255,"month":255,"day_of_month":255,"day_of_week":255},"endDate":{'.dateToJson($front).'}}}');
 		echo $value;
 		if($redis->hGet($nodeName,"Effective_Period")!=$value){
 			$redis->hSet($nodeName,"Effective_Period",$value);
@@ -324,7 +323,11 @@ if($par=="dev"){
 if($par=="updateapp"){
 	move_uploaded_file($_FILES["file"]["tmp_name"],$_FILES["file"]["name"]);
 }
+
 function dateToJson($riqi){
+	echo "<br>";
+	echo $riqi;
+	echo "<br>";
 	$riqiarr=explode("-",$riqi);
 	$ri = current($riqiarr);
 	$yue = next($riqiarr);
@@ -336,6 +339,7 @@ function dateToJson($riqi){
 	"day_of_week":	'.$zhou;
 	return $jsstr;
 }
+
 if($par=="uploadfiles"){
 
 	echo move_uploaded_file($_FILES["file"]["tmp_name"],"devsinfo/".$_FILES["file"]["name"]);
