@@ -111,10 +111,10 @@ Ext.onReady(function () {
         })
 
     }, 5000)*/
-  /*  Ext.create('svgxml.view.window.DrawWeeksWindow', {
+    Ext.create('svgxml.view.window.AlarmWindow', {
         sDevNodeName: "2000601",
         sDevName: "2000",
-    })*/
+    })
 
 }, 5000)
 
