@@ -116,7 +116,7 @@ Ext.onReady(function () {
         sDevName: "2000",
     })
 
-}, 5000)
+}, 3000)
 
 })
 
