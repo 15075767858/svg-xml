@@ -3,7 +3,8 @@ Ext.define("svgxml.view.window.AlarmWindow", {
 
     requires: [
         "svgxml.view.window.AlarmWindowController",
-        "svgxml.view.window.AlarmWindowModel"
+        "svgxml.view.window.AlarmWindowModel",
+        'svgxml.model.Alerm'
     ],
 
     controller: "window-alarmwindow",
@@ -15,12 +16,16 @@ Ext.define("svgxml.view.window.AlarmWindow", {
     height: 600,
     layout: 'auto',
     resizable: false,
+    constrainHeader: true,
+
+    listeners:{
+        boxready:"formBoxReady"
+    },
     initComponent: function () {
         var me = this;
         me.title = me.sDevNodeName + " Alarm Property";
 
         var meForm = Ext.create('Ext.form.Panel', {
-
 
             items: {
                 xtype: "container",
@@ -45,7 +50,7 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                 },
                                 items: [{
                                     xtype: "textfield",
-                                    name: "height_limit",
+                                    name: "high_limit",
                                     fieldLabel: "Height Limit",
                                     bind: "{high_limit}"
                                 }, {
@@ -122,16 +127,12 @@ Ext.define("svgxml.view.window.AlarmWindow", {
 
                                 items: [
                                     {
-                                        //reference:"checked1",
+                                        reference:"checked1",
                                         fieldLabel: 'Enable Limit',
                                         boxLabel: 'Enable Height Limit',
-                                        bind: "{ck1}",
-                                        handler: function () {
-                                            console.log(me.getViewModel());
-                                            console.log(this.getViewModel())
-                                        }
+                                        bind: "{ck1}"
                                     }, {
-                                        //reference:"checked2",
+                                        reference:"checked2",
                                         boxLabel: 'Enable Low Limit',
                                         bind: "{ck2}",
                                     },
@@ -141,22 +142,22 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                         bind: '{limit}'
                                     },
                                     {
-                                        //reference:"checked3",
+                                        reference:"checked3",
                                         fieldLabel: 'Event Enable',
                                         boxLabel: 'ENABLE_TO_NORMAL',
                                         bind:'{ck3}',
                                     }, {
-                                        //reference:"checked4",
+                                        reference:"checked4",
                                         boxLabel: 'ENABLE_TO_OFFNORMAL',
-                                        bind:'{ck4}',
+                                        bind:'{ck4}'
                                     }, {
-                                        //reference:"checked5",
+                                        reference:"checked5",
                                         boxLabel: 'ENABLE_TO_FAULT',
-                                        bind:'{ck5}',
+                                        bind:'{ck5}'
                                     }, {
                                         xtype: "hiddenfield",
                                         name: "event_enable",
-                                        bind:'{event_enable}',
+                                        bind:'{event_enable}'
                                     }
                                 ]
                             }
@@ -165,19 +166,31 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                 ]
             }
         });
-
         me.items = meForm;
         me.buttons = [
             {
                 text: "Ok", handler: function () {
-                meForm.submit({
-                    url: "aaa.php",
-                    method:"post"
-                });
+                if (meForm.isValid()) {
+                    meForm.submit({
+                        url: "resources/test1.php?par=addAlarm&nodename="+me.sDevNodeName,
+                        method: "post",
+                        failure: function (form, action) {
+                            devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nAlarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""));
+                            me.close()
+
+                        },
+                        success: function (form, action) {
+                            devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nAlarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""));
+                            me.close()
+
+                        },
+
+                    });
+                }
             }
             }, {
                 text: "Cancel", handler: function () {
-
+                    me.close()
                 }
             }
         ];

@@ -282,6 +282,30 @@
         "modelNamespace": "program.model",
         "name": "mymodel"
       }
+    },
+    "app/model/svgxml/data/Alerm.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "program",
+        "baseClass": "Ext.data.Model",
+        "fields": "aa:string:null",
+        "modelFileName": "svgxml/data/Alerm",
+        "modelNamespace": "program.model",
+        "name": "svgxml.data.Alerm"
+      }
+    },
+    "app/model/Alerm.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "program",
+        "baseClass": "Ext.data.Model",
+        "fields": "aa:string:null",
+        "modelFileName": "Alerm",
+        "modelNamespace": "program.model",
+        "name": "Alerm"
+      }
     }
   }
 }

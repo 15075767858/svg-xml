@@ -101,7 +101,7 @@ function myAjax(url, success) {
 }
 
 
-
+var testwin=null
 Ext.onReady(function () {
     setTimeout(function () {
 
@@ -111,10 +111,11 @@ Ext.onReady(function () {
         })
 
     }, 5000)*/
-    Ext.create('svgxml.view.window.AlarmWindow', {
+    /*testwin=Ext.create('svgxml.view.window.AlarmWindow', {
         sDevNodeName: "2000601",
         sDevName: "2000",
-    })
+    })*/
+
 
 }, 3000)
 

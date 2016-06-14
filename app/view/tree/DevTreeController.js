@@ -547,13 +547,13 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     {
                                         text: 'Ok', handler: function () {
                                         var text = win.down("numberfield").getValue();
-                                        if (text == null) {
+                                        if ( !win.down("numberfield").isValid()) {
                                             Ext.Msg.alert('Info', 'Plase select file name.');
                                             return;
                                         }
-                                        win.close();
                                         var devName = record.data.text;
                                         devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n" + text);
+                                        win.close();
                                     }
                                     },
                                     {
@@ -1366,9 +1366,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                     }
                     },
                     {
-                        text: "delete"
-                        // disable:true
+                        text: "delete",
+                        //disable:true
+                    },
+                    {
+                        text:"SetAlarm",
+                        handler:function(){
+                            Ext.create('svgxml.view.window.AlarmWindow', {
+                                sDevNodeName: sDevNodeName,
+                                sDevName: sDevName,
+                            })
+                        },
+                        listeners:{
+                            boxready:function(){
+                                var me=this;
+                                //AIAOAV
+                                var text = record.parentNode.data.text
+                                if(text!="AI"&text!="AO"&text!="AV"){
+                                    me.hide()
+                                }
+                            }
+                        }
+
                     }
+
                 ]
             })
         }

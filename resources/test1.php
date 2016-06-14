@@ -47,6 +47,34 @@ if($par=="clear"){
 	echo $redis->delete($arList);
 }
 
+if($par=="getAlarm"){
+$nodeName = $_GET["nodename"];
+$type="Alarm";
+echo $redis->hGet($nodeName,$type);
+}
+if($par=="addAlarm"){
+$nodeName = $_GET["nodename"];
+$high_limit=$_POST["high_limit"];
+    $low_limit=$_POST["low_limit"];
+    $delay_time=$_POST["delay_time"];
+    $deadband=$_POST["deadband"];
+    $notification_class=$_POST["notification_class"];
+    $limit=$_POST["limit"];
+    $event_enable=$_POST["event_enable"];
+$type="Alarm";
+$value= "{\"Set_Alarm\":[{".
+"\"high_limit\":".$high_limit.",".
+"\"low_limit\":".$low_limit.",".
+"\"delay_time\":".$delay_time.",".
+"\"deadband\":".$deadband.",".
+"\"notification_class\":".$notification_class.",".
+"\"limit\":".$limit.",".
+"\"event_enable\":".$event_enable."}]}";
+$redis->hSet($nodeName,$type,$value);
+echo $value;
+
+}
+
 if($par=="getAllScheduleNamesOuter"){
 	$devname=$_GET['devname'];
 	$schduleType=array("601","602","603","604","605","606","607","608","609","610");
