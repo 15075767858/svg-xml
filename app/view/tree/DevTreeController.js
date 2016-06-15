@@ -1366,7 +1366,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                     }
                     },
                     {
-                        text: "delete",
+                        text: "delete"
                         //disable:true
                     },
                     {
@@ -1374,7 +1374,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         handler:function(){
                             Ext.create('svgxml.view.window.AlarmWindow', {
                                 sDevNodeName: sDevNodeName,
-                                sDevName: sDevName,
+                                sDevNodeType: record.parentNode.data.text
                             })
                         },
                         listeners:{
@@ -1383,7 +1383,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 //AIAOAV
                                 var text = record.parentNode.data.text
                                 if(text!="AI"&text!="AO"&text!="AV"){
-                                    me.hide()
+                                    //me.hide()
                                 }
                             }
                         }

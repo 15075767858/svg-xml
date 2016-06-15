@@ -8,8 +8,7 @@ Ext.define('svgxml.view.window.AlarmWindowModel', {
         "deadband": 0,
         "notification_class": 1,
         "limit": 0,
-        "event_enable": 0,
-
+        "event_enable": 0
     },
     getLimitValue: function (checked1, checked2) {
         var num = 0;
@@ -35,9 +34,8 @@ Ext.define('svgxml.view.window.AlarmWindowModel', {
         this.set('event_enable', num)
     },
     formulas: {
+
         ck1: {
-
-
             get: function (get) {
                 var limit = get('limit')
                 if (parseInt(limit) >= 10)
@@ -84,7 +82,7 @@ Ext.define('svgxml.view.window.AlarmWindowModel', {
             get: function (get) {
                 var event = get('event_enable') + ""
                 console.log("getck4  " + event.substr(1, 1))
-                if (parseInt(event)&10)
+                if (parseInt(event) & 10)
                     return true;
                 return false;
             },

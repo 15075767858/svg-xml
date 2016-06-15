@@ -111,12 +111,11 @@ Ext.onReady(function () {
         })
 
     }, 5000)*/
-    /*testwin=Ext.create('svgxml.view.window.AlarmWindow', {
+    testwin=Ext.create('svgxml.view.window.AlarmWindow', {
         sDevNodeName: "2000601",
         sDevName: "2000",
-    })*/
-
-
+        sDevNodeType:"AI"
+    })
 }, 3000)
 
 })

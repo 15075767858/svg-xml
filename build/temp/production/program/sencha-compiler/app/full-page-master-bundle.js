@@ -1,2 +1,2 @@
 // @tag full-page
-// @require E:\WWW\svgxml\app.js
+// @require /Library/WebServer/Documents/svg-xml/app.js

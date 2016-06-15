@@ -15,11 +15,6 @@ Ext.define('svgxml.view.window.AlarmWindowController', {
                 },500);
                 return ;
             }
-
         })
-
-
     }
-
-
 });

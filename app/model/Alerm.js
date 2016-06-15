@@ -7,7 +7,8 @@ Ext.define('svgxml.model.Alerm', {
         {name: 'delay_time', type: 'string'},
         {name: 'deadband', type: 'string'},
         {name: 'notification_class', type: 'string'},
-        {name: 'limit', type: 'number'},
-        {name: 'event_enable', type: 'number'}
+        {name: 'limit', type: 'int'},
+        {name: 'event_enable', type: 'int'},
+        {name:"event_type",type:"int"}
     ]
 });

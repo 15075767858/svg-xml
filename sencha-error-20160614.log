@@ -1,0 +1,135 @@
+Sencha Cmd 6.0.2.14 - Crash report
+================================================
+An error occurred while executing the following command: -h
+
+Diagnostic information:
+=======================
+                         app.archivePath : archive                                           
+                      app.bootstrap.base : /Library/WebServer/Documents/svg-xml              
+                       app.bootstrap.css : bootstrap.css                                     
+                  app.bootstrap.manifest : bootstrap.json                                    
+               app.bootstrap.microloader : bootstrap.js                                      
+                           app.classpath : /Library/WebServer/Documents/svg-xml/app          
+                         app.cmd.version : 5.1.3.61                                          
+                          app.config.dir : /Library/WebServer/Documents/svg-xml/.sencha/app  
+                   app.cordova.config.id : com.domain.program                                
+                 app.cordova.config.name : program                                           
+                 app.cordova.config.path : /Library/WebServer/Documents/svg-xml/cordova      
+               app.cordova.config.target :                                                   
+              app.cordova.config.verbose : false                                             
+                   app.cordova.js.0.path : cordova.js                                        
+               app.cordova.js.0.priority : 1000                                              
+                 app.cordova.js.0.remote : true                                              
+                   app.cordova.js.length : 1                                                 
+                 app.cordova.microloader : /Library/WebServer/Documents/svg-xml/.sencha/app/Microloader.js
+                 app.cordova.output.base : /Library/WebServer/Documents/svg-xml/cordova/www  
+         app.cordova.output.cache.enable : false                                             
+        app.cordova.output.deltas.enable : false                                             
+                                 app.dir : /Library/WebServer/Documents/svg-xml              
+                           app.framework : ext                                               
+                   app.framework.version : 5.1.1.451                                         
+                                  app.id : 004c4e02-e8f9-473c-8ce2-3d1b18c5dced              
+                       app.indexHtmlPath : index.html                                        
+                                app.name : program                                           
+                         app.output.base : /Library/WebServer/Documents/svg-xml/build/${build.environment}/program
+                 app.output.cache.enable : false                                             
+                app.output.deltas.enable : false                                             
+           app.output.microloader.enable : true                                              
+                           app.overrides : /Library/WebServer/Documents/svg-xml/overrides    
+                           app.page.name : index.html                                        
+                  app.phonegap.config.id : com.domain.program                                
+                app.phonegap.config.name : program                                           
+                app.phonegap.config.path : /Library/WebServer/Documents/svg-xml/phonegap     
+              app.phonegap.config.remote : false                                             
+             app.phonegap.config.verbose : false                                             
+                  app.phonegap.js.0.path : phonegap.js                                       
+              app.phonegap.js.0.priority : 1000                                              
+                app.phonegap.js.0.remote : true                                              
+                  app.phonegap.js.length : 1                                                 
+                app.phonegap.microloader : /Library/WebServer/Documents/svg-xml/.sencha/app/Microloader.js
+                app.phonegap.output.base : /Library/WebServer/Documents/svg-xml/phonegap/www 
+        app.phonegap.output.cache.enable : false                                             
+       app.phonegap.output.deltas.enable : false                                             
+          app.production.compressor.type : yui                                               
+                      app.requires.names : sencha-core,ext,sencha-charts                     
+                   app.requires.packages : /Library/WebServer/Documents/svg-xml/ext/packages/sencha-core,/Library/WebServer/Documents/svg-xml/ext,/Library/WebServer/Documents/svg-xml/ext/packages/sencha-charts
+                      app.resource.paths : /Library/WebServer/Documents/svg-xml/resources    
+                        app.sass.etcpath : /Library/WebServer/Documents/svg-xml/sass/etc/all.scss
+                      app.sass.namespace : svgxml                                            
+                        app.sass.srcpath : /Library/WebServer/Documents/svg-xml/sass/src     
+                        app.sass.varpath : /Library/WebServer/Documents/svg-xml/sass/var     
+        app.slicer.js.0.isWidgetManifest : true                                              
+                    app.slicer.js.0.path : /Library/WebServer/Documents/svg-xml/sass/example/custom.js
+                    app.slicer.js.length : 1                                                 
+         app.testing.output.cache.enable : false                                             
+        app.testing.output.deltas.enable : false                                             
+                               app.theme : ext-theme-neptune                                 
+                             app.version : 1.0.0.0                                           
+                    buildenvironment.dir : /Library/WebServer/Documents/svg-xml              
+               buildenvironment.load.dir : /Library/WebServer/Documents/svg-xml              
+                          cmd.config.dir : /Users/liuzhencai/bin/Sencha/Cmd/6.0.2.14         
+                                 cmd.dir : /Users/liuzhencai/bin/Sencha/Cmd/6.0.2.14         
+                    cmd.framework.minver : 5.0.0                                             
+                   cmd.framework.version : 5.4.99.9999                                       
+                            cmd.jvm.args : -Xms128m -Xmx1024m -Dapple.awt.UIElement=true     
+              cmd.merge.tool.args.araxis : -wait -merge -3 -a1 {base} {user} {generated} {out}
+              cmd.merge.tool.args.kdiff3 : {base} {user} {generated} -o {out}                
+             cmd.merge.tool.args.p4merge : {base} {user} {generated} {out}                   
+           cmd.merge.tool.args.smartsync : {user} {generated} {base}                         
+          cmd.merge.tool.args.sourcegear : --merge --result={out} {user} {base} {generated}  
+            cmd.merge.tool.args.tortoise : -base:{base} -theirs:{generated} -mine:{user} -merged:{out}
+                              cmd.minver : 3.0.0.0                                           
+                            cmd.platform : osx                                               
+                         cmd.server.port : 1841                                              
+                     cmd.unicode.escapes : /Users/liuzhencai/bin/Sencha/Cmd/6.0.2.14/unicode-escapes.json
+                             cmd.version : 6.0.2.14                                          
+                            cmd.web.port : 1841                                              
+                     config.skipDownload : true                                              
+                      config.skipInherit : false                                             
+                                 ext.dir : /Library/WebServer/Documents/svg-xml/ext          
+                        ext.license.name : gpl                                               
+                     framework.classpath : /Library/WebServer/Documents/svg-xml/ext/src      
+                    framework.cmd.minver : 5.1.3.61                                          
+                   framework.cmd.version : 5.1.3.61                                          
+                 framework.compatVersion : 4.0                                               
+                    framework.config.dir : /Users/liuzhencai/bin/Sencha/Cmd/6.0.2.14/plugins/ext/5.1
+                       framework.creator : Sencha                                            
+           framework.detailedDescription : Sencha Ext JS JavaScript Framework                
+                           framework.dir : /Library/WebServer/Documents/svg-xml/ext          
+                        framework.format : 1                                                 
+                          framework.isV5 : true                                              
+                         framework.local : true                                              
+                          framework.name : ext                                               
+                        framework.output : ${package.dir}/build                              
+                  framework.packages.dir : /Library/WebServer/Documents/svg-xml/ext/packages 
+                       framework.summary : Ext JS                                            
+                          framework.type : framework                                         
+                       framework.version : 5.1.1.451                                         
+                       inspector.address : http://localhost:1839/                            
+                          repo.local.dir : /Users/liuzhencai/bin/Sencha/Cmd/repo             
+        system.java.net.useSystemProxies : true                                              
+                        theme.base.names : ext-theme-base,ext-theme-neutral,ext-theme-neptune
+                     theme.base.packages : /Library/WebServer/Documents/svg-xml/ext/packages/ext-theme-base,/Library/WebServer/Documents/svg-xml/ext/packages/ext-theme-neutral,/Library/WebServer/Documents/svg-xml/ext/packages/ext-theme-neptune
+                              theme.name : ext-theme-neptune                                 
+                     workspace.build.dir : /Library/WebServer/Documents/svg-xml/build        
+                   workspace.cmd.version : 5.1.3.61                                          
+                    workspace.config.dir : /Library/WebServer/Documents/svg-xml/.sencha/workspace
+                           workspace.dir : /Library/WebServer/Documents/svg-xml              
+                  workspace.packages.dir : /Library/WebServer/Documents/svg-xml/packages     
+                     workspace.theme.dir : /Library/WebServer/Documents/svg-xml/packages/${args.themeName}
+
+Exception information:
+=======================
+No such property : h
+     at com.sencha.cli.AbstractCommand$Properties.getProperty(AbstractCommand.java:444)
+     at com.sencha.cli.AbstractCommand.parseConfigParam(AbstractCommand.java:468)
+     at com.sencha.cli.AbstractCommand.processConfigParam(AbstractCommand.java:518)
+     at com.sencha.cli.AbstractCommand.configure(AbstractCommand.java:114)
+     at com.sencha.command.Sencha.main(Sencha.java:130)
+     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+     at java.lang.reflect.Method.invoke(Method.java:497)
+     at com.exe4j.runtime.LauncherEngine.launch(Unknown Source)
+     at com.install4j.runtime.launcher.UnixLauncher.main(Unknown Source)
+

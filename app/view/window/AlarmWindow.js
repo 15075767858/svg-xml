@@ -18,21 +18,21 @@ Ext.define("svgxml.view.window.AlarmWindow", {
     resizable: false,
     constrainHeader: true,
 
-    listeners:{
-        boxready:"formBoxReady"
+    listeners: {
+        boxready: "formBoxReady"
     },
     initComponent: function () {
         var me = this;
         me.title = me.sDevNodeName + " Alarm Property";
 
-        var meForm = Ext.create('Ext.form.Panel', {
 
+        var meForm = Ext.create('Ext.form.Panel', {
             items: {
                 xtype: "container",
                 height: 600,
                 defaults: {
                     anchor: '100%',
-                    margin: "20 10 10 10",
+                    margin: "20 10 10 10"
                 },
                 layout: 'hbox',
                 items: [
@@ -43,28 +43,31 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                             {
                                 xtype: 'fieldset',
                                 title: 'Input Value',
-                                defaultType: 'textfield',
+                                defaultType: 'numberfield',
                                 defaults: {
                                     margin: "73 0 73 0",
                                     allowBlank: false,
+                                    minValue:0,
                                 },
                                 items: [{
-                                    xtype: "textfield",
+                                    disabled:me.isBiov(),
+                                    hidden:me.isBiov(),
                                     name: "high_limit",
                                     fieldLabel: "Height Limit",
                                     bind: "{high_limit}"
                                 }, {
-                                    xtype: "textfield",
+                                    disabled:me.isBiov(),
+                                    hidden:me.isBiov(),
                                     name: "low_limit",
                                     fieldLabel: "Low Limit",
                                     bind: "{low_limit}"
                                 }, {
-                                    xtype: "textfield",
                                     name: "delay_time",
                                     fieldLabel: "Delay Time",
                                     bind: "{delay_time}"
                                 }, {
-                                    xtype: "textfield",
+                                    disabled:me.isBiov(),
+                                    hidden:me.isBiov(),
                                     name: "deadband",
                                     fieldLabel: "Deadband",
                                     bind: "{deadband}"
@@ -106,8 +109,28 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                                 {"name": "LOW", "value": "3"}
                                             ]
                                         })
-
-
+                                    },
+                                    {
+                                        xtype: "combobox",
+                                        margin: "15 0 15 0",
+                                        fieldLabel: 'Event Type',
+                                        name: 'event_type',
+                                        disabled:(me.sDevNodeType=="AI"?false:true)&!me.isBiov(),
+                                        hidden:(me.sDevNodeType=="AI"?false:true)&!me.isBiov(),
+                                        displayField: 'name',
+                                        valueField: 'value',
+                                        allowBlank: false,
+                                        editable: false,
+                                        bind: {
+                                            value: "{event_type}",
+                                        },
+                                        store: Ext.create("Ext.data.Store", {
+                                            fields: ["name", "value"],
+                                            data: [
+                                                {"name": "ALARM", "value": "0"},
+                                                {"name": "EVENT", "value": "1"}
+                                            ]
+                                        })
                                     }
                                 ]
                             },
@@ -120,21 +143,21 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                 defaults: {
                                     anchor: '100%',
                                     hideEmptyLabel: false,
-                                    margin: "40 0 40 0",
-                                    viewModel: me.getViewModel(),
+                                    margin: "30 0 30 0",
+                                    viewModel: me.getViewModel()
 
                                 },
 
                                 items: [
                                     {
-                                        reference:"checked1",
+                                        reference: "checked1",
                                         fieldLabel: 'Enable Limit',
                                         boxLabel: 'Enable Height Limit',
                                         bind: "{ck1}"
                                     }, {
-                                        reference:"checked2",
+                                        reference: "checked2",
                                         boxLabel: 'Enable Low Limit',
-                                        bind: "{ck2}",
+                                        bind: "{ck2}"
                                     },
                                     {
                                         xtype: "hiddenfield",
@@ -142,22 +165,22 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                         bind: '{limit}'
                                     },
                                     {
-                                        reference:"checked3",
+                                        reference: "checked3",
                                         fieldLabel: 'Event Enable',
                                         boxLabel: 'ENABLE_TO_NORMAL',
-                                        bind:'{ck3}',
+                                        bind: '{ck3}'
                                     }, {
-                                        reference:"checked4",
+                                        reference: "checked4",
                                         boxLabel: 'ENABLE_TO_OFFNORMAL',
-                                        bind:'{ck4}'
+                                        bind: '{ck4}'
                                     }, {
-                                        reference:"checked5",
+                                        reference: "checked5",
                                         boxLabel: 'ENABLE_TO_FAULT',
-                                        bind:'{ck5}'
+                                        bind: '{ck5}'
                                     }, {
                                         xtype: "hiddenfield",
                                         name: "event_enable",
-                                        bind:'{event_enable}'
+                                        bind: '{event_enable}'
                                     }
                                 ]
                             }
@@ -172,18 +195,21 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                 text: "Ok", handler: function () {
                 if (meForm.isValid()) {
                     meForm.submit({
-                        url: "resources/test1.php?par=addAlarm&nodename="+me.sDevNodeName,
+                        url: "resources/test1.php?par=addAlarm&nodename=" + me.sDevNodeName,
                         method: "post",
                         failure: function (form, action) {
-                            devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nAlarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""));
+                            delayToast('Success', me.sDevNodeName + ' Change value Alarm success .', 0)
+                            devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nAlarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""), 0);
+
                             me.close()
 
                         },
                         success: function (form, action) {
-                            devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nAlarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""));
-                            me.close()
+                            delayToast('Success', me.sDevNodeName + ' Change value Alarm success .', 0)
+                            devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nAlarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""), 0);
 
-                        },
+                            me.close()
+                        }
 
                     });
                 }
@@ -195,6 +221,16 @@ Ext.define("svgxml.view.window.AlarmWindow", {
             }
         ];
         me.callParent();
+    }
+    ,isBiov:function(){
+        var me=this;
+        var text = me.sDevNodeType;
+        console.log(me)
+        console.log(text)
+        if(text=="BI"||text=="BO"||text=="BV"){
+            return true;
+        }
+        return false;
     }
 });
 
