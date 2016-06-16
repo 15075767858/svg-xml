@@ -587,8 +587,10 @@ function drawlines(drawpanel) {
             //console.log("在一条线上")
             //return;
         }
-        var iX1 = (pointEnd[0] - pointStart[0]) + pointStart[0];
+        var iX1 = (pointEnd[0] - pointStart[0]) + pointStart[0]; //
         var iY1 = pointStart[1];
+        console.log("iX1= "+iX1)
+        console.log("iY1= "+iY1)
         var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
         var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
         var oRect1 = isCollsion(lineToRect1);//第一条线碰撞判断
@@ -610,6 +612,7 @@ function drawlines(drawpanel) {
             pointAll.push([iX1, iY1])
             return;
         }
+
         console.log(iCount++)
         if (iCount > 10) {
             polyline.attr("stroke", "red")

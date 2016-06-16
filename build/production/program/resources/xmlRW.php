@@ -2,6 +2,8 @@
 $fn=$_POST['fileName'];
 $rw=$_POST['rw'];
 
+$fn="../1000";
+$rw="r";
 
 if($rw=='r'){
 	$isFile=file_exists($fn);

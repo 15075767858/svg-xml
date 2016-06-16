@@ -1374,6 +1374,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         handler:function(){
                             Ext.create('svgxml.view.window.AlarmWindow', {
                                 sDevNodeName: sDevNodeName,
+                                sDevName: sDevName,
                                 sDevNodeType: record.parentNode.data.text
                             })
                         },

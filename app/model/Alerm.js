@@ -9,6 +9,7 @@ Ext.define('svgxml.model.Alerm', {
         {name: 'notification_class', type: 'string'},
         {name: 'limit', type: 'int'},
         {name: 'event_enable', type: 'int'},
-        {name:"event_type",type:"int"}
+        {name:"event_type",type:"int"},
+        {name:"alarm_value",type:"int"}
     ]
 });

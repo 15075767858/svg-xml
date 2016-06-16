@@ -2,7 +2,6 @@
 $fn=$_POST['fileName'];
 $rw=$_POST['rw'];
 
-
 if($rw=='r'){
 	$isFile=file_exists($fn);
 	if($isFile==false){
@@ -17,8 +16,9 @@ if($rw=='r'){
 	} 
 }else{
 	$content=$_POST["content"];
-	$fp = fopen($fn, 'w') or die("Unable to open file!");
-	fwrite($fp, $content);
-	fclose($fp);
+	echo file_put_contents($fn,$content);
+	//$fp = fopen($fn, 'w') or die("Unable to open file!");
+	//fwrite($fp, $content);
+	//fclose($fp);
 }
 ?>
