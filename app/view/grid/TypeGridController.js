@@ -68,8 +68,17 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     {'name': 'Min', 'value': "0"}
                 ]
             });
-        }
-        ;
+        };
+        if (th.datas.type == 74) {
+            Ext.create('Ext.data.Store', {
+                storeId: "store" + th.getId(),
+                fields: ['name', 'value'],
+                data: [
+                    {name:"Empirical coefficient(K)",value:"0.7069"},
+                    {name:"Pipe diameter(D)",value:"0"}
+                ]
+            });
+        };
         if (th.datas.type == 56) {
             //var typeGirdName = this.getTitle();
             var store = th.store//Ext.data.StoreManager.lookup("store" + _this.id);
@@ -234,6 +243,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             }
                             isPidMenu(th, thi);
                             isLogicMenu(th, thi);
+                            isSCFMMenu(th,thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -377,8 +387,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                     addSlot.setDisabled(false);
                                 }
                             }
-                            isPidMenu(th.up("typegrid"), thi)
+                            isPidMenu(th.up("typegrid"), thi);
                             isLogicMenu(th.up("typegrid"), thi);
+                            isSCFMMenu(th.up('typegrid'),thi);
 
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
@@ -397,7 +408,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("griditemcontextmenu")
     }
 });
-function isPidMenu(girdpanel, menu) {
+function isSCFMMenu(girdpanel, menu) {
     console.log(arguments)
     if (girdpanel.title == "pid") {
         var cProperty = menu.getComponent("Property")
@@ -412,6 +423,14 @@ function isLogicMenu(gridpanel, menu) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().logicPropertyClick, gridpanel)
+    }
+}
+function isPidMenu(girdpanel, menu) {
+    console.log(arguments)
+    if (girdpanel.title == "SCFM") {
+        var cProperty = menu.getComponent("Property")
+        cProperty.setDisabled(false);
+        cProperty.on("click", menu.getController().SCFMPropertyClick, girdpanel)
     }
 }
 

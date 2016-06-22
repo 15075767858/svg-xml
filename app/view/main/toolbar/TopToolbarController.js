@@ -463,7 +463,7 @@ function get_A_Master_node(gridpanel, index) {
     masterNode.attr("number", (index + 1));
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
-
+    isSCFMSave(gridpanel,masterNode);
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -570,7 +570,17 @@ function isPidSave(gridpanel, masterNode) {
     masterNode.append("<min_value>" + items[5].data.value + "</min_value>")
 
 }
-
+function isSCFMSave(gridpanel,masterNode){
+    var items;
+    if (gridpanel.datas.type == "74") {
+        items = Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
+    } else {
+        return;
+    }
+    console.log(items)
+    masterNode.append("<P>" + items[0].data.value + "</P>")
+    masterNode.append("<D>" + items[1].data.value + "</D>")
+}
 function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];

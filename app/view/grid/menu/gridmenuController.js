@@ -137,9 +137,8 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 store: Ext.data.StoreManager.lookup("store" + _this.id)
             }
         }).show();
-
-
     },
+
     logicPropertyClick: function (menu, item, e, eOpts) {
         var _this = this;
         console.log(_this.config.store)
@@ -158,8 +157,48 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             win.show()
             return
         }
-
     },
+    SCFMPropertyClick:function(){
+        var _this = this
+        var win = Ext.create('Ext.window.Window', {
+            title: 'SCFM Property',
+            width: 213,
+            height: 262,
+            layout: 'border',
+            items: {  // Let's put an empty grid in just to illustrate fit layout
+                region: "center",
+                xtype: 'grid',
+                height: "100%",
+                width: "100%",
+                border: false,
+                bbar: [
+                    {
+                        text: "Ok", handler: function (menu) {
+                        Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
+                        Ext.Msg.alert('Status', 'Changes saved successfully.');
+                        win.close();
+                    }
+                    }
+                ],
+                plugins: [
+                    Ext.create('Ext.grid.plugin.CellEditing', {
+                        clicksToEdit: 1
+                    })
+                ],
+                columns: [{header: 'name', dataIndex: "name"},
+                    {
+                        header: "value", dataIndex: "value", editor: {
+                        xtype: 'textfield',
+                        allowBlank: false
+                    }
+                    }
+
+                ],                 // 仅仅用来显示一个头部。没有数据，
+                store: Ext.data.StoreManager.lookup("store" + _this.id)
+            }
+        }).show();
+    },
+
     LinkFormClick: function (menu, item, e, eOpts) {
         var SourceTypeGrid = getCurrentDrawPanel().datas.LinkMarkTypeGrid;
         var TargetTypeGrid = menu.up("typegrid");

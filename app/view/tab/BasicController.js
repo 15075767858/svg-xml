@@ -25,15 +25,18 @@ Ext.define('svgxml.view.tab.BasicController', {
             dd.afterDragDrop = function (target, e, id) {
                     var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
                     console.log(typeName)
+
+                var store=Ext.create(typeName, {
+                    listeners: {
+                        add: function (store) {
+                            setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                        }
+                    }
+                })
+                store.setData(slotsJson[typeName].initData())
                     Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
                         title: typeName,
-                        store: Ext.create(typeName, {
-                            listeners: {
-                                add: function () {
-                                    setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
-                                }
-                            }
-                        }),
+                        store: store,
                         x: e.browserEvent.offsetX,
                         y: e.browserEvent.offsetY,
                         icon: "resources/img/SVG/" + typeName + ".svg",
@@ -221,7 +224,7 @@ Ext.define('pid', {
     extend: "Ext.data.Store",
     storeId: 'pidStore',
     fields: ['name', 'value'],
-    data: slotsJson.pid.initData(),
+    data:  slotsJson.pid.initData(),
     proxy: oproxy
 });
 Ext.define('Pulse', {
@@ -243,6 +246,13 @@ Ext.define('Switch', {
     storeId: 'switchStore',
     fields: ['name', 'value'],
     data: slotsJson.Switch.initData(),
+    proxy: oproxy
+});
+Ext.define('SCFM', {
+    extend: "Ext.data.Store",
+    storeId: 'switchStore',
+    fields: ['name', 'value'],
+    data: slotsJson.SCFM.initData(),
     proxy: oproxy
 });
 /*

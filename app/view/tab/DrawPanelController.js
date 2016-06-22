@@ -589,8 +589,8 @@ function drawlines(drawpanel) {
         }
         var iX1 = (pointEnd[0] - pointStart[0]) + pointStart[0]; //
         var iY1 = pointStart[1];
-        console.log("iX1= "+iX1)
-        console.log("iY1= "+iY1)
+        console.log("iX1="+iX1)
+        console.log("iY1"+iY1)
         var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
         var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
         var oRect1 = isCollsion(lineToRect1);//第一条线碰撞判断
@@ -619,10 +619,22 @@ function drawlines(drawpanel) {
             return;
         }
 
+
+        console.log("%c oRect1=","color:red;font-size:20px;")
+        console.log(oRect1)
+        console.log("%c oRect2=","color:red;font-size:20px;")
+        console.log(oRect2)
+        console.log("%c oRect3=","color:red;font-size:20px;")
+        console.log(oRect3)
+        console.log("%c oRect4=","color:red;font-size:20px;")
+        console.log(oRect4)
+
         if (oRect1 || oRect3) {
             console.log("oRect3碰上了")
             polyline.attr("stroke", STROKE_COLOR)
-            var aPoint = lineSkirtRect(pointStart, oRect1 || oRect3);
+            var aPoint = lineSkirtRect(pointStart, oRect1 || oRect3);//
+            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
+
             for (var i = 0; i < aPoint.length; i++) {
                 pointAll.push(aPoint[i]);
                 console.log(pointAll)
@@ -632,13 +644,16 @@ function drawlines(drawpanel) {
         }
 
         if (oRect2 || oRect4) {
-            //console.log("oRect4碰上了")
+            console.log("oRect4碰上了")
             //console.log(pointEnd)
             var aPoint = lineSkirtRect([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], oRect2 || oRect4);
+            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
+
             for (var i = 0; i < aPoint.length; i++) {
                 pointAll.push(aPoint[i]);
             }
             //console.log([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]])
+            console.log(pointAll)
             drawPolyline([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], iCount);
 
             return;
@@ -651,13 +666,13 @@ function drawlines(drawpanel) {
      polyline.attr("points", pointAll)*/
 
     function lineSkirtRect(pointStart, aRect) {//这个方法用来 绕过矩形 返回值是矩形上的两个点
-
+        console.log(pointStart)
+        console.log(aRect)
         var sx = pointStart[0];
         var sy = pointStart[1];
         var ex = aRect.x;
         var ey = aRect.y;
         var ex1 = ex + aRect.width + JIANGE;
-        ;
         var ey1 = ey + aRect.height + JIANGE;
         var point1 = [];
         var point2 = [];
@@ -673,7 +688,7 @@ function drawlines(drawpanel) {
                 point3 = [ex1, ey];
                 //   console.log("左边 靠上")
             }
-            return [point1, point2, point3];
+            return [point1, point2];
         }
         if (sx >= ex & sy <= ey & sx <= ex + aRect.width) {
             point1 = [sx, ey];
@@ -684,7 +699,7 @@ function drawlines(drawpanel) {
                 point2 = [ex, ey];
                 point3 = [ex, ey1];
             }
-            return [point1, point2, point3];
+            return [point1, point2];
         }
         if (sx >= (ex + aRect.width)) {
             point1 = [ex1, sy];
@@ -696,7 +711,7 @@ function drawlines(drawpanel) {
                 point2 = [ex1, ey];
                 point3 = [ex, ey];
             }
-            return [point1, point2, point3];
+            return [point1, point2];
         }
         // & sx <= ex + aRect.width & ey >= ey + aRect.height
         if (sx >= ex & sy >= ey + aRect.height) {
@@ -708,7 +723,7 @@ function drawlines(drawpanel) {
                 point2 = [ex, ey1];
                 point3 = [ex, ey];
             }
-            return [point1, point2, point3];
+            return [point1, point2];
         }
         return false;
     }
@@ -790,3 +805,163 @@ function datasArrayUnique(drawpanel) {
     });
     drawpanel.datas.datasArray = datasArray1;
 }
+
+
+
+
+function NodeObj(x,y){//节点对象
+    this.x=x;
+    this.y=y;
+    this.leftNode=null;
+    this.rightNode=null;
+    this.parentNode=null;
+    this.getLeftNodeLength=function(){
+        console.log(this.leftNode)
+        return Math.abs(this.x-this.leftNode.x)+Math.abs(this.y-this.leftNode.y)
+    }
+    this.getRightNodeLength=function(){
+        console.log(this.rightNode)
+        return Math.abs(this.x-this.rightNode.x)+Math.abs(this.y-this.rightNode.y)
+    }
+    this.setLeftNode=function(node){
+        this.leftNode=node;
+    }
+    this.setRightNode=function(node){
+        this.rightNode=node;
+    }
+    this.getLeftNode=function(){
+        console.log(this)
+        if(this.leftNode){
+            return true;
+        }
+        return false
+    }
+    this.getRightNode=function(){
+        if(this.rightNode){
+            return true;
+        }
+        return false
+    }
+    this.getXY=function(){
+        return [this.x,this.y];
+    }
+
+}
+
+function iterationNodeTree(rootNode,endPonit){
+    var treeLeafNodeArr=getTreeLeafAll(rootNode); //拿到所有叶节点
+    for(var i =0; i<treeLeafNodeArr.length;i++){
+        var pathNodeArr=[];
+        //treeLeafNodeArr[i].parentNode
+        //while(){
+        //}
+
+
+    }
+
+
+}
+
+var node1 = new NodeObj(1,1);
+var node2_l = new NodeObj(2,2);
+var node2_r = new NodeObj(2,2);
+var node2_l_3_l = new NodeObj(3,3);
+var node2_l_3_r = new NodeObj(3,3);
+var node2_r_3_l_ = new NodeObj(4,4);
+var node2_r_3_r = new NodeObj(4,4);
+node1.setLeftNode(node2_l);
+node1.setRightNode(node2_r);
+node2_l.setLeftNode(node2_l_3_l)
+node2_l.setRightNode(node2_l_3_r)
+node2_r.setLeftNode(node2_r_3_l_);
+node2_r.setRightNode(node2_r_3_r)
+
+
+
+function getTreeLeafAll(rootNode){ //获取所有叶节点
+    this.leafAll=[];
+    firstIteration.call(this,rootNode)
+    return this.leafAll;
+}
+
+function firstIteration(node) {
+
+    if( !node.leftNode & !node.rightNode) //判断是否有自节点
+    {
+        console.log(node)
+        this.leafAll.push(node)
+    }
+    if(node.leftNode) {                   //判断当前节点是否有左孩子
+        firstIteration(node.leftNode);    //递归左孩子
+        node.leftNode.parentNode=node;
+    }
+    if(node.rightNode) {                  //判断当前节点是否有右孩子
+        firstIteration(node.rightNode);   //递归右孩子
+        node.rightNode.parentNode=node;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
