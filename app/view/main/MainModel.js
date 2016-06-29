@@ -425,6 +425,20 @@ var slotsJson = {
             return arr;
         },
         isAddSlot:false
+    },
+    'SCALE':{
+        type:"75",
+        initData:function(){
+            var arr=new Array();
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'In', 'value': "0"}
+            arr[3] = {'name': 'In', 'value': "10"}
+            arr[4] = {'name': 'In', 'value': "0"}
+            arr[5] = {'name': 'In', 'value': "100"}
+            return arr;
+        },
+        isAddSlot:false
     }
     /*,
      'timer':{
@@ -684,6 +698,12 @@ var Imgs = [{
     },
     {
         name:"SCFM",
+        src:"",
+        Img_0:"",
+        Img_1:""
+    },
+    {
+        name:"SCALE",
         src:"",
         Img_0:"",
         Img_1:""

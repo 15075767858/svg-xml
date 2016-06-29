@@ -275,6 +275,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("render")
     }
     ,
+    griditemclick:function(me){
+        console.log(arguments)
+        console.info(this.index);
+    },
     girditemdblclick: function (me, record, item, index, e, eopts) {
         console.log(arguments)
         if (record.data.name == "Out") {
@@ -322,7 +326,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 fieldDefaults: {
                     labelAlign: 'left',
                     labelWidth: 60
-                }/*,
+                }
+                /*,
                  items: [
                  {xtype: "textfield", name: "name", fieldLabel: "type"},
                  /!*{ xtype: "numberfield", name: "age", fieldLabel: "年龄" ,maxValue: 3,  minValue: 0 },*!/
@@ -357,6 +362,16 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     }
     ,
     griditemmouseenter: function (th, record, item, index, e, eOpts) {
+        //console.log(arguments)
+        /*
+        Ext.tip.QuickTipManager.register({
+            target:th.id,
+            title:th.index,
+            text:th.index,
+            width:100,
+            height:100
+        })*/
+
         d3.select("#tempLineEnd").remove();
         initDrawLine(th.up("drawpanel"), th, record, item, index, e, eOpts)
     }
@@ -371,8 +386,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         if (e.button == 2) {
             th.up("typegrid").add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
-                    x: e.pageX + 5,
-                    y: e.pageY,
+                    x: e.pageX + 10,
+                    y: e.pageY+10,
                     listeners: {
                         show: function (thi, eOpts) {
                             d3.select(thi.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));

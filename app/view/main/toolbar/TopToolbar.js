@@ -138,7 +138,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.20  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.21  ');
                             }
                         }
                     ]
@@ -266,7 +266,7 @@ function getStoreConfig(gridpanel) {
         } else {
             ojson = {"name": datas[i].data.name, "value": datas[i].data.value}
         }
-        console.info(ojson)
+        //console.info(ojson)
 
         data.push(ojson)
     }

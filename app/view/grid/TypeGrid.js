@@ -20,6 +20,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     },
     //closable: true,
     // title: 'null',
+
     sortable: false,//禁用标题排序
     enableColumnMove: false,//禁止移动列
     enableColumnHide: false,
@@ -37,7 +38,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         viewready:"girdviewready",
         itemdblclick: "girditemdblclick",
         move: "girdmove",
-        //itemclick:"griditemclick",
+        itemclick:"griditemclick",
         itemmousedown:"griditemmousedown",
         //itemmouseleave:"griditemmouseleave",
         itemmouseenter:"griditemmouseenter",
@@ -46,6 +47,29 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     hideHeaders :true,
     columnLines : true,
     initComponent: function () {
+        var me =this;
+        me.bbar=[{
+            text:"index",
+            scope:me,
+            handler:function(){
+                console.log(arguments)
+                var panels = getCurrentDrawPanelGirdPanels();
+                for(var i=0;i<panels.length;i++){
+                    console.log(panels[i])
+                    if(panels[i].button){
+                        panels[i].removeDocked(panels[i].button);
+                    }
+                    var button = Ext.create("Ext.button.Button",{
+                        text:panels[i].index,
+                        hidden:true
+                    })
+                    panels[i].button=button;
+                    panels[i].addDocked(button)
+                }
+                saveXml()
+                console.info(this.index)
+            }
+        }]
         this.width = 90;
         this.columns = [
             {

@@ -250,9 +250,16 @@ Ext.define('Switch', {
 });
 Ext.define('SCFM', {
     extend: "Ext.data.Store",
-    storeId: 'switchStore',
+    storeId: 'SCFMStore',
     fields: ['name', 'value'],
     data: slotsJson.SCFM.initData(),
+    proxy: oproxy
+});
+Ext.define('SCALE', {
+    extend: "Ext.data.Store",
+    storeId: 'SCALEStore',
+    fields: ['name', 'value'],
+    data: slotsJson.SCALE.initData(),
     proxy: oproxy
 });
 /*

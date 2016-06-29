@@ -105,6 +105,7 @@ function formatXml1(str){
 }
 
 
+
 function formatXml(text) {
     //去掉多余的空格
     text = '\n' + text.replace(/(<\w+)(\s.*?>)/g, function ($0, name, props) {
@@ -117,6 +118,7 @@ function formatXml(text) {
         //alert(ret);
         return ret;
     }).replace(/\r/g, '\n');
+    console.log(text)
 
     //调整格式
     var rgx = /\n(<(([^\?]).+?)(?:\s|\s*?>|\s*?(\/)>)(?:.*?(?:(?:(\/)>)|(?:<(\/)\2>)))?)/mg;
@@ -146,9 +148,9 @@ function formatXml(text) {
     });
 
     var prefixSpace = -1;
+
     var outputText = output.substring(1);
     //alert(outputText);
-
     //把注释还原并解码，调格式
     outputText = outputText.replace(/\n/g, '\r').replace(/(\s*)<!--(.+?)-->/g, function ($0, prefix, text) {
         //alert(['[',prefix,']=',prefix.length].join(''));
@@ -163,7 +165,7 @@ function formatXml(text) {
     return outputText.replace(/\s+$/g, '').replace(/\r/g, '\r\n');
 }
 function getPrefix(prefixIndex) {
-    var span = '    ';
+    var span = ' ';
     var output = [];
     for (var i = 0; i < prefixIndex; ++i) {
         output.push(span);

@@ -107,7 +107,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             defaults: {
                 anchor: '100%'
             },
-
             items: [
                 {
                     margin: 10,
@@ -122,7 +121,6 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     autoSelect: false
                 }
             ],
-
             buttons: [
                 {
                     text: 'Ok', handler: function () {
@@ -264,7 +262,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             height: 600,
             //bodyPadding: 10,
             autoShow: true,
-            layout:"border",
+            layout: "border",
             items: {
                 xtype: "grid",
                 width: "100%",
@@ -301,9 +299,9 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 listeners: {
                     boxready: function () {
                         setTimeout(function () {
-                            var aTag= document.createElement("a");
-                            if(aTag.download==undefined){
-                                $(".adownload").mousedown(function(e){
+                            var aTag = document.createElement("a");
+                            if (aTag.download == undefined) {
+                                $(".adownload").mousedown(function (e) {
                                     Ext.Msg.alert('Message', "If you can't download properly , Please right click on the save .<br>如果不能正常下载请点击鼠标右键，选择目标另存为。");
                                     //e.preventDefault();
                                     //return false;
@@ -415,9 +413,14 @@ function saveXml(text) {
     xmlAppendPlant(root)
     var datas = {};
     datas['fileName'] = "../" + text;
-    datas['content'] = replacePID(formatXml(sXmlNameSpace + root[0].outerHTML));
+
+    root = sortNodeNumber(root)
+    console.log(root[0].outerHTML)
+    datas['content'] = formatXml(replacePID(sXmlNameSpace + root[0].outerHTML));
+
     //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
     function replacePID(text) {
+
         text = text.replaceAll("<p>", "<P>");
         text = text.replaceAll("</p>", "</P>");
         text = text.replaceAll("<i>", "<I>");
@@ -437,6 +440,63 @@ function saveXml(text) {
 
         }
     });
+
+    function sortNodeNumber(root) {
+        var plants = root.find('plant');
+        var count = 1;
+        for (var i = 0; i < plants.length; i++) {
+            var masterNodes = $(plants[i]).find('master_node');
+            for (var j = 0; j < masterNodes.length; j++) {
+                var number = $(masterNodes[j]).attr('number')
+
+                gridpanelChangeButtonText(number,count)
+
+                console.info(number)
+                //var nodes = masterNodes[j].querySelectorAll('node');
+                var nodes = $(plants[i]).find('node')
+
+                for (var k = 0; k < nodes.length; k++) {
+
+                    var nodeHTML = $(nodes[k]).html()
+                    console.log(number)
+                    if (nodeHTML == number + "") {
+                        console.log($(nodes[k]).html() + "       " + number)
+                        console.log('number=' + number)
+                        console.log('count=' + count)
+                        console.log(nodes[k])
+                        $(nodes[k]).html(count);
+                    }
+                }
+                $(masterNodes[j]).attr('number', count)
+                console.info(count)
+                count++;
+            }
+        }
+
+        console.log(root)
+        return root;
+    }
+
+    function gridpanelChangeButtonText(number,count){
+        var panels = getCurrentDrawPanelGirdPanels();
+
+        for(var i=0;i<panels.length;i++){
+            if(number==panels[i].button.text){
+                if(panels[i].button1){
+                    panels[i].removeDocked(panels[i].button1);
+                }
+                var button1 = Ext.create("Ext.button.Button",{
+                    text:count
+                })
+                panels[i].button1=button1;
+                panels[i].addDocked(button1)
+            }
+        }
+
+
+    }
+
+
 }
 function xmlAppendPlant(root) {
     var plants = getCurrentDrawPanelPlants();
@@ -463,7 +523,7 @@ function get_A_Master_node(gridpanel, index) {
     masterNode.attr("number", (index + 1));
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
-    isSCFMSave(gridpanel,masterNode);
+    isSCFMSave(gridpanel, masterNode);
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -513,6 +573,7 @@ function get_A_Master_node(gridpanel, index) {
          } else {
          masterNode.append(slots);
          }*/
+
         aGirdPanelIII = null;
     }
     isLogic(gridpanel, masterNode)
@@ -568,9 +629,8 @@ function isPidSave(gridpanel, masterNode) {
     masterNode.append("<extime>" + items[3].data.value + "</extime>")
     masterNode.append("<max_value>" + items[4].data.value + "</max_value>")
     masterNode.append("<min_value>" + items[5].data.value + "</min_value>")
-
 }
-function isSCFMSave(gridpanel,masterNode){
+function isSCFMSave(gridpanel, masterNode) {
     var items;
     if (gridpanel.datas.type == "74") {
         items = Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
@@ -581,6 +641,7 @@ function isSCFMSave(gridpanel,masterNode){
     masterNode.append("<P>" + items[0].data.value + "</P>")
     masterNode.append("<D>" + items[1].data.value + "</D>")
 }
+
 function isKeyFilter(gridPanelItems, masterNode, gridpanel) {
     var name = gridPanelItems[1].data["name"];
     var value = gridPanelItems[1].data["value"];
@@ -657,8 +718,8 @@ function getStartTrIdByEndTrId(endTrId) {
     for (var i = 0; i < datasArray.length; i++) {
         for (o in datasArray[i]) {
             //lert(datasArray[i][o]+" "+o)
-            console.log(datasArray)
-            console.log(endTrId)
+//            console.log(datasArray)
+//            console.log(endTrId)
             if (o == endTrId) {
                 return datasArray[i][o];
             }
@@ -733,17 +794,28 @@ function getCurrentDrawPanel() {
     }
     return drawpanel;
 }
-function getCurrentDrawPanelDatasArray(drawpanel){
-    var cdrawpanel =  drawpanel||getCurrentDrawPanel()
+function getCurrentDrawPanelDatasArray(drawpanel) {
+    var cdrawpanel = drawpanel || getCurrentDrawPanel()
     return cdrawpanel.datas.datasArray;
+}
+function currentDrawPanelGirdPanelsAddTitle() {
+    var ps = getCurrentDrawPanelGirdPanels()
+
 }
 function getCurrentDrawPanelGirdPanels(drawpanel) {
     var drawpanel = drawpanel || getCurrentDrawPanel();
     var aGridpanels = [];
     var girdpanels = Ext.ComponentQuery.query("gridpanel", drawpanel);
     for (var i = 0; i < girdpanels.length; i++) {
+        girdpanels[i].index = i + 1
+
         //console.log(girdpanels[i])
         //if (!girdpanels[i].hidden) {
+        /*girdpanels.el.on({
+         click:function(){
+         alert("asd")
+         }
+         })*/
         aGridpanels.push(girdpanels[i])
         //aGridpanels[i]=girdpanels[i]
         //}

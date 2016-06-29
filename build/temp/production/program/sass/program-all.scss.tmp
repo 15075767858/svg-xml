@@ -1071,6 +1071,7 @@ $include-extthemeneptune-resizer-splitter: true;
 $include-extthemeneptune-toolbar-paging: true;
 $include-extthemeneptune-toolbar-toolbar: true;
 $include-pulse: true;
+$include-scale: true;
 $include-scfm: true;
 $include-switch: true;
 $include-add: true;
