@@ -18,6 +18,14 @@ Ext.define('svgxml.view.tab.FramedTabs', {
         //bodyPadding: 10,
         autoScroll: true
     },
+    tools: [
+        {
+            type: "search",
+            handler:"showIndex",
+            html:"show number"
+        }
+    ],
+    showIndex:true,
     items:{
       xtype:"drawpanel",
         title:"1000"

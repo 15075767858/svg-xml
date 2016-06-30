@@ -33,6 +33,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
         hide: "hide",
         close: "close",
         el: {
+
             selectstart: function (th) {
                 th.stopEvent();
                 return ;
@@ -40,13 +41,12 @@ Ext.define("svgxml.view.tab.DrawPanel", {
             contextmenu: function (th, el, eOpts) {
                 console.log(arguments)
                 if (el.tagName != "svg") {
+                    th.stopEvent();
                     return;
                 };
-
-
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
-                    x: th.pageX,
-                    y: th.pageY,
+                    x: th.pageX+15,
+                    y: th.pageY+10,
                     listeners: {
                         show: function (thi, eOpts) {
                             try {

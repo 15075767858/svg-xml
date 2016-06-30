@@ -1256,6 +1256,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 autoShow: true,
                 x: e.pageX + 5,
                 y: e.pageY + 5,
+
                 items: [
                     {
                         text: "Property", handler: function () {
@@ -1296,6 +1297,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             },
                             height: 768,
                             width: 1024,
+                            maxHeight:Ext.getBody().getHeight(),
                             layout: 'accordion',
                             listeners: {
                                 show: function (th) {

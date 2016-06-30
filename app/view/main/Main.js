@@ -60,8 +60,8 @@ Ext.define('svgxml.view.main.Main', {
             region: "center",
             height: "200%",
             width: "200%",
-            split: true,
-            collapsible: true,
+            //split: true,
+            //collapsible: true,
             title: "Program"
         })
     ]

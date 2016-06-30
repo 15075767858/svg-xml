@@ -45,8 +45,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         })
 
     },
-    girdviewready: function (th, eO) {
-        if (th.datas.type < 10) {
+    girdviewready: function (panel, eO) {
+        if (panel.datas.type < 10) {
             //console.info(th.store.data.item[1].data.value)
             //console.info(th.datas.value.substr(5,6))
             //console.info(th.store)
@@ -55,9 +55,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //console.info(th.store.items)
         }
 
-        if (th.datas.type == 67) {
+        if (panel.datas.type == 67) {
             Ext.create('Ext.data.Store', {
-                storeId: "store" + th.getId(),
+                storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
                 data: [
                     {'name': 'P', 'value': "15"},
@@ -69,9 +69,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ]
             });
         };
-        if (th.datas.type == 74) {
+        if (panel.datas.type == 74) {
             Ext.create('Ext.data.Store', {
-                storeId: "store" + th.getId(),
+                storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
                 data: [
                     {name:"Empirical coefficient(K)",value:"0.7069"},
@@ -79,12 +79,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ]
             });
         };
-        if (th.datas.type == 56) {
+        if (panel.datas.type == 56) {
             //var typeGirdName = this.getTitle();
-            var store = th.store//Ext.data.StoreManager.lookup("store" + _this.id);
+            var store = panel.store//Ext.data.StoreManager.lookup("store" + _this.id);
             var win = Ext.create('Ext.window.Window', {
                 title: 'logic Property',
-                id: "win" + th.id,
+                id: "win" + panel.id,
                 width: 420,
                 height: 300,
                 layout: 'border',
@@ -203,36 +203,38 @@ Ext.define('svgxml.view.grid.TypeGridController', {
          });
          }*/
 
-        if (th.datas.plantId.length < 2) {
+        if (panel.datas.plantId.length < 2) {
             var plant = getCurrentPlant()
-            th.datas.plantId = plant.id
+            panel.datas.plantId = plant.id
         }
         currentDrawPanelGridPanelsTrSetId();
-        var oHead = th.getHeader().el.dom;
+        var oHead = panel.getHeader().el.dom;
         oHead.onmousedown = function (e) {
 
             //console.log(e)
-            th.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
+            panel.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
         }
         oHead.oncontextmenu = function (e) {
-            th.add(
+
+            panel.add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: e.pageX + 5,
                     y: e.pageY,
                     listeners: {
                         show: function (thi, eOpts) {
+                            console.log(thi)
                             var title;
                             try {
                                 title = getNameByType(thi.datas.type)
                             } catch (e) {
-                                title = th.title;
+                                title = panel.title;
                             }
                             //var title = th.title;
-                            console.log(th.datas)
-                            var isAddSlot = th.datas.isAddSlot;
+                            console.log(panel.datas)
+                            var isAddSlot = panel.datas.isAddSlot;
 
                             if (isAddSlot) {
-                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, panel);
                                 addSlot.setDisabled(false);
                             }
                             thi.getComponent("LinkMark").setDisabled(false);
@@ -241,9 +243,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 linkform.setDisabled(false);
                                 linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
-                            isPidMenu(th, thi);
-                            isLogicMenu(th, thi);
-                            isSCFMMenu(th,thi);
+                            isPidMenu(panel, thi);
+                            isLogicMenu(panel, thi);
+                            isSCFMMenu(panel,thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -298,7 +300,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     //   win.down("form").loadRecord(record);
                 },
                 show: function (th) {
-                    th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name"});
+                    th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name",editable:false});
                     if (record.data.select) {
                         var store = Ext.create('Ext.data.Store', {
                             fields: ['name'],
@@ -310,6 +312,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             fieldLabel: "type",
                             forceSelection: true,
                             store: store,
+                            editable:false,
                             queryMode: 'local',
                             displayField: 'name',
                             valueField: 'name'
@@ -351,9 +354,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     ,
 
     griditemmousedown: function (th, record, item, index, el, e, eOpts) {
-        // console.log(arguments);
-        console.log(th.up())
-        console.log(arguments)
+        /*console.log(th.up())
+        console.log(arguments)*/
         console.log("鼠标按下")
     }
     ,
@@ -417,6 +419,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             )
         }
         console.log("鼠标抬起")
+        e.stopEvent()
+        e.stopPropagation()
     }
     ,
     griditemcontextmenu: function (th, td, cellIndex, tr, rowIndex, e, eOpts) {
@@ -434,7 +438,7 @@ function isSCFMMenu(girdpanel, menu) {
 
 function isLogicMenu(gridpanel, menu) {
     if (gridpanel.datas.type == 56) {
-        var addSlot = menu.getComponent("addSlot").setDisabled(true);
+        //var addSlot = menu.getComponent("addSlot").setDisabled(true);
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().logicPropertyClick, gridpanel)
@@ -542,7 +546,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     }
 
     sStartItemTrId = item.querySelector("tr").id;
-    console.log(arguments)
+    //console.log(arguments)
 
     var drawpanelScrollTop = thi.el.dom.querySelector("div").scrollTop
     var drawpanelScrollLeft = thi.el.dom.querySelector("div").scrollLeft
@@ -563,7 +567,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var typegrids = getCurrentDrawPanelGirdPanels()
         var sId = gridpanel.getId();
         var aRowsAll = [];
-        console.log(typegrids.length)
+        //console.log(typegrids.length)
         for (var i = 0; i < typegrids.length; i++) {
             if (typegrids[i].getId() == sId) {
                 typegrids.splice(i, 1)
@@ -571,7 +575,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             }
         }
 
-        console.log(typegrids.length)
+        //console.log(typegrids.length)
         for (var i = 0; i < typegrids.length; i++) {
             var rows = typegrids[i].el.dom.querySelectorAll(".x-grid-row")
             for (var j = 0; j < rows.length; j++) {

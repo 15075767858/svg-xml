@@ -60,10 +60,28 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
         }
-        store.add({
-            name: "In",
-            value: "0"
-        })
+        if(typeGirdName=="logic"){
+            store.add( {
+                'name': 'In',
+                delay: "0",
+                'value': "0",
+                time: "0",
+                time1: "0",
+                time2: "0",
+                time3: "0",
+                time4: "0",
+                time5: "0",
+                time6: "0",
+                time7: "0",
+                time8: "0",
+                time9: "0"
+            })
+        }else{
+            store.add({
+                name: "In",
+                value: "0"
+            })
+        }
         store.commitChanges()
         console.log(this.setStore(store))
 

@@ -48,7 +48,8 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     columnLines : true,
     initComponent: function () {
         var me =this;
-        me.bbar=[{
+        /*me.bbar=[{
+            hidden:true,
             text:"index",
             scope:me,
             handler:function(){
@@ -69,7 +70,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
                 saveXml()
                 console.info(this.index)
             }
-        }]
+        }]*/
         this.width = 90;
         this.columns = [
             {

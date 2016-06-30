@@ -17,7 +17,6 @@ Ext.define("svgxml.view.window.AlarmWindow", {
     layout: 'auto',
     resizable: false,
     constrainHeader: true,
-
     listeners: {
         boxready: "formBoxReady"
     },

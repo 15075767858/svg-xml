@@ -14,7 +14,7 @@ Ext.define('svgxml.view.tab.BasicTabs', {
     ],
     width: 400,
     height: 300,
-    maxHeight:"100%",
+    maxHeight: "100%",
     defaults: {
         //bodyPadding: 10,
         //autoScroll: true
@@ -28,9 +28,9 @@ Ext.define('svgxml.view.tab.BasicTabs', {
         items: [
             Ext.create("svgxml.view.tree.DevTree", {
                 region: "north",
-                id:"leftDevTree",
-                height:300,
-                minHeight:200
+                id: "leftDevTree",
+                height: 300,
+                minHeight: 200
                 //maxHeight: 400
             }),
             Ext.create("Ext.grid.Panel", {
@@ -66,18 +66,18 @@ Ext.define('svgxml.view.tab.BasicTabs', {
                      }*/
                 },
                 listeners: {
-                    expand:function(){
-                        setTimeout(function(){
+                    expand: function () {
+                        setTimeout(function () {
                             Ext.getCmp("leftDevTree").setHeight(400);
                             //console.log(Ext.getCmp("leftDevTree").getHeight());
-                        },50)
+                        }, 50)
 
                     },
-                    collapse:function(){
-                       setTimeout(function(){
-                           Ext.getCmp("leftDevTree").setHeight("95%");
-                           //console.log(Ext.getCmp("leftDevTree").getHeight());
-                       },50)
+                    collapse: function () {
+                        setTimeout(function () {
+                            Ext.getCmp("leftDevTree").setHeight("95%");
+                            //console.log(Ext.getCmp("leftDevTree").getHeight());
+                        }, 50)
 
                     },
                     render: "basicRender",

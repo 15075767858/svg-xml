@@ -245,7 +245,6 @@ var slotsJson = {
         type: "56",
         initData: function() {
             var arr = new Array();
-
             arr[0] = {
                 'name': 'Out',
                 delay: "0",
@@ -361,7 +360,8 @@ var slotsJson = {
             }
             return arr;
         },
-        isAddSlot: false
+        isAddSlot: true,
+        maxSlot: 10
     },
     'Pulse': {
         type: "65",

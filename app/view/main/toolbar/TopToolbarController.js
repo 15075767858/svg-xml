@@ -449,7 +449,11 @@ function saveXml(text) {
             for (var j = 0; j < masterNodes.length; j++) {
                 var number = $(masterNodes[j]).attr('number')
 
-                gridpanelChangeButtonText(number,count)
+                try{
+                    gridpanelChangeButtonText(number,count)
+                }catch (e){
+                    throw e;
+                }
 
                 console.info(number)
                 //var nodes = masterNodes[j].querySelectorAll('node');
@@ -478,9 +482,14 @@ function saveXml(text) {
     }
 
     function gridpanelChangeButtonText(number,count){
+
         var panels = getCurrentDrawPanelGirdPanels();
 
         for(var i=0;i<panels.length;i++){
+            if(!panels[i].button){
+                break;
+                return ;
+            }
             if(number==panels[i].button.text){
                 if(panels[i].button1){
                     panels[i].removeDocked(panels[i].button1);
