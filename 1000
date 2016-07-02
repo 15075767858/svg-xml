@@ -2,13 +2,39 @@
 <root>
  <plant  name="001">
   <master_node  number="1">
-   <type>75</type>
-   <in_min>50</in_min>
-   <in_max>200</in_max>
-   <out_min>20</out_min>
-   <out_max>100</out_max>
+   <type>64</type>
    <slots  number="1">
     <default>0</default>
+   </slots>
+   <slots  number="2">
+    <default>0</default>
+   </slots>
+   <slots  number="3">
+    <default>1</default>
+   </slots>
+  </master_node>
+  <master_node  number="2">
+   <type>64</type>
+   <slots  number="1">
+    <default>0</default>
+   </slots>
+   <slots  number="2">
+    <default>0</default>
+   </slots>
+   <slots  number="3">
+    <default>1</default>
+   </slots>
+  </master_node>
+  <master_node  number="3">
+   <type>64</type>
+   <slots  number="1">
+    <default>0</default>
+   </slots>
+   <slots  number="2">
+    <default>0</default>
+   </slots>
+   <slots  number="3">
+    <default>1</default>
    </slots>
   </master_node>
  </plant>
