@@ -533,6 +533,7 @@ function get_A_Master_node(gridpanel, index) {
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
+    isscaleSave(gridpanel,masterNode);
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -639,6 +640,20 @@ function isPidSave(gridpanel, masterNode) {
     masterNode.append("<max_value>" + items[4].data.value + "</max_value>")
     masterNode.append("<min_value>" + items[5].data.value + "</min_value>")
 }
+function isscaleSave(gridpanel, masterNode) {
+    var items;
+    if (gridpanel.datas.type == "75") {
+        items = Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
+    } else {
+        return;
+    }
+    console.log(items)
+    masterNode.append("<In_min>" + items[0].data.value + "</In_min>")
+    masterNode.append("<In_max>" + items[1].data.value + "</In_max>")
+    masterNode.append("<out_min>" + items[2].data.value + "</out_min>")
+    masterNode.append("<out_max>" + items[3].data.value + "</out_max>")
+}
+
 function isSCFMSave(gridpanel, masterNode) {
     var items;
     if (gridpanel.datas.type == "74") {

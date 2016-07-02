@@ -227,11 +227,11 @@ Ext.define('pid', {
     data:  slotsJson.pid.initData(),
     proxy: oproxy
 });
-Ext.define('Pulse', {
+Ext.define('pulse', {
     extend: "Ext.data.Store",
-    storeId: 'PulseStore',
+    storeId: 'pulseStore',
     fields: ['name', 'value'],
-    data: slotsJson.Pulse.initData(),
+    data: slotsJson.pulse.initData(),
     proxy: oproxy
 });
 Ext.define('sub', {
@@ -241,11 +241,11 @@ Ext.define('sub', {
     data: slotsJson.sub.initData(),
     proxy: oproxy
 });
-Ext.define('Switch', {
+Ext.define('switch', {
     extend: "Ext.data.Store",
     storeId: 'switchStore',
     fields: ['name', 'value'],
-    data: slotsJson.Switch.initData(),
+    data: slotsJson.switch.initData(),
     proxy: oproxy
 });
 Ext.define('SCFM', {
@@ -255,11 +255,11 @@ Ext.define('SCFM', {
     data: slotsJson.SCFM.initData(),
     proxy: oproxy
 });
-Ext.define('SCALE', {
+Ext.define('scale', {
     extend: "Ext.data.Store",
-    storeId: 'SCALEStore',
+    storeId: 'scaleStore',
     fields: ['name', 'value'],
-    data: slotsJson.SCALE.initData(),
+    data: slotsJson.scale.initData(),
     proxy: oproxy
 });
 /*

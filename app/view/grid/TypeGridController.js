@@ -69,6 +69,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ]
             });
         };
+
+
         if (panel.datas.type == 74) {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
@@ -79,6 +81,19 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ]
             });
         };
+        if (panel.datas.type == 75) {
+            Ext.create('Ext.data.Store', {
+                storeId: "store" + panel.getId(),
+                fields: ['name', 'value'],
+                data: [
+                    {'name': 'In min', 'value': "50"},
+                    {'name': 'In max', 'value': "200"},
+                    {'name': 'out min', 'value': "20"},
+                    {'name': 'out max', 'value': "100"}
+                ]
+            });
+        };
+
         if (panel.datas.type == 56) {
             //var typeGirdName = this.getTitle();
             var store = panel.store//Ext.data.StoreManager.lookup("store" + _this.id);
@@ -246,6 +261,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             isPidMenu(panel, thi);
                             isLogicMenu(panel, thi);
                             isSCFMMenu(panel,thi);
+                            isScaleMenu(panel,thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -407,7 +423,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             isPidMenu(th.up("typegrid"), thi);
                             isLogicMenu(th.up("typegrid"), thi);
                             isSCFMMenu(th.up('typegrid'),thi);
-
+                            isScaleMenu(th.up('typegrid'),thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -427,6 +443,15 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("griditemcontextmenu")
     }
 });
+
+function isScaleMenu(girdpanel, menu) {
+    console.log(arguments)
+    if (girdpanel.title == "scale") {
+        var cProperty = menu.getComponent("Property")
+        cProperty.setDisabled(false);
+        cProperty.on("click", menu.getController().pidPropertyClick, girdpanel)
+    }
+}
 function isSCFMMenu(girdpanel, menu) {
     console.log(arguments)
     if (girdpanel.title == "pid") {

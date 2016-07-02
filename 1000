@@ -2,85 +2,14 @@
 <root>
  <plant  name="001">
   <master_node  number="1">
-   <type>67</type>
-   <P>15</P>
-    <I>0.1</I>
-     <D>0.01</D>
-      <extime>40</extime>
-      <max_value>100</max_value>
-      <min_value>0</min_value>
-      <slots  number="1">
-       <default>0</default>
-      </slots>
-      <slots  number="2">
-       <default>0</default>
-      </slots>
-      <slots  number="3">
-       <default>1</default>
-      </slots>
-      <slots  number="4">
-       <default>0</default>
-      </slots>
-      <slots  number="5">
-       <default>0</default>
-      </slots>
-     </master_node>
-     <master_node  number="2">
-      <type>56</type>
-      <slots  number="1">
-       <default>0</default>
-      </slots>
-      <slots  number="2">
-       <default>0</default>
-      </slots>
-      <slots  number="3">
-       <default>0</default>
-      </slots>
-      <slots  number="4">
-       <default>0</default>
-      </slots>
-      <slots  number="5">
-       <default>0</default>
-      </slots>
-      <slots  number="6">
-       <default>0</default>
-      </slots>
-      <slots  number="7">
-       <default>0</default>
-      </slots>
-      <slots  number="8">
-       <default>0</default>
-      </slots>
-      <slots  number="9">
-       <default>0</default>
-      </slots>
-      <slots  number="10">
-       <default>0</default>
-      </slots>
-      <list  number="0">
-       <default  number="0">0</default>
-       <default  number="1">0</default>
-       <default  number="2">0</default>
-       <default  number="3">0</default>
-       <default  number="4">0</default>
-       <default  number="5">0</default>
-       <default  number="6">0</default>
-       <default  number="7">0</default>
-       <default  number="8">0</default>
-       <default  number="9">0</default>
-      </list>
-      <list  number="1">
-       <default  number="0">0</default>
-       <default  number="1">0</default>
-       <default  number="2">0</default>
-       <default  number="3">0</default>
-       <default  number="4">0</default>
-       <default  number="5">0</default>
-       <default  number="6">0</default>
-       <default  number="7">0</default>
-       <default  number="8">0</default>
-       <default  number="9">0</default>
-      </list>
-     </master_node>
-    </plant>
-   </root>
+   <type>75</type>
+   <in_min>50</in_min>
+   <in_max>200</in_max>
+   <out_min>20</out_min>
+   <out_max>100</out_max>
+   <slots  number="1">
+    <default>0</default>
+   </slots>
+  </master_node>
+ </plant>
+</root>
