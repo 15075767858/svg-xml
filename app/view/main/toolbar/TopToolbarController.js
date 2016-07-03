@@ -449,9 +449,9 @@ function saveXml(text) {
             for (var j = 0; j < masterNodes.length; j++) {
                 var number = $(masterNodes[j]).attr('number')
 
-                try{
-                    gridpanelChangeButtonText(number,count)
-                }catch (e){
+                try {
+                    gridpanelChangeButtonText(number, count)
+                } catch (e) {
                     throw e;
                 }
 
@@ -481,23 +481,24 @@ function saveXml(text) {
         return root;
     }
 
-    function gridpanelChangeButtonText(number,count){
+    function gridpanelChangeButtonText(number, count) {
 
         var panels = getCurrentDrawPanelGirdPanels();
 
-        for(var i=0;i<panels.length;i++){
-            if(!panels[i].button){
+        for (var i = 0; i < panels.length; i++) {
+            if (!panels[i].button) {
                 break;
-                return ;
+                return;
             }
-            if(number==panels[i].button.text){
-                if(panels[i].button1){
+            if (number == panels[i].button.text) {
+                if (panels[i].button1) {
                     panels[i].removeDocked(panels[i].button1);
                 }
-                var button1 = Ext.create("Ext.button.Button",{
-                    text:count
+                var button1 = Ext.create("Ext.button.Button", {
+                    text: count
                 })
-                panels[i].button1=button1;
+                panels[i].index1=count;
+                panels[i].button1 = button1;
                 panels[i].addDocked(button1)
             }
         }
@@ -533,7 +534,7 @@ function get_A_Master_node(gridpanel, index) {
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
-    isscaleSave(gridpanel,masterNode);
+    isscaleSave(gridpanel, masterNode);
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -662,7 +663,7 @@ function isSCFMSave(gridpanel, masterNode) {
         return;
     }
     console.log(items)
-    masterNode.append("<P>" + items[0].data.value + "</P>")
+    //masterNode.append("<P>" + items[0].data.value + "</P>")
     masterNode.append("<D>" + items[1].data.value + "</D>")
 }
 

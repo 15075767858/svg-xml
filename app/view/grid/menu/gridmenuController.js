@@ -119,7 +119,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     pidPropertyClick: function (menu, item, e, eOpts) {
         var _this = this
         var win = Ext.create('Ext.window.Window', {
-            title: 'pid Property',
+            title: _this.title + ' Property',
             width: 213,
             height: 262,
             layout: 'border',
@@ -180,9 +180,51 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     SCFMPropertyClick: function () {
         var _this = this;
         var store = Ext.data.StoreManager.lookup("store" + _this.id);
+
+
+        var input1 = Ext.create("Ext.form.field.Text", {
+            fieldLabel: 'diameter(D)',
+            labelWidth: 130,
+            name: store.getAt(1).data.name,
+            xtype: "numberfield",
+            value: store.getAt(1).data.value,
+
+            bind: {
+                disabled: "{!check1.checked}",
+                value: "{diameter}"
+            }
+        })
+
+        var input2 = Ext.create("Ext.form.field.Number", {
+            xtype: "numberfield",
+            fieldLabel: 'W',
+            labelAlign: "right",
+            labelWidth: 11,
+            width: 140,
+            value: 0.2,
+            step: 0.1,
+            bind: {
+                disabled: "{!check2.checked}",
+                value: "{input1}"
+            }
+        })
+        var input3 =Ext.create("Ext.form.field.Number",{
+            xtype: "numberfield",
+            fieldLabel: 'H',
+            labelAlign: "right",
+            labelWidth: 11,
+            width: 135,
+            value: 0.4,
+            step: 0.1,
+            bind: {
+                disabled: "{!check2.checked}",
+                value: "{input2}"
+            }
+        })
+
         var win = Ext.create('Ext.window.Window', {
             title: 'SCFM Property',
-            width: 375,
+            width: 390,
             height: 190,
             layout: 'border',
             /*items: {  // Let's put an empty grid in just to illustrate fit layout
@@ -244,7 +286,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                         var resJson = form.getFieldValues();
                         console.log(resJson)
                         store.getAt(0).set("value", resJson[store.getAt(0).data.name])
-                        store.getAt(1).set("value", form.getFields().items[2].value);
+                        store.getAt(1).set("value", input1.value);
                         Ext.Msg.alert('Status', 'Changes saved successfully.');
                         win.close();
                     }
@@ -267,19 +309,21 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                                 xtype: "radiofield",
                                 name: "diameter(D)",
                                 margin: "0 5 0 0",
-                                reference: "check1"
+                                reference: "check1",
+                                checked: true
                             },
-                            {
-                                fieldLabel: 'diameter(D)',
-                                labelWidth: 130,
-                                name: store.getAt(1).data.name,
-                                xtype: "numberfield",
-                                value: store.getAt(1).data.value,
-                                bind: {
-                                    disabled: "{!check1.checked}",
-                                    value: "{diameter}"
-                                }
-                            },
+                            /*{
+                             fieldLabel: 'diameter(D)',
+                             labelWidth: 130,
+                             name: store.getAt(1).data.name,
+                             xtype: "numberfield",
+                             value: store.getAt(1).data.value,
+                             bind: {
+                             disabled: "{!check1.checked}",
+                             value: "{diameter}"
+                             }
+                             },*/
+                            input1,
                             {
                                 xtype: "textfield",
                                 value: "m",
@@ -291,7 +335,21 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     {
                         xtype: "fieldcontainer",
                         layout: "hbox",
-                        defaults: {},
+                        defaults: {
+                            enableKeyEvents: true,
+
+                            listeners: {
+                                keydown: function (field, e, eOpts) {
+                                    if (e.keyCode == 13) {
+                                        console.log(arguments)
+                                        var value = input2.value*input2.value+input3.value*input3.value;
+                                        value = Math.sqrt(value)
+                                        value = Ext.util.Format.number(value,"0.00")
+                                        input1.setValue(value)
+                                    }
+                                }
+                            }
+                        },
                         items: [
                             {
                                 xtype: "radiofield",
@@ -299,41 +357,44 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                                 reference: "check2",
                                 name: "diameter(D)"
                             },
-                            {
-                                xtype: "textfield",
-                                value: "H",
-                                width: 30,
-                                disabled: true
-                            },
-                            {
+
+                            /*{
                                 xtype: "numberfield",
-                                width: 110,
-                                value: 20,
+                                fieldLabel: 'W',
+                                labelAlign: "right",
+                                labelWidth: 11,
+                                width: 140,
+                                value: 0.2,
+                                step: 0.1,
                                 bind: {
                                     disabled: "{!check2.checked}",
                                     value: "{input1}"
-                                },
-
-                            }, {
+                                }
+                            },*/
+                            input2,
+                            {
                                 xtype: "textfield",
                                 value: "m",
                                 width: 25,
-                                disabled: true
+                                disabled: true,
+                                margin: "0 5 0 0"
                             },
-                            {
-                                xtype: "textfield",
-                                value: "W",
-                                width: 30,
-                                disabled: true
-                            }, {
+
+                            /*{
                                 xtype: "numberfield",
-                                width: 110,
-                                value: 40,
+                                fieldLabel: 'H',
+                                labelAlign: "right",
+                                labelWidth: 11,
+                                width: 135,
+                                value: 0.4,
+                                step: 0.1,
                                 bind: {
                                     disabled: "{!check2.checked}",
                                     value: "{input2}"
                                 }
-                            }, {
+                            },*/
+                            input3,
+                            {
                                 xtype: "textfield",
                                 value: "m",
                                 width: 25,

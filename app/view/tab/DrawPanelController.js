@@ -51,6 +51,19 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             id: "plantsPanel" + th.getTitle(),
             store: "store" + th.getTitle(),
             //width: "100%",
+            viewConfig: {
+                getRowClass: function (record, rowIndex, rowParams, store) {
+                    console.log(arguments)
+                    if (record.data.selected) {
+                        if (plantWindow) {
+                            plantWindow.setTitle(th.getTitle() + " " + record.data.name + " Plants");
+                        }
+
+                        return "skyblue";
+                    }
+                    //return record.get("valid") ? "row-valid" : "row-error";
+                }
+            },
             listeners: {
                 itemmouseup: function (th, record, item, index, e, eOpts) {
 
@@ -61,7 +74,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     e.stopEvent();
                     var drawpanel = getCurrentDrawPanel()
                     if (e.button == 2) {
-                        ogridpanle.config.listeners.itemclick.call(ogridpanle,th, record, item, index, e, eOpts)
+                        ogridpanle.config.listeners.itemclick.call(ogridpanle, th, record, item, index, e, eOpts)
 
 
                         Ext.create("Ext.menu.Menu", {
@@ -102,12 +115,12 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                                             setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
                                                         },
                                                         boxready: function () {
-                                                            var me=this;
+                                                            var me = this;
                                                             me.setPosition(this.x1, this.y1, true);
-                                                            setTimeout(function(){
+                                                            setTimeout(function () {
                                                                 delete me.isAni;
                                                                 drawlines(drawpanel)
-                                                            },3000)
+                                                            }, 3000)
                                                         },
                                                         render: function (thi) {
                                                             thi.datas = {
@@ -185,7 +198,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     ostore.setData(aItems)
                     grid.setStore(ostore)
                     drawlines(th)
-                    grid.el.dom.childNodes[0].childNodes[index].style.backgroundColor = "skyblue";
+                    //grid.el.dom.childNodes[0].childNodes[index].style.backgroundColor = "skyblue";
                 },
                 edit: function (grid, e) {
                     // 编辑完成后，提交更改
@@ -205,6 +218,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     flex: 1,
                     sortable: false,
                     menuDisabled: true,
+
                     renderer: function (val) {
                         //drawlines(getCurrentDrawPanel())
 
@@ -236,39 +250,39 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                         scope: this,
                         handler: function (grid, rowIndex) {
 
-                                var plant = getCurrentDrawPanelPlantByIndex(rowIndex);
-                                var aGirdPanels = getCurrentDrawPanelGirdPanels();
+                            var plant = getCurrentDrawPanelPlantByIndex(rowIndex);
+                            var aGirdPanels = getCurrentDrawPanelGirdPanels();
                             console.log(aGirdPanels)
-                                for (var i = 0; aGirdPanels.length; i++) {
-                                    console.log(aGirdPanels[i])
-                                    if (aGirdPanels[i].datas.plantId == plant.id) {
-                                        Ext.Msg.show({
-                                            title:'Massage',
-                                            message: 'Warning ! Current plant is not null . Would you remove this plant ? ',
-                                            buttons: Ext.Msg.YESNO,
-                                            icon: Ext.Msg.WARNING,
-                                            fn: function(btn) {
-                                                if (btn === 'yes') {
-                                                    delCurrentDrawPanelPlant(rowIndex);
-                                                    var data = getCurrentDrawPanel().datas.data;
-                                                    data.splice(rowIndex, 1);
-                                                    grid.store.setData(data);
-                                                    for(var j=0;j<aGirdPanels.length;j++){
-                                                        if(aGirdPanels[j].datas.plantId == plant.id){
-                                                            aGirdPanels[j].close();
-                                                        }else{
-                                                            aGirdPanels[j].hide()
-                                                        }
+                            for (var i = 0; aGirdPanels.length; i++) {
+                                console.log(aGirdPanels[i])
+                                if (aGirdPanels[i].datas.plantId == plant.id) {
+                                    Ext.Msg.show({
+                                        title: 'Massage',
+                                        message: 'Warning ! Current plant is not null . Would you remove this plant ? ',
+                                        buttons: Ext.Msg.YESNO,
+                                        icon: Ext.Msg.WARNING,
+                                        fn: function (btn) {
+                                            if (btn === 'yes') {
+                                                delCurrentDrawPanelPlant(rowIndex);
+                                                var data = getCurrentDrawPanel().datas.data;
+                                                data.splice(rowIndex, 1);
+                                                grid.store.setData(data);
+                                                for (var j = 0; j < aGirdPanels.length; j++) {
+                                                    if (aGirdPanels[j].datas.plantId == plant.id) {
+                                                        aGirdPanels[j].close();
+                                                    } else {
+                                                        aGirdPanels[j].hide()
                                                     }
-                                                    delayToast("Massage","Remove current plant successfully .")
-                                                } else if (btn === 'no') {
-
                                                 }
+                                                delayToast("Massage", "Remove current plant successfully .")
+                                            } else if (btn === 'no') {
+
                                             }
-                                        });
-                                        break;
-                                    }
+                                        }
+                                    });
+                                    break;
                                 }
+                            }
 
 
                         }
@@ -310,7 +324,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
         });
 
-        Ext.create("Ext.window.Window", {
+        var plantWindow = Ext.create("Ext.window.Window", {
             autoShow: true,
             x: 300,
             y: 150,
@@ -501,8 +515,8 @@ function drawlines(drawpanel) {
             var oElStart = Ext.get(oStartEndJson[o]);
             var oElEnd = Ext.get(o);
 
-            if (!oElEnd || !oElStart) {
 
+            if (!oElEnd || !oElStart) {
                 console.log(oElEnd)
                 console.log(oElStart)
                 drawpanel.datas.datasArray.splice(i, 1);
@@ -517,16 +531,37 @@ function drawlines(drawpanel) {
             var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft + drawpanelScrollLeft;
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
             var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id)
+            console.log(oSvg)
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
 
             if (iStartLeft < 0 & iStartTop < 0 & iEndLeft < 0 & iEndTop < 0) {
+                //break;
                 continue;
             }
+            console.log(iStartLeft + "  " + iStartTop)
+            console.log(iEndLeft + " " + iEndTop)
             if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {
-                circle = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "red").attr("data-index", i).attr("class", "OkCircle");
+                circle = oSvg.append("circle")
+                    .attr("r", CIRCLE_MIN_R)
+                    .attr("stroke-width", STROKEWIDTH_MIN)
+                    .attr("stroke", "rgb(137,190,229)")
+                    .attr("fill", "red").attr("data-index", i)
+                    .attr("class", "OkCircle")
+                    .attr("data-start", oStartEndJson[o])
+                    .attr("id","circle"+Math.floor(Math.random()*100000))
+                    .attr("data-end", o);
+                //alert("circle")
+                //continue
             } else {
-                polyline = oSvg.append("polyline").attr("stroke", "blue").attr("stroke-width", STROKEWIDTH_MIN).attr("fill", "none").attr("class", "OkLine").attr("data-start", oStartEndJson[o]).attr("data-end", o).attr("data-index", i);
+                polyline = oSvg.append("polyline")
+                    .attr("stroke", "blue")
+                    .attr("stroke-width", STROKEWIDTH_MIN)
+                    .attr("fill", "none")
+                    .attr("class", "OkLine")
+                    .attr("data-start", oStartEndJson[o])
+                    .attr("data-end", o)
+                    .attr("data-index", i);
             }
 
             if (polyline) {
@@ -553,6 +588,62 @@ function drawlines(drawpanel) {
                     drawpanel.datas.datasArray.splice(index, 1);
                     d3.select(this).remove();
                 });
+                circle.on("mouseover", function () {
+                    var me = $(this);
+
+                    var endId = Ext.get(me.attr('data-end'));
+                    var startId = Ext.get(me.attr("data-start"));
+                    var endPanel = Ext.getCmp(endId.up(".x-panel").id)
+                    var startPanel = Ext.getCmp(startId.up(".x-panel").id)
+                    var panel;
+                    if(endPanel.hidden){
+                        panel=endPanel
+                    }else{
+                        panel=startPanel
+                    }
+                   /* var quicktip = Ext.create("Ext.tip.QuickTip",{
+                        target:startId,
+                        title:endPanel.title,
+                        text:""+endPanel.index,
+                        hideDelay:1,
+                        showDelay:1,
+                        width:100,
+                        height:100,
+                        autoShow:true,
+                        autoHide:false
+
+                    })*/
+                    if(!panel.index1){
+                        showIndex()
+                        hideIndex()
+                    }
+
+                    Ext.create('Ext.tip.ToolTip', {
+                        target:this.id,
+                        html:["<div>"+panel.title+"</div>",
+                            "<div>node number: "+panel.index1+"</div>"
+                        ].join("")
+                    });
+                  /*  Ext.tip.QuickTipManager.register({
+                        target:Ext.getBody(),
+                        title:endPanel.title,
+                        text:""+endPanel.index,
+                        hideDelay:1,
+                        showDelay:1,
+                        width:100,
+                        height:100,
+                        autoHide:false,
+                        trackMouse:true
+//                        dismissDelay:3000
+                    })*/
+                });
+                circle.on("mouseout",function(){
+                    var  tip = Ext.tip.QuickTipManager.getQuickTip()
+                    console.log(tip)
+                    Ext.tip.QuickTipManager.unregister(tip.el)
+                    tip.hide()
+
+                })
                 if (iStartLeft < 0 || iStartTop < 0) {
                     circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop + 12);
                     console.log("start")
@@ -564,6 +655,8 @@ function drawlines(drawpanel) {
                     continue;
                 }
             }
+
+
             var pointAll = [];//折线的数组初始化
             pointAll.push([iStartLeft, iStartTop]);
             var pointStart = [iStartLeft + JIANGE, iStartTop];
@@ -575,6 +668,8 @@ function drawlines(drawpanel) {
             pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
             pointAll.push(pointEnd);
             polyline.attr("points", pointAll);
+            polyline = null;
+            circle = null;
         }
     }
 
@@ -589,8 +684,8 @@ function drawlines(drawpanel) {
         }
         var iX1 = (pointEnd[0] - pointStart[0]) + pointStart[0]; //
         var iY1 = pointStart[1];
-        console.log("iX1="+iX1)
-        console.log("iY1"+iY1)
+        console.log("iX1=" + iX1)
+        console.log("iY1" + iY1)
         var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
         var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
         var oRect1 = isCollsion(lineToRect1);//第一条线碰撞判断
@@ -620,20 +715,20 @@ function drawlines(drawpanel) {
         }
 
 
-        console.log("%c oRect1=","color:red;font-size:20px;")
-        console.log(oRect1)
-        console.log("%c oRect2=","color:red;font-size:20px;")
-        console.log(oRect2)
-        console.log("%c oRect3=","color:red;font-size:20px;")
-        console.log(oRect3)
-        console.log("%c oRect4=","color:red;font-size:20px;")
-        console.log(oRect4)
+        // console.log("%c oRect1=","color:red;font-size:20px;")
+        // console.log(oRect1)
+        // console.log("%c oRect2=","color:red;font-size:20px;")
+        // console.log(oRect2)
+        // console.log("%c oRect3=","color:red;font-size:20px;")
+        // console.log(oRect3)
+        // console.log("%c oRect4=","color:red;font-size:20px;")
+        // console.log(oRect4)
 
         if (oRect1 || oRect3) {
             console.log("oRect3碰上了")
             polyline.attr("stroke", STROKE_COLOR)
             var aPoint = lineSkirtRect(pointStart, oRect1 || oRect3);//
-            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
+            //console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
 
             for (var i = 0; i < aPoint.length; i++) {
                 pointAll.push(aPoint[i]);
@@ -647,7 +742,7 @@ function drawlines(drawpanel) {
             console.log("oRect4碰上了")
             //console.log(pointEnd)
             var aPoint = lineSkirtRect([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], oRect2 || oRect4);
-            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
+//            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
 
             for (var i = 0; i < aPoint.length; i++) {
                 pointAll.push(aPoint[i]);
@@ -655,7 +750,6 @@ function drawlines(drawpanel) {
             //console.log([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]])
             console.log(pointAll)
             drawPolyline([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], iCount);
-
             return;
         }
     }
@@ -807,68 +901,62 @@ function datasArrayUnique(drawpanel) {
 }
 
 
-
-
-function NodeObj(x,y){//节点对象
-    this.x=x;
-    this.y=y;
-    this.leftNode=null;
-    this.rightNode=null;
-    this.parentNode=null;
-    this.getLeftNodeLength=function(){
+function NodeObj(x, y) {//节点对象
+    this.x = x;
+    this.y = y;
+    this.leftNode = null;
+    this.rightNode = null;
+    this.parentNode = null;
+    this.getLeftNodeLength = function () {
         console.log(this.leftNode)
-        return Math.abs(this.x-this.leftNode.x)+Math.abs(this.y-this.leftNode.y)
+        return Math.abs(this.x - this.leftNode.x) + Math.abs(this.y - this.leftNode.y)
     }
-    this.getRightNodeLength=function(){
+    this.getRightNodeLength = function () {
         console.log(this.rightNode)
-        return Math.abs(this.x-this.rightNode.x)+Math.abs(this.y-this.rightNode.y)
+        return Math.abs(this.x - this.rightNode.x) + Math.abs(this.y - this.rightNode.y)
     }
-    this.setLeftNode=function(node){
-        this.leftNode=node;
+    this.setLeftNode = function (node) {
+        this.leftNode = node;
     }
-    this.setRightNode=function(node){
-        this.rightNode=node;
+    this.setRightNode = function (node) {
+        this.rightNode = node;
     }
-    this.getLeftNode=function(){
+    this.getLeftNode = function () {
         console.log(this)
-        if(this.leftNode){
+        if (this.leftNode) {
             return true;
         }
         return false
     }
-    this.getRightNode=function(){
-        if(this.rightNode){
+    this.getRightNode = function () {
+        if (this.rightNode) {
             return true;
         }
         return false
     }
-    this.getXY=function(){
-        return [this.x,this.y];
+    this.getXY = function () {
+        return [this.x, this.y];
     }
 
 }
 
-function iterationNodeTree(rootNode,endPonit){
-    var treeLeafNodeArr=getTreeLeafAll(rootNode); //拿到所有叶节点
-    for(var i =0; i<treeLeafNodeArr.length;i++){
-        var pathNodeArr=[];
+function iterationNodeTree(rootNode, endPonit) {
+    var treeLeafNodeArr = getTreeLeafAll(rootNode); //拿到所有叶节点
+    for (var i = 0; i < treeLeafNodeArr.length; i++) {
+        var pathNodeArr = [];
         //treeLeafNodeArr[i].parentNode
         //while(){
         //}
-
-
     }
-
-
 }
 
-var node1 = new NodeObj(1,1);
-var node2_l = new NodeObj(2,2);
-var node2_r = new NodeObj(2,2);
-var node2_l_3_l = new NodeObj(3,3);
-var node2_l_3_r = new NodeObj(3,3);
-var node2_r_3_l_ = new NodeObj(4,4);
-var node2_r_3_r = new NodeObj(4,4);
+var node1 = new NodeObj(1, 1);
+var node2_l = new NodeObj(2, 2);
+var node2_r = new NodeObj(2, 2);
+var node2_l_3_l = new NodeObj(3, 3);
+var node2_l_3_r = new NodeObj(3, 3);
+var node2_r_3_l_ = new NodeObj(4, 4);
+var node2_r_3_r = new NodeObj(4, 4);
 node1.setLeftNode(node2_l);
 node1.setRightNode(node2_r);
 node2_l.setLeftNode(node2_l_3_l)
@@ -877,27 +965,26 @@ node2_r.setLeftNode(node2_r_3_l_);
 node2_r.setRightNode(node2_r_3_r)
 
 
-
-function getTreeLeafAll(rootNode){ //获取所有叶节点
-    this.leafAll=[];
-    firstIteration.call(this,rootNode)
+function getTreeLeafAll(rootNode) { //获取所有叶节点
+    this.leafAll = [];
+    firstIteration.call(this, rootNode)
     return this.leafAll;
 }
 
 function firstIteration(node) {
 
-    if( !node.leftNode & !node.rightNode) //判断是否有自节点
+    if (!node.leftNode & !node.rightNode) //判断是否有自节点
     {
         console.log(node)
         this.leafAll.push(node)
     }
-    if(node.leftNode) {                   //判断当前节点是否有左孩子
+    if (node.leftNode) {                   //判断当前节点是否有左孩子
         firstIteration(node.leftNode);    //递归左孩子
-        node.leftNode.parentNode=node;
+        node.leftNode.parentNode = node;
     }
-    if(node.rightNode) {                  //判断当前节点是否有右孩子
+    if (node.rightNode) {                  //判断当前节点是否有右孩子
         firstIteration(node.rightNode);   //递归右孩子
-        node.rightNode.parentNode=node;
+        node.rightNode.parentNode = node;
     }
 
 }

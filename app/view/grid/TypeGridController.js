@@ -77,7 +77,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 fields: ['name', 'value'],
                 data: [
                     {name:"Empirical coefficient(K)",value:"0.7069"},
-                    {name:"Pipe diameter(D)",value:"0"}
+                    {name:"Pipe diameter(D)",value:"0.63"}
                 ]
             });
         };
@@ -86,10 +86,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
                 data: [
-                    {'name': 'In min', 'value': "50"},
-                    {'name': 'In max', 'value': "200"},
+                    {'name': 'In min', 'value': "0"},
+                    {'name': 'In max', 'value': "100"},
                     {'name': 'out min', 'value': "20"},
-                    {'name': 'out max', 'value': "100"}
+                    {'name': 'out max', 'value': "400"}
                 ]
             });
         };
