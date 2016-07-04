@@ -1,7 +1,12 @@
 <?php  
 $fn=$_POST['fileName'];
 $rw=$_POST['rw'];
+
+$ip=$_SERVER["SERVER_ADDR"];
+if($ip!="127.0.0.1") {
 chmod($fn,0777);
+}
+
 if($rw=='r'){
 	$isFile=file_exists($fn);
 	if($isFile==false){
@@ -21,5 +26,5 @@ if($rw=='r'){
 	//fwrite($fp, $content);
 	//fclose($fp);
 }
-chmod($fn,0777);
+//chmod($fn,0777);
 ?>

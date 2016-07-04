@@ -257,13 +257,13 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                 console.log(aGirdPanels[i])
 
 
-                                if(!aGirdPanels[i]){
+                                if (!aGirdPanels[i]) {
                                     delCurrentDrawPanelPlant(rowIndex);
                                     var data = getCurrentDrawPanel().datas.data;
                                     data.splice(rowIndex, 1);
                                     grid.store.setData(data);
                                     break;
-                                    return ;
+                                    return;
                                 }
                                 if (aGirdPanels[i].datas.plantId == plant.id) {
                                     Ext.Msg.show({
@@ -409,7 +409,10 @@ function typegridCache(th) {
                 return;
             }
             try {
+
+                console.log(text)
                 var ojson = Ext.decode(text);
+
                 th.datas.datasArray = Ext.decode(ojson.datasArray);
                 th.datas.gridpanelConfigs = Ext.decode(ojson.gridpanelConfigs);
                 th.datas.plants = Ext.decode(ojson.plants);
@@ -678,6 +681,7 @@ function drawlines(drawpanel) {
             pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
             pointAll.push(pointEnd);
             polyline.attr("points", pointAll);
+            console.log(pointAll)
             polyline = null;
             circle = null;
         }
@@ -913,7 +917,7 @@ function datasArrayUnique(drawpanel) {
 }
 
 
-function NodeObj(x, y) {//节点对象
+function PathNode(x, y) {//节点对象
     this.x = x;
     this.y = y;
     this.leftNode = null;
@@ -964,15 +968,15 @@ function iterationNodeTree(rootNode, endPonit) {
 }
 
 
-var node1 = new NodeObj(1, 1);
+var node1 = new PathNode(1, 1);
 
-var node2_l = new NodeObj(20, 20);
-var node2_r = new NodeObj(40, 40);
+var node2_l = new PathNode(20, 20);
+var node2_r = new PathNode(40, 40);
 
-var node2_l_3_l = new NodeObj(300, 300);
-var node2_l_3_r = new NodeObj(400, 400);
-var node2_r_3_l_ = new NodeObj(500, 500);
-var node2_r_3_r = new NodeObj(600, 600);
+var node2_l_3_l = new PathNode(300, 300);
+var node2_l_3_r = new PathNode(400, 400);
+var node2_r_3_l_ = new PathNode(500, 500);
+var node2_r_3_r = new PathNode(600, 600);
 
 node1.setLeftNode(node2_l);
 node1.setRightNode(node2_r);
@@ -987,36 +991,38 @@ function getTreeLeafAll(rootNode) { //获取所有叶节点
     firstIteration.call(this, rootNode)
     return this.leafAll;
 }
-function test() {
 
-    var arr = getTreeLeafAll(node1)
-    for (var i = 0; i < arr.length; i++) {
-        arr[i].toRootNodeLength()
-        console.log(getNodeToParentNodeLength(arr[i]));
-    }
+
+function getShortestPathNode(rootNode) {
+    var arr = getTreeLeafAll(rootNode)
+    arr.sort(function (a, b) {
+        return a.toRootNodeLength() - b.toRootNodeLength();
+    })
+
+    return arr[0];
 }
 
 
-function getNodeToParentNodeLength(node) {
-
-    var parentNode = node.parentNode;
-    var width = Math.abs(node.x - parentNode.x);
-    var height = Math.abs(node.y - parentNode.y);
-    return width + height;
-}
-NodeObj.prototype.toRootNodeLength = function () {
+PathNode.prototype.toRootNodeLength = function () {
     var me = this;
-    var length=0;
-    if(me.parentNode){
+    var length = 0;
+
+    if (me.parentNode) {
         var parentNode = me.parentNode;
         var width = Math.abs(me.x - parentNode.x);
         var height = Math.abs(me.y - parentNode.y);
-        length=width+height;
-        length+=me.parentNode.toRootNodeLength();
-
+        length = width + height;
+        length += me.parentNode.toRootNodeLength();
     }
-
     return length;
+}
+
+PathNode.prototype.getToRootPath = function (arr) {
+    var me = this;
+    arr.push([me.x, me.y]);
+    if (me.parentNode) {
+       me.parentNode.getToRootPath(arr)
+    }
 }
 
 
@@ -1039,5 +1045,12 @@ function firstIteration(node) {
 }
 
 
+/*
+ function getNodeToParentNodeLength(node) {
 
+ var parentNode = node.parentNode;
+ var width = Math.abs(node.x - parentNode.x);
+ var height = Math.abs(node.y - parentNode.y);
+ return width + height;
 
+ }*/

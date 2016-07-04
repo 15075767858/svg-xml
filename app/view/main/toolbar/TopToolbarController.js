@@ -542,7 +542,6 @@ function get_A_Master_node(gridpanel, index) {
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
-    isscaleSave(gridpanel, masterNode);
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -596,6 +595,8 @@ function get_A_Master_node(gridpanel, index) {
         aGirdPanelIII = null;
     }
     isLogic(gridpanel, masterNode)
+    isscaleSave(gridpanel, masterNode);
+
     return masterNode;
 }
 function isLogic(gridpanel, masterNode) {
@@ -657,10 +658,10 @@ function isscaleSave(gridpanel, masterNode) {
         return;
     }
     console.log(items)
-    masterNode.append("<In_min>" + items[0].data.value + "</In_min>")
-    masterNode.append("<In_max>" + items[1].data.value + "</In_max>")
-    masterNode.append("<out_min>" + items[2].data.value + "</out_min>")
-    masterNode.append("<out_max>" + items[3].data.value + "</out_max>")
+    masterNode.append("<slots number='2'><default>" + items[0].data.value + "</default></slots>")
+    masterNode.append("<slots number='3'><default>" + items[1].data.value + "</default></slots>")
+    masterNode.append("<slots number='4'><default>" + items[2].data.value + "</default></slots>")
+    masterNode.append("<slots number='5'><default>" + items[3].data.value + "</default></slots>")
 }
 
 function isSCFMSave(gridpanel, masterNode) {
