@@ -1,7 +1,7 @@
 <?php  
 $fn=$_POST['fileName'];
 $rw=$_POST['rw'];
-
+chmod($fn,0777);
 if($rw=='r'){
 	$isFile=file_exists($fn);
 	if($isFile==false){
@@ -21,4 +21,5 @@ if($rw=='r'){
 	//fwrite($fp, $content);
 	//fclose($fp);
 }
+chmod($fn,0777);
 ?>

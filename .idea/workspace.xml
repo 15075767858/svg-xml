@@ -5,17 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ab2cb7-0149-4e60-9c92-86c11b2d0373" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/production/program/resources/1000" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program.zip" afterPath="$PROJECT_DIR$/build/production/program.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000" afterPath="$PROJECT_DIR$/1000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000.json" afterPath="$PROJECT_DIR$/1000.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000.xml" afterPath="$PROJECT_DIR$/1000.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/MainModel.js" afterPath="$PROJECT_DIR$/app/view/main/MainModel.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" afterPath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" afterPath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" afterPath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/app.js" afterPath="$PROJECT_DIR$/build/production/program/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.css" afterPath="$PROJECT_DIR$/bootstrap.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.js" afterPath="$PROJECT_DIR$/bootstrap.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/test1.php" afterPath="$PROJECT_DIR$/build/production/program/resources/test1.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/xmlRW.php" afterPath="$PROJECT_DIR$/build/production/program/resources/xmlRW.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/test1.php" afterPath="$PROJECT_DIR$/resources/test1.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/xmlRW.php" afterPath="$PROJECT_DIR$/resources/xmlRW.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.js" afterPath="$PROJECT_DIR$/test.js" />
     </list>
     <ignored path="svgxml.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,99 +42,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainModel.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/MainModel.js">
+      <file leaf-file-name="DrawPanel.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="405" column="14" selection-start-line="405" selection-start-column="14" selection-end-line="405" selection-end-column="14" />
+              <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasicTabs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/tab/BasicTabs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="103" column="20" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="564" column="26" selection-start-line="564" selection-start-column="26" selection-end-line="564" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.5531197">
+              <caret line="996" column="1" selection-start-line="996" selection-start-column="1" selection-end-line="996" selection-end-column="1" />
               <folding>
                 <element signature="e#22238#22444#0" expanded="false" />
                 <element signature="e#26251#26657#0" expanded="false" />
                 <element signature="e#27106#27573#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="58" column="42" selection-start-line="58" selection-start-column="42" selection-end-line="58" selection-end-column="42" />
-              <folding>
-                <marker date="1467277120000" expanded="true" signature="917:1018" placeholder="..." />
-                <marker date="1467277120000" expanded="true" signature="1032:1044" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="1000" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/1000">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="1000.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/1000.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="8845" selection-start-line="0" selection-start-column="8845" selection-end-line="0" selection-end-column="8845" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TopToolbarController.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3847032">
-              <caret line="673" column="26" selection-start-line="673" selection-start-column="23" selection-end-line="673" selection-end-column="26" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -174,14 +104,12 @@
         <option value="$PROJECT_DIR$/app/view/window/AlarmWindowModel.js" />
         <option value="$PROJECT_DIR$/app/view/window/AlarmWindowController.js" />
         <option value="$PROJECT_DIR$/app/model/Alerm.js" />
-        <option value="$PROJECT_DIR$/resources/xmlRW.php" />
         <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/app/view/window/ImgSvgWindow.js" />
         <option value="$PROJECT_DIR$/resources/d3.js" />
         <option value="$PROJECT_DIR$/bootstrap.js" />
         <option value="$PROJECT_DIR$/app/view/tree/DevTree.js" />
         <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
-        <option value="$PROJECT_DIR$/resources/test1.php" />
         <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
         <option value="$PROJECT_DIR$/app/view/main/Main.js" />
@@ -198,13 +126,15 @@
         <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" />
         <option value="$PROJECT_DIR$/app/view/tab/FramedTabsController.js" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanel.js" />
-        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
         <option value="$PROJECT_DIR$/app/view/main/MainModel.js" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
         <option value="$PROJECT_DIR$/1000.xml" />
+        <option value="$PROJECT_DIR$/1000" />
+        <option value="$PROJECT_DIR$/resources/test1.php" />
+        <option value="$PROJECT_DIR$/resources/xmlRW.php" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
         <option value="$PROJECT_DIR$/1000.json" />
-        <option value="$PROJECT_DIR$/1000" />
+        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
       </list>
     </option>
   </component>
@@ -285,6 +215,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="svg-xml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svgxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svg-xml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -593,13 +537,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ext/packages/sencha-core/src/data/TreeStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44166666">
-          <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/1000">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -618,13 +555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.460371">
           <caret line="893" column="0" selection-start-line="893" selection-start-column="0" selection-end-line="893" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/test1.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9578348">
-          <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -868,49 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/1000.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-57.5">
-          <caret line="96" column="20" selection-start-line="96" selection-start-column="20" selection-end-line="96" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/1000.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="8845" selection-start-line="0" selection-start-column="8845" selection-end-line="0" selection-end-column="8845" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/1000">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="42" selection-start-line="58" selection-start-column="42" selection-end-line="58" selection-end-column="42" />
-          <folding>
-            <marker date="1467277120000" expanded="true" signature="917:1018" placeholder="..." />
-            <marker date="1467277120000" expanded="true" signature="1032:1044" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/main/MainModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -943,31 +830,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
+    <entry file="file://$PROJECT_DIR$/1000">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="564" column="26" selection-start-line="564" selection-start-column="26" selection-end-line="564" selection-end-column="26" />
-          <folding>
-            <element signature="e#22238#22444#0" expanded="false" />
-            <element signature="e#26251#26657#0" expanded="false" />
-            <element signature="e#27106#27573#0" expanded="false" />
-          </folding>
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+    <entry file="file://$PROJECT_DIR$/1000.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
+          <caret line="0" column="8893" selection-start-line="0" selection-start-column="8893" selection-end-line="0" selection-end-column="8893" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/1000.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5470086">
+          <caret line="64" column="25" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3847032">
-          <caret line="673" column="26" selection-start-line="673" selection-start-column="23" selection-end-line="673" selection-end-column="26" />
+        <state vertical-scroll-proportion="-37.185184">
+          <caret line="695" column="13" selection-start-line="695" selection-start-column="13" selection-end-line="695" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/test1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="27.647058">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/xmlRW.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13020833">
+          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1410905">
+          <caret line="116" column="21" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38448566">
+          <caret line="58" column="42" selection-start-line="58" selection-start-column="42" selection-end-line="58" selection-end-column="42" />
+          <folding>
+            <marker date="1467277120000" expanded="true" signature="917:1018" placeholder="..." />
+            <marker date="1467277120000" expanded="true" signature="1032:1044" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5531197">
+          <caret line="996" column="1" selection-start-line="996" selection-start-column="1" selection-end-line="996" selection-end-column="1" />
+          <folding>
+            <element signature="e#22238#22444#0" expanded="false" />
+            <element signature="e#26251#26657#0" expanded="false" />
+            <element signature="e#27106#27573#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
