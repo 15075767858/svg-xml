@@ -255,6 +255,16 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                             console.log(aGirdPanels)
                             for (var i = 0; aGirdPanels.length; i++) {
                                 console.log(aGirdPanels[i])
+
+
+                                if(!aGirdPanels[i]){
+                                    delCurrentDrawPanelPlant(rowIndex);
+                                    var data = getCurrentDrawPanel().datas.data;
+                                    data.splice(rowIndex, 1);
+                                    grid.store.setData(data);
+                                    break;
+                                    return ;
+                                }
                                 if (aGirdPanels[i].datas.plantId == plant.id) {
                                     Ext.Msg.show({
                                         title: 'Massage',
@@ -484,6 +494,7 @@ function typegridCache(th) {
      datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
 }
 
+
 function drawlines(drawpanel) {
 
     var datasArray = drawpanel.datas.datasArray;
@@ -514,7 +525,6 @@ function drawlines(drawpanel) {
             console.log(dEnd)
             var oElStart = Ext.get(oStartEndJson[o]);
             var oElEnd = Ext.get(o);
-
 
             if (!oElEnd || !oElStart) {
                 console.log(oElEnd)
@@ -549,7 +559,7 @@ function drawlines(drawpanel) {
                     .attr("fill", "red").attr("data-index", i)
                     .attr("class", "OkCircle")
                     .attr("data-start", oStartEndJson[o])
-                    .attr("id","circle"+Math.floor(Math.random()*100000))
+                    .attr("id", "circle" + Math.floor(Math.random() * 100000))
                     .attr("data-end", o);
                 //alert("circle")
                 //continue
@@ -596,49 +606,49 @@ function drawlines(drawpanel) {
                     var endPanel = Ext.getCmp(endId.up(".x-panel").id)
                     var startPanel = Ext.getCmp(startId.up(".x-panel").id)
                     var panel;
-                    if(endPanel.hidden){
-                        panel=endPanel
-                    }else{
-                        panel=startPanel
+                    if (endPanel.hidden) {
+                        panel = endPanel
+                    } else {
+                        panel = startPanel
                     }
-                   /* var quicktip = Ext.create("Ext.tip.QuickTip",{
-                        target:startId,
-                        title:endPanel.title,
-                        text:""+endPanel.index,
-                        hideDelay:1,
-                        showDelay:1,
-                        width:100,
-                        height:100,
-                        autoShow:true,
-                        autoHide:false
+                    /* var quicktip = Ext.create("Ext.tip.QuickTip",{
+                     target:startId,
+                     title:endPanel.title,
+                     text:""+endPanel.index,
+                     hideDelay:1,
+                     showDelay:1,
+                     width:100,
+                     height:100,
+                     autoShow:true,
+                     autoHide:false
 
-                    })*/
-                    if(!panel.index1){
+                     })*/
+                    if (!panel.index1) {
                         showIndex()
                         hideIndex()
                     }
 
                     Ext.create('Ext.tip.ToolTip', {
-                        target:this.id,
-                        html:["<div>"+panel.title+"</div>",
-                            "<div>node number: "+panel.index1+"</div>"
+                        target: this.id,
+                        html: ["<div>" + panel.title + "</div>",
+                            "<div>node number: " + panel.index1 + "</div>"
                         ].join("")
                     });
-                  /*  Ext.tip.QuickTipManager.register({
-                        target:Ext.getBody(),
-                        title:endPanel.title,
-                        text:""+endPanel.index,
-                        hideDelay:1,
-                        showDelay:1,
-                        width:100,
-                        height:100,
-                        autoHide:false,
-                        trackMouse:true
-//                        dismissDelay:3000
-                    })*/
+                    /*  Ext.tip.QuickTipManager.register({
+                     target:Ext.getBody(),
+                     title:endPanel.title,
+                     text:""+endPanel.index,
+                     hideDelay:1,
+                     showDelay:1,
+                     width:100,
+                     height:100,
+                     autoHide:false,
+                     trackMouse:true
+                     //                        dismissDelay:3000
+                     })*/
                 });
-                circle.on("mouseout",function(){
-                    var  tip = Ext.tip.QuickTipManager.getQuickTip()
+                circle.on("mouseout", function () {
+                    var tip = Ext.tip.QuickTipManager.getQuickTip()
                     console.log(tip)
                     Ext.tip.QuickTipManager.unregister(tip.el)
                     tip.hide()
@@ -884,6 +894,8 @@ function isCollsionWithRect(x1, y1, w1, h1,
     }
     return true;
 }
+
+
 function datasArrayUnique(drawpanel) {
     var datasArray = drawpanel.datas.datasArray;
     var map = new Ext.util.HashMap();
@@ -937,39 +949,76 @@ function NodeObj(x, y) {//节点对象
     this.getXY = function () {
         return [this.x, this.y];
     }
-
 }
+
 
 function iterationNodeTree(rootNode, endPonit) {
     var treeLeafNodeArr = getTreeLeafAll(rootNode); //拿到所有叶节点
     for (var i = 0; i < treeLeafNodeArr.length; i++) {
         var pathNodeArr = [];
+
         //treeLeafNodeArr[i].parentNode
         //while(){
         //}
     }
 }
 
+
 var node1 = new NodeObj(1, 1);
-var node2_l = new NodeObj(2, 2);
-var node2_r = new NodeObj(2, 2);
-var node2_l_3_l = new NodeObj(3, 3);
-var node2_l_3_r = new NodeObj(3, 3);
-var node2_r_3_l_ = new NodeObj(4, 4);
-var node2_r_3_r = new NodeObj(4, 4);
+
+var node2_l = new NodeObj(20, 20);
+var node2_r = new NodeObj(40, 40);
+
+var node2_l_3_l = new NodeObj(300, 300);
+var node2_l_3_r = new NodeObj(400, 400);
+var node2_r_3_l_ = new NodeObj(500, 500);
+var node2_r_3_r = new NodeObj(600, 600);
+
 node1.setLeftNode(node2_l);
 node1.setRightNode(node2_r);
-node2_l.setLeftNode(node2_l_3_l)
-node2_l.setRightNode(node2_l_3_r)
-node2_r.setLeftNode(node2_r_3_l_);
-node2_r.setRightNode(node2_r_3_r)
 
+node2_l.setLeftNode(node2_l_3_l);
+node2_l.setRightNode(node2_l_3_r);
+node2_r.setLeftNode(node2_r_3_l_);
+node2_r.setRightNode(node2_r_3_r);
 
 function getTreeLeafAll(rootNode) { //获取所有叶节点
     this.leafAll = [];
     firstIteration.call(this, rootNode)
     return this.leafAll;
 }
+function test() {
+
+    var arr = getTreeLeafAll(node1)
+    for (var i = 0; i < arr.length; i++) {
+        arr[i].toRootNodeLength()
+        console.log(getNodeToParentNodeLength(arr[i]));
+    }
+}
+
+
+function getNodeToParentNodeLength(node) {
+
+    var parentNode = node.parentNode;
+    var width = Math.abs(node.x - parentNode.x);
+    var height = Math.abs(node.y - parentNode.y);
+    return width + height;
+}
+NodeObj.prototype.toRootNodeLength = function () {
+    var me = this;
+    var length=0;
+    if(me.parentNode){
+        var parentNode = me.parentNode;
+        var width = Math.abs(me.x - parentNode.x);
+        var height = Math.abs(me.y - parentNode.y);
+        length=width+height;
+        length+=me.parentNode.toRootNodeLength();
+
+    }
+
+    return length;
+}
+
 
 function firstIteration(node) {
 

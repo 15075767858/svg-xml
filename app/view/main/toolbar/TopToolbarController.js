@@ -443,21 +443,27 @@ function saveXml(text) {
 
     function sortNodeNumber(root) {
         var plants = root.find('plant');
+        var nodes = root.find('node')
+
+        console.log(nodes.length)
+        console.log(nodes)
+
         var count = 1;
         for (var i = 0; i < plants.length; i++) {
             var masterNodes = $(plants[i]).find('master_node');
+
             for (var j = 0; j < masterNodes.length; j++) {
                 var number = $(masterNodes[j]).attr('number')
+                console.info(masterNodes[j])
 
                 try {
                     gridpanelChangeButtonText(number, count)
                 } catch (e) {
                     throw e;
                 }
-
                 console.info(number)
                 //var nodes = masterNodes[j].querySelectorAll('node');
-                var nodes = $(plants[i]).find('node')
+                //var nodes = $(plants[i]).find('node')
 
                 for (var k = 0; k < nodes.length; k++) {
 
@@ -469,10 +475,13 @@ function saveXml(text) {
                         console.log('count=' + count)
                         console.log(nodes[k])
                         $(nodes[k]).html(count);
+                        break;
+
                     }
                 }
                 $(masterNodes[j]).attr('number', count)
                 console.info(count)
+
                 count++;
             }
         }
@@ -482,9 +491,7 @@ function saveXml(text) {
     }
 
     function gridpanelChangeButtonText(number, count) {
-
         var panels = getCurrentDrawPanelGirdPanels();
-
         for (var i = 0; i < panels.length; i++) {
             if (!panels[i].button) {
                 break;
@@ -499,7 +506,8 @@ function saveXml(text) {
                 })
                 panels[i].index1=count;
                 panels[i].button1 = button1;
-                panels[i].addDocked(button1)
+                panels[i].addDocked(button1);
+
             }
         }
 
@@ -663,7 +671,7 @@ function isSCFMSave(gridpanel, masterNode) {
         return;
     }
     console.log(items)
-    //masterNode.append("<P>" + items[0].data.value + "</P>")
+    masterNode.append("<P>" + items[0].data.value + "</P>")
     masterNode.append("<D>" + items[1].data.value + "</D>")
 }
 

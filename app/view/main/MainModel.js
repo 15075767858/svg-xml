@@ -391,7 +391,7 @@ var slotsJson = {
         initData: function () {
             var arr = new Array();
             arr[0] = {
-                'name': 'mode', 'value': "Air volume", select: [{name: "SCFM", value: "0"},
+                'name': 'mode', 'value': "0", select: [{name: "SCFM", value: "0"},
                     {name: "Vento", value: "1"}
                 ]
             }
