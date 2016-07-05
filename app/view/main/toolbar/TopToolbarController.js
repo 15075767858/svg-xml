@@ -518,19 +518,23 @@ function saveXml(text) {
 }
 function xmlAppendPlant(root) {
     var plants = getCurrentDrawPanelPlants();
+    var panelCount=1;
     for (var i = 0; i < plants.length; i++) {
         var plant = $("<plant name='" + plants[i].name + "'></plant>");
         root.append(plant)
-        plantAppendMasterNode(plant, i)
+        plantAppendMasterNode(plant, i,panelCount);
     }
 }
 
-function plantAppendMasterNode(plant, index) {
+function plantAppendMasterNode(plant, index,panelCount) {
+
     var aGridpanels = getCurrentDrawPanelGirdPanels();
     var panels = getCurrentDrawPanelPlants();
     for (var i = 0; i < aGridpanels.length; i++) {
         if (aGridpanels[i].datas.plantId == panels[index].id) {
+            //console.info(aGridpanels[i]);
             plant.append(get_A_Master_node(aGridpanels[i], i));
+            console.info(panelCount)
         }
     }
 }
@@ -918,6 +922,7 @@ function getCurrentPlant() {
 }
 
 function getCurrentPlantGridPanles(plant) {
+
     var curPlantGridPanelArr = [];
     var gridPanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < gridPanels.length; i++) {

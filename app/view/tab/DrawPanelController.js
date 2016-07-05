@@ -567,6 +567,7 @@ function drawlines(drawpanel) {
                 //alert("circle")
                 //continue
             } else {
+
                 polyline = oSvg.append("polyline")
                     .attr("stroke", "blue")
                     .attr("stroke-width", STROKEWIDTH_MIN)
@@ -575,6 +576,7 @@ function drawlines(drawpanel) {
                     .attr("data-start", oStartEndJson[o])
                     .attr("data-end", o)
                     .attr("data-index", i);
+
             }
 
             if (polyline) {
@@ -588,7 +590,6 @@ function drawlines(drawpanel) {
                         .transition()
                         .attr("stroke-width", "4").attr("stroke", "blue");
                 });
-
                 polyline.on("dblclick", function () {
                     var index = d3.select(this).attr("data-index");
                     drawpanel.datas.datasArray.splice(index, 1);
@@ -677,16 +678,30 @@ function drawlines(drawpanel) {
             pointAll.push(pointStart);
             //polyline.attr("points", [[iStartLeft, iStartTop], [iEndLeft, iEndTop]]);
             var iCount = 0;
+
             drawPolyline(pointStart, iCount);
+
             pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
             pointAll.push(pointEnd);
             polyline.attr("points", pointAll);
             console.log(pointAll)
             polyline = null;
             circle = null;
+
         }
     }
 
+
+   /* function drawPolyline1(arr){
+
+    }
+
+    function getSxToExFirstPanel(){
+
+        var gridPanels = getCurrentDrawPanelGirdPanels()
+
+    }
+*/
 
     function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
         console.log(pointStart)
@@ -723,20 +738,12 @@ function drawlines(drawpanel) {
         }
 
         console.log(iCount++)
+
         if (iCount > 10) {
             polyline.attr("stroke", "red")
             return;
         }
 
-
-        // console.log("%c oRect1=","color:red;font-size:20px;")
-        // console.log(oRect1)
-        // console.log("%c oRect2=","color:red;font-size:20px;")
-        // console.log(oRect2)
-        // console.log("%c oRect3=","color:red;font-size:20px;")
-        // console.log(oRect3)
-        // console.log("%c oRect4=","color:red;font-size:20px;")
-        // console.log(oRect4)
 
         if (oRect1 || oRect3) {
             console.log("oRect3碰上了")

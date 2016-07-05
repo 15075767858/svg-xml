@@ -88,57 +88,74 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                     glyph: 72,
                     menu: [
                         {
-                            text: "Update",hidden:true, handler: function () {
+                            text: "Update", hidden: false, handler: function () {
 
-                            var win = Ext.create("Ext.window.Window", {
-                                title: 'Upload Programming Software',
-                                width: 400,
-                                height:300,
-                                bodyPadding: 10,
-                                frame: true,
-                                autoShow: true,
-                                layout:"auto",
-                                items: {
-                                    xtype: "form",
-                                    width:"100%",
-                                    height:"100%",
+                            var form = Ext.create("Ext.form.Panel", {
+                                    width: "100%",
+                                    height: "100%",
                                     defaults: {
                                         anchor: '100%'
                                     },
+                                    items: [
+                                        {
+                                            xtype: 'filefield',
+                                            name: 'file1',
+                                            fieldLabel: 'Plase select Program Install Packages',
+                                            labelWidth: 150,
+                                            msgTarget: 'side',
+                                            allowBlank: false,
+                                            anchor: '100%',
+                                            buttonText: 'Select Program...'
+                                        },
 
-                                    items: [{
-                                        xtype: 'filefield',
-                                        //name: 'updatefile',
-                                        fieldLabel: 'Select install package'
-                                        //labelWidth: 50,
-                                        //msgTarget: 'side',
-                                        //allowBlank: false,
-                                        //anchor: '100%',
-                                        //buttonText: 'Select File...'
-                                    }]
-                                },
+                                    ]
+                                }
+                            )
+
+
+                            var win = Ext.create("Ext.window.Window", {
+                                title: 'Upload Programming Software',
+                                width: 550,
+                                height: 130,
+                                bodyPadding: 10,
+                                frame: true,
+                                autoShow: true,
+                                layout: "auto",
+                                items: form,
                                 buttons: [{
                                     text: 'Upload',
                                     handler: function () {
                                         console.log(this)
-                                        var form = win.down('form').getForm();
+                                        //var form = form.getForm();
                                         if (form.isValid()) {
                                             form.submit({
-                                                url: 'resources/test1.php?par=uploadfiles',
-                                                waitMsg: 'Uploading your photo...',
+                                                waitMsg: 'Uploading your program...',
+                                                url: 'resources/test1.php?par=updateProgram',
+                                                method:"POST",
+                                                metadata:{"enctype":"multipart/form-data"},
                                                 success: function (fp, o) {
-                                                    Ext.Msg.alert('Success', 'Your photo "' + o.result.file + '" has been uploaded.');
+                                                    console.log(arguments)
+                                                    //Ext.Msg.alert('Success', 'Your photo "' + o.result.file + '" has been uploaded.');
                                                 }
                                             });
+
                                         }
                                     }
                                 }]
                             })
                         }
                         }, {
+                            text:"open permission",
+                            handler:function(){
+                                myAjax("resources/test1.php?par=openPermission",function(){
+                                    delayToast("Massage","open permission success .",1000)
+                                })
+
+                            }
+                        },{
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.27  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.30  ');
                             }
                         }
                     ]
