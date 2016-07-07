@@ -32,9 +32,16 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
 
     },
     pasteclick: function (item, e, eOpts) {
-        hideCom.datas = {plantId: getCurrentPlant().id}
+
+
         getCurrentDrawPanel().add(hideCom);
         hideCom.setPagePosition(e.pageX, e.pageY, true)
+
+        hideCom.datas.plantId = getCurrentPlant().id
+
+        /*   setInterval(function(){
+         console.info(hideCom.datas.plantId)
+         },1000)*/
     },
 
     deleteclick: function (menu, item, e, eOpts) {
@@ -208,7 +215,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 value: "{input1}"
             }
         })
-        var input3 =Ext.create("Ext.form.field.Number",{
+        var input3 = Ext.create("Ext.form.field.Number", {
             xtype: "numberfield",
             fieldLabel: 'H',
             labelAlign: "right",
@@ -342,9 +349,9 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                                 keydown: function (field, e, eOpts) {
                                     if (e.keyCode == 13) {
                                         console.log(arguments)
-                                        var value = input2.value*input2.value+input3.value*input3.value;
+                                        var value = input2.value * input2.value + input3.value * input3.value;
                                         value = Math.sqrt(value)
-                                        value = Ext.util.Format.number(value,"0.00")
+                                        value = Ext.util.Format.number(value, "0.00")
                                         input1.setValue(value)
                                     }
                                 }
@@ -359,18 +366,18 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                             },
 
                             /*{
-                                xtype: "numberfield",
-                                fieldLabel: 'W',
-                                labelAlign: "right",
-                                labelWidth: 11,
-                                width: 140,
-                                value: 0.2,
-                                step: 0.1,
-                                bind: {
-                                    disabled: "{!check2.checked}",
-                                    value: "{input1}"
-                                }
-                            },*/
+                             xtype: "numberfield",
+                             fieldLabel: 'W',
+                             labelAlign: "right",
+                             labelWidth: 11,
+                             width: 140,
+                             value: 0.2,
+                             step: 0.1,
+                             bind: {
+                             disabled: "{!check2.checked}",
+                             value: "{input1}"
+                             }
+                             },*/
                             input2,
                             {
                                 xtype: "textfield",
@@ -381,18 +388,18 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                             },
 
                             /*{
-                                xtype: "numberfield",
-                                fieldLabel: 'H',
-                                labelAlign: "right",
-                                labelWidth: 11,
-                                width: 135,
-                                value: 0.4,
-                                step: 0.1,
-                                bind: {
-                                    disabled: "{!check2.checked}",
-                                    value: "{input2}"
-                                }
-                            },*/
+                             xtype: "numberfield",
+                             fieldLabel: 'H',
+                             labelAlign: "right",
+                             labelWidth: 11,
+                             width: 135,
+                             value: 0.4,
+                             step: 0.1,
+                             bind: {
+                             disabled: "{!check2.checked}",
+                             value: "{input2}"
+                             }
+                             },*/
                             input3,
                             {
                                 xtype: "textfield",
@@ -525,20 +532,26 @@ function cloneTypegrid(typegrid, e) {
     console.log(arguments)
 
     var typeName = typegrid.getTitle();
+
     var dataitems = typegrid.getStore().data.items;
+
     var data = [];
+
     for (var i = 0; i < dataitems.length; i++) {
         var otempjson = {};
         otempjson['name'] = dataitems[i].data['name']
         otempjson['value'] = dataitems[i].data['value']
         data[i] = otempjson
     }
+
     var store = Ext.create("Ext.data.Store", {
         fields: ["name", "value"],
         data: data,
         listeners: {
             add: function () {
+
                 setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+
             }
         }
     });
@@ -549,9 +562,15 @@ function cloneTypegrid(typegrid, e) {
         icon: typegrid.config.icon,
         listeners: {
             render: function (thi) {
-                thi.datas = typegrid.datas
+                //thi.datas = typegrid.datas
             }
         }
     });
+    oTypeGrid.datas = {}
+    for (o in  typegrid.datas) {
+        oTypeGrid.datas[typegrid.datas[o]] = o;
+    }
+
+
     return oTypeGrid;
 }

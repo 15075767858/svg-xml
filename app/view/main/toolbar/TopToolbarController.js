@@ -25,7 +25,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         var win = Ext.create('Ext.window.Window', {
             title: 'Open •••',
             frame: true,
-            width: 310,
+            width: 325,
             bodyPadding: 10,
             autoShow: true,
             defaultType: 'textfield',
@@ -95,12 +95,13 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         })
     },
     saveAsClick: function () {
+saveXml()
         var states = getDevNamesAllDataStore(true)
 // Create the combo box, attached to the states data store
         var win = Ext.create('Ext.window.Window', {
             title: 'Save as•••',
             frame: true,
-            width: 310,
+            width: 325,
             bodyPadding: 10,
             autoShow: true,
             defaultType: 'textfield',
@@ -158,7 +159,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         var win = Ext.create('Ext.window.Window', {
             title: 'Download •••',
             frame: true,
-            width: 310,
+            width: 325,
             bodyPadding: 10,
             autoShow: true,
             defaultType: 'textfield',
@@ -206,7 +207,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         var win = Ext.create('Ext.window.Window', {
             title: 'Upload •••',
             frame: true,
-            width: 310,
+            width: 325,
             bodyPadding: 10,
             autoShow: true,
             defaultType: 'textfield',
@@ -392,9 +393,10 @@ function devPublish(key, value, success) {
             }
         }
     })
-
 }
+
 function saveXml(text) {
+    panelAddCurPlantIndex()
     text = text || "1000";
     var fName = text;
     if (text == "local") {
@@ -413,9 +415,15 @@ function saveXml(text) {
     xmlAppendPlant(root)
     var datas = {};
     datas['fileName'] = "../" + text;
+    //root = sortNodeNumber(root)
 
-    root = sortNodeNumber(root)
+    console.log(root)
+
+    changeKey(root, text);
+    console.log(root)
+
     console.log(root[0].outerHTML)
+
     datas['content'] = formatXml(replacePID(sXmlNameSpace + root[0].outerHTML));
 
     //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
@@ -441,6 +449,21 @@ function saveXml(text) {
         }
     });
 
+    function changeKey(root, text) {
+        if (text == "1000") {
+            return;
+        }
+        text = text.substr(text.length - 4, text.length);
+        var keys = root.find('key');
+        for (var i = 0; i < keys.length; i++) {
+            var keyValue = $(keys[i]).html();
+            if (keyValue.substr(0, 4) != text) {
+                $(keys[i]).html(text + keyValue.substr(4, text.length))
+            }
+        }
+        return root;
+    }
+
     function sortNodeNumber(root) {
         var plants = root.find('plant');
         var nodes = root.find('node')
@@ -454,14 +477,15 @@ function saveXml(text) {
 
             for (var j = 0; j < masterNodes.length; j++) {
                 var number = $(masterNodes[j]).attr('number')
-                console.info(masterNodes[j])
 
-                try {
-                    gridpanelChangeButtonText(number, count)
-                } catch (e) {
-                    throw e;
-                }
-                console.info(number)
+                //console.info(masterNodes[j])
+
+                /* try {
+                 gridpanelChangeButtonText(number, count)
+                 } catch (e) {
+                 throw e;
+                 }*/
+                //console.info(number)
                 //var nodes = masterNodes[j].querySelectorAll('node');
                 //var nodes = $(plants[i]).find('node')
 
@@ -504,45 +528,64 @@ function saveXml(text) {
                 var button1 = Ext.create("Ext.button.Button", {
                     text: count
                 })
-                panels[i].index1=count;
+                panels[i].index1 = count;
                 panels[i].button1 = button1;
                 panels[i].addDocked(button1);
-
             }
         }
-
-
     }
-
-
 }
+//var panelCount = 1;
+
 function xmlAppendPlant(root) {
     var plants = getCurrentDrawPanelPlants();
-    var panelCount=1;
+    console.info(plants)
+
     for (var i = 0; i < plants.length; i++) {
         var plant = $("<plant name='" + plants[i].name + "'></plant>");
         root.append(plant)
-        plantAppendMasterNode(plant, i,panelCount);
+        plantAppendMasterNode(plant, plants[i].id);
     }
+    //panelCount = 1;
 }
 
-function plantAppendMasterNode(plant, index,panelCount) {
-
+function plantAppendMasterNode(plant, plantId) {
     var aGridpanels = getCurrentDrawPanelGirdPanels();
-    var panels = getCurrentDrawPanelPlants();
+    //var panels = getCurrentDrawPanelPlants();
     for (var i = 0; i < aGridpanels.length; i++) {
-        if (aGridpanels[i].datas.plantId == panels[index].id) {
+        //if (aGridpanels[i].datas.plantId == panels[index].id) {
+        if (aGridpanels[i].datas.plantId == plantId) {
+            plant.append(get_A_Master_node(aGridpanels[i]));
+            //aGridpanels[i].curPlantIndex = panelCount;
             //console.info(aGridpanels[i]);
-            plant.append(get_A_Master_node(aGridpanels[i], i));
-            console.info(panelCount)
+            //console.info(panelCount);
+            //panelCount++;
         }
     }
 }
 
-function get_A_Master_node(gridpanel, index) {
+
+function panelAddCurPlantIndex(){
+    var count=1;
+    var plants = getCurrentDrawPanelPlants();
+    var aGridpanels = getCurrentDrawPanelGirdPanels();
+    for (var i = 0; i < plants.length; i++) {
+
+        for (var j = 0; j < aGridpanels.length; j++) {
+            if (aGridpanels[j].datas.plantId == plants[i].id) {
+                aGridpanels[j].curPlantIndex = count;
+                count++;
+                console.log(aGridpanels[j])
+            }
+        }
+    }
+
+}
+
+function get_A_Master_node(gridpanel) {
     var masterNode = $(document.createElement("master_node"));
     var iType = gridpanel.datas.type;
-    masterNode.attr("number", (index + 1));
+    masterNode.attr("number", gridpanel.curPlantIndex);
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
@@ -723,9 +766,9 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
     /**
      * 一次只判断一个tr
      */
-    console.log(gridpanel.el.dom.querySelectorAll(".x-grid-row")[index])
-    //alert(index)
-    console.log(gridpanel.el.dom.querySelectorAll(".x-grid-row"))
+    /*console.log(gridpanel.el.dom.querySelectorAll(".x-grid-row")[index])
+     //alert(index)
+     console.log(gridpanel.el.dom.querySelectorAll(".x-grid-row"))*/
     var endTrId = gridpanel.el.dom.querySelectorAll(".x-grid-row")[index].id;
     var startTrId = getStartTrIdByEndTrId(endTrId);//通过结束id从所有连线信息中得到开始id
     var gridpanels = getCurrentDrawPanelGirdPanels();
@@ -744,7 +787,9 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
                 if (items[1].data['name'] == "Instance" & j > 0) {
                     sn = j - 1
                 }
-                return [i + 1, sn]
+                //return [i + 1, sn]
+
+                return [gridpanels[i].curPlantIndex, sn]
             }
         }
 
@@ -765,72 +810,21 @@ function getStartTrIdByEndTrId(endTrId) {
     }
 }
 
-/*
- function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
- /!**
- *这个方法是拿到一个gridpanel 和 需要索引的 位置 index
- * 来找到 起点 对应的 gridpanel 和 位置 并返回
- *
- *!/
- var drawpanel = drawpanel || getCurrentDrawPanel();
- var trs = gridpanel.el.query(".x-grid-row");
- var node = null;
- var slot_number = null;
- var aPolylines = d3.select(drawpanel.el.dom).selectAll(".OkLine");
- aPolylines.each(function () {
- var trEndId = d3.select(this).attr("data-end");
- var trStartId = d3.select(this).attr("data-start");
 
- for (var i = index; i < trs.length; i++) {
- if (trs[i].id == trEndId) {
- var aGridpanels = getCurrentDrawPanelGirdPanels();
-
- for (var j = 0; j < aGridpanels.length; j++) {
- if (aGridpanels[j].el.getId(trStartId)) {
- node = j;
- var rows = aGridpanels[j].el.query(".x-grid-row");
- for (var k = 0; k < rows.length; k++) {
- if (rows[k].id == trStartId) {
- slot_number = k;
- return false;
- }
- }
- }
- }
-
- /!*Ext.each(aGridpanels, function (name, index, countriesItSelf) {
- if (name.el.getById(trStartId)) {
- node = index;
- Ext.each(name.el.query(".x-grid-row"), function (name, index) {
- console.log("index=" + index)
- if (name.id == trStartId) {
- slot_number = index;
- return false;
- }
- });
- }
- });*!/
- //console.log(trEndId+"   "+trStartId) //在这里查找起点的 panel
- console.log(aGridpanels[0])
- }
- }
- if (node && slot_number)
- return false;
- });
- return [node, slot_number];
- }
- */
 
 function getCurrentDrawPanel() {
-    var drawpanels = Ext.ComponentQuery.query("drawpanel");
+    /*var drawpanels = Ext.ComponentQuery.query("drawpanel");
+
     var drawpanel;
     for (var i = 0; i < drawpanels.length; i++) {
         if (!drawpanels[i].hidden && drawpanels[i].el) {
             //console.log(drawpanels[i])
             drawpanel = drawpanels[i];
         }
-    }
-    return drawpanel;
+    }*/
+
+   return Ext.getCmp("frametab_drawpanel").getActiveTab();
+   // return drawpanel;
 }
 function getCurrentDrawPanelDatasArray(drawpanel) {
     var cdrawpanel = drawpanel || getCurrentDrawPanel()
@@ -892,6 +886,7 @@ function setCurrentPlant(index) {
 function getCurrentDrawPanelPlantByIndex(index) {
     return getCurrentDrawPanel().datas.plants[index]
 }
+
 function getCurrentDrawPanelPlants() {
     return getCurrentDrawPanel().datas.plants;
 }

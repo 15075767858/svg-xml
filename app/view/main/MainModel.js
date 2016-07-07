@@ -46,6 +46,19 @@ var slotsJson = {
         isAddSlot: false
         //maxSlot:10
     },
+    'AV': {
+        type: "2",
+        initData: function () {
+            var arr = new Array()
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'Instance', 'value': ""}
+            arr[2] = {'name': 'In', 'value': ""}
+            return arr;
+        },
+        isAddSlot: false
+        //maxSlot:10
+    },
     'BI': {
         type: "3",
         initData: function () {
@@ -71,19 +84,7 @@ var slotsJson = {
         isAddSlot: false
         //maxSlot:10
     },
-    'AV': {
-        type: "2",
-        initData: function () {
-            var arr = new Array()
 
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'Instance', 'value': ""}
-            arr[2] = {'name': 'In', 'value': ""}
-            return arr;
-        },
-        isAddSlot: false
-        //maxSlot:10
-    },
     'BV': {
         type: "5",
         initData: function () {
@@ -110,8 +111,32 @@ var slotsJson = {
         isAddSlot: true,
         maxSlot: 10
     },
-    'aodo': {
-        type: "58",
+    'sub': {
+        type: "52",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+        isAddSlot: true,
+        maxSlot: 10
+    },
+    'mul': {
+        type: "53",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+        isAddSlot: true,
+        maxSlot: 10
+    },
+    'fa': {
+        type: "54",
         initData: function () {
             var arr = new Array()
             arr[0] = {'name': 'Out', 'value': "0"}
@@ -120,6 +145,7 @@ var slotsJson = {
         },
         isAddSlot: false
     },
+
     'aver': {
         type: "55",
         initData: function () {
@@ -132,121 +158,7 @@ var slotsJson = {
         isAddSlot: true,
         maxSlot: 10
     },
-    'comp': {
-        type: "61",
-        initData: function () {
-            var arr = new Array();
 
-            arr[0] = {
-                "name": "mode", value: "<", select: [{name: "<", value: "0"},
-                    {name: ">", value: "2"},
-                    {name: "=", value: "1"}
-                ]
-            }
-            arr[1] = {'name': 'Out', 'value': "0"}
-            arr[2] = {'name': 'In', 'value': "0"}
-            arr[3] = {'name': 'In', 'value': "0"}
-            return arr;
-        },
-
-        isAddSlot: false
-    },
-    'count': {
-        type: "62",
-        initData: function () {
-            var arr = new Array();
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            arr[2] = {'name': 'In', 'value': "0"}
-            return arr;
-        },
-        isAddSlot: true,
-        maxSlot: 10
-    },
-    'delay': {
-        type: "60",
-        initData: function () {
-            var arr = new Array();
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            arr[2] = {'name': 'DelayTime(s)', 'value': "2"}
-            return arr;
-        },
-        isAddSlot: false
-    },
-    'enth': {
-        type: "70",
-        initData: function () {
-            var arr = new Array();
-
-            arr[0] = {
-                "name": "mode", value: "ps", select: [{name: "ps", value: "0"},
-                    {name: "water", value: "1"},
-                    {name: "enthalpy", value: "2"}
-                ]
-            }
-            arr[1] = {'name': 'Out', 'value': "0"}
-            arr[2] = {'name': 'Temp', 'value': "0"}
-            arr[3] = {'name': 'RH', 'value': "0"}
-            arr[4] = {'name': 'pa', 'value': "101325.0"}
-            return arr;
-        },
-        isAddSlot: false
-    },
-    'fa': {
-        type: "54",
-        initData: function () {
-            var arr = new Array()
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            return arr;
-        },
-        isAddSlot: false
-    },
-    'fd': {
-        type: "57",
-        initData: function () {
-            var arr = new Array()
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            return arr;
-        },
-        isAddSlot: false
-    },
-    'hour': {
-        type: "59",
-        initData: function () {
-            var arr = new Array()
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            return arr;
-        },
-        isAddSlot: false
-    },
-    'hy': {
-        type: "68",
-        initData: function () {
-            var arr = new Array();
-
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            arr[2] = {'name': 'On', 'value': "55"}
-            arr[3] = {'name': 'Off', 'value': "45"}
-            return arr;
-        },
-        isAddSlot: false
-    },
-    'lock': {
-        type: "69",
-        initData: function () {
-            var arr = new Array();
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            arr[2] = {'name': 'Unlock', 'value': "0"}
-            return arr;
-        },
-        isAddSlot: false
-    },
     'logic': {
         type: "56",
         initData: function () {
@@ -287,6 +199,80 @@ var slotsJson = {
         isAddSlot: true,
         maxSlot: 10
     },
+    'fd': {
+        type: "57",
+        initData: function () {
+            var arr = new Array()
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+        isAddSlot: false
+    },
+
+    'aodo': {
+        type: "58",
+        initData: function () {
+            var arr = new Array()
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+        isAddSlot: false
+    },
+    'hour': {
+        type: "59",
+        initData: function () {
+            var arr = new Array()
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+        isAddSlot: false
+    },
+    'delay': {
+        type: "60",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'DelayTime(s)', 'value': "2"}
+            return arr;
+        },
+        isAddSlot: false
+    },
+    'comp': {
+        type: "61",
+        initData: function () {
+            var arr = new Array();
+
+            arr[0] = {
+                "name": "mode", value: "<", select: [{name: "<", value: "0"},
+                    {name: ">", value: "2"},
+                    {name: "=", value: "1"}
+                ]
+            }
+            arr[1] = {'name': 'Out', 'value': "0"}
+            arr[2] = {'name': 'In', 'value': "0"}
+            arr[3] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+
+        isAddSlot: false
+    },
+    'count': {
+        type: "62",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'In', 'value': "0"}
+            return arr;
+        },
+        isAddSlot: true,
+        maxSlot: 10
+    },
+
 
     'max': {
         type: "63",
@@ -306,17 +292,39 @@ var slotsJson = {
         isAddSlot: true,
         maxSlot: 10
     },
-    'mul': {
-        type: "53",
+    'Switch': {
+        type: "64",
         initData: function () {
             var arr = new Array();
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'In', 'value': "0"}
             arr[2] = {'name': 'In', 'value': "0"}
+            arr[3] = {
+                'name': 'Enable',
+                'value': "Enable",
+                select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]
+            }
+            return arr
+        },
+        isAddSlot: false
+    },
+    'pulse': {
+        type: "65",
+        initData: function () {
+            var arr = new Array();
+
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {
+                'name': 'Enable',
+                'value': "Enable",
+                select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]
+            }
+            arr[2] = {'name': 'OnTime', 'value': "6"}
+            arr[3] = {'name': 'OffTime', 'value': "6"}
+            arr[4] = {'name': 'lifetime', 'value': "60"}
             return arr;
         },
-        isAddSlot: true,
-        maxSlot: 10
+        isAddSlot: false
     },
     'pid': {
         type: "67",
@@ -340,52 +348,52 @@ var slotsJson = {
         isAddSlot: true,
         maxSlot: 10
     },
-    'pulse': {
-        type: "65",
+    'hy': {
+        type: "68",
         initData: function () {
             var arr = new Array();
 
             arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {
-                'name': 'Enable',
-                'value': "Enable",
-                select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]
-            }
-            arr[2] = {'name': 'OnTime', 'value': "6"}
-            arr[3] = {'name': 'OffTime', 'value': "6"}
-            arr[4] = {'name': 'lifetime', 'value': "60"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'On', 'value': "55"}
+            arr[3] = {'name': 'Off', 'value': "45"}
             return arr;
         },
         isAddSlot: false
     },
-    'sub': {
-        type: "52",
+    'lock': {
+        type: "69",
         initData: function () {
             var arr = new Array();
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'In', 'value': "0"}
-            arr[2] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'Unlock', 'value': "0"}
             return arr;
-        },
-        isAddSlot: true,
-        maxSlot: 10
-    },
-    'Switch': {
-        type: "64",
-        initData: function () {
-            var arr = new Array();
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'In', 'value': "0"}
-            arr[2] = {'name': 'In', 'value': "0"}
-            arr[3] = {
-                'name': 'Enable',
-                'value': "Enable",
-                select: [{name: "Enable", value: "1"}, {name: "Disable", value: "0"}]
-            }
-            return arr
         },
         isAddSlot: false
     },
+    'enth': {
+        type: "70",
+        initData: function () {
+            var arr = new Array();
+
+            arr[0] = {
+                "name": "mode", value: "ps", select: [{name: "ps", value: "0"},
+                    {name: "water", value: "1"},
+                    {name: "enthalpy", value: "2"}
+                ]
+            }
+            arr[1] = {'name': 'Out', 'value': "0"}
+            arr[2] = {'name': 'Temp', 'value': "0"}
+            arr[3] = {'name': 'RH', 'value': "0"}
+            arr[4] = {'name': 'pa', 'value': "101325.0"}
+            return arr;
+        },
+        isAddSlot: false
+    },
+
+
+
     'SCFM': {
         type: "74",
         initData: function () {

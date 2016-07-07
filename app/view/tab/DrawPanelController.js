@@ -499,7 +499,10 @@ function typegridCache(th) {
 
 
 function drawlines(drawpanel) {
-
+    d3.selectAll(".tempCircle").remove()
+    //My.PathNodeManager.removeAll()
+    // tnode = getStartNodeTopButtomNodePathByEndX(new My.PathNode(100, 200), new My.PathNode(800, 300))
+    //test(tnode)
     var datasArray = drawpanel.datas.datasArray;
 
     if (!datasArray) {
@@ -511,11 +514,27 @@ function drawlines(drawpanel) {
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
     var currentDrawPanel = drawpanel;
+
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
+
     var drawpanelScrollTop = drawpanel.el.dom.querySelector("div").scrollTop
     var drawpanelScrollLeft = drawpanel.el.dom.querySelector("div").scrollLeft
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
+
+    var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id);
+
+
+    /*for (var i = 0; i < My.PathNodes.length; i++) {
+        circle = oSvg.append("circle")
+            .attr("r", 8)
+            .attr("stroke-width", 3)
+            .attr("stroke", "#00FF00")
+            .attr("fill", "blue").attr("data-index", i)
+            .attr("class", "tempCircle")
+            .attr("cx", My.PathNodes[i].x/!*-iDrawPanelLeft+drawpanelScrollLeft*!/)
+            .attr("cy", My.PathNodes[i].y/!*-iDrawPanelTop+drawpanelScrollTop*!/)
+    }*/
 
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
         var oStartEndJson = datasArray[i];
@@ -527,6 +546,7 @@ function drawlines(drawpanel) {
             console.log(dStart)
             console.log(dEnd)
             var oElStart = Ext.get(oStartEndJson[o]);
+            console.log(oElStart)
             var oElEnd = Ext.get(o);
 
             if (!oElEnd || !oElStart) {
@@ -543,8 +563,8 @@ function drawlines(drawpanel) {
             var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
             var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft + drawpanelScrollLeft;
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
-            var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id)
             console.log(oSvg)
+
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
 
@@ -627,7 +647,7 @@ function drawlines(drawpanel) {
                      autoHide:false
 
                      })*/
-                    if (!panel.index1) {
+                    if (!panel.curPlantIndex) {
                         showIndex()
                         hideIndex()
                     }
@@ -635,7 +655,7 @@ function drawlines(drawpanel) {
                     Ext.create('Ext.tip.ToolTip', {
                         target: this.id,
                         html: ["<div>" + panel.title + "</div>",
-                            "<div>node number: " + panel.index1 + "</div>"
+                            "<div>node number: " + panel.curPlantIndex + "</div>"
                         ].join("")
                     });
                     /*  Ext.tip.QuickTipManager.register({
@@ -691,17 +711,6 @@ function drawlines(drawpanel) {
         }
     }
 
-
-   /* function drawPolyline1(arr){
-
-    }
-
-    function getSxToExFirstPanel(){
-
-        var gridPanels = getCurrentDrawPanelGirdPanels()
-
-    }
-*/
 
     function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
         console.log(pointStart)
@@ -891,6 +900,241 @@ function drawlines(drawpanel) {
     }
 }
 
+function drawPolyline1(arr) {
+
+}
+var My = {};
+My.PathNodes = [];
+My.MaxPathNodeId = 0;
+My.PathNode = function (x, y) {//节点对象
+    this.x = x;
+    this.y = y;
+    this.leftNode = null;
+    this.rightNode = null;
+    this.parentNode = null;
+    this.getLeftNodeLength = function () {
+        console.log(this.leftNode)
+        return Math.abs(this.x - this.leftNode.x) + Math.abs(this.y - this.leftNode.y)
+    }
+    this.getRightNodeLength = function () {
+        console.log(this.rightNode)
+        return Math.abs(this.x - this.rightNode.x) + Math.abs(this.y - this.rightNode.y)
+    }
+    this.setLeftNode = function (node) {
+        node.setParentNode(this)
+        this.leftNode = node;
+    }
+    this.setRightNode = function (node) {
+        node.setParentNode(this)
+        this.rightNode = node;
+    }
+    this.setParentNode = function (node) {
+        this.parentNode = node;
+    }
+    this.getLeftNode = function () {
+        if (this.leftNode) {
+            return this.leftNode;
+        }
+        return false
+    }
+    this.getRightNode = function () {
+        if (this.rightNode) {
+            return this.rightNode;
+        }
+        return false
+    }
+    this.getXY = function () {
+        if (this.x >= 0 & this.y >= 0) {
+            return [this.x, this.y];
+        } else {
+            return null;
+        }
+    }
+    this.init = (function (pathNode) {
+        My.PathNodeManager.init(pathNode);
+    })(this)
+}
+My.PathNodeManager = {
+    init: function (pathNode) {
+        var id = "pathnode-" + My.MaxPathNodeId;
+        My.MaxPathNodeId++;
+        if (My.PathNodeManager.getById(id)) {
+            My.PathNodeManager.init(pathNode);
+            return;
+        }
+        pathNode.id = id;
+        My.PathNodes.push(pathNode);
+    },
+    removeAll: function () {
+        My.PathNodes = [];
+        My.MaxPathNodeId = 0;
+    },
+    getById: function (id) {
+        for (var i = 0; i < My.PathNodes.length; i++) {
+            if (My.PathNodes[i].id == id) {
+                return My.PathNodes[i];
+            }
+        }
+        return null;
+    }
+}
+
+
+My.PathNode.prototype.toRootNodeLength = function () {
+    var me = this;
+    var length = 0;
+
+    if (me.parentNode) {
+        var parentNode = me.parentNode;
+        var width = Math.abs(me.x - parentNode.x);
+        var height = Math.abs(me.y - parentNode.y);
+        length = width + height;
+        length += me.parentNode.toRootNodeLength();
+    }
+    return length;
+}
+
+My.PathNode.prototype.getToRootPath = function (arr) {
+    var me = this;
+    arr.push([me.x, me.y]);
+    if (me.parentNode) {
+        me.parentNode.getToRootPath(arr)
+    }
+}
+var strXY = new My.PathNode(100, 200);
+
+var endXY = new My.PathNode(500, 300);
+
+var fangka = 0;
+
+function test(testNode) {
+    fangka++
+    if (fangka > 100) {
+        fangka = 0
+        return
+    }
+
+    if (!testNode) {
+        console.log(testNode)
+        console.log(fangka)
+        return;
+    }
+    console.log(testNode)
+    var drawpanel = getCurrentDrawPanel()
+    var svg = d3.select(".tempSVG" + drawpanel.id);
+    console.log(svg)
+
+    if (testNode.leftNode) {
+        var tn1 = getStartNodeTopButtomNodePathByEndX(testNode.leftNode, endXY)
+
+        console.log("leftNode")
+        console.log(tn1);
+        test(tn1);
+    }
+    if (testNode.rightNode) {
+        var tn2 = getStartNodeTopButtomNodePathByEndX(testNode.rightNode, endXY);
+        console.log("leftNode")
+        console.log(tn2)
+        test(tn2);
+    }
+}
+
+function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
+    //获取距离起点最近的 并且和 在一条直线伤的 gridpanel
+    var drawPanel = getCurrentDrawPanel()
+    var dPLeft = drawPanel.getX()
+    var dPTop = drawPanel.getY()
+    var drawpanelScrollTop = getCurrentDrawPanel().el.dom.querySelector("div").scrollTop
+    var drawpanelScrollLeft = getCurrentDrawPanel().el.dom.querySelector("div").scrollLeft
+    if (!startNode || !endNode) {
+        return null;
+    }
+    var gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
+    var leftToRight = startNode.x < endNode.x;
+    console.log(startNode.x)
+    console.log(endNode.x)
+    console.log(leftToRight)
+    console.log(startNode)
+    console.log(endNode)
+    if(fangka>100){
+        fangka=0;
+        return ;
+    }
+    if (leftToRight) {
+        gridPanels.sort(function (a, b) {
+            return a.getX() - b.getX();
+        });
+    } else {
+        gridPanels.sort(function (a, b) {
+            return b.getX() - a.getX();
+        });
+    }
+
+    for (var i = 0; i < gridPanels.length; i++) {
+        //console.log(gridPanels[i])
+        var gX = gridPanels[i].getX() - dPLeft;
+        var gY = gridPanels[i].getY() - dPTop;
+        var gH = gridPanels[i].getHeight();
+        var nY = startNode.y;
+
+        if (gY > nY) {
+            continue;
+        }
+        if ((gY + gH) < nY) {
+            continue;
+        }
+
+        if (leftToRight) {
+            if (gridPanels[i].getX() > startNode.x) {
+                startNode.setLeftNode(getGridPanelPoint(gridPanels[i], 'nw'));
+                startNode.setRightNode(getGridPanelPoint(gridPanels[i], 'sw'));
+                return startNode;
+            }
+        } else {
+            if (gridPanels[i].getX() < startNode.x) {
+                startNode.setLeftNode(getGridPanelPoint(gridPanels[i], 'ne'));
+                startNode.setRightNode(getGridPanelPoint(gridPanels[i], 'se'));
+                return startNode;
+            }
+        }
+    }
+
+    return null;
+}
+
+
+function getGridPanelPoint(gridPanel, pointStr) {
+    var drawPanel = getCurrentDrawPanel()
+    var yuliang = 10
+    var pathNode = new My.PathNode();
+    var x = gridPanel.getX() - drawPanel.getX();
+    var y = gridPanel.getY() - drawPanel.getY();
+    var width = gridPanel.getWidth();
+    var height = gridPanel.getHeight();
+    if (pointStr == "nw") {
+        pathNode.x = x - yuliang;
+        pathNode.y = y - yuliang;
+    }
+    if (pointStr == "sw") {
+        pathNode.x = x - yuliang;
+        pathNode.y = y + height + yuliang;
+    }
+    if (pointStr == "se") {
+        pathNode.x = x + width + yuliang;
+        pathNode.y = y + height + yuliang;
+    }
+    if (pointStr == "ne") {
+        pathNode.x = x + width + yuliang;
+        pathNode.y = y - yuliang;
+    }
+    console.log(pathNode)
+    if (pathNode.getXY()) {
+        return pathNode;
+    } else {
+        return null;
+    }
+}
+
 
 function isCollsionWithRect(x1, y1, w1, h1,
                             x2, y2, w2, h2) {
@@ -924,45 +1168,6 @@ function datasArrayUnique(drawpanel) {
 }
 
 
-function PathNode(x, y) {//节点对象
-    this.x = x;
-    this.y = y;
-    this.leftNode = null;
-    this.rightNode = null;
-    this.parentNode = null;
-    this.getLeftNodeLength = function () {
-        console.log(this.leftNode)
-        return Math.abs(this.x - this.leftNode.x) + Math.abs(this.y - this.leftNode.y)
-    }
-    this.getRightNodeLength = function () {
-        console.log(this.rightNode)
-        return Math.abs(this.x - this.rightNode.x) + Math.abs(this.y - this.rightNode.y)
-    }
-    this.setLeftNode = function (node) {
-        this.leftNode = node;
-    }
-    this.setRightNode = function (node) {
-        this.rightNode = node;
-    }
-    this.getLeftNode = function () {
-        console.log(this)
-        if (this.leftNode) {
-            return true;
-        }
-        return false
-    }
-    this.getRightNode = function () {
-        if (this.rightNode) {
-            return true;
-        }
-        return false
-    }
-    this.getXY = function () {
-        return [this.x, this.y];
-    }
-}
-
-
 function iterationNodeTree(rootNode, endPonit) {
     var treeLeafNodeArr = getTreeLeafAll(rootNode); //拿到所有叶节点
     for (var i = 0; i < treeLeafNodeArr.length; i++) {
@@ -974,24 +1179,35 @@ function iterationNodeTree(rootNode, endPonit) {
     }
 }
 
+function testCreate(){
+    var a = new Date().getTime()
+    testTime()
+    console.log((new Date().getTime()-a)/1000+"秒")
 
-var node1 = new PathNode(1, 1);
+}
+function testTime(){
+    for(var i=0;i<3000;i++) //3 16
+    new My.PathNode(100,200)
 
-var node2_l = new PathNode(20, 20);
-var node2_r = new PathNode(40, 40);
+}
 
-var node2_l_3_l = new PathNode(300, 300);
-var node2_l_3_r = new PathNode(400, 400);
-var node2_r_3_l_ = new PathNode(500, 500);
-var node2_r_3_r = new PathNode(600, 600);
+/*var node1 = new My.PathNode(1, 1);
 
-node1.setLeftNode(node2_l);
-node1.setRightNode(node2_r);
+ var node2_l = new My.PathNode(20, 20);
+ var node2_r = new My.PathNode(40, 40);
 
-node2_l.setLeftNode(node2_l_3_l);
-node2_l.setRightNode(node2_l_3_r);
-node2_r.setLeftNode(node2_r_3_l_);
-node2_r.setRightNode(node2_r_3_r);
+ var node2_l_3_l = new My.PathNode(300, 300);
+ var node2_l_3_r = new My.PathNode(400, 400);
+ var node2_r_3_l_ = new My.PathNode(500, 500);
+ var node2_r_3_r = new My.PathNode(600, 600);
+
+ node1.setLeftNode(node2_l);
+ node1.setRightNode(node2_r);
+
+ node2_l.setLeftNode(node2_l_3_l);
+ node2_l.setRightNode(node2_l_3_r);
+ node2_r.setLeftNode(node2_r_3_l_);
+ node2_r.setRightNode(node2_r_3_r);*/
 
 function getTreeLeafAll(rootNode) { //获取所有叶节点
     this.leafAll = [];
@@ -1007,29 +1223,6 @@ function getShortestPathNode(rootNode) {
     })
 
     return arr[0];
-}
-
-
-PathNode.prototype.toRootNodeLength = function () {
-    var me = this;
-    var length = 0;
-
-    if (me.parentNode) {
-        var parentNode = me.parentNode;
-        var width = Math.abs(me.x - parentNode.x);
-        var height = Math.abs(me.y - parentNode.y);
-        length = width + height;
-        length += me.parentNode.toRootNodeLength();
-    }
-    return length;
-}
-
-PathNode.prototype.getToRootPath = function (arr) {
-    var me = this;
-    arr.push([me.x, me.y]);
-    if (me.parentNode) {
-       me.parentNode.getToRootPath(arr)
-    }
 }
 
 

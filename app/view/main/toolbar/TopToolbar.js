@@ -129,33 +129,54 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                         //var form = form.getForm();
                                         if (form.isValid()) {
                                             form.submit({
-                                                waitMsg: 'Uploading your program...',
+                                                waitMsg: 'Updateing your program...',
                                                 url: 'resources/test1.php?par=updateProgram',
-                                                method:"POST",
-                                                metadata:{"enctype":"multipart/form-data"},
-                                                success: function (fp, o) {
-                                                    console.log(arguments)
-                                                    //Ext.Msg.alert('Success', 'Your photo "' + o.result.file + '" has been uploaded.');
+                                                method: "POST",
+                                                metadata: {"enctype": "multipart/form-data"},
+                                                Massage:function(form, action){
+                                                    if (action.response.responseText.indexOf("Error") >= 0) {
+                                                        Ext.Msg.alert("Exception", "auto update failure , Please use manual installation package update 。 ");
+                                                        return;
+                                                    }
+                                                    Ext.Msg.show({
+                                                        title: 'Massage',
+                                                        message: 'program update success .',
+                                                        buttons: Ext.Msg.YES,
+                                                        //icon: Ext.Msg.INFO,
+                                                        fn: function (btn) {
+                                                            if (btn === 'yes') {
+                                                                location.reload()
+
+                                                            }
+                                                        }
+                                                    });
+                                                },
+                                                success: function (form, action) {
+                                                    this.Massage(form,action)
+                                                },
+                                                failure: function (form, action) {
+                                                    this.Massage(form,action)
                                                 }
                                             });
 
                                         }
+
                                     }
                                 }]
                             })
                         }
                         }, {
-                            text:"open permission",
-                            handler:function(){
-                                myAjax("resources/test1.php?par=openPermission",function(){
-                                    delayToast("Massage","open permission success .",1000)
+                            text: "open permission",
+                            handler: function () {
+                                myAjax("resources/test1.php?par=openPermission", function () {
+                                    delayToast("Massage", "open permission success .", 1000)
                                 })
 
                             }
-                        },{
+                        }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.30  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.37  ');
                             }
                         }
                     ]

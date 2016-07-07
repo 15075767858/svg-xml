@@ -105,12 +105,11 @@ var testwin=null
 Ext.onReady(function () {
     setTimeout(function () {
 
- /*       Ext.create('svgxml.view.window.SynchrnousWindow', {
-            sDevNodeName: "2000601",
-            sDevName: "2000",
-        })
+       /*testwin = Ext.create('svgxml.view.window.RenameWindow', {
+            sDevNodeName: "1000101",
+            sDevName: "1100",
+        })*/
 
-    }, 5000)*/
  /*   testwin=Ext.create('svgxml.view.window.ImgSvgWindow', {
         sDevNodeName: "2000601",
         sDevName: "2000",

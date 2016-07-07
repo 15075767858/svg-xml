@@ -45,7 +45,8 @@
      *      ]
      */
     "requires": [
-        "sencha-charts"
+        "sencha-charts",
+        "sencha-amf"
     ],
 
     /**

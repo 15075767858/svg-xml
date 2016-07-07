@@ -508,6 +508,31 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [
                     {
+                        text: "rename",
+                        handler: function () {
+                            console.log(record)
+                            Ext.create('svgxml.view.window.RenameWindow', {
+                                //sDevNodeName: sDevNodeName,
+                                sDevName: record.data.text,
+                                width:800,
+                                height:1024
+                            })
+                        }
+                    },
+                    {
+                        text: "save"
+                    },
+                    {
+                        text: "down"
+                    },
+                    {
+                        text: "backup"
+                    },
+                    {
+                        text: "restor"
+                    },
+                    "-",
+                    {
                         text: "Schedule...",
                         disabled: true
                     }, {
@@ -547,7 +572,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     {
                                         text: 'Ok', handler: function () {
                                         var text = win.down("numberfield").getValue();
-                                        if ( !win.down("numberfield").isValid()) {
+                                        if (!win.down("numberfield").isValid()) {
                                             Ext.Msg.alert('Info', 'Plase select file name.');
                                             return;
                                         }
@@ -890,14 +915,14 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     dateType = "after";
                                 } else if (startYear == 255 & endYear != 255) {
                                     dateType = "front";
-                                }else{
+                                } else {
                                     Ext.Msg.alert('Massage', ' "invalid date , This attribute is initialized, ok .');
-                                    return ;
+                                    return;
                                 }
                                 console.log(oJson.dateRange['startDate']["year"])
                                 console.log(oJson.dateRange['endDate']["year"])
 
-                                if (dateType=='after') {
+                                if (dateType == 'after') {
                                     Ext.getCmp("Effective_Period_radio1").setValue(true)
                                     var cAfter = Ext.getCmp("ScheduleConfig_after");
                                     //var cFront = Ext.getCmp("ScheduleConfig_front");
@@ -907,7 +932,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     var sday = oJson.dateRange['startDate']["day_of_month"];
                                     cAfter.setValue(new Date(syear, smon - 1, sday));
                                 }
-                                if (dateType=='front') {
+                                if (dateType == 'front') {
                                     Ext.getCmp("Effective_Period_radio2").setValue(true)
                                     var cFront = Ext.getCmp("ScheduleConfig_front");
                                     var syear = oJson.dateRange['endDate']["year"];
@@ -915,7 +940,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     var sday = oJson.dateRange['endDate']["day_of_month"];
                                     cFront.setValue(new Date(syear, smon - 1, sday));
                                 }
-                                if (dateType=='from') {
+                                if (dateType == 'from') {
                                     var cFormstart = Ext.getCmp("ScheduleConfig_fromstart");
                                     var cFormend = Ext.getCmp("ScheduleConfig_fromend");
                                     var syear = oJson.dateRange['startDate']["year"];
@@ -1297,7 +1322,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             },
                             height: 768,
                             width: 1024,
-                            maxHeight:Ext.getBody().getHeight(),
+                            maxHeight: Ext.getBody().getHeight(),
                             layout: 'accordion',
                             listeners: {
                                 show: function (th) {
@@ -1372,20 +1397,20 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         //disable:true
                     },
                     {
-                        text:"SetAlarm",
-                        handler:function(){
+                        text: "SetAlarm",
+                        handler: function () {
                             Ext.create('svgxml.view.window.AlarmWindow', {
                                 sDevNodeName: sDevNodeName,
                                 sDevName: sDevName,
                                 sDevNodeType: record.parentNode.data.text
                             })
                         },
-                        listeners:{
-                            boxready:function(){
-                                var me=this;
+                        listeners: {
+                            boxready: function () {
+                                var me = this;
                                 //AIAOAV
                                 var text = record.parentNode.data.text
-                                if(text!="AI"&text!="AO"&text!="AV"){
+                                if (text != "AI" & text != "AO" & text != "AV") {
                                     //me.hide()
                                 }
                             }

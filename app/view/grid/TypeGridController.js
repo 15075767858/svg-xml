@@ -496,6 +496,7 @@ function currentDrawPanelGridPanelsTrSetId() {
         }
     }
 }
+
 function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
     var drawpanel = getCurrentDrawPanel()
     var datasArray= drawpanel.datas.datasArray
@@ -542,7 +543,6 @@ function removeTemp() {
     d3.select("#tempLineStart").remove()
     d3.selectAll(".tempCircle").remove()
     d3.select("#tempLine").remove()
-
 }
 var CIRCLE_MIN_R = 8;
 var CIRCLE_MAX_R = 15;
@@ -676,6 +676,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var drawpanel = getCurrentDrawPanel()
         d3.select("#tempLine").remove();
         var svg = d3.select(".tempSVG" + drawpanel.id);
+
         var start = d3.select("#tempLineStart");
         var end = d3.select("#tempLineEnd");
         var endcx = end.attr("cx");
@@ -692,6 +693,10 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var x = Math.sin(cA) * CIRCLE_MIN_R;
         var y = Math.cos(cA) * CIRCLE_MIN_R;
         svg.append("line").attr("id", "tempLine").attr('stroke', "blue").attr("stroke-width", "1").attr("x1", parseInt(endcx) + x).attr("y1", parseInt(endcy) + y).attr("x2", start.attr("x")).attr("y2", start.attr("y"));
+
+
+
+
     }
 
 }
