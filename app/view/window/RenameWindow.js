@@ -24,7 +24,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.items = []
         myAjax("resources/test1.php?par=getKeys&devname=" + sDevName, function (response) {
             var datas = Ext.decode(response.responseText)
-            var fields = ["Object_Name", "Hide", "Offset", "Description", "Device_Type",
+            var fields = ["Object_Name", "Hide", "Offset", "Description", "Device_Type","Inactive_Text","Active_Text",
                 "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
                 "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset"];
             var store = Ext.create("Ext.data.JsonStore", {
@@ -49,7 +49,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 }
 
                 var gridpanel = Ext.create("Ext.form.Panel", {
-                    title: datas[i]['key'],
+                    title: datas[i]['Object_Name'],
                     key: datas[i]['key'],
                     defaultType: 'textfield',
                     defaults: {
@@ -73,9 +73,9 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 var root = document.createElement("root");
                 for (var i = 0; i < items.length; i++) {
                     console.log(items[i]);
-                    items[i].submit({
+                    /*items[i].submit({
                         method: "POST"
-                    })
+                    })*/
                     var form = items[i].getForm();
                     var res = form.getFieldValues();
                     var key = document.createElement("key");
@@ -86,26 +86,51 @@ Ext.define("svgxml.view.window.RenameWindow", {
                         key.appendChild(tag);
                     }
                     root.appendChild(key);
+                    myAjax("resources/test1.php?par=getAlarm&nodename="+items[i].key,function(response){
+                        try{
+                        var alermJson = Ext.decode(response.responseText);
+                        if(alermJson['Set_Alarm']){
+                            var setAlarm = document.createElement("Set_Alarm");
+                            var aPars  = alermJson['Set_Alarm'][0]
+                            for(var type in aPars){
+                                var tag=document.createElement(type)
+                                tag.innerHTML = aPars[type];
+                                setAlarm.appendChild(tag);
+                            }
+                            key.appendChild(setAlarm);
+                        }
+                        }catch (e){
+                            console.log(e)
+                        }
+
+                    })
                     /*var xmldecode = new Ext.data.amf.XmlDecoder({
                      });
                      console.log(res)
                      console.log(xmldecode.readObject(res))*/
+
                 }
-                var xmlstr = formatXml(document.createElement("div").appendChild(root).innerHTML);
+                var div = document.createElement("div");
+                div.appendChild(root)
+                var xmlstr = formatXml(div.innerHTML)
                 var datas={
                     rw:"w",
-                    fileName:"devxml/"+me.sDevName,
-                    content:xmlstr
+                    fileName:"devxml/"+me.sDevName+".xml",
+                    content:'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\r\n'+xmlstr
                 }
                 $.ajax({
                     type: "POST",
                     url: "resources/xmlRW.php",
                     data: datas,
                     success: function () {
-                        delayToast("Status", "Saved file " + fName + " successfully.", 0);
+                        delayToast("Status", "Saved file " + datas.fileName + " successfully.", 0);
 
                     }
                 });
+
+                setTimeout(function(){
+                    me.close()
+                },1000)
                 //console.log(decoder.encodeXml(key))
 
             }

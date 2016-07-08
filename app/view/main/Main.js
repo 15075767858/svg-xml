@@ -101,21 +101,70 @@ function myAjax(url, success) {
 }
 
 
-var testwin=null
+var testwin = null
+var teststore = null;
 Ext.onReady(function () {
     setTimeout(function () {
 
-       /*testwin = Ext.create('svgxml.view.window.RenameWindow', {
-            sDevNodeName: "1000101",
-            sDevName: "1100",
-        })*/
+        /*
+         teststore=Ext.create("Ext.data.XmlStore",{
+         url:"resources/devxml/1100.xml",
+         //autoLoad:true,
+         fields:[{name:"key",mapping:"@key.number"}],
+         record:"key"
+         /!*proxy:{
+         type:"ajax",
+         url:"resources/devxml/1100.xml",
+         reader:{
+         record: 'key',
+         type:"xml"
+         }
+         }*!/
+         })
 
- /*   testwin=Ext.create('svgxml.view.window.ImgSvgWindow', {
-        sDevNodeName: "2000601",
-        sDevName: "2000",
-        sDevNodeType:"AI"
-    })*/
-}, 3000)
+
+         var grid = Ext.create("Ext.grid.Panel", {
+         store:teststore,
+         columns:[{
+         text:"key",
+         flex:1,
+         dataIndex:"key.number",
+         renderer:function(){
+         console.log(arguments)
+
+         }
+         }]
+         })
+         console.log(teststore)
+
+
+         testwin = Ext.create("Ext.window.Window", {
+         //title: record.data.text + 'build',
+         width: 550,
+         height: 530,
+         bodyPadding: 10,
+         frame: true,
+         autoShow: true,
+         layout: "auto",
+         items: grid,
+         buttons: [{
+         text: 'OK',
+         handler: function () {
+         console.log(this)
+         }
+         }]
+         })*/
+        /*testwin = Ext.create('svgxml.view.window.RenameWindow', {
+         sDevNodeName: "1000101",
+         sDevName: "1100",
+         })*/
+
+        /*   testwin=Ext.create('svgxml.view.window.ImgSvgWindow', {
+         sDevNodeName: "2000601",
+         sDevName: "2000",
+         sDevNodeType:"AI"
+         })*/
+    }, 3000)
 
 })
 

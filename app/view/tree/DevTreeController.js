@@ -508,29 +508,174 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 y: e.pageY,
                 items: [
                     {
-                        text: "rename",
+                        text: "deviceinforamation",
                         handler: function () {
                             console.log(record)
                             Ext.create('svgxml.view.window.RenameWindow', {
                                 //sDevNodeName: sDevNodeName,
                                 sDevName: record.data.text,
-                                width:800,
-                                height:1024
+                                width: 800,
+                                height: 1024
                             })
                         }
                     },
                     {
-                        text: "save"
+                        text: "build",
+                        handler: function () {
+
+                            /* var store=Ext.create("Ext.data.XmlStore",{
+                             url:"resources/devxml/1000.xml",
+                             //record:"key",
+                             fields:["key"]
+                             })
+
+                             var grid = Ext.create("Ext.grid.Panel", {
+                             store:store,
+                             colums:[{
+                             dataIndex:"key"
+                             }]
+                             })*/
+                            var textarea = Ext.create("Ext.form.field.TextArea", {
+                                width: "100%",
+                                border: false,
+                                height: 500,
+                                bind: {
+                                    hidden: "{!showtextarea.checked}"
+                                }
+                            })
+                            var checkbox = Ext.create("Ext.form.field.Checkbox", {
+                                reference: "showtextarea",
+                                checked: false,
+                                dock: 'right',
+                                boxLabel: 'Show Xml'
+                            })
+                            var p = Ext.create('Ext.ProgressBar', {
+                                width: 300,
+                                buttonAlign: "left"
+                            });
+                            var win = Ext.create("Ext.window.Window", {
+                                //title: record.data.text + ' build',
+
+                                title: "1000 biuld",
+                                viewModel: Ext.create("svgxml.view.tree.DevTreeModel"),
+                                width: 800,
+                                //height: 500,
+                                //bodyPadding: 10,
+                                frame: true,
+                                autoShow: true,
+                                closable: true,
+                                layout: "auto",
+                                tbar: [
+                                    {
+                                        xtype: "filebutton",
+                                        text: "Select File",
+                                        listeners: {
+                                            change: function (menu, target, eOpts) {
+                                                var files = target.target.files;
+
+                                                if (files.length) {
+                                                    var file = files[0];
+                                                    var reader = new FileReader();
+                                                    reader.onload = function () {
+                                                        //document.getElementById("filecontent").innerHTML = this.result;
+
+                                                        textarea.setValue(this.result);
+                                                        checkbox.setValue(true)
+                                                    };
+                                                    reader.readAsText(file);
+                                                }
+                                            }
+                                        }
+                                    },
+                                    checkbox
+                                ],
+                                items: textarea,
+                                buttons: [
+                                    p,
+                                    "->",
+                                    {
+                                        text: 'OK',
+                                        handler: function () {
+                                            var packet = Ext.create('Ext.data.amf.Packet');
+                                            var xml = packet.parseXml(textarea.getValue())
+                                            var keys = xml.querySelectorAll("key");
+                                            var aAll = 0;
+                                            for (var i = 0; i < keys.length; i++) {
+                                                aAll += keys[i].children.length;
+                                            }
+                                            var count = 0;
+                                            testxml = keys
+                                            testp = p
+                                            for (var i = 0; i < keys.length; i++) {
+                                                var tags = keys[i].children;
+                                                var devname = keys[i].getAttribute("number");
+                                                for (var j = 0; j < tags.length; j++) {
+                                                    count++;
+                                                    var progressNumber = count / aAll;
+                                                    (function (progressNumber, devname, tag) {
+                                                        console.log(arguments)
+                                                        var type = tag.tagName;
+                                                        var value=tag.innerHTML;
+                                                        setTimeout(function () {
+                                                            p.setValue(progressNumber)
+
+                                                            if (tag.tagName == "set_alarm") {
+                                                                var setalermpars = tag.children;
+                                                                var setAlermJson={
+                                                                    Set_Alarm:[{}]
+                                                                }
+                                                                for(var i=0;i<setalermpars.length;i++){
+                                                                    setAlermJson.Set_Alarm[0][setalermpars[i].tagName]=setalermpars[i].innerHTML;
+                                                                }
+                                                                console.log(tag.tagName)
+                                                                type = tag.tagName;
+                                                                value = Ext.encode(setAlermJson)
+                                                            }
+
+                                                            myAjax("resources/test1.php?par=changevalue&nodename="+devname+"&type=" + type + "&value=" + value, function () {
+                                                                /* tags[j].tagName*/
+                                                            })
+                                                        }, count * 150)
+                                                        delayToast('Success', devname + ' Changes ' + type + ' saved successfully,New value is  .' + value, count * 150)
+
+                                                    })(progressNumber, devname, tags[j])
+
+                                                }
+
+
+                                            }
+
+                                            var devName = record.data.text;
+                                            devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
+                                            console.log(xml)
+                                            console.log(this)
+                                        }
+                                    }, {
+                                        text: "Close",
+                                        handler: function () {
+                                            win.close()
+                                        }
+                                    }
+                                ]
+                            })
+                            console.log(win);
+
+
+                        }
                     },
                     {
-                        text: "down"
+                        text: "backup",
+                        handler: function () {
+                            myAjax("resources/test1.php?par=file_exists&filename=devxml/" + record.data.text + ".xml", function (response) {
+                                if (response.responseText == 1) {
+                                    location.href = "resources/test1.php?par=backup&filename=devxml/" + record.data.text + ".xml"
+                                } else {
+                                    Ext.Msg.alert("Massage", "file does not exist .");
+                                }
+                            })
+                        }
                     },
-                    {
-                        text: "backup"
-                    },
-                    {
-                        text: "restor"
-                    },
+
                     "-",
                     {
                         text: "Schedule...",

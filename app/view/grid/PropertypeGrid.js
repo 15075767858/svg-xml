@@ -62,7 +62,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                     return false;
                 }
 
-                var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type",
+                var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type","Inactive_Text","Active_Text",
                     "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
                     "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value","Offset"];
 

@@ -1,0 +1,39 @@
+<key  number="1200602">
+ <object_name>121</object_name>
+ <description>请问</description>
+ <present_value>On</present_value>
+</key>
+<key  number="1200201">
+ <object_name>qw</object_name>
+ <hide>0</hide>
+ <description>ANALOG VALUE 1</description>
+ <units>98</units>
+ <cov_increment>1.2</cov_increment>
+ <high_limit>100</high_limit>
+ <low_limit>0</low_limit>
+ <deadband>0.000</deadband>
+ <limit_enable>0</limit_enable>
+ <event_enable>0</event_enable>
+ <present_value>0</present_value>
+</key>
+<key  number="1200101">
+ <object_name>2</object_name>
+ <hide>0</hide>
+ <description>ANALOG OUTPUT 1</description>
+ <device_type>0-10=0-100</device_type>
+ <units>1</units>
+ <min_pres_value>95</min_pres_value>
+ <max_pres_value>0</max_pres_value>
+ <cov_increment>1.2</cov_increment>
+ <high_limit>100</high_limit>
+ <low_limit>0</low_limit>
+ <deadband>0.000</deadband>
+ <limit_enable>0</limit_enable>
+ <event_enable>0</event_enable>
+ <present_value>0</present_value>
+</key>
+<key  number="1200601">
+ <object_name>qwe1</object_name>
+ <description>1231</description>
+ <present_value>Off</present_value>
+</key>

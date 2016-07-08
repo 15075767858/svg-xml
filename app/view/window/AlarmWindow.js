@@ -234,7 +234,6 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                         success: function (form, action) {
                             delayToast('Success', me.sDevNodeName + ' Change value Alarm success .', 0)
                             devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nSet_Alarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""), 0);
-
                             me.close()
                         }
 
