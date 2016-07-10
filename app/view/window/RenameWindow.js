@@ -16,17 +16,27 @@ Ext.define("svgxml.view.window.RenameWindow", {
     autoShow: true,
     //maxHeight: Ext.getBody().getHeight(),
     layout: 'accordion',
+    scrollable: true,
     initComponent: function () {
         var me = this;
         me.setHeight(768);
-        me.title=me.sDevName+" rename";
+        me.title = me.sDevName + " rename";
         var sDevName = me.sDevName;
         me.items = []
         myAjax("resources/test1.php?par=getKeys&devname=" + sDevName, function (response) {
             var datas = Ext.decode(response.responseText)
-            var fields = ["Object_Name", "Hide", "Offset", "Description", "Device_Type","Inactive_Text","Active_Text",
+            console.log(datas)
+            datas.sort(function (a, b) {
+                var akey = a['key'].substr(4, 1);
+                var bkey = b['key'].substr(4, 1);
+
+                return akey - bkey;
+            })
+            console.log(datas)
+            var fields = ["Object_Name", "Offset", "Description", "Device_Type", "Inactive_Text", "Active_Text",
                 "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset"];
+                "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset","Set_Alarm"];
+            me.fields = fields;
             var store = Ext.create("Ext.data.JsonStore", {
                 fields: fields,
                 storeId: "testStore",
@@ -74,32 +84,32 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 for (var i = 0; i < items.length; i++) {
                     console.log(items[i]);
                     /*items[i].submit({
-                        method: "POST"
-                    })*/
+                     method: "POST"
+                     })*/
                     var form = items[i].getForm();
                     var res = form.getFieldValues();
                     var key = document.createElement("key");
-                    key.setAttribute("number",items[i].key);
+                    key.setAttribute("number", items[i].key);
                     for (var type in res) {
-                        var tag=document.createElement(type)
+                        var tag = document.createElement(type)
                         tag.innerHTML = res[type];
                         key.appendChild(tag);
                     }
                     root.appendChild(key);
-                    myAjax("resources/test1.php?par=getAlarm&nodename="+items[i].key,function(response){
-                        try{
-                        var alermJson = Ext.decode(response.responseText);
-                        if(alermJson['Set_Alarm']){
-                            var setAlarm = document.createElement("Set_Alarm");
-                            var aPars  = alermJson['Set_Alarm'][0]
-                            for(var type in aPars){
-                                var tag=document.createElement(type)
-                                tag.innerHTML = aPars[type];
-                                setAlarm.appendChild(tag);
+                    myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
+                        try {
+                            var alermJson = Ext.decode(response.responseText);
+                            if (alermJson['Set_Alarm']) {
+                                var setAlarm = document.createElement("Set_Alarm");
+                                var aPars = alermJson['Set_Alarm'][0]
+                                for (var type in aPars) {
+                                    var tag = document.createElement(type)
+                                    tag.innerHTML = aPars[type];
+                                    setAlarm.appendChild(tag);
+                                }
+                                key.appendChild(setAlarm);
                             }
-                            key.appendChild(setAlarm);
-                        }
-                        }catch (e){
+                        } catch (e) {
                             console.log(e)
                         }
 
@@ -112,11 +122,20 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 }
                 var div = document.createElement("div");
                 div.appendChild(root)
-                var xmlstr = formatXml(div.innerHTML)
-                var datas={
-                    rw:"w",
-                    fileName:"devxml/"+me.sDevName+".xml",
-                    content:'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\r\n'+xmlstr
+                var xmlstr = div.innerHTML
+                console.log(xmlstr)
+                for (var i = 0; i < me.fields.length; i++) {
+                    var field = me.fields[i]
+                    console.log(me.fields[i])
+                  xmlstr=  xmlstr.replaceAll(field.toLocaleLowerCase(), me.fields[i]);
+
+                }
+                console.log(xmlstr)
+                xmlstr=formatXml(xmlstr);
+                var datas = {
+                    rw: "w",
+                    fileName: "devxml/" + me.sDevName + ".xml",
+                    content: '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\r\n' + xmlstr
                 }
                 $.ajax({
                     type: "POST",
@@ -128,9 +147,9 @@ Ext.define("svgxml.view.window.RenameWindow", {
                     }
                 });
 
-                setTimeout(function(){
+                setTimeout(function () {
                     me.close()
-                },1000)
+                }, 1000)
                 //console.log(decoder.encodeXml(key))
 
             }

@@ -500,20 +500,21 @@ function typegridCache(th) {
 
 function drawlines(drawpanel) {
     d3.selectAll(".tempCircle").remove()
-    //My.PathNodeManager.removeAll()
-    // tnode = getStartNodeTopButtomNodePathByEndX(new My.PathNode(100, 200), new My.PathNode(800, 300))
-    //test(tnode)
+    var currentDrawPanel = drawpanel || getCurrentDrawPanel();
+
+    var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id);
+
     var datasArray = drawpanel.datas.datasArray;
 
     if (!datasArray) {
         return;
     }
+
     datasArrayUnique(drawpanel);
     datasArray = drawpanel.datas.datasArray;
     d3.selectAll(".OkCircle").remove();
     d3.selectAll("polyline").remove();
     var JIANGE = 10;
-    var currentDrawPanel = drawpanel;
 
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
 
@@ -522,19 +523,6 @@ function drawlines(drawpanel) {
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
 
-    var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id);
-
-
-    /*for (var i = 0; i < My.PathNodes.length; i++) {
-        circle = oSvg.append("circle")
-            .attr("r", 8)
-            .attr("stroke-width", 3)
-            .attr("stroke", "#00FF00")
-            .attr("fill", "blue").attr("data-index", i)
-            .attr("class", "tempCircle")
-            .attr("cx", My.PathNodes[i].x/!*-iDrawPanelLeft+drawpanelScrollLeft*!/)
-            .attr("cy", My.PathNodes[i].y/!*-iDrawPanelTop+drawpanelScrollTop*!/)
-    }*/
 
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
         var oStartEndJson = datasArray[i];
@@ -881,6 +869,8 @@ function drawlines(drawpanel) {
 
     function isCollsion(LineToRect) {
         var aObsDivs = currentDrawPanel.items.items;
+
+
         for (var i = 0; i < aObsDivs.length; i++) {
             var oDiv = d3.select(aObsDivs[i].el.dom);
             var iObsoffsetLeft = oDiv.property("offsetLeft");
@@ -898,12 +888,27 @@ function drawlines(drawpanel) {
         }
         return false;
     }
+
+    My.PathNodeManager.removeAll()
+    var endNode = new My.PathNode(750, 200);
+    var arr= []
+    My.getLeafPointAll(new My.PathNode(50, 200), endNode,arr)
+    console.log(arr)
+    //test1(new My.PathNode(50, 200), endNode)
+    for (var i = 0; i < My.PathNodes.length; i++) {
+        circle = oSvg.append("circle")
+            .attr("r", 8)
+            .attr("stroke-width", 5)
+            .attr("stroke", "#00FF00")
+            .attr("fill", "blue").attr("data-index", i)
+            .attr("class", "tempCircle")
+            .attr("cx", My.PathNodes[i].x/*-iDrawPanelLeft+drawpanelScrollLeft*/)
+            .attr("cy", My.PathNodes[i].y/*-iDrawPanelTop+drawpanelScrollTop*/)
+    }
 }
 
-function drawPolyline1(arr) {
-
-}
 var My = {};
+
 My.PathNodes = [];
 My.MaxPathNodeId = 0;
 My.PathNode = function (x, y) {//节点对象
@@ -979,6 +984,8 @@ My.PathNodeManager = {
     }
 }
 
+//var endNode = new My.PathNode(750, 200);
+//var strNode = new My.PathNode(50, 200);
 
 My.PathNode.prototype.toRootNodeLength = function () {
     var me = this;
@@ -996,52 +1003,120 @@ My.PathNode.prototype.toRootNodeLength = function () {
 
 My.PathNode.prototype.getToRootPath = function (arr) {
     var me = this;
+    arr.push(me.getNextNodeCenterPoint())
     arr.push([me.x, me.y]);
     if (me.parentNode) {
         me.parentNode.getToRootPath(arr)
     }
 }
-var strXY = new My.PathNode(100, 200);
+My.PathNode.prototype.getNextNodeCenterPoint=function(){
+    var me = this;
+    if(me.leftNode){
+        return [me.leftNode.x,me.y]
+    }
+    return null;
+}
+//var strXY = new My.PathNode(100, 200);
 
-var endXY = new My.PathNode(500, 300);
-
+//var endXY = new My.PathNode(500, 300);
 var fangka = 0;
 
-function test(testNode) {
+
+My.getShortPathNode=function getShortPathNode(rootNode,endNode,arr) {
+    var arr =getLeafPointAll(rootNode,endNode,arr)
+    arr.sort(function (a, b) {
+        return a.toRootNodeLength() - b.toRootNodeLength();
+    })
+
+    return arr[0];
+}
+
+
+My.getLeafPointAll=function (testNode, endNode,arr) {
+    console.log(testNode)
+
     fangka++
     if (fangka > 100) {
         fangka = 0
         return
     }
-
+    //console.log(fangka)
     if (!testNode) {
         console.log(testNode)
-        console.log(fangka)
         return;
     }
-    console.log(testNode)
-    var drawpanel = getCurrentDrawPanel()
-    var svg = d3.select(".tempSVG" + drawpanel.id);
-    console.log(svg)
-
-    if (testNode.leftNode) {
-        var tn1 = getStartNodeTopButtomNodePathByEndX(testNode.leftNode, endXY)
-
-        console.log("leftNode")
-        console.log(tn1);
-        test(tn1);
+    var tn = getStartNodeTopButtomNodePathByEndX(testNode, endNode);
+    if (tn == null) {
+        return;
     }
-    if (testNode.rightNode) {
-        var tn2 = getStartNodeTopButtomNodePathByEndX(testNode.rightNode, endXY);
-        console.log("leftNode")
-        console.log(tn2)
-        test(tn2);
+    /*if (tn.leftNode) {
+     test(tn.leftNode, endNode);
+     }*/
+    if (tn.rightNode) {
+        console.log("%c right     Node  is : ","color:blue");
+        My.getLeafPointAll(tn.rightNode, endNode,arr);
+
     }
+    if(tn.leftNode)
+    {
+        console.log("%c left      Node  is : ","color:red");
+        My.getLeafPointAll(tn.leftNode, endNode,arr)
+        return ;
+    }
+    arr.push(tn);
+}
+
+My.PathNode.prototype.initLeftNodeRightNode=function(endNode){
+    console.log(this)
+    var me = this;
+    var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab();
+    var dPLeft = drawPanel.getX()
+    var dPTop = drawPanel.getY()
+    if(!me.getXY()){
+        return ;
+    }
+    var gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
+    if(me.x<endNode.x){
+        gridPanels.sort(function (a, b) {
+            return a.getX() - b.getX();
+        });
+    }else{
+        gridPanels.sort(function (a, b) {
+            return b.getX() - a.getX();
+        });
+    }
+    for (var i = 0; i < gridPanels.length; i++) {
+        var gY = gridPanels[i].getY() - dPTop;
+        var gH = gridPanels[i].getHeight();
+        if(gY>me.Y&(gY+gH)<me.Y){
+            continue;
+        }
+        if(me.x<endNode.x){
+            if (gridPanels[i].getX() > me.x) {
+                me.setLeftNode(getGridPanelPoint(gridPanels[i], 'nw'));
+                me.setRightNode(getGridPanelPoint(gridPanels[i], 'sw'));
+                me.rightNode.initLeftNodeRightNode(endNode)
+                me.leftNode.initLeftNodeRightNode(endNode)
+                //return startNode;
+            }
+        }else{
+            if (gridPanels[i].getX() < me.x) {
+                me.setLeftNode(getGridPanelPoint(gridPanels[i], 'ne'));
+                me.setRightNode(getGridPanelPoint(gridPanels[i], 'se'));
+                me.rightNode.initLeftNodeRightNode(endNode)
+                me.leftNode.initLeftNodeRightNode(endNode)
+                //return startNode;
+            }
+        }
+    }
+
 }
 
 function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
     //获取距离起点最近的 并且和 在一条直线伤的 gridpanel
-    var drawPanel = getCurrentDrawPanel()
+    //console.log(tn.rightNode)
+
+    var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab();
     var dPLeft = drawPanel.getX()
     var dPTop = drawPanel.getY()
     var drawpanelScrollTop = getCurrentDrawPanel().el.dom.querySelector("div").scrollTop
@@ -1051,15 +1126,11 @@ function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
     }
     var gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
     var leftToRight = startNode.x < endNode.x;
-    console.log(startNode.x)
-    console.log(endNode.x)
-    console.log(leftToRight)
-    console.log(startNode)
-    console.log(endNode)
-    if(fangka>100){
-        fangka=0;
-        return ;
-    }
+
+    /*if(fangka>100){
+     fangka=0;
+     return ;
+     }*/
     if (leftToRight) {
         gridPanels.sort(function (a, b) {
             return a.getX() - b.getX();
@@ -1073,25 +1144,26 @@ function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
     for (var i = 0; i < gridPanels.length; i++) {
         //console.log(gridPanels[i])
         var gX = gridPanels[i].getX() - dPLeft;
+
         var gY = gridPanels[i].getY() - dPTop;
         var gH = gridPanels[i].getHeight();
         var nY = startNode.y;
 
-        if (gY > nY) {
+        if (gY > nY||(gY + gH) < nY) {
             continue;
         }
-        if ((gY + gH) < nY) {
+        /*if ((gY + gH) < nY) {
             continue;
-        }
+        }*/
 
         if (leftToRight) {
-            if (gridPanels[i].getX() > startNode.x) {
+            if (gX > startNode.x) {
                 startNode.setLeftNode(getGridPanelPoint(gridPanels[i], 'nw'));
                 startNode.setRightNode(getGridPanelPoint(gridPanels[i], 'sw'));
                 return startNode;
             }
         } else {
-            if (gridPanels[i].getX() < startNode.x) {
+            if (gX < startNode.x) {
                 startNode.setLeftNode(getGridPanelPoint(gridPanels[i], 'ne'));
                 startNode.setRightNode(getGridPanelPoint(gridPanels[i], 'se'));
                 return startNode;
@@ -1099,12 +1171,12 @@ function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
         }
     }
 
-    return null;
+    return startNode;
 }
 
 
 function getGridPanelPoint(gridPanel, pointStr) {
-    var drawPanel = getCurrentDrawPanel()
+    var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab();
     var yuliang = 10
     var pathNode = new My.PathNode();
     var x = gridPanel.getX() - drawPanel.getX();
@@ -1127,7 +1199,6 @@ function getGridPanelPoint(gridPanel, pointStr) {
         pathNode.x = x + width + yuliang;
         pathNode.y = y - yuliang;
     }
-    console.log(pathNode)
     if (pathNode.getXY()) {
         return pathNode;
     } else {
@@ -1179,15 +1250,15 @@ function iterationNodeTree(rootNode, endPonit) {
     }
 }
 
-function testCreate(){
+function testCreate() {
     var a = new Date().getTime()
     testTime()
-    console.log((new Date().getTime()-a)/1000+"秒")
+    console.log((new Date().getTime() - a) / 1000 + "秒")
 
 }
-function testTime(){
-    for(var i=0;i<3000;i++) //3 16
-    new My.PathNode(100,200)
+function testTime() {
+    for (var i = 0; i < 3000; i++) //3 16
+        new My.PathNode(100, 200)
 
 }
 
@@ -1209,21 +1280,13 @@ function testTime(){
  node2_r.setLeftNode(node2_r_3_l_);
  node2_r.setRightNode(node2_r_3_r);*/
 
-function getTreeLeafAll(rootNode) { //获取所有叶节点
+function getTreeLeafAll(rootNode,endNode,arr) { //获取所有叶节点
     this.leafAll = [];
     firstIteration.call(this, rootNode)
     return this.leafAll;
+
 }
 
-
-function getShortestPathNode(rootNode) {
-    var arr = getTreeLeafAll(rootNode)
-    arr.sort(function (a, b) {
-        return a.toRootNodeLength() - b.toRootNodeLength();
-    })
-
-    return arr[0];
-}
 
 
 function firstIteration(node) {

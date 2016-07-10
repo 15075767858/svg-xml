@@ -171,12 +171,11 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                 myAjax("resources/test1.php?par=openPermission", function () {
                                     delayToast("Massage", "open permission success .", 1000)
                                 })
-
                             }
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.39  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.42  ');
                             }
                         }
                     ]

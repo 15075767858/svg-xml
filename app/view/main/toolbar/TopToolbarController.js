@@ -813,7 +813,7 @@ function getStartTrIdByEndTrId(endTrId) {
 
 
 function getCurrentDrawPanel() {
-    /*var drawpanels = Ext.ComponentQuery.query("drawpanel");
+    var drawpanels = Ext.ComponentQuery.query("drawpanel");
 
     var drawpanel;
     for (var i = 0; i < drawpanels.length; i++) {
@@ -821,10 +821,10 @@ function getCurrentDrawPanel() {
             //console.log(drawpanels[i])
             drawpanel = drawpanels[i];
         }
-    }*/
+    }
 
-   return Ext.getCmp("frametab_drawpanel").getActiveTab();
-   // return drawpanel;
+    return drawpanel;
+   //return Ext.getCmp("frametab_drawpanel").getActiveTab();
 }
 function getCurrentDrawPanelDatasArray(drawpanel) {
     var cdrawpanel = drawpanel || getCurrentDrawPanel()

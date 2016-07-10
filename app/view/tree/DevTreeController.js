@@ -553,6 +553,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 width: 300,
                                 buttonAlign: "left"
                             });
+
+
                             var win = Ext.create("Ext.window.Window", {
                                 //title: record.data.text + ' build',
 
@@ -595,7 +597,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     "->",
                                     {
                                         text: 'OK',
-                                        handler: function () {
+                                        itemId:"Ok",
+                                        handler: function (menu) {
+                                            menu.setDisabled(true);
+                                            //me.CloseButton.setD
                                             var packet = Ext.create('Ext.data.amf.Packet');
                                             var xml = packet.parseXml(textarea.getValue())
                                             var keys = xml.querySelectorAll("key");
@@ -604,6 +609,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 aAll += keys[i].children.length;
                                             }
                                             var count = 0;
+                                            var delayCount = 0;
                                             testxml = keys
                                             testp = p
                                             for (var i = 0; i < keys.length; i++) {
@@ -612,56 +618,64 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 for (var j = 0; j < tags.length; j++) {
                                                     count++;
                                                     var progressNumber = count / aAll;
+                                                    if (count % 10 == 0) {
+                                                        delayCount++
+                                                    }
+
                                                     (function (progressNumber, devname, tag) {
                                                         console.log(arguments)
                                                         var type = tag.tagName;
-                                                        var value=tag.innerHTML;
+                                                        var value = tag.innerHTML;
                                                         setTimeout(function () {
                                                             p.setValue(progressNumber)
 
                                                             if (tag.tagName == "set_alarm") {
                                                                 var setalermpars = tag.children;
-                                                                var setAlermJson={
-                                                                    Set_Alarm:[{}]
+                                                                var setAlermJson = {
+                                                                    Set_Alarm: [{}]
                                                                 }
-                                                                for(var i=0;i<setalermpars.length;i++){
-                                                                    setAlermJson.Set_Alarm[0][setalermpars[i].tagName]=setalermpars[i].innerHTML;
+                                                                for (var i = 0; i < setalermpars.length; i++) {
+                                                                    setAlermJson.Set_Alarm[0][setalermpars[i].tagName] = setalermpars[i].innerHTML;
                                                                 }
                                                                 console.log(tag.tagName)
                                                                 type = tag.tagName;
                                                                 value = Ext.encode(setAlermJson)
                                                             }
-
-                                                            myAjax("resources/test1.php?par=changevalue&nodename="+devname+"&type=" + type + "&value=" + value, function () {
-                                                                /* tags[j].tagName*/
-                                                            })
-                                                        }, count * 150)
-                                                        delayToast('Success', devname + ' Changes ' + type + ' saved successfully,New value is  .' + value, count * 150)
+                                                            if (tag.tagName != "hide") {
+                                                                myAjax("resources/test1.php?par=changevalue&nodename=" + devname + "&type=" + type + "&value=" + value, function () {
+                                                                    delayToast('Success', devname + ' Changes ' + type + ' saved successfully,New value is  .' + value, count * 150)
+                                                                })
+                                                            }
+                                                        }, count * 7500 + 3000 * delayCount)
 
                                                     })(progressNumber, devname, tags[j])
-
                                                 }
-
-
                                             }
 
                                             var devName = record.data.text;
-                                            devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
+                                            setTimeout(function () {
+                                                menu.setDisabled(false);
+
+                                                devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
+                                            }, count * 7500 + 3000 * delayCount + 3000)
                                             console.log(xml)
                                             console.log(this)
                                         }
                                     }, {
                                         text: "Close",
+                                        itemId:"Close",
                                         handler: function () {
                                             win.close()
                                         }
                                     }
                                 ]
                             })
+                            testwin=win;
                             console.log(win);
 
 
                         }
+
                     },
                     {
                         text: "backup",
@@ -753,19 +767,19 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         //{text: "Shedule Config"}, {text: "event"}, {text: "week"},
         if (record.data.depth == 3) {
             if (record.data.text != "Schedule") {
-                Ext.create("Ext.menu.Menu", {
-                        //floating: true,
-                        autoShow: true,
-                        x: e.pageX + 5,
-                        y: e.pageY + 5,
-                        items: [
-                            {
-                                text: "new..."
-                                //disabled: true
-                            }
-                        ]
-                    }
-                )
+                /*Ext.create("Ext.menu.Menu", {
+                 //floating: true,
+                 autoShow: true,
+                 x: e.pageX + 5,
+                 y: e.pageY + 5,
+                 items: [
+                 {
+                 text: "new..."
+                 //disabled: true
+                 }
+                 ]
+                 }
+                 )*/
             }
         }
         if (record.data.depth == 4) {
@@ -1537,12 +1551,12 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         console.log(arguments)
                     }
                     },
+                    /*{
+                     text: "delete"
+                     //disable:true
+                     },*/
                     {
-                        text: "delete"
-                        //disable:true
-                    },
-                    {
-                        text: "SetAlarm",
+                        text: "Event&AlarmConfig",
                         handler: function () {
                             Ext.create('svgxml.view.window.AlarmWindow', {
                                 sDevNodeName: sDevNodeName,
