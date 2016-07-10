@@ -514,7 +514,6 @@ function drawlines(drawpanel) {
     datasArray = drawpanel.datas.datasArray;
     d3.selectAll(".OkCircle").remove();
     d3.selectAll("polyline").remove();
-    var JIANGE = 10;
 
     //var aRowsAll = currentDrawPanel.el.dom.querySelectorAll(".x-grid-row td");
 
@@ -678,240 +677,47 @@ function drawlines(drawpanel) {
                 }
             }
 
+            var pointStart = [iStartLeft + My.JIANGE, iStartTop];
+            var pointEnd = [iEndLeft - My.JIANGE, iEndTop]
 
-            var pointAll = [];//折线的数组初始化
-            pointAll.push([iStartLeft, iStartTop]);
-            var pointStart = [iStartLeft + JIANGE, iStartTop];
-            var pointEnd = [iEndLeft, iEndTop]
-            pointAll.push(pointStart);
-            //polyline.attr("points", [[iStartLeft, iStartTop], [iEndLeft, iEndTop]]);
-            var iCount = 0;
 
-            drawPolyline(pointStart, iCount);
+            My.PathNodeManager.removeAll()
+            var startPathNode = new My.PathNode(pointStart[0], pointStart[1])
+            var endPathNode = new My.PathNode(pointEnd[0], pointEnd[1])
+            var arr = My.getShortPathNode(startPathNode, endPathNode);
+            arr.unshift(iStartLeft, iStartTop);
+            arr.push(iEndLeft, iEndTop);
 
-            pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
-            pointAll.push(pointEnd);
-            polyline.attr("points", pointAll);
-            console.log(pointAll)
+            polyline.attr("points", arr);
+
+            //polyline.attr("points", pointAll);
+            //console.log(pointAll)
+
             polyline = null;
             circle = null;
 
         }
     }
-
-
-    function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
-        console.log(pointStart)
-        console.log(pointEnd)
-        if ((pointStart[0] - pointEnd[0]) == 0 || (pointStart[1] - pointEnd[1]) == 0) //判断是否在一条线上 如果不再一条线上 进入画折线部分
-        {
-            //console.log("在一条线上")
-            //return;
-        }
-        var iX1 = (pointEnd[0] - pointStart[0]) + pointStart[0]; //
-        var iY1 = pointStart[1];
-        console.log("iX1=" + iX1)
-        console.log("iY1" + iY1)
-        var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
-        var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
-        var oRect1 = isCollsion(lineToRect1);//第一条线碰撞判断
-        var oRect2 = isCollsion(lineToRect2);//第二条线碰撞判断
-
-        if (!oRect1 & !oRect2) {
-            pointAll.push([iX1, iY1]);
-            return;
-        }
-
-        //console.log(oRect1)
-        iX1 = pointStart[0];
-        iY1 = (pointEnd[1] - pointEnd[1]) + pointEnd[1]
-        var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
-        var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
-        var oRect3 = isCollsion(lineToRect1);//第一条线碰撞判断
-        var oRect4 = isCollsion(lineToRect2);//第二条线碰撞判断
-        if (!oRect3 & !oRect4) {
-            pointAll.push([iX1, iY1])
-            return;
-        }
-
-        console.log(iCount++)
-
-        if (iCount > 10) {
-            polyline.attr("stroke", "red")
-            return;
-        }
-
-
-        if (oRect1 || oRect3) {
-            console.log("oRect3碰上了")
-            polyline.attr("stroke", STROKE_COLOR)
-            var aPoint = lineSkirtRect(pointStart, oRect1 || oRect3);//
-            //console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
-
-            for (var i = 0; i < aPoint.length; i++) {
-                pointAll.push(aPoint[i]);
-                console.log(pointAll)
-            }
-            drawPolyline([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], iCount);
-            return;
-        }
-
-        if (oRect2 || oRect4) {
-            console.log("oRect4碰上了")
-            //console.log(pointEnd)
-            var aPoint = lineSkirtRect([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], oRect2 || oRect4);
-//            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
-
-            for (var i = 0; i < aPoint.length; i++) {
-                pointAll.push(aPoint[i]);
-            }
-            //console.log([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]])
-            console.log(pointAll)
-            drawPolyline([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], iCount);
-            return;
-        }
-    }
-
-
-    /* pointAll.push(pointEnd);
-     pointAll.push([pointEnd[0] + JIANGE, pointEnd[1]])
-     polyline.attr("points", pointAll)*/
-
-    function lineSkirtRect(pointStart, aRect) {//这个方法用来 绕过矩形 返回值是矩形上的两个点
-        console.log(pointStart)
-        console.log(aRect)
-        var sx = pointStart[0];
-        var sy = pointStart[1];
-        var ex = aRect.x;
-        var ey = aRect.y;
-        var ex1 = ex + aRect.width + JIANGE;
-        var ey1 = ey + aRect.height + JIANGE;
-        var point1 = [];
-        var point2 = [];
-        var point3 = [];
-        //console.log(sx+" "+sy+" "+ex+" "+ ey+" "+(ex+aRect.width)+" "+(ey+aRect.height))
-        if (sx <= ex & sy >= ey & sy <= ey + aRect.height) {
-            point1 = [ex, sy];
-            if (sy > (ey + aRect.height / 2)) {
-                point2 = [ex, ey1];
-                point3 = [ex1, ey1];
-            } else {
-                point2 = [ex, ey];
-                point3 = [ex1, ey];
-                //   console.log("左边 靠上")
-            }
-            return [point1, point2];
-        }
-        if (sx >= ex & sy <= ey & sx <= ex + aRect.width) {
-            point1 = [sx, ey];
-            if (sx > (ex + aRect.width / 2)) {
-                point2 = [ex1, ey];
-                point3 = [ex1, ey1];
-            } else {
-                point2 = [ex, ey];
-                point3 = [ex, ey1];
-            }
-            return [point1, point2];
-        }
-        if (sx >= (ex + aRect.width)) {
-            point1 = [ex1, sy];
-            if (sy > (ey + aRect.height / 2)) {
-                point2 = [ex1, ey1];
-                point3 = [ex, ey1];
-            } else {
-
-                point2 = [ex1, ey];
-                point3 = [ex, ey];
-            }
-            return [point1, point2];
-        }
-        // & sx <= ex + aRect.width & ey >= ey + aRect.height
-        if (sx >= ex & sy >= ey + aRect.height) {
-            point1 = [sx, ey1];
-            if (sx > (ex + aRect.width / 2)) {
-                point2 = [ex1, ey1];
-                point3 = [ex1, ey];
-            } else {
-                point2 = [ex, ey1];
-                point3 = [ex, ey];
-            }
-            return [point1, point2];
-        }
-        return false;
-    }
-
-    function lineToRect(lineStart, lineEnd) { //这个方法把线转换成矩形
-        var width = (lineEnd[0] - lineStart[0]);//+lineStart[0];
-        var height = (lineEnd[1] - lineStart[1]);//+lineStart[1];
-        width == 0 ? width += JIANGE : null;
-        height == 0 ? height += JIANGE : null;
-
-        var oJson = {};
-
-        if (width < 0) {
-            oJson.x = lineStart[0] + width;
-            oJson.width = Math.abs(width);
-        } else {
-            oJson.x = lineStart[0];
-            oJson.width = width;
-        }
-        if (height < 0) {
-            oJson.y = lineStart[1] + height;
-            oJson.height = Math.abs(height);
-        }
-        else {
-            oJson.y = lineStart[1];
-            oJson.height = height;
-        }
-        return oJson;
-    }
-
-
-    function isCollsion(LineToRect) {
-        var aObsDivs = currentDrawPanel.items.items;
-
-
-        for (var i = 0; i < aObsDivs.length; i++) {
-            var oDiv = d3.select(aObsDivs[i].el.dom);
-            var iObsoffsetLeft = oDiv.property("offsetLeft");
-            var iObsoffsetTop = oDiv.property("offsetTop");
-            var iObswidth = parseInt(oDiv.style("width"));
-            var iObsheight = parseInt(oDiv.style("height"));
-            //console.log(x1 + "  " + y1 + " " + iLinewidth + "  " + iLineheight + "  " + iObsoffsetLeft + "  " + iObsoffsetTop + "  " + iObswidth + "  " + iObsheight)
-            if (isCollsionWithRect(LineToRect.x, LineToRect.y, LineToRect.width, LineToRect.height, iObsoffsetLeft, iObsoffsetTop, iObswidth, iObsheight))
-                return {
-                    x: iObsoffsetLeft - JIANGE,
-                    y: iObsoffsetTop - JIANGE,
-                    width: iObswidth + JIANGE,
-                    height: iObsheight + JIANGE
-                };
-        }
-        return false;
-    }
-
-    My.PathNodeManager.removeAll()
-    var endNode = new My.PathNode(750, 200);
-    var arr= []
-    My.getLeafPointAll(new My.PathNode(50, 200), endNode,arr)
-    console.log(arr)
-    //test1(new My.PathNode(50, 200), endNode)
+/*
     for (var i = 0; i < My.PathNodes.length; i++) {
         circle = oSvg.append("circle")
-            .attr("r", 8)
-            .attr("stroke-width", 5)
+            .attr("r", 3)
+            .attr("stroke-width", 1)
             .attr("stroke", "#00FF00")
             .attr("fill", "blue").attr("data-index", i)
             .attr("class", "tempCircle")
-            .attr("cx", My.PathNodes[i].x/*-iDrawPanelLeft+drawpanelScrollLeft*/)
-            .attr("cy", My.PathNodes[i].y/*-iDrawPanelTop+drawpanelScrollTop*/)
-    }
+            .attr("cx", My.PathNodes[i].x + drawpanelScrollLeft)
+            .attr("cy", My.PathNodes[i].y + drawpanelScrollTop)
+    }*/
 }
 
 var My = {};
 
 My.PathNodes = [];
 My.MaxPathNodeId = 0;
+My.JIANGE = 10;
 My.PathNode = function (x, y) {//节点对象
+
     this.x = x;
     this.y = y;
     this.leftNode = null;
@@ -926,14 +732,23 @@ My.PathNode = function (x, y) {//节点对象
         return Math.abs(this.x - this.rightNode.x) + Math.abs(this.y - this.rightNode.y)
     }
     this.setLeftNode = function (node) {
+        if (!node) {
+            return;
+        }
         node.setParentNode(this)
         this.leftNode = node;
     }
     this.setRightNode = function (node) {
+        if (!node) {
+            return;
+        }
         node.setParentNode(this)
         this.rightNode = node;
     }
     this.setParentNode = function (node) {
+        if (!node) {
+            return;
+        }
         this.parentNode = node;
     }
     this.getLeftNode = function () {
@@ -947,6 +762,20 @@ My.PathNode = function (x, y) {//节点对象
             return this.rightNode;
         }
         return false
+    }
+    this.getX = function (is) {
+        if (is) {
+            var drawpanelScrollLeft = getCurrentDrawPanel().el.dom.querySelector("div").scrollLeft
+            return this.x - drawpanelScrollLeft;
+        }
+        return this.x
+    }
+    this.getY = function (is) {
+        if (is) {
+            var drawpanelScrollTop = getCurrentDrawPanel().el.dom.querySelector("div").scrollTop
+            return this.y + drawpanelScrollTop
+        }
+        return this.y;
     }
     this.getXY = function () {
         if (this.x >= 0 & this.y >= 0) {
@@ -1002,17 +831,20 @@ My.PathNode.prototype.toRootNodeLength = function () {
 }
 
 My.PathNode.prototype.getToRootPath = function (arr) {
+
     var me = this;
+
     arr.push(me.getNextNodeCenterPoint())
     arr.push([me.x, me.y]);
     if (me.parentNode) {
         me.parentNode.getToRootPath(arr)
     }
 }
-My.PathNode.prototype.getNextNodeCenterPoint=function(){
+My.PathNode.prototype.getNextNodeCenterPoint = function () {
+
     var me = this;
-    if(me.leftNode){
-        return [me.leftNode.x,me.y]
+    if (me.leftNode) {
+        return [me.leftNode.x, me.y]
     }
     return null;
 }
@@ -1022,17 +854,30 @@ My.PathNode.prototype.getNextNodeCenterPoint=function(){
 var fangka = 0;
 
 
-My.getShortPathNode=function getShortPathNode(rootNode,endNode,arr) {
-    var arr =getLeafPointAll(rootNode,endNode,arr)
-    arr.sort(function (a, b) {
+My.getShortPathNode = function (rootNode, endNode) {
+    var leafArr = []
+    My.getLeafPointAll(rootNode, endNode, leafArr)
+    leafArr.sort(function (a, b) {
         return a.toRootNodeLength() - b.toRootNodeLength();
     })
 
-    return arr[0];
+    var arr = []
+    leafArr[0].getToRootPath(arr)
+    arr[0] = [endNode.x, arr[1][1]]
+
+    arr.unshift([endNode.x, endNode.y]);
+
+    arr.reverse()
+    for (var i = 0; i < arr.length; i++) {
+        console.log(arr[i])
+    }
+
+    //My.getStartNodeTopButtomNodePathByEndY()
+
+    return arr;
 }
 
-
-My.getLeafPointAll=function (testNode, endNode,arr) {
+My.getLeafPointAll = function (testNode, endNode, arr) {
     console.log(testNode)
 
     fangka++
@@ -1045,7 +890,7 @@ My.getLeafPointAll=function (testNode, endNode,arr) {
         console.log(testNode)
         return;
     }
-    var tn = getStartNodeTopButtomNodePathByEndX(testNode, endNode);
+    var tn = My.getStartNodeTopButtomNodePathByEndX(testNode, endNode);
     if (tn == null) {
         return;
     }
@@ -1053,34 +898,33 @@ My.getLeafPointAll=function (testNode, endNode,arr) {
      test(tn.leftNode, endNode);
      }*/
     if (tn.rightNode) {
-        console.log("%c right     Node  is : ","color:blue");
-        My.getLeafPointAll(tn.rightNode, endNode,arr);
+        console.log("%c right     Node  is : ", "color:blue");
+        My.getLeafPointAll(tn.rightNode, endNode, arr);
 
     }
-    if(tn.leftNode)
-    {
-        console.log("%c left      Node  is : ","color:red");
-        My.getLeafPointAll(tn.leftNode, endNode,arr)
-        return ;
+    if (tn.leftNode) {
+        console.log("%c left      Node  is : ", "color:red");
+        My.getLeafPointAll(tn.leftNode, endNode, arr)
+        return;
     }
     arr.push(tn);
 }
 
-My.PathNode.prototype.initLeftNodeRightNode=function(endNode){
+My.PathNode.prototype.initLeftNodeRightNode = function (endNode) {
     console.log(this)
     var me = this;
     var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab();
     var dPLeft = drawPanel.getX()
     var dPTop = drawPanel.getY()
-    if(!me.getXY()){
-        return ;
+    if (!me.getXY()) {
+        return;
     }
     var gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
-    if(me.x<endNode.x){
+    if (me.x < endNode.x) {
         gridPanels.sort(function (a, b) {
             return a.getX() - b.getX();
         });
-    }else{
+    } else {
         gridPanels.sort(function (a, b) {
             return b.getX() - a.getX();
         });
@@ -1088,21 +932,21 @@ My.PathNode.prototype.initLeftNodeRightNode=function(endNode){
     for (var i = 0; i < gridPanels.length; i++) {
         var gY = gridPanels[i].getY() - dPTop;
         var gH = gridPanels[i].getHeight();
-        if(gY>me.Y&(gY+gH)<me.Y){
+        if (gY > me.Y & (gY + gH) < me.Y) {
             continue;
         }
-        if(me.x<endNode.x){
+        if (me.x < endNode.x) {
             if (gridPanels[i].getX() > me.x) {
-                me.setLeftNode(getGridPanelPoint(gridPanels[i], 'nw'));
-                me.setRightNode(getGridPanelPoint(gridPanels[i], 'sw'));
+                me.setLeftNode(My.getGridPanelPoint(gridPanels[i], 'nw'));
+                me.setRightNode(My.getGridPanelPoint(gridPanels[i], 'sw'));
                 me.rightNode.initLeftNodeRightNode(endNode)
                 me.leftNode.initLeftNodeRightNode(endNode)
                 //return startNode;
             }
-        }else{
+        } else {
             if (gridPanels[i].getX() < me.x) {
-                me.setLeftNode(getGridPanelPoint(gridPanels[i], 'ne'));
-                me.setRightNode(getGridPanelPoint(gridPanels[i], 'se'));
+                me.setLeftNode(My.getGridPanelPoint(gridPanels[i], 'ne'));
+                me.setRightNode(My.getGridPanelPoint(gridPanels[i], 'se'));
                 me.rightNode.initLeftNodeRightNode(endNode)
                 me.leftNode.initLeftNodeRightNode(endNode)
                 //return startNode;
@@ -1112,15 +956,9 @@ My.PathNode.prototype.initLeftNodeRightNode=function(endNode){
 
 }
 
-function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
+My.getStartNodeTopButtomNodePathByEndX = function (startNode, endNode) {
     //获取距离起点最近的 并且和 在一条直线伤的 gridpanel
     //console.log(tn.rightNode)
-
-    var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab();
-    var dPLeft = drawPanel.getX()
-    var dPTop = drawPanel.getY()
-    var drawpanelScrollTop = getCurrentDrawPanel().el.dom.querySelector("div").scrollTop
-    var drawpanelScrollLeft = getCurrentDrawPanel().el.dom.querySelector("div").scrollLeft
     if (!startNode || !endNode) {
         return null;
     }
@@ -1143,29 +981,50 @@ function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
 
     for (var i = 0; i < gridPanels.length; i++) {
         //console.log(gridPanels[i])
-        var gX = gridPanels[i].getX() - dPLeft;
-
-        var gY = gridPanels[i].getY() - dPTop;
+        var gX = gridPanels[i].x
+        var gY = gridPanels[i].y
         var gH = gridPanels[i].getHeight();
-        var nY = startNode.y;
+        var nY = startNode.getY()
 
-        if (gY > nY||(gY + gH) < nY) {
+        console.log(gridPanels[i].el.dom)
+
+        console.log("面板.X= " + gX)
+        console.log("面板.Y= " + gY)
+        console.log("开始.Y= " + nY)
+        if (gY > nY || (gY + gH) < nY) {
             continue;
         }
         /*if ((gY + gH) < nY) {
-            continue;
-        }*/
+         continue;
+         }*/
 
         if (leftToRight) {
-            if (gX > startNode.x) {
-                startNode.setLeftNode(getGridPanelPoint(gridPanels[i], 'nw'));
-                startNode.setRightNode(getGridPanelPoint(gridPanels[i], 'sw'));
+            if (gX > startNode.getX() & gX < endNode.getX()) {
+                //alert(gX)
+                //console.log("面板.X=" + gX)
+                //console.log("起点.X=" + startNode.getX())
+                var leftNode = My.getGridPanelPoint(gridPanels[i], 'nw');
+                if (leftNode) {
+                    startNode.setLeftNode(leftNode);
+                }
+                var rightNode = My.getGridPanelPoint(gridPanels[i], 'sw');
+                if (rightNode) {
+                    startNode.setRightNode(rightNode);
+                }
                 return startNode;
             }
         } else {
-            if (gX < startNode.x) {
-                startNode.setLeftNode(getGridPanelPoint(gridPanels[i], 'ne'));
-                startNode.setRightNode(getGridPanelPoint(gridPanels[i], 'se'));
+            if (gX < startNode.getX() & gX > endNode.getX()) {
+                var leftNode = My.getGridPanelPoint(gridPanels[i], 'ne')
+                if (leftNode) {
+                    startNode.setLeftNode(leftNode);
+                }
+                startNode.setLeftNode(leftNode);
+                var rightNode = My.getGridPanelPoint(gridPanels[i], 'se');
+                if (rightNode) {
+                    startNode.setRightNode(rightNode);
+                }
+                startNode.setRightNode(My.getGridPanelPoint(gridPanels[i], 'se'));
                 return startNode;
             }
         }
@@ -1173,14 +1032,16 @@ function getStartNodeTopButtomNodePathByEndX(startNode, endNode) {
 
     return startNode;
 }
+My.getStartNodeTopButtomNodePathByEndY = function (startNode, endNode) {
 
+}
 
-function getGridPanelPoint(gridPanel, pointStr) {
-    var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab();
+My.getGridPanelPoint = function (gridPanel, pointStr) {
+    console.log(gridPanel.el.dom)
     var yuliang = 10
     var pathNode = new My.PathNode();
-    var x = gridPanel.getX() - drawPanel.getX();
-    var y = gridPanel.getY() - drawPanel.getY();
+    var x = gridPanel.x;
+    var y = gridPanel.y;
     var width = gridPanel.getWidth();
     var height = gridPanel.getHeight();
     if (pointStr == "nw") {
@@ -1199,16 +1060,47 @@ function getGridPanelPoint(gridPanel, pointStr) {
         pathNode.x = x + width + yuliang;
         pathNode.y = y - yuliang;
     }
-    if (pathNode.getXY()) {
-        return pathNode;
-    } else {
+    if (My.isCollsion(pathNode)) {
         return null;
+    } else {
+
+
+        return pathNode;
     }
 }
 
 
-function isCollsionWithRect(x1, y1, w1, h1,
-                            x2, y2, w2, h2) {
+My.isCollsion = function (pathNode) {
+    if (!pathNode.getXY()) {
+        return false;
+    }
+    var x1 = pathNode.x;
+    var y1 = pathNode.y;
+
+    var gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
+    var drawPanel = Ext.getCmp("frametab_drawpanel").getActiveTab() || getCurrentDrawPanel();
+    var dPLeft = drawPanel.getX();
+    var dPTop = drawPanel.getY();
+    for (var i = 0; i < gridPanels.length; i++) {
+        var x2 = gridPanels[i].getX() - dPLeft;
+        var y2 = gridPanels[i].getY() - dPTop;
+        var w = gridPanels[i].getWidth();
+        var h = gridPanels[i].getHeight();
+        if (isCollsionPointRect(x1, y1, x2, y2, w, h)) {
+            return true;
+        }
+    }
+    return false;
+    function isCollsionPointRect(x1, y1, x2, y2, w, h) {
+        if (x1 >= x2 && x1 <= x2 + w && y1 >= y2 && y1 <= y2 + h) {
+            return true;
+        }
+        return false;
+    }
+}
+
+My.isCollsionWithRect = function (x1, y1, w1, h1,
+                                  x2, y2, w2, h2) {
     if (x1 >= x2 && x1 >= x2 + w2) {
         return false;
     } else if (x1 <= x2 && x1 + w1 <= x2) {
@@ -1222,6 +1114,17 @@ function isCollsionWithRect(x1, y1, w1, h1,
 }
 
 
+function testCreate() {
+    var a = new Date().getTime()
+    testTime()
+    console.log((new Date().getTime() - a) / 1000 + "秒")
+
+}
+function testTime() {
+    for (var i = 0; i < 3000; i++) //3 16
+        new My.PathNode(100, 200)
+
+}
 function datasArrayUnique(drawpanel) {
     var datasArray = drawpanel.datas.datasArray;
     var map = new Ext.util.HashMap();
@@ -1236,30 +1139,6 @@ function datasArrayUnique(drawpanel) {
         datasArray1.push(generateJson(key, value));
     });
     drawpanel.datas.datasArray = datasArray1;
-}
-
-
-function iterationNodeTree(rootNode, endPonit) {
-    var treeLeafNodeArr = getTreeLeafAll(rootNode); //拿到所有叶节点
-    for (var i = 0; i < treeLeafNodeArr.length; i++) {
-        var pathNodeArr = [];
-
-        //treeLeafNodeArr[i].parentNode
-        //while(){
-        //}
-    }
-}
-
-function testCreate() {
-    var a = new Date().getTime()
-    testTime()
-    console.log((new Date().getTime() - a) / 1000 + "秒")
-
-}
-function testTime() {
-    for (var i = 0; i < 3000; i++) //3 16
-        new My.PathNode(100, 200)
-
 }
 
 /*var node1 = new My.PathNode(1, 1);
@@ -1280,34 +1159,44 @@ function testTime() {
  node2_r.setLeftNode(node2_r_3_l_);
  node2_r.setRightNode(node2_r_3_r);*/
 
-function getTreeLeafAll(rootNode,endNode,arr) { //获取所有叶节点
-    this.leafAll = [];
-    firstIteration.call(this, rootNode)
-    return this.leafAll;
+/*function getTreeLeafAll(rootNode,endNode,arr) { //获取所有叶节点
+ this.leafAll = [];
+ firstIteration.call(this, rootNode)
+ return this.leafAll;
 
-}
-
-
-
-function firstIteration(node) {
-
-    if (!node.leftNode & !node.rightNode) //判断是否有自节点
-    {
-        console.log(node)
-        this.leafAll.push(node)
-    }
-    if (node.leftNode) {                   //判断当前节点是否有左孩子
-        firstIteration(node.leftNode);    //递归左孩子
-        node.leftNode.parentNode = node;
-    }
-    if (node.rightNode) {                  //判断当前节点是否有右孩子
-        firstIteration(node.rightNode);   //递归右孩子
-        node.rightNode.parentNode = node;
-    }
-
-}
+ }
 
 
+
+ function firstIteration(node) {
+
+ if (!node.leftNode & !node.rightNode) //判断是否有自节点
+ {
+ console.log(node)
+ this.leafAll.push(node)
+ }
+ if (node.leftNode) {                   //判断当前节点是否有左孩子
+ firstIteration(node.leftNode);    //递归左孩子
+ node.leftNode.parentNode = node;
+ }
+ if (node.rightNode) {                  //判断当前节点是否有右孩子
+ firstIteration(node.rightNode);   //递归右孩子
+ node.rightNode.parentNode = node;
+ }
+
+ }*/
+
+/*
+ function iterationNodeTree(rootNode, endPonit) {
+ var treeLeafNodeArr = getTreeLeafAll(rootNode); //拿到所有叶节点
+ for (var i = 0; i < treeLeafNodeArr.length; i++) {
+ var pathNodeArr = [];
+
+ //treeLeafNodeArr[i].parentNode
+ //while(){
+ //}
+ }
+ }*/
 /*
  function getNodeToParentNodeLength(node) {
 
@@ -1317,3 +1206,212 @@ function firstIteration(node) {
  return width + height;
 
  }*/
+/*
+ function lineToRect(lineStart, lineEnd) { //这个方法把线转换成矩形
+ var width = (lineEnd[0] - lineStart[0]);//+lineStart[0];
+ var height = (lineEnd[1] - lineStart[1]);//+lineStart[1];
+ width == 0 ? width += My.JIANGE : null;
+ height == 0 ? height += My.JIANGE : null;
+
+ var oJson = {};
+
+ if (width < 0) {
+ oJson.x = lineStart[0] + width;
+ oJson.width = Math.abs(width);
+ } else {
+ oJson.x = lineStart[0];
+ oJson.width = width;
+ }
+ if (height < 0) {
+ oJson.y = lineStart[1] + height;
+ oJson.height = Math.abs(height);
+ }
+ else {
+ oJson.y = lineStart[1];
+ oJson.height = height;
+ }
+ return oJson;
+ }*/
+
+
+/*function isCollsion(LineToRect) {
+ var aObsDivs = currentDrawPanel.items.items;
+
+
+ for (var i = 0; i < aObsDivs.length; i++) {
+ var oDiv = d3.select(aObsDivs[i].el.dom);
+ var iObsoffsetLeft = oDiv.property("offsetLeft");
+ var iObsoffsetTop = oDiv.property("offsetTop");
+ var iObswidth = parseInt(oDiv.style("width"));
+ var iObsheight = parseInt(oDiv.style("height"));
+ //console.log(x1 + "  " + y1 + " " + iLinewidth + "  " + iLineheight + "  " + iObsoffsetLeft + "  " + iObsoffsetTop + "  " + iObswidth + "  " + iObsheight)
+ if (isCollsionWithRect(LineToRect.x, LineToRect.y, LineToRect.width, LineToRect.height, iObsoffsetLeft, iObsoffsetTop, iObswidth, iObsheight))
+ return {
+ x: iObsoffsetLeft - JIANGE,
+ y: iObsoffsetTop - JIANGE,
+ width: iObswidth + JIANGE,
+ height: iObsheight + JIANGE
+ };
+ }
+ return false;
+ }*/
+
+/*var pointAll = [];//折线的数组初始化
+ pointAll.push([iStartLeft, iStart
+ Top]);
+
+ pointAll.push(pointStart);
+ //polyline.attr("points", [[iStartLeft, iStartTop], [iEndLeft, iEndTop]]);
+ var iCount = 0;
+
+ drawPolyline(pointStart, iCount);
+
+ pointAll.push([pointEnd[0] - JIANGE, pointEnd[1]]);
+ pointAll.push(pointEnd);
+ */
+
+
+/*
+ function drawPolyline(pointStart, iCount) { //遇到障碍物一定会出现两条折线这个方法用来画折线
+ console.log(pointStart)
+ console.log(pointEnd)
+ if ((pointStart[0] - pointEnd[0]) == 0 || (pointStart[1] - pointEnd[1]) == 0) //判断是否在一条线上 如果不再一条线上 进入画折线部分
+ {
+ //console.log("在一条线上")
+ //return;
+ }
+ var iX1 = (pointEnd[0] - pointStart[0]) + pointStart[0]; //
+ var iY1 = pointStart[1];
+ console.log("iX1=" + iX1)
+ console.log("iY1" + iY1)
+ var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
+ var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
+ var oRect1 = isCollsion(lineToRect1);//第一条线碰撞判断
+ var oRect2 = isCollsion(lineToRect2);//第二条线碰撞判断
+
+ if (!oRect1 & !oRect2) {
+ pointAll.push([iX1, iY1]);
+ return;
+ }
+
+ //console.log(oRect1)
+ iX1 = pointStart[0];
+ iY1 = (pointEnd[1] - pointEnd[1]) + pointEnd[1]
+ var lineToRect1 = lineToRect(pointStart, [iX1, iY1]);
+ var lineToRect2 = lineToRect([iX1, iY1], pointEnd);
+ var oRect3 = isCollsion(lineToRect1);//第一条线碰撞判断
+ var oRect4 = isCollsion(lineToRect2);//第二条线碰撞判断
+ if (!oRect3 & !oRect4) {
+ pointAll.push([iX1, iY1])
+ return;
+ }
+
+ console.log(iCount++)
+
+ if (iCount > 10) {
+ polyline.attr("stroke", "red")
+ return;
+ }
+
+
+ if (oRect1 || oRect3) {
+ console.log("oRect3碰上了")
+ polyline.attr("stroke", STROKE_COLOR)
+ var aPoint = lineSkirtRect(pointStart, oRect1 || oRect3);//
+ //console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
+
+ for (var i = 0; i < aPoint.length; i++) {
+ pointAll.push(aPoint[i]);
+ console.log(pointAll)
+ }
+ drawPolyline([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], iCount);
+ return;
+ }
+
+ if (oRect2 || oRect4) {
+ console.log("oRect4碰上了")
+ //console.log(pointEnd)
+ var aPoint = lineSkirtRect([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], oRect2 || oRect4);
+ //            console.log(aPoint,"font-size:20px;","aa啊啊啊啊啊啊啊啊")
+
+ for (var i = 0; i < aPoint.length; i++) {
+ pointAll.push(aPoint[i]);
+ }
+ //console.log([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]])
+ console.log(pointAll)
+ drawPolyline([pointAll[pointAll.length - 1][0], pointAll[pointAll.length - 1][1]], iCount);
+ return;
+ }
+ }
+ */
+
+/* pointAll.push(pointEnd);
+ pointAll.push([pointEnd[0] + JIANGE, pointEnd[1]])
+ polyline.attr("points", pointAll)*/
+/*
+ function lineSkirtRect(pointStart, aRect) {//这个方法用来 绕过矩形 返回值是矩形上的两个点
+ console.log(pointStart)
+ console.log(aRect)
+ var sx = pointStart[0];
+ var sy = pointStart[1];
+ var ex = aRect.x;
+ var ey = aRect.y;
+ var ex1 = ex + aRect.width + My.JIANGE;
+ var ey1 = ey + aRect.height + My.JIANGE;
+ var point1 = [];
+ var point2 = [];
+ var point3 = [];
+ //console.log(sx+" "+sy+" "+ex+" "+ ey+" "+(ex+aRect.width)+" "+(ey+aRect.height))
+ if (sx <= ex & sy >= ey & sy <= ey + aRect.height) {
+ point1 = [ex, sy];
+ if (sy > (ey + aRect.height / 2)) {
+ point2 = [ex, ey1];
+ point3 = [ex1, ey1];
+ } else {
+ point2 = [ex, ey];
+ point3 = [ex1, ey];
+ //   console.log("左边 靠上")
+ }
+ return [point1, point2];
+ }
+ if (sx >= ex & sy <= ey & sx <= ex + aRect.width) {
+ point1 = [sx, ey];
+ if (sx > (ex + aRect.width / 2)) {
+ point2 = [ex1, ey];
+ point3 = [ex1, ey1];
+ } else {
+ point2 = [ex, ey];
+ point3 = [ex, ey1];
+ }
+ return [point1, point2];
+ }
+ if (sx >= (ex + aRect.width)) {
+ point1 = [ex1, sy];
+ if (sy > (ey + aRect.height / 2)) {
+ point2 = [ex1, ey1];
+ point3 = [ex, ey1];
+ } else {
+
+ point2 = [ex1, ey];
+ point3 = [ex, ey];
+ }
+ return [point1, point2];
+ }
+ // & sx <= ex + aRect.width & ey >= ey + aRect.height
+ if (sx >= ex & sy >= ey + aRect.height) {
+ point1 = [sx, ey1];
+ if (sx > (ex + aRect.width / 2)) {
+ point2 = [ex1, ey1];
+ point3 = [ex1, ey];
+ } else {
+ point2 = [ex, ey1];
+ point3 = [ex, ey];
+ }
+ return [point1, point2];
+ }
+ return false;
+ }
+
+ */
+
+//test1(new My.PathNode(50, 200), endNode)
