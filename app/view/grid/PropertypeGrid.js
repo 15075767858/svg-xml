@@ -15,7 +15,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
     //xtype: 'grid',
 
     border: false,
-    columnLines:true,
+    columnLines: true,
 
     plugins: {
         ptype: "rowediting",
@@ -62,9 +62,9 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                     return false;
                 }
 
-                var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type","Inactive_Text","Active_Text",
+                var aWriteArr = ["Object_Name", "Hide", "Offset", "Description", "Device_Type", "Inactive_Text", "Active_Text",
                     "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value","Offset"];
+                    "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset"];
 
                 var rowRecord = context.record;
                 for (var i = 0; i < aWriteArr.length; i++) {
@@ -117,7 +117,8 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                                         fieldLabel: 'Priority',
                                         store: Ext.create("Ext.data.Store", {
                                             fields: ['abbr', 'name'],
-                                            data: [{name: "Priority1", abbr: "1"},
+                                            data: [
+                                                {name: "Priority1", abbr: "1"},
                                                 {name: "Priority2", abbr: "2"},
                                                 {name: "Priority3", abbr: "3"},
                                                 {name: "Priority4", abbr: "4"},
@@ -171,7 +172,6 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                                     }
                                 ]
                             })
-
                             return false;
                         }
 
@@ -222,7 +222,8 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                                         fieldLabel: 'Priority',
                                         store: Ext.create("Ext.data.Store", {
                                             fields: ['abbr', 'name'],
-                                            data: [{name: "Priority1", abbr: "1"},
+                                            data: [
+                                                {name: "Priority1", abbr: "1"},
                                                 {name: "Priority2", abbr: "2"},
                                                 {name: "Priority3", abbr: "3"},
                                                 {name: "Priority4", abbr: "4"},
@@ -290,6 +291,23 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                         if (sNodeType != "0" & rowRecord.data.type == "Offset") {
                             return false;
                         }
+                        if (rowRecord.data.type == "Inactive_Text") {
+                            context.column.setEditor({
+                                xtype:"combobox",
+                                editable:false,
+                                store:ActiveJson.get("Inactive_Text_Defaults")
+                            })
+                            return true
+                        }
+                        if (rowRecord.data.type == "Active_Text") {
+
+                            context.column.setEditor({
+                                xtype:"combobox",
+                                editable:false,
+                                store:ActiveJson.get("Active_Text_Defaults")
+                            })
+                            return true
+                        }
 
                         if (rowRecord.data.type == "Device_Type") {
 
@@ -342,7 +360,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
         }
     }
     ,
-    columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: false,resizable:false},
+    columns: [{header: 'Type', flex: 1, dataIndex: "type", sortable: false, resizable: false},
         {
             header: "Value", flex: 1, dataIndex: "value", sortable: false, editor: {
             xtype: 'textfield',

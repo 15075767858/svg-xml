@@ -629,13 +629,13 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         setTimeout(function () {
                                                             p.setValue(progressNumber)
 
-                                                            if (tag.tagName == "set_alarm") {
+                                                            if (tag.tagName == "Set_Alarm") {
                                                                 var setalermpars = tag.children;
                                                                 var setAlermJson = {
                                                                     Set_Alarm: [{}]
                                                                 }
                                                                 for (var i = 0; i < setalermpars.length; i++) {
-                                                                    setAlermJson.Set_Alarm[0][setalermpars[i].tagName] = setalermpars[i].innerHTML;
+                                                                    setAlermJson.Set_Alarm[0][setalermpars[i].tagName.toLocaleLowerCase()] = setalermpars[i].innerHTML;
                                                                 }
                                                                 console.log(tag.tagName)
                                                                 type = tag.tagName;
@@ -646,7 +646,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                                     delayToast('Success', devname + ' Changes ' + type + ' saved successfully,New value is  .' + value, count * 150)
                                                                 })
                                                             }
-                                                        }, count * 7500 + 3000 * delayCount)
+                                                        }, count * 100 + 3000 * delayCount)
 
                                                     })(progressNumber, devname, tags[j])
                                                 }
@@ -657,7 +657,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 menu.setDisabled(false);
 
                                                 devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
-                                            }, count * 7500 + 3000 * delayCount + 3000)
+                                            }, count * 100 + 3000 * delayCount + 3000)
                                             console.log(xml)
                                             console.log(this)
                                         }
@@ -1085,7 +1085,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     Ext.getCmp("Effective_Period_radio1").setValue(true)
                                     var cAfter = Ext.getCmp("ScheduleConfig_after");
                                     //var cFront = Ext.getCmp("ScheduleConfig_front");
-                                    console.log(oJson)
+//                                    console.log(oJson)
                                     var syear = oJson.dateRange['startDate']["year"];
                                     var smon = oJson.dateRange['startDate']["month"];
                                     var sday = oJson.dateRange['startDate']["day_of_month"];
@@ -1804,7 +1804,7 @@ function getScheduleByDev(devName) {
         success: function (response) {
             var text = response.responseText;
             devjson = eval(text);
-            console.log(devjson)
+//            console.log(devjson)
             devjson.sort(function (a, b) {
                 return a.text - b.text
             })

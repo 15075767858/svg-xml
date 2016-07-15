@@ -91,7 +91,6 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         }
         store.commitChanges()
         console.log(this.setStore(store))
-
     },
     delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
         console.log(arguments)
@@ -121,10 +120,12 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         var curTypeGrid = menu.up("typegrid");
         curDrawPanel.datas.LinkMarkTypeGrid = curTypeGrid;
         console.log(arguments)
-    }
-    ,
+    },
+
     pidPropertyClick: function (menu, item, e, eOpts) {
+        console.log(this)
         var _this = this
+        var store= Ext.data.StoreManager.lookup("store" + _this.id)
         var win = Ext.create('Ext.window.Window', {
             title: _this.title + ' Property',
             width: 213,
@@ -159,14 +160,14 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     }
 
                 ],                 // 仅仅用来显示一个头部。没有数据，
-                store: Ext.data.StoreManager.lookup("store" + _this.id)
+                store: store
             }
         }).show();
     },
 
     logicPropertyClick: function (menu, item, e, eOpts) {
         var _this = this;
-        console.log(_this.config.store)
+        console.log(_this.config.store);
         var typeGirdName = this.getTitle();
         var store = _this.store//Ext.data.StoreManager.lookup("store" + _this.id);
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
@@ -187,7 +188,6 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     SCFMPropertyClick: function () {
         var _this = this;
         var store = Ext.data.StoreManager.lookup("store" + _this.id);
-
 
         var input1 = Ext.create("Ext.form.field.Text", {
             fieldLabel: 'diameter(D)',
@@ -319,17 +319,6 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                                 reference: "check1",
                                 checked: true
                             },
-                            /*{
-                             fieldLabel: 'diameter(D)',
-                             labelWidth: 130,
-                             name: store.getAt(1).data.name,
-                             xtype: "numberfield",
-                             value: store.getAt(1).data.value,
-                             bind: {
-                             disabled: "{!check1.checked}",
-                             value: "{diameter}"
-                             }
-                             },*/
                             input1,
                             {
                                 xtype: "textfield",
@@ -364,20 +353,6 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                                 reference: "check2",
                                 name: "diameter(D)"
                             },
-
-                            /*{
-                             xtype: "numberfield",
-                             fieldLabel: 'W',
-                             labelAlign: "right",
-                             labelWidth: 11,
-                             width: 140,
-                             value: 0.2,
-                             step: 0.1,
-                             bind: {
-                             disabled: "{!check2.checked}",
-                             value: "{input1}"
-                             }
-                             },*/
                             input2,
                             {
                                 xtype: "textfield",
@@ -386,20 +361,6 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                                 disabled: true,
                                 margin: "0 5 0 0"
                             },
-
-                            /*{
-                             xtype: "numberfield",
-                             fieldLabel: 'H',
-                             labelAlign: "right",
-                             labelWidth: 11,
-                             width: 135,
-                             value: 0.4,
-                             step: 0.1,
-                             bind: {
-                             disabled: "{!check2.checked}",
-                             value: "{input2}"
-                             }
-                             },*/
                             input3,
                             {
                                 xtype: "textfield",
@@ -523,6 +484,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     }
 });
 
+
 function getTypeGridRowIdByIndex(typegrid, index) {
     return typegrid.el.dom.querySelectorAll(".x-grid-row")[index];
 }
@@ -574,3 +536,4 @@ function cloneTypegrid(typegrid, e) {
 
     return oTypeGrid;
 }
+

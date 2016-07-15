@@ -44,6 +44,39 @@ Ext.define('svgxml.view.main.MainController', {
 });
 
 
+var ActiveJson={
+    get:function(name){
+        var value = null;
+        myAjax("active.json",function(response){
+            var activeJson=Ext.decode(response.responseText)
+
+            value =  activeJson[name];
+        })
+        return value;
+    }
+}
+
+function lookforProperty(grid,store){
+    saveXml()
+    console.log(arguments)
+    var tag=null;
+    myAjax("1000",function(response){
+        var jXml = $($.parseXML(response.responseText))
+        console.log(jXml)
+        tag=jXml.find("master_node[number="+grid.curPlantIndex+"]");
+    })
+    if(tag.length){
+        return null;
+    }
+    if(grid.datas.type==74){
+
+        store.set(store.getAt(0).data.name,tag.find("P").html())
+        store.set(store.getAt(1).data.name,tag.find("D").html())
+        console.log(store)
+    }
+
+    return tag;
+}
 
 function generateJson (key,value){
     var str = '{ "' + key + '": "' + value + '" }'

@@ -1,57 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
-<key  number="1100401">
- <object_name>1</object_name>
- <hide>0</hide>
- <description>Binary Output 1</description>
- <device_type>NormalOpen</device_type>
- <inactive_text>Off</inactive_text>
- <active_text>On</active_text>
- <event_enable>1</event_enable>
- <present_value>0</present_value>
- <set_alarm>
-  <delay_time>10</delay_time>
-  <notification_class>1</notification_class>
-  <event_type>0</event_type>
-  <alarm_value>0</alarm_value>
-  <event_enable>0</event_enable>
- </set_alarm>
-</key>
-<key  number="1100101">
- <object_name>1</object_name>
- <hide>0</hide>
- <description>ANALOG OUTPUT 1</description>
- <device_type>0-10=0-100</device_type>
- <active_text>Off</active_text>
- <units>1</units>
- <min_pres_value>95</min_pres_value>
- <max_pres_value>0</max_pres_value>
- <cov_increment>1.2</cov_increment>
- <high_limit>100</high_limit>
- <low_limit>0</low_limit>
- <deadband>0.000</deadband>
- <limit_enable>0</limit_enable>
- <event_enable>0</event_enable>
- <present_value>0</present_value>
- <set_alarm>
-  <high_limit>100</high_limit>
-  <low_limit>0</low_limit>
-  <deadband>0</deadband>
-  <delay_time>10</delay_time>
-  <notification_class>1</notification_class>
-  <event_type>0</event_type>
-  <limit>0</limit>
-  <event_enable>0</event_enable>
- </set_alarm>
-</key>
-<key  number="1100601">
- <object_name>12</object_name>
- <description>2</description>
- <present_value>On</present_value>
-</key>
-<key  number="1100602">
- <object_name>21</object_name>
- <description>2</description>
- <present_value>On</present_value>
-</key>
+ <key  number="1100101">
+  <Object_Name>1</Object_Name>
+  <Description>ANALOG OUTPUT 1</Description>
+  <Device_Type>0-10=0-100</Device_Type>
+  <Active_Text>Off</Active_Text>
+  <Units>1</Units>
+  <Min_Pres_Value>95</Min_Pres_Value>
+  <Max_Pres_Value>0</Max_Pres_Value>
+  <COV_Increment>1.2</COV_Increment>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0.000</Deadband>
+  <Limit_Enable>0</Limit_Enable>
+  <Event_Enable>0</Event_Enable>
+  <Present_Value>0</Present_Value>
+  <Set_Alarm>
+   <High_Limit>100</High_Limit>
+   <Low_Limit>0</Low_Limit>
+   <Deadband>0</Deadband>
+   <delay_time>10</delay_time>
+   <notification_class>1</notification_class>
+   <event_type>0</event_type>
+   <limit>0</limit>
+   <Event_Enable>0</Event_Enable>
+  </Set_Alarm>
+ </key>
 </root>

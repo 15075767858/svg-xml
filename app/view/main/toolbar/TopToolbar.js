@@ -175,12 +175,11 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.43  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.51  ');
                             }
                         }
                     ]
                 }
-
             ]
         });
         this.callParent();
@@ -309,6 +308,15 @@ function getStoreConfig(gridpanel) {
     }
     var fields = getStoreFields(store);
     return {data: data, fields: fields}
+}
+function getStoreDatas(store){
+    var items =  store.data.items;
+    var arr=[];
+    var ojson={};
+    for(var i=0;i<items.length;i++){
+        arr[i]={name:items[i].data.name,value:items[i].data.value};
+    }
+    return arr;
 }
 function getStoreFields(store) {
     var fields = [];

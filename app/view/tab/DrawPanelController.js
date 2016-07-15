@@ -416,6 +416,7 @@ function typegridCache(th) {
                 th.datas.datasArray = Ext.decode(ojson.datasArray);
                 th.datas.gridpanelConfigs = Ext.decode(ojson.gridpanelConfigs);
                 th.datas.plants = Ext.decode(ojson.plants);
+
                 console.log(th.datas.plants)
             } catch (e) {
                 return;
@@ -443,8 +444,8 @@ function typegridCache(th) {
 
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
         typegrid.datas = items[i].datas;
-        console.log(typegrid.datas);
-        console.log(items[i].store.data)
+//        console.log(typegrid.datas);
+//        console.log(items[i].store.data)
         typegrid.setStore(Ext.create("Ext.data.Store", {
             data: items[i].store.data,
             fields: items[i].store.fields
@@ -454,8 +455,8 @@ function typegridCache(th) {
         var ids = Ext.decode(items[i].typegrid.trsIds);
         var trs = typegrid.el.dom.querySelectorAll("tr");
         for (var j = 0; j < trs.length; j++) {
-            console.log(trs[j])
-            console.log(ids[j])
+//            console.log(trs[j])
+//            console.log(ids[j])
             trs[j].id = ids[j];
         }
         isLogicShowRows(typegrid)
@@ -530,15 +531,10 @@ function drawlines(drawpanel) {
             //console.log(oStartEndJson)
             var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
             var dEnd = Ext.getDom(document.getElementById(o));
-            console.log(dStart)
-            console.log(dEnd)
             var oElStart = Ext.get(oStartEndJson[o]);
-            console.log(oElStart)
             var oElEnd = Ext.get(o);
 
             if (!oElEnd || !oElStart) {
-                console.log(oElEnd)
-                console.log(oElStart)
                 drawpanel.datas.datasArray.splice(i, 1);
                 drawlines(drawpanel)
                 return
@@ -550,7 +546,7 @@ function drawlines(drawpanel) {
             var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
             var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft + drawpanelScrollLeft;
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
-            console.log(oSvg)
+//            console.log(oSvg)
 
             //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
             var polyline, circle;
@@ -559,8 +555,8 @@ function drawlines(drawpanel) {
                 //break;
                 continue;
             }
-            console.log(iStartLeft + "  " + iStartTop)
-            console.log(iEndLeft + " " + iEndTop)
+//            console.log(iStartLeft + "  " + iStartTop)
+//            console.log(iEndLeft + " " + iEndTop)
             if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {
                 circle = oSvg.append("circle")
                     .attr("r", CIRCLE_MIN_R)
@@ -868,9 +864,9 @@ My.getShortPathNode = function (rootNode, endNode) {
     arr.unshift([endNode.x, endNode.y]);
 
     arr.reverse()
-    for (var i = 0; i < arr.length; i++) {
+    /*for (var i = 0; i < arr.length; i++) {
         console.log(arr[i])
-    }
+    }*/
 
     //My.getStartNodeTopButtomNodePathByEndY()
 
@@ -878,7 +874,7 @@ My.getShortPathNode = function (rootNode, endNode) {
 }
 
 My.getLeafPointAll = function (testNode, endNode, arr) {
-    console.log(testNode)
+//    console.log(testNode)
 
     fangka++
     if (fangka > 100) {
@@ -898,12 +894,12 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
      test(tn.leftNode, endNode);
      }*/
     if (tn.rightNode) {
-        console.log("%c right     Node  is : ", "color:blue");
+//        console.log("%c right     Node  is : ", "color:blue");
         My.getLeafPointAll(tn.rightNode, endNode, arr);
 
     }
     if (tn.leftNode) {
-        console.log("%c left      Node  is : ", "color:red");
+//        console.log("%c left      Node  is : ", "color:red");
         My.getLeafPointAll(tn.leftNode, endNode, arr)
         return;
     }
@@ -986,11 +982,11 @@ My.getStartNodeTopButtomNodePathByEndX = function (startNode, endNode) {
         var gH = gridPanels[i].getHeight();
         var nY = startNode.getY()
 
-        console.log(gridPanels[i].el.dom)
+//        console.log(gridPanels[i].el.dom)
 
-        console.log("面板.X= " + gX)
-        console.log("面板.Y= " + gY)
-        console.log("开始.Y= " + nY)
+//       console.log("面板.X= " + gX)
+//       console.log("面板.Y= " + gY)
+//       console.log("开始.Y= " + nY)
         if (gY > nY || (gY + gH) < nY) {
             continue;
         }
@@ -1037,7 +1033,7 @@ My.getStartNodeTopButtomNodePathByEndY = function (startNode, endNode) {
 }
 
 My.getGridPanelPoint = function (gridPanel, pointStr) {
-    console.log(gridPanel.el.dom)
+ //   console.log(gridPanel.el.dom)
     var yuliang = 10
     var pathNode = new My.PathNode();
     var x = gridPanel.x;

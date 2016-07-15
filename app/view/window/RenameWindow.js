@@ -11,15 +11,16 @@ Ext.define("svgxml.view.window.RenameWindow", {
     viewModel: {
         type: "window-renamewindow"
     },
-    height: 768,
-    width: 1024,
+    constrainHeader: true,
     autoShow: true,
-    //maxHeight: Ext.getBody().getHeight(),
+    //maxHeight:Ext.getBody().getHeight(),
     layout: 'accordion',
     scrollable: true,
     initComponent: function () {
         var me = this;
-        me.setHeight(768);
+        me.setHeight(680);
+        me.setWidth(512);
+        me.setMaxHeight(Ext.getBody().getHeight())
         me.title = me.sDevName + " rename";
         var sDevName = me.sDevName;
         me.items = []
@@ -118,7 +119,6 @@ Ext.define("svgxml.view.window.RenameWindow", {
                      });
                      console.log(res)
                      console.log(xmldecode.readObject(res))*/
-
                 }
                 var div = document.createElement("div");
                 div.appendChild(root)

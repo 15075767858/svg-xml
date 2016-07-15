@@ -54,45 +54,63 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //th.store.commitChanges();
             //console.info(th.store.items)
         }
-
         if (panel.datas.type == 67) {
+            console.log(panel)
+
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
-                data: [
+                data: panel.datas.propertyStore||[
                     {'name': 'P', 'value': "15"},
                     {'name': 'I', 'value': "0.1"},
                     {'name': 'D', 'value': "0.01"},
                     {'name': 'Extime', 'value': "40"},
                     {'name': 'Max', 'value': "100"},
                     {'name': 'Min', 'value': "0"}
-                ]
+                ], listeners: {
+                    update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
+                        panel.datas.propertyStore=getStoreDatas(me);
+                    }
+                }
             });
-        };
+        }
+        ;
 
 
         if (panel.datas.type == 74) {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
-                fields: ['name', 'value'],
-                data: [
-                    {name:"Empirical coefficient(K)",value:"0.7069"},
-                    {name:"Pipe diameter(D)",value:"0.63"}
-                ]
+                fields:['name', 'value'],
+                data: panel.datas.propertyStore|| [
+                    {name: "Empirical coefficient(K)", value: "0.7069"},
+                    {name: "Pipe diameter(D)", value: "0.63"}
+                ],
+                listeners: {
+                    update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
+                        panel.datas.propertyStore=getStoreDatas(me);
+                    }
+                }
             });
-        };
+        }
+        ;
         if (panel.datas.type == 75) {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
-                data: [
+                data: panel.datas.propertyStore||[
                     {'name': 'In min', 'value': "0"},
                     {'name': 'In max', 'value': "100"},
                     {'name': 'out min', 'value': "20"},
                     {'name': 'out max', 'value': "400"}
-                ]
+                ],
+                listeners: {
+                    update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
+                        panel.datas.propertyStore=getStoreDatas(me);
+                    }
+                }
             });
-        };
+        }
+        ;
 
         if (panel.datas.type == 56) {
             //var typeGirdName = this.getTitle();
@@ -260,8 +278,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             }
                             isPidMenu(panel, thi);
                             isLogicMenu(panel, thi);
-                            isSCFMMenu(panel,thi);
-                            isScaleMenu(panel,thi);
+                            isSCFMMenu(panel, thi);
+                            isScaleMenu(panel, thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -276,8 +294,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
 
     girdmove: function (t, x, y, eOpts) {
-        if(!t.isAni){
-        drawlines(t.up("drawpanel"))
+        if (!t.isAni) {
+            drawlines(t.up("drawpanel"))
         }
         //console.log(t.data.x)
         //console.log(t.data.y)
@@ -293,7 +311,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("render")
     }
     ,
-    griditemclick:function(me){
+    griditemclick: function (me) {
         console.log(arguments)
         console.info(this.index);
     },
@@ -316,7 +334,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     //   win.down("form").loadRecord(record);
                 },
                 show: function (th) {
-                    th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name",editable:false});
+                    th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name", editable: false});
                     if (record.data.select) {
                         var store = Ext.create('Ext.data.Store', {
                             fields: ['name'],
@@ -328,7 +346,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             fieldLabel: "type",
                             forceSelection: true,
                             store: store,
-                            editable:false,
+                            editable: false,
                             queryMode: 'local',
                             displayField: 'name',
                             valueField: 'name'
@@ -371,7 +389,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     griditemmousedown: function (th, record, item, index, el, e, eOpts) {
         /*console.log(th.up())
-        console.log(arguments)*/
+         console.log(arguments)*/
         console.log("鼠标按下")
     }
     ,
@@ -382,13 +400,13 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     griditemmouseenter: function (th, record, item, index, e, eOpts) {
         //console.log(arguments)
         /*
-        Ext.tip.QuickTipManager.register({
-            target:th.id,
-            title:th.index,
-            text:th.index,
-            width:100,
-            height:100
-        })*/
+         Ext.tip.QuickTipManager.register({
+         target:th.id,
+         title:th.index,
+         text:th.index,
+         width:100,
+         height:100
+         })*/
 
         d3.select("#tempLineEnd").remove();
         initDrawLine(th.up("drawpanel"), th, record, item, index, e, eOpts)
@@ -405,7 +423,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             th.up("typegrid").add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: e.pageX + 10,
-                    y: e.pageY+10,
+                    y: e.pageY + 10,
                     listeners: {
                         show: function (thi, eOpts) {
                             d3.select(thi.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
@@ -422,8 +440,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             }
                             isPidMenu(th.up("typegrid"), thi);
                             isLogicMenu(th.up("typegrid"), thi);
-                            isSCFMMenu(th.up('typegrid'),thi);
-                            isScaleMenu(th.up('typegrid'),thi);
+                            isSCFMMenu(th.up('typegrid'), thi);
+                            isScaleMenu(th.up('typegrid'), thi);
                             thi.getComponent("cut").setDisabled(false);
                             thi.getComponent("copy").setDisabled(false);
                             thi.getComponent("deplicate").setDisabled(false);
@@ -499,16 +517,16 @@ function currentDrawPanelGridPanelsTrSetId() {
 
 function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
     var drawpanel = getCurrentDrawPanel()
-    var datasArray= drawpanel.datas.datasArray
+    var datasArray = drawpanel.datas.datasArray
     console.log(datasArray);
-    var newDatasArray=[]
-    for(var i=0;i<datasArray.length;i++){
+    var newDatasArray = []
+    for (var i = 0; i < datasArray.length; i++) {
         var ojson = {};
-        for(okey in datasArray[i]){
-            var skey = idAddNumber(okey,randomnumber)
+        for (okey in datasArray[i]) {
+            var skey = idAddNumber(okey, randomnumber)
             console.log(okey)
-            var svalue = idAddNumber(datasArray[i][okey],randomnumber)
-            ojson[skey]=svalue
+            var svalue = idAddNumber(datasArray[i][okey], randomnumber)
+            ojson[skey] = svalue
             console.log(ojson)
         }
         newDatasArray.push(ojson)
@@ -525,15 +543,15 @@ function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
                 //console.log(sid)
                 //console.log(randomnumber)
                 //console.log("t"+(parseInt(sid.substr(1,sid.length))+randomnumber))
-                aRowsAll[j].id=idAddNumber(sid,randomnumber)
+                aRowsAll[j].id = idAddNumber(sid, randomnumber)
                 //aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
             }
         }
     }
-    drawpanel.datas.datasArray=newDatasArray;
+    drawpanel.datas.datasArray = newDatasArray;
     console.log(drawpanel.datas.datasArray);
-    function idAddNumber(sid,randomnumber){
-        return "t"+(parseInt(sid.substr(1,sid.length))+randomnumber);
+    function idAddNumber(sid, randomnumber) {
+        return "t" + (parseInt(sid.substr(1, sid.length)) + randomnumber);
     }
 }
 
@@ -693,8 +711,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var x = Math.sin(cA) * CIRCLE_MIN_R;
         var y = Math.cos(cA) * CIRCLE_MIN_R;
         svg.append("line").attr("id", "tempLine").attr('stroke', "blue").attr("stroke-width", "1").attr("x1", parseInt(endcx) + x).attr("y1", parseInt(endcy) + y).attr("x2", start.attr("x")).attr("y2", start.attr("y"));
-
-
 
 
     }
