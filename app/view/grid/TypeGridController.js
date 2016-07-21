@@ -46,6 +46,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     },
     girdviewready: function (panel, eO) {
+
         if (panel.datas.type < 10) {
             //console.info(th.store.data.item[1].data.value)
             //console.info(th.datas.value.substr(5,6))
@@ -276,6 +277,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 linkform.setDisabled(false);
                                 linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
+                            changeTitle(panel,thi);
                             isPidMenu(panel, thi);
                             isLogicMenu(panel, thi);
                             isSCFMMenu(panel, thi);
@@ -461,6 +463,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         alert("griditemcontextmenu")
     }
 });
+
+function changeTitle(girdpanel,menu){
+
+}
 
 function isScaleMenu(girdpanel, menu) {
     console.log(arguments)

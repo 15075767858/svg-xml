@@ -95,7 +95,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         })
     },
     saveAsClick: function () {
-saveXml()
+        saveXml()
         var states = getDevNamesAllDataStore(true)
 // Create the combo box, attached to the states data store
         var win = Ext.create('Ext.window.Window', {
@@ -416,9 +416,6 @@ function saveXml(text) {
     var datas = {};
     datas['fileName'] = "../" + text;
     //root = sortNodeNumber(root)
-
-    console.log(root)
-
     changeKey(root, text);
     console.log(root)
 
@@ -451,6 +448,9 @@ function saveXml(text) {
 
     function changeKey(root, text) {
         if (text == "1000") {
+            return;
+        }
+        if(text=="../../../local.xml"){
             return;
         }
         text = text.substr(text.length - 4, text.length);
@@ -565,8 +565,8 @@ function plantAppendMasterNode(plant, plantId) {
 }
 
 
-function panelAddCurPlantIndex(){
-    var count=1;
+function panelAddCurPlantIndex() {
+    var count = 1;
     var plants = getCurrentDrawPanelPlants();
     var aGridpanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < plants.length; i++) {
@@ -589,6 +589,7 @@ function get_A_Master_node(gridpanel) {
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
+    console.log(gridpanel)
     var gridPanelItems = gridpanel.store.data.items;
     console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
@@ -737,6 +738,7 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
     if (name == 'mode') {// if (name != "Out" && name != "In") {
+        console.log(gridPanelItems[0])
         var select = gridPanelItems[0].data.select;
         for (var i = 0; i < select.length; i++) {
             if (select[i].name == value) {
@@ -811,7 +813,6 @@ function getStartTrIdByEndTrId(endTrId) {
 }
 
 
-
 function getCurrentDrawPanel() {
     var drawpanels = Ext.ComponentQuery.query("drawpanel");
 
@@ -824,7 +825,7 @@ function getCurrentDrawPanel() {
     }
 
     return drawpanel;
-   //return Ext.getCmp("frametab_drawpanel").getActiveTab();
+    //return Ext.getCmp("frametab_drawpanel").getActiveTab();
 }
 function getCurrentDrawPanelDatasArray(drawpanel) {
     var cdrawpanel = drawpanel || getCurrentDrawPanel()

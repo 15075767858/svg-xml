@@ -180,7 +180,6 @@ Ext.define("svgxml.view.window.DrawWeeksWindow", {
                 fields: ["divId", 'Week', 'StartTime', 'EndTime']
                 //data: dwPars.drawWindowData
             }),
-
             features: new Ext.grid.feature.Grouping({
 
                 groupHeaderTpl: '{name}{renderedGroupValue} &nbsp;&nbsp;({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',

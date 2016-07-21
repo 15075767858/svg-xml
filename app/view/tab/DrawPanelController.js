@@ -91,10 +91,13 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                             var plant = getCurrentDrawPanelPlantByIndex(index);
                                             var gridPanels = getCurrentPlantGridPanles(plant)
                                             for (var i = 0; i < gridPanels.length; i++) {
+                                                console.log(gridPanels[i])
                                                 var config = gridPanels[i].config;
                                                 var datas = gridPanels[i].datas;
                                                 var gridPanelItems = gridPanels[i].store.data.items;
+
                                                 var storeData = getStoreData(gridPanelItems);
+
                                                 var ostore = Ext.create("Ext.data.Store", {
                                                     fields: ["name", "value"],
                                                     data: storeData
@@ -381,7 +384,12 @@ function getStoreData(gridPanelItems) {
     for (var i = 0; i < gridPanelItems.length; i++) {
         var name = gridPanelItems[i].data.name;
         var value = gridPanelItems[i].data.value;
-        storeData.push({name: name, value: value})
+        if(gridPanelItems[i].data.select){
+            var select=gridPanelItems[i].data.select;
+            storeData.push({name: name, value: value,select:select})
+        }else{
+            storeData.push({name: name, value: value})
+        }
     }
     console.log(storeData)
     return storeData;
@@ -497,7 +505,6 @@ function typegridCache(th) {
      console.log(Ext.decode(localStorage.getItem("datasArray")))
      datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
 }
-
 
 function drawlines(drawpanel) {
     d3.selectAll(".tempCircle").remove()
@@ -694,17 +701,17 @@ function drawlines(drawpanel) {
 
         }
     }
-/*
-    for (var i = 0; i < My.PathNodes.length; i++) {
-        circle = oSvg.append("circle")
-            .attr("r", 3)
-            .attr("stroke-width", 1)
-            .attr("stroke", "#00FF00")
-            .attr("fill", "blue").attr("data-index", i)
-            .attr("class", "tempCircle")
-            .attr("cx", My.PathNodes[i].x + drawpanelScrollLeft)
-            .attr("cy", My.PathNodes[i].y + drawpanelScrollTop)
-    }*/
+    /*
+     for (var i = 0; i < My.PathNodes.length; i++) {
+     circle = oSvg.append("circle")
+     .attr("r", 3)
+     .attr("stroke-width", 1)
+     .attr("stroke", "#00FF00")
+     .attr("fill", "blue").attr("data-index", i)
+     .attr("class", "tempCircle")
+     .attr("cx", My.PathNodes[i].x + drawpanelScrollLeft)
+     .attr("cy", My.PathNodes[i].y + drawpanelScrollTop)
+     }*/
 }
 
 var My = {};
@@ -865,8 +872,8 @@ My.getShortPathNode = function (rootNode, endNode) {
 
     arr.reverse()
     /*for (var i = 0; i < arr.length; i++) {
-        console.log(arr[i])
-    }*/
+     console.log(arr[i])
+     }*/
 
     //My.getStartNodeTopButtomNodePathByEndY()
 
@@ -1033,7 +1040,7 @@ My.getStartNodeTopButtomNodePathByEndY = function (startNode, endNode) {
 }
 
 My.getGridPanelPoint = function (gridPanel, pointStr) {
- //   console.log(gridPanel.el.dom)
+    //   console.log(gridPanel.el.dom)
     var yuliang = 10
     var pathNode = new My.PathNode();
     var x = gridPanel.x;

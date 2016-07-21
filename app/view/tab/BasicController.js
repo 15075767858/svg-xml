@@ -45,7 +45,8 @@ Ext.define('svgxml.view.tab.BasicController', {
                                 thi.datas = {
                                     isAddSlot: slotsJson[typeName].isAddSlot,
                                     plantId: "",
-                                    type: slotsJson[typeName].type
+                                    type: slotsJson[typeName].type,
+                                    title:typeName
                                 };
                             }
                         }
