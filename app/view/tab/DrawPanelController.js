@@ -452,6 +452,9 @@ function typegridCache(th) {
 
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
         typegrid.datas = items[i].datas;
+        if(typegrid.datas.name){
+            typegrid.setTitle(typegrid.datas.name)
+        }
 //        console.log(typegrid.datas);
 //        console.log(items[i].store.data)
         typegrid.setStore(Ext.create("Ext.data.Store", {
@@ -533,7 +536,7 @@ function drawlines(drawpanel) {
 
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
         var oStartEndJson = datasArray[i];
-        console.log(oStartEndJson)
+//        console.log(oStartEndJson)
         for (o in oStartEndJson) {
             //console.log(oStartEndJson)
             var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
@@ -854,7 +857,7 @@ My.PathNode.prototype.getNextNodeCenterPoint = function () {
 //var strXY = new My.PathNode(100, 200);
 
 //var endXY = new My.PathNode(500, 300);
-var fangka = 0;
+//var fangka = 0;
 
 
 My.getShortPathNode = function (rootNode, endNode) {
@@ -865,6 +868,7 @@ My.getShortPathNode = function (rootNode, endNode) {
     })
 
     var arr = []
+
     leafArr[0].getToRootPath(arr)
     arr[0] = [endNode.x, arr[1][1]]
 
@@ -883,11 +887,11 @@ My.getShortPathNode = function (rootNode, endNode) {
 My.getLeafPointAll = function (testNode, endNode, arr) {
 //    console.log(testNode)
 
-    fangka++
+   /* fangka++
     if (fangka > 100) {
         fangka = 0
         return
-    }
+    }*/
     //console.log(fangka)
     if (!testNode) {
         console.log(testNode)

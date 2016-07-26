@@ -61,13 +61,17 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         hideCom.setPagePosition(typegrid.x + hideCom.up().getX() + hideCom.width + 50, typegrid.y + hideCom.up().getY(), true)
     },
     addSlotclick: function (menu, item, e, eOpts) {
-        var typeGirdName = menu.up("typegrid").title;
-        var store = this.getStore();
+        var gridpanel =this;
+        console.log(gridpanel)
+        var typeGirdName = menu.up("typegrid").datas.title;
+        var store = gridpanel.getStore();
+        console.log(store)
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
         }
-        if (typeGirdName == "logic") {
+
+        if (gridpanel.datas.type=="56") {
             store.add({
                 'name': 'In',
                 delay: "0",
@@ -88,17 +92,20 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 name: "In",
                 value: "0"
             })
+            //store.commitChanges()
+
         }
-        store.commitChanges()
-        console.log(this.setStore(store))
+        //console.log(this.setStore(store))
+
     },
     delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
         console.log(arguments)
+        console.log(this)
         var index = this.datas.index;
         var store = this.getStore();
         console.log(store)
         store.removeAt(index);
-        this.setStore(store);
+        //this.setStore(store);
         var datasArray = getCurrentDrawPanel().datas.datasArray;
         var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
         console.log(datasArray)
@@ -125,7 +132,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     pidPropertyClick: function (menu, item, e, eOpts) {
         console.log(this)
         var _this = this
-        var store= Ext.data.StoreManager.lookup("store" + _this.id)
+        var store = Ext.data.StoreManager.lookup("store" + _this.id)
         var win = Ext.create('Ext.window.Window', {
             title: _this.title + ' Property',
             width: 213,
@@ -168,7 +175,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     logicPropertyClick: function (menu, item, e, eOpts) {
         var _this = this;
         console.log(_this.config.store);
-        var typeGirdName = this.getTitle();
+        var typeGirdName = this.datas.title;
         var store = _this.store//Ext.data.StoreManager.lookup("store" + _this.id);
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
@@ -386,7 +393,48 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
 
 
     },
+    Rename: function (menu) {
 
+
+        var girdpanel = menu.up("typegrid");
+
+        var win = Ext.create("Ext.window.Window", {
+            title: "Change Name",
+            width: 280,
+            height: 135,
+            layout: "fit",
+            autoShow: true,
+            bodyPadding:15,
+            items: {
+                xtype: "form",
+                border: false,
+                fieldDefaults: {
+                    labelAlign: 'left',
+                    labelWidth: 60
+                },
+                items:{
+                    fieldLabel:"title",
+                    xtype:"textfield",
+                    itemId:"titlefield",
+                    value:girdpanel.title
+                }
+            },
+            buttons: [
+                {
+                    text: "OK", handler: function () {
+                    var value = win.down("form").getComponent('titlefield').value;
+                    girdpanel.datas.name=value;
+                    girdpanel.setTitle(value)
+                    delayToast("Message","change title ok.");
+                    win.close();
+                }
+                }
+            ]
+        });
+
+        testwin=win;
+
+    },
     LinkFormClick: function (menu, item, e, eOpts) {
         var SourceTypeGrid = getCurrentDrawPanel().datas.LinkMarkTypeGrid;
         var TargetTypeGrid = menu.up("typegrid");

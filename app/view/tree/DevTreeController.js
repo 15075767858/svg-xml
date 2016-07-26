@@ -2,12 +2,21 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.imgtree',
     render: function (th) {
-        var store = Ext.create("Ext.data.TreeStore")
-        var url = window.location.host;
+        var store = Ext.create("Ext.data.TreeStore",{
+            storeId:"devtreestore"
+        })
+        //var url = window.location.host;
+        //var oJson = getTreeJsonByUrl(url)
+        //console.log(oJson)
+        //store.setRoot(oJson);
+        //th.setStore(store);
 
-        var oJson = getTreeJsonByUrl(url)
-        store.setRoot(oJson);
-        th.setStore(store);
+
+    },
+    boxready:function(){
+
+        devTreeStoreLoad()
+
     },
     itemcontextmenu: function (th, record, item, index, e, eOpts) {
         e.stopEvent();
@@ -1624,7 +1633,15 @@ function getNameByType(type) {
     }
     return null;
 }
-
+function devTreeStoreLoad(){
+    var store =Ext.data.StoreManager.lookup("devtreestore")
+    var url = window.location.host;
+    var oJson = getTreeJsonByUrl(url)
+    store.setRoot(oJson);
+    var devtree = Ext.getCmp("leftDevTree")
+    console.log(devtree)
+    devtree.setStore(store);
+}
 
 function setPresent_Value(sDevNodeName, text1, text2) {
 

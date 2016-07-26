@@ -210,11 +210,10 @@ Ext.define("svgxml.view.grid.LogicGridPanel", {
             ]
         }
     ],
-    plugins: [
-        Ext.create('Ext.grid.plugin.CellEditing', {
-            clicksToEdit: 1
-        })
-    ]
+    plugins: {
+        ptype: 'cellediting',
+        clicksToEdit: 1
+    }
 });
 
 function joinRow0(th) {
@@ -222,7 +221,8 @@ function joinRow0(th) {
     var aTds = table.querySelectorAll("td")
     for (var i = 0; i < aTds.length; i++) {
         if (i != 0 & i != 2) {
-            aTds[i].parentNode.removeChild(aTds[i])
+            aTds[i].style.display="none"
+            //aTds[i].parentNode.removeChild(aTds[i])
         }
         if (i == 2) {
             var iWidth = th.el.getWidth() - parseInt(aTds[0].style.width);

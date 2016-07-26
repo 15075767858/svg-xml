@@ -7,11 +7,8 @@ Ext.define("svgxml.view.tree.DevTree", {
     ],
     expanded: true,
     controller: "imgtree",
-    /*viewModel: {
-     type: "imgtree"
-     },*/
-    //height:200,
-    //minHeight: 200,
+
+
     title: "Device",
     //titleAlign:"center",//标题居中
     titleCollapse: true,
@@ -27,8 +24,9 @@ Ext.define("svgxml.view.tree.DevTree", {
     listeners: {
         // itemclick: "itemclick",
         render: "render",
-        itemcontextmenu:"itemcontextmenu",
+        itemcontextmenu: "itemcontextmenu",
         //itemmouseenter: "itemmouseenter",
+        boxready: "boxready",
         afteritemexpand: function (node, index, e) {
             if (node.raw.depth == 3) {
                 console.log(node)
@@ -36,6 +34,8 @@ Ext.define("svgxml.view.tree.DevTree", {
 
         }
     },
+
+
     tbar: [{
         text: 'Expand All',
         scope: this,
@@ -55,13 +55,24 @@ Ext.define("svgxml.view.tree.DevTree", {
             });
         }
     }], initComponent: function () {
-        this.viewConfig={
+        var me= this;
+        this.viewConfig = {
             plugins: {
                 ptype: 'treeviewdragdrop',
                 containerScroll: true,
                 ddGroup: "DevTreeDragDropGroup"
             }
         }
+        this.tools = [{
+            type: 'refresh',
+            tooltip: 'Refresh Dev Data',
+            // hidden:true,
+            handler: function (event, toolEl, panelHeader) {
+                devTreeStoreLoad()
+
+                me.expandAll()
+            }
+        }]
         this.callParent();
     }
 });

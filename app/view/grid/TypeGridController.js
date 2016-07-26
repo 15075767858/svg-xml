@@ -61,7 +61,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
-                data: panel.datas.propertyStore||[
+                data: panel.datas.propertyStore || [
                     {'name': 'P', 'value': "15"},
                     {'name': 'I', 'value': "0.1"},
                     {'name': 'D', 'value': "0.01"},
@@ -70,7 +70,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     {'name': 'Min', 'value': "0"}
                 ], listeners: {
                     update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
-                        panel.datas.propertyStore=getStoreDatas(me);
+                        panel.datas.propertyStore = getStoreDatas(me);
                     }
                 }
             });
@@ -81,14 +81,14 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         if (panel.datas.type == 74) {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
-                fields:['name', 'value'],
-                data: panel.datas.propertyStore|| [
+                fields: ['name', 'value'],
+                data: panel.datas.propertyStore || [
                     {name: "Empirical coefficient(K)", value: "0.7069"},
                     {name: "Pipe diameter(D)", value: "0.63"}
                 ],
                 listeners: {
                     update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
-                        panel.datas.propertyStore=getStoreDatas(me);
+                        panel.datas.propertyStore = getStoreDatas(me);
                     }
                 }
             });
@@ -98,7 +98,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
-                data: panel.datas.propertyStore||[
+                data: panel.datas.propertyStore || [
                     {'name': 'In min', 'value': "0"},
                     {'name': 'In max', 'value': "100"},
                     {'name': 'out min', 'value': "20"},
@@ -106,14 +106,14 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                 ],
                 listeners: {
                     update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
-                        panel.datas.propertyStore=getStoreDatas(me);
+                        panel.datas.propertyStore = getStoreDatas(me);
                     }
                 }
             });
         }
         ;
 
-        if (panel.datas.type == 56) {
+        if (panel.datas.type == "56") {
             //var typeGirdName = this.getTitle();
             var store = panel.store//Ext.data.StoreManager.lookup("store" + _this.id);
             var win = Ext.create('Ext.window.Window', {
@@ -132,8 +132,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     {
                         text: "Ok", handler: function (menu) {
                         //Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
-                        store.commitChanges();
-                        Ext.Msg.alert('Status', 'Changes saved successfully.');
+                        //store.commitChanges();
+                        delayToast('Status', 'Changes saved successfully.');
                         win.hide();
                     }
                     }
@@ -149,10 +149,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                         }, {
                             xtype: "button",
                             text: "+", handler: function () {
+                                var store = panel.getStore();
                                 if (store.data.length > 9) {
                                     Ext.Msg.alert('Info', 'Cannot add slot.');
                                     return
                                 }
+
                                 store.add({
                                     name: "In",
                                     delay: "0",
@@ -168,9 +170,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                     time8: "0",
                                     time9: "0"
                                 });
-                                //_this.setStore(store)
-                                //_this.store.commitChanges()
-                                store.commitChanges()
+                                var grid = win.down("grid");
+                                joinRow0(grid)
                             }
                         }, {
                             xtype: "button",
@@ -179,8 +180,11 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                     Ext.Msg.alert('Info', 'Cannot delete slot.');
                                     return
                                 }
+
                                 store.removeAt(store.data.length - 1)
-                                store.commitChanges()
+                                var grid = win.down("grid");
+                                joinRow0(grid)
+                                //store.commitChanges()
                             }
                         }, {xtype: "component", html: "Add list"}, {
                             xtype: "button",
@@ -250,42 +254,33 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         }
         oHead.oncontextmenu = function (e) {
 
+
             panel.add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: e.pageX + 5,
                     y: e.pageY,
                     listeners: {
-                        show: function (thi, eOpts) {
-                            console.log(thi)
-                            var title;
-                            try {
-                                title = getNameByType(thi.datas.type)
-                            } catch (e) {
-                                title = panel.title;
-                            }
-                            //var title = th.title;
-                            console.log(panel.datas)
+                        show: function (menu, eOpts) {
                             var isAddSlot = panel.datas.isAddSlot;
-
                             if (isAddSlot) {
-                                var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, panel);
+                                var addSlot = menu.getComponent("addSlot").on("click", menu.getController().addSlotclick, panel);
                                 addSlot.setDisabled(false);
                             }
-                            thi.getComponent("LinkMark").setDisabled(false);
+                            menu.getComponent("LinkMark").setDisabled(false);
                             if (getCurrentDrawPanel().datas.LinkMarkTypeGrid) {
-                                var linkform = thi.getComponent("LinkForm");
+                                var linkform = menu.getComponent("LinkForm");
                                 linkform.setDisabled(false);
                                 linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
-                            changeTitle(panel,thi);
-                            isPidMenu(panel, thi);
-                            isLogicMenu(panel, thi);
-                            isSCFMMenu(panel, thi);
-                            isScaleMenu(panel, thi);
-                            thi.getComponent("cut").setDisabled(false);
-                            thi.getComponent("copy").setDisabled(false);
-                            thi.getComponent("deplicate").setDisabled(false);
-                            thi.getComponent("delete").setDisabled(false);
+                            changeTitle(panel, menu);
+                            isPidMenu(panel, menu);
+                            isLogicMenu(panel, menu);
+                            isSCFMMenu(panel, menu);
+                            isScaleMenu(panel, menu);
+                            menu.getComponent("cut").setDisabled(false);
+                            menu.getComponent("copy").setDisabled(false);
+                            menu.getComponent("deplicate").setDisabled(false);
+                            menu.getComponent("delete").setDisabled(false);
                         }
                     }
                 })
@@ -414,40 +409,42 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         initDrawLine(th.up("drawpanel"), th, record, item, index, e, eOpts)
     }
     ,
-    griditemmouseup: function (th, record, item, index, e, eOpts) {
+    griditemmouseup: function (item, record, item, index, e, eOpts) {
+        console.log(this)
+        var me = this.view;
+        console.log(arguments)
+        me.datas.index = index// = {"index": index}
 
-        th.datas = {"index": index}
-
-        th.el.dom.oncontextmenu = function (eve) {
+        me.el.dom.oncontextmenu = function (eve) {
             return false;
         }
         if (e.button == 2) {
-            th.up("typegrid").add(
+            me.add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
                     x: e.pageX + 10,
                     y: e.pageY + 10,
                     listeners: {
-                        show: function (thi, eOpts) {
-                            d3.select(thi.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
+                        show: function (menu, eOpts) {
+                            d3.select(menu.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
                             if (record.data.name == "In") {
-                                var delSlot = thi.getComponent("delSlot").on("click", thi.getController().delSlotclick, th);
+                                var delSlot = menu.getComponent("delSlot").on("click", menu.getController().delSlotclick, me);
                                 delSlot.setDisabled(false);
                             }
-                            if (th.up("typegrid").datas.type > 10) {
-                                var title = th.up("typegrid").title;
+                            if (me.datas.type > 10) {
+                                var title = me.datas.title;
                                 if (slotsJson[title].isAddSlot) {
-                                    var addSlot = thi.getComponent("addSlot").on("click", thi.getController().addSlotclick, th);
+                                    var addSlot = menu.getComponent("addSlot").on("click", menu.getController().addSlotclick, me);
                                     addSlot.setDisabled(false);
                                 }
                             }
-                            isPidMenu(th.up("typegrid"), thi);
-                            isLogicMenu(th.up("typegrid"), thi);
-                            isSCFMMenu(th.up('typegrid'), thi);
-                            isScaleMenu(th.up('typegrid'), thi);
-                            thi.getComponent("cut").setDisabled(false);
-                            thi.getComponent("copy").setDisabled(false);
-                            thi.getComponent("deplicate").setDisabled(false);
-                            thi.getComponent("delete").setDisabled(false);
+                            isPidMenu(me, menu);
+                            isLogicMenu(me, menu);
+                            isSCFMMenu(me, menu);
+                            isScaleMenu(me, menu);
+                            menu.getComponent("cut").setDisabled(false);
+                            menu.getComponent("copy").setDisabled(false);
+                            menu.getComponent("deplicate").setDisabled(false);
+                            menu.getComponent("delete").setDisabled(false);
 
                         }
                     }
@@ -464,13 +461,16 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     }
 });
 
-function changeTitle(girdpanel,menu){
-
+function changeTitle(girdpanel, menu) {
+    if (girdpanel.datas.type > 6) {
+        menu.getComponent("Rename").setDisabled(false);
+    }
 }
 
 function isScaleMenu(girdpanel, menu) {
     console.log(arguments)
-    if (girdpanel.title == "scale") {
+
+    if (girdpanel.title == "scale" || girdpanel.datas.type == 75) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().pidPropertyClick, girdpanel)
@@ -478,7 +478,7 @@ function isScaleMenu(girdpanel, menu) {
 }
 function isSCFMMenu(girdpanel, menu) {
     console.log(arguments)
-    if (girdpanel.title == "pid") {
+    if (girdpanel.title == "pid" || girdpanel.datas.type == 67) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().pidPropertyClick, girdpanel)
@@ -495,7 +495,7 @@ function isLogicMenu(gridpanel, menu) {
 }
 function isPidMenu(girdpanel, menu) {
     console.log(arguments)
-    if (girdpanel.title == "SCFM") {
+    if (girdpanel.title == "SCFM" || girdpanel.datas.type == 74) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().SCFMPropertyClick, girdpanel)

@@ -94,7 +94,9 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         }, disabled: true
     }, {
         text: 'Rename',
-        disabled: true
+        itemId: "Rename",
+        disabled: true,
+        handler:"Rename"
     }, {
         text: 'New plant',
         disabled: true

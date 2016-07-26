@@ -27,6 +27,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                 var sDevNodeName = win.datas.record.data.value;
                 var sNodeType = win.datas.record.data.type;
                 var sDevName = sDevNodeName.substr(0, 4);
+
                 if (context.value == context.newValues.value) {
                     return false
                 }
@@ -49,6 +50,12 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                          }*/
                     }
                 });
+                if(context.record.data.type=="Object_Name"){
+                    console.log(context.record.data.type)
+                    devTreeStoreLoad()
+                    var devtree = Ext.getCmp("leftDevTree")
+                    devtree.expandAll()
+                }
 
             },
             beforeedit: function (editor, context, eOpts) {
