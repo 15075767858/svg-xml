@@ -21,6 +21,7 @@ Ext.define('svgxml.view.tab.FramedTabs', {
     tools: [
         {
             type: "search",
+            qtip:"Show Index",
             handler:"showIndex",
             html:"show number"
         }

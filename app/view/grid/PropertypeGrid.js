@@ -16,7 +16,11 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
 
     border: false,
     columnLines: true,
+    initComponent: function () {
+        var me = this;
 
+        me.callParent()
+    },
     plugins: {
         ptype: "rowediting",
         clicksToEdit: 1,
@@ -50,11 +54,14 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                          }*/
                     }
                 });
-                if(context.record.data.type=="Object_Name"){
-                    console.log(context.record.data.type)
-                    devTreeStoreLoad()
-                    var devtree = Ext.getCmp("leftDevTree")
-                    devtree.expandAll()
+                if (context.record.data.type == "Object_Name") {
+
+                    //record.set("text","adasda")
+                    context.grid.record.set("text",context.record.data.value);
+                    //devTreeStoreLoad()
+                    //var devtree = Ext.getCmp("leftDevTree")
+                    //devtree.expandAll()
+
                 }
 
             },
@@ -300,18 +307,18 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                         }
                         if (rowRecord.data.type == "Inactive_Text") {
                             context.column.setEditor({
-                                xtype:"combobox",
-                                editable:false,
-                                store:ActiveJson.get("Inactive_Text_Defaults")
+                                xtype: "combobox",
+                                editable: false,
+                                store: ActiveJson.get("Inactive_Text_Defaults")
                             })
                             return true
                         }
                         if (rowRecord.data.type == "Active_Text") {
 
                             context.column.setEditor({
-                                xtype:"combobox",
-                                editable:false,
-                                store:ActiveJson.get("Active_Text_Defaults")
+                                xtype: "combobox",
+                                editable: false,
+                                store: ActiveJson.get("Active_Text_Defaults")
                             })
                             return true
                         }

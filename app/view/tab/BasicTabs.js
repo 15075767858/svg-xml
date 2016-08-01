@@ -28,7 +28,6 @@ Ext.define('svgxml.view.tab.BasicTabs', {
         items: [
             Ext.create("svgxml.view.tree.DevTree", {
                 region: "north",
-                id: "leftDevTree",
                 height: 300,
                 minHeight: 200
                 //maxHeight: 400

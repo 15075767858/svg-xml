@@ -90,12 +90,12 @@ function isBarCollsion(x1, y1, x2, y2, w, h) {
     return false;
 }
 
-function myAjax(url, success) {
+function myAjax(url, success,params) {
     Ext.Ajax.request({
         url: url,
         method: "GET",
         async: false,
-        params: {},
+        params: params||{},
         success: success
     });
 }

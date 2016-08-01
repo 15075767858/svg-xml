@@ -2,9 +2,10 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.imgtree',
     render: function (th) {
-        var store = Ext.create("Ext.data.TreeStore",{
-            storeId:"devtreestore"
+        var store = Ext.create("Ext.data.TreeStore", {
+            storeId: "devtreestore"
         })
+
         //var url = window.location.host;
         //var oJson = getTreeJsonByUrl(url)
         //console.log(oJson)
@@ -13,14 +14,15 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
 
     },
-    boxready:function(){
+    boxready: function () {
 
         devTreeStoreLoad()
 
     },
     itemcontextmenu: function (th, record, item, index, e, eOpts) {
         e.stopEvent();
-
+        var treePanel=this.view;
+        console.log(treePanel)
         if (record.data.depth == 1) {
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
@@ -56,7 +58,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     setTimeout(function () {
                                                         location.reload();
                                                     }, 3000);
-
                                                 }
                                             });
 
@@ -512,11 +513,15 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         if (record.data.depth == 2) {
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
+                viewModel:treePanel.viewModel,
                 autoShow: true,
                 x: e.pageX,
                 y: e.pageY,
                 items: [
                     {
+                        bind: {
+                            disabled: "{linkDataBase}"
+                        },
                         text: "deviceinforamation",
                         handler: function () {
                             console.log(record)
@@ -563,7 +568,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                 buttonAlign: "left"
                             });
 
-
                             var win = Ext.create("Ext.window.Window", {
                                 //title: record.data.text + ' build',
 
@@ -606,7 +610,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                     "->",
                                     {
                                         text: 'OK',
-                                        itemId:"Ok",
+                                        itemId: "Ok",
                                         handler: function (menu) {
                                             menu.setDisabled(true);
                                             //me.CloseButton.setD
@@ -672,14 +676,14 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         }
                                     }, {
                                         text: "Close",
-                                        itemId:"Close",
+                                        itemId: "Close",
                                         handler: function () {
                                             win.close()
                                         }
                                     }
                                 ]
                             })
-                            testwin=win;
+                            testwin = win;
                             console.log(win);
 
 
@@ -1443,13 +1447,11 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                 return false;
             }
-
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
                 autoShow: true,
                 x: e.pageX + 5,
                 y: e.pageY + 5,
-
                 items: [
                     {
                         text: "Property", handler: function () {
@@ -1500,6 +1502,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             items: [
                                 Ext.create("propertypegrid", {
                                     title: "Parameters",
+                                    th:th,
+                                    record:record,
                                     store: Ext.create("Ext.data.Store", {
                                         id: "ParametersStore",
                                         autoLoad: true,
@@ -1633,8 +1637,9 @@ function getNameByType(type) {
     }
     return null;
 }
-function devTreeStoreLoad(){
-    var store =Ext.data.StoreManager.lookup("devtreestore")
+
+function devTreeStoreLoad() {
+    var store = Ext.data.StoreManager.lookup("devtreestore")
     var url = window.location.host;
     var oJson = getTreeJsonByUrl(url)
     store.setRoot(oJson);
@@ -1644,7 +1649,6 @@ function devTreeStoreLoad(){
 }
 
 function setPresent_Value(sDevNodeName, text1, text2) {
-
     var sDevName = sDevNodeName.substr(0, 4)
     var strnull = "";
     var pubstr = "";
@@ -1693,6 +1697,8 @@ function getTreeJsonByUrl(url) {
         "children": [{
             expanded: false,
             text: url,
+            checked:true,
+            qtip:"On Line",
             children: getDevAll(url)
         }
         ]

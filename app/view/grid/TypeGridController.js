@@ -116,6 +116,13 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         if (panel.datas.type == "56") {
             //var typeGirdName = this.getTitle();
             var store = panel.store//Ext.data.StoreManager.lookup("store" + _this.id);
+
+            store.addListener("beginupdate",function(){
+                var gridheight=Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight()+panel.header.getHeight()
+                if(panel.getHeight()!=gridheight){
+                    panel.setHeight(gridheight)
+                }
+            })
             var win = Ext.create('Ext.window.Window', {
                 title: 'logic Property',
                 id: "win" + panel.id,
@@ -413,7 +420,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         console.log(this)
         var me = this.view;
         console.log(arguments)
-        me.datas.index = index// = {"index": index}
+        //me.datas.index = index// = {"index": index}
 
         me.el.dom.oncontextmenu = function (eve) {
             return false;
@@ -427,8 +434,11 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                         show: function (menu, eOpts) {
                             d3.select(menu.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
                             if (record.data.name == "In") {
-                                var delSlot = menu.getComponent("delSlot").on("click", menu.getController().delSlotclick, me);
-                                delSlot.setDisabled(false);
+
+                                if(me.store.data.length>slotsJson[me.datas.title].initData().length){
+                                    var delSlot = menu.getComponent("delSlot").on("click", menu.getController().delSlotclick, me);
+                                    delSlot.setDisabled(false);
+                                }
                             }
                             if (me.datas.type > 10) {
                                 var title = me.datas.title;
@@ -470,7 +480,7 @@ function changeTitle(girdpanel, menu) {
 function isScaleMenu(girdpanel, menu) {
     console.log(arguments)
 
-    if (girdpanel.title == "scale" || girdpanel.datas.type == 75) {
+    if (girdpanel.datas.type == 75) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().pidPropertyClick, girdpanel)
@@ -478,7 +488,7 @@ function isScaleMenu(girdpanel, menu) {
 }
 function isSCFMMenu(girdpanel, menu) {
     console.log(arguments)
-    if (girdpanel.title == "pid" || girdpanel.datas.type == 67) {
+    if (girdpanel.datas.type == 67) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().pidPropertyClick, girdpanel)
@@ -495,7 +505,7 @@ function isLogicMenu(gridpanel, menu) {
 }
 function isPidMenu(girdpanel, menu) {
     console.log(arguments)
-    if (girdpanel.title == "SCFM" || girdpanel.datas.type == 74) {
+    if (girdpanel.datas.type == 74) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().SCFMPropertyClick, girdpanel)

@@ -36,7 +36,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
             console.log(datas)
             var fields = ["Object_Name", "Offset", "Description", "Device_Type", "Inactive_Text", "Active_Text",
                 "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-                "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset","Set_Alarm"];
+                "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset", "Set_Alarm"];
             me.fields = fields;
             var store = Ext.create("Ext.data.JsonStore", {
                 fields: fields,
@@ -52,13 +52,14 @@ Ext.define("svgxml.view.window.RenameWindow", {
                     if (!datas[i][fieldName]) {
                         continue;
                     }
+
                     var textfield = {
                         fieldLabel: fieldName,
                         name: fieldName
-                    }
+                    };
+
                     fieldsItems.push(textfield);
                 }
-
                 var gridpanel = Ext.create("Ext.form.Panel", {
                     title: datas[i]['Object_Name'],
                     key: datas[i]['key'],
@@ -77,16 +78,58 @@ Ext.define("svgxml.view.window.RenameWindow", {
             }
         })
 
+        me.saveXml = function () {
+
+            var items = me.items.items;
+            var root = document.createElement("root");
+            for (var i = 0; i < items.length; i++) {
+                console.log(items[i]);
+
+                var form = items[i].getForm();
+                var res = form.getFieldValues();
+                var key = document.createElement("key");
+                key.setAttribute("number", items[i].key);
+
+                for (var type in res) {
+                    var tag = document.createElement(type)
+                    tag.innerHTML = res[type];
+                    key.appendChild(tag);
+                }
+
+                root.appendChild(key);
+
+                myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
+                    try {
+                        var alermJson = Ext.decode(response.responseText);
+                        if (alermJson['Set_Alarm']) {
+                            //var setAlarm = document.createElement("Set_Alarm");
+                            var aPars = alermJson['Set_Alarm'][0]
+                            for (var type in aPars) {
+                                var tag = document.createElement(type)
+                                tag.innerHTML = aPars[type];
+                                //setAlarm.appendChild(tag);
+                                key.appendChild(tag);
+                            }
+                        }
+                    } catch (e) {
+                        console.log(e)
+                    }
+                })
+            }
+            return root;
+        }
+
+
         me.buttons = [
             {
                 text: "Ok", handler: function () {
-                var items = me.items.items;
+                /*var items = me.items.items;
                 var root = document.createElement("root");
                 for (var i = 0; i < items.length; i++) {
                     console.log(items[i]);
-                    /*items[i].submit({
+                    /!*items[i].submit({
                      method: "POST"
-                     })*/
+                     })*!/
                     var form = items[i].getForm();
                     var res = form.getFieldValues();
                     var key = document.createElement("key");
@@ -113,25 +156,25 @@ Ext.define("svgxml.view.window.RenameWindow", {
                         } catch (e) {
                             console.log(e)
                         }
-
                     })
-                    /*var xmldecode = new Ext.data.amf.XmlDecoder({
-                     });
-                     console.log(res)
-                     console.log(xmldecode.readObject(res))*/
-                }
+                }*/
+                /*var xmldecode = new Ext.data.amf.XmlDecodaser({
+                 });
+                 console.log(res)
+                 console.log(xmldecode.readObject(res))*/
+                var root =me.saveXml();
                 var div = document.createElement("div");
                 div.appendChild(root)
                 var xmlstr = div.innerHTML
-                console.log(xmlstr)
                 for (var i = 0; i < me.fields.length; i++) {
                     var field = me.fields[i]
                     console.log(me.fields[i])
-                  xmlstr=  xmlstr.replaceAll(field.toLocaleLowerCase(), me.fields[i]);
-
+                    xmlstr = xmlstr.replaceAll(field.toLocaleLowerCase(), me.fields[i]);
                 }
+
                 console.log(xmlstr)
-                xmlstr=formatXml(xmlstr);
+
+                xmlstr = formatXml(xmlstr);
                 var datas = {
                     rw: "w",
                     fileName: "devxml/" + me.sDevName + ".xml",

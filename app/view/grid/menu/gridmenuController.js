@@ -93,20 +93,22 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 value: "0"
             })
             //store.commitChanges()
-
         }
+
+
+
+
         //console.log(this.setStore(store))
 
     },
     delSlotclick: function (menu, item, e, eOpts) { //删除连线 并去除数组中的 对应元素
-        console.log(arguments)
-        console.log(this)
-        var index = this.datas.index;
+
         var store = this.getStore();
         console.log(store)
-        store.removeAt(index);
+        store.removeAt(store.data.length-1);
         //this.setStore(store);
-        var datasArray = getCurrentDrawPanel().datas.datasArray;
+        drawlines(getCurrentDrawPanel())
+       /* var datasArray = getCurrentDrawPanel().datas.datasArray;
         var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
         console.log(datasArray)
         d3.selectAll("polyline").each(function () {
@@ -120,7 +122,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             if (d3.select(this).attr("data-end") == targetid) {
                 d3.select(this).remove()
             }
-        })
+        })*/
     },
     LinkMarkClick: function (menu, item, e, eOpts) {
         var curDrawPanel = getCurrentDrawPanel();
@@ -195,7 +197,9 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     SCFMPropertyClick: function () {
         var _this = this;
         var store = Ext.data.StoreManager.lookup("store" + _this.id);
-
+        console.log(store)
+        teststore=store
+        console.log(_this)
         var input1 = Ext.create("Ext.form.field.Text", {
             fieldLabel: 'diameter(D)',
             labelWidth: 130,
