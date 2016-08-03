@@ -367,9 +367,13 @@ function filePublish(key, value) {
             var text = response.responseText;
             if (text == 1) {
                 delayToast('Success', 'Publish Ok.', 0)
-            } else if (text == 2 || text == 3) {
-                Ext.Msg.alert('Info', 'Please download later.');
+            }else if(text==3){
+                Ext.Msg.alert('Info', 'The user is reading the other files, please download later');
             }
+            else if (text == 2 || text == 3) {
+                Ext.Msg.alert('Info', 'Users are downloading other files, please download later。');
+            }
+
         }
     })
 }

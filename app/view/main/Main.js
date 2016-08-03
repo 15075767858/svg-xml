@@ -92,7 +92,7 @@ function isBarCollsion(x1, y1, x2, y2, w, h) {
 
 function myAjax(url, success,params) {
     Ext.Ajax.request({
-        url: url,
+        url: url||"resources/test1.php",
         method: "GET",
         async: false,
         params: params||{},

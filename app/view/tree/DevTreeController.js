@@ -21,19 +21,91 @@ Ext.define('svgxml.view.tree.DevTreeController', {
     },
     itemcontextmenu: function (th, record, item, index, e, eOpts) {
         e.stopEvent();
-        var treePanel=this.view;
+        var treePanel = this.view;
         console.log(treePanel)
         if (record.data.depth == 1) {
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
+                viewModel: treePanel.viewModel,
                 autoShow: true,
                 x: e.pageX + 5,
                 y: e.pageY + 5,
                 items: [{
                     text: "DB ••• ",
-                    menu: [{
-                        text: "save •••"
-                    },
+                    menu: [
+                        {
+                            text: "load",
+                            bind: {
+                                hidden: "{linkDataBase}"
+                            },
+                            handler: function () {
+                                function getDevXmlStore() {
+                                    var store = null;
+                                    myAjax("", function (response) {
+                                        try {
+                                            store = Ext.decode(response.responseText);
+                                        } catch (e) {
+                                        }
+                                    }, {
+                                        par: "getDevxmls",
+                                    })
+                                    return store;
+                                }
+
+                                var win = Ext.create('Ext.window.Window', {
+                                    title: "load",
+                                    frame: true,
+                                    width: 325,
+                                    bodyPadding: 10,
+                                    autoShow: true,
+                                    defaultType: 'textfield',
+                                    defaults: {
+                                        anchor: '100%'
+                                    },
+                                    items: [
+                                        {
+                                            margin: 10,
+                                            xtype: "combobox",
+                                            allowBlank: false,
+                                            fieldLabel: 'select file name',
+                                            store: getDevXmlStore(),
+                                            editable: false,
+                                            queryMode: 'local',
+                                            displayField: 'name',
+                                            valueField: 'name',
+                                            autoSelect: false
+                                        }
+                                    ],
+                                    buttons: [
+                                        {
+                                            text: 'Ok', handler: function () {
+                                            var text = win.down("combobox").getValue();
+                                            if (text == null) {
+                                                Ext.Msg.alert('Info', 'Plase select file name.');
+                                                return;
+                                            }
+                                            Ext.create('svgxml.view.window.RenameWindow', {
+                                                //sDevNodeName: sDevNodeName,
+                                                text: text,
+                                                width: 800,
+                                                height: 1024
+                                            })
+                                            win.close();
+                                        }
+                                        },
+                                        {
+                                            text: 'Cancel', handler: function () {
+                                            win.close();
+                                        }
+                                        }
+                                    ]
+                                })
+
+                            }
+                        },
+                        {
+                            text: "save •••"
+                        },
                         {
                             text: "clean •••",
                             handler: function () {
@@ -513,14 +585,14 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         if (record.data.depth == 2) {
             Ext.create("Ext.menu.Menu", {
                 //floating: true,
-                viewModel:treePanel.viewModel,
+                viewModel: treePanel.viewModel,
                 autoShow: true,
                 x: e.pageX,
                 y: e.pageY,
                 items: [
                     {
                         bind: {
-                            disabled: "{linkDataBase}"
+                            disabled: "{!linkDataBase}"
                         },
                         text: "deviceinforamation",
                         handler: function () {
@@ -618,18 +690,21 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             var xml = packet.parseXml(textarea.getValue())
                                             var keys = xml.querySelectorAll("key");
                                             var aAll = 0;
+                                            console.log(aAll)
                                             for (var i = 0; i < keys.length; i++) {
-                                                aAll += keys[i].children.length;
-                                            }
+                                             //aAll += keys[i].children.length;
+                                                console.log(keys[i])
+                                             aAll += keys[i].getElementsByTagName("*").length;
+                                             }
                                             var count = 0;
                                             var delayCount = 0;
-                                            testxml = keys
-                                            testp = p
                                             for (var i = 0; i < keys.length; i++) {
-                                                var tags = keys[i].children;
+                                                //var tags = keys[i].children;
+                                                var tags = keys[i].getElementsByTagName("*");
                                                 var devname = keys[i].getAttribute("number");
                                                 for (var j = 0; j < tags.length; j++) {
                                                     count++;
+
                                                     var progressNumber = count / aAll;
                                                     if (count % 10 == 0) {
                                                         delayCount++
@@ -641,28 +716,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                         var value = tag.innerHTML;
                                                         setTimeout(function () {
                                                             p.setValue(progressNumber)
+                                                            /* if (tag.tagName == "Set_Alarm") {
+                                                             var setalermpars = tag.children;
+                                                             var setAlermJson = {
+                                                             Set_Alarm: [{}]
+                                                             }
+                                                             for (var i = 0; i < setalermpars.length; i++) {
+                                                             setAlermJson.Set_Alarm[0][setalermpars[i].tagName.toLocaleLowerCase()] = setalermpars[i].innerHTML;
+                                                             }
+                                                             console.log(tag.tagName)
+                                                             type = tag.tagName;
+                                                             value = Ext.encode(setAlermJson)
+                                                             }*/
 
-                                                            if (tag.tagName == "Set_Alarm") {
-                                                                var setalermpars = tag.children;
-                                                                var setAlermJson = {
-                                                                    Set_Alarm: [{}]
-                                                                }
-                                                                for (var i = 0; i < setalermpars.length; i++) {
-                                                                    setAlermJson.Set_Alarm[0][setalermpars[i].tagName.toLocaleLowerCase()] = setalermpars[i].innerHTML;
-                                                                }
-                                                                console.log(tag.tagName)
-                                                                type = tag.tagName;
-                                                                value = Ext.encode(setAlermJson)
-                                                            }
                                                             if (tag.tagName != "hide") {
                                                                 myAjax("resources/test1.php?par=changevalue&nodename=" + devname + "&type=" + type + "&value=" + value, function () {
                                                                     delayToast('Success', devname + ' Changes ' + type + ' saved successfully,New value is  .' + value, count * 150)
                                                                 })
                                                             }
-                                                        }, count * 100 + 3000 * delayCount)
+
+                                                        }, count * 50 + 1000 * delayCount)
 
                                                     })(progressNumber, devname, tags[j])
                                                 }
+                                                console.log(count)
                                             }
 
                                             var devName = record.data.text;
@@ -670,7 +747,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 menu.setDisabled(false);
 
                                                 devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
-                                            }, count * 100 + 3000 * delayCount + 3000)
+                                            }, count * 50 + 1000 * delayCount + 1000)
                                             console.log(xml)
                                             console.log(this)
                                         }
@@ -764,8 +841,14 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         }
                     }, {
                         text: "Save...", handler: function () {
-                            var devName = record.data.text;
-                            devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
+                            sDevName = record.data.text;
+                            myAjax(null, null, {
+                                par: "copyFile",
+                                sources: "devxml/" + sDevName + ".xml",
+                                target: "/mnt/nandflash/" + sDevName + ".xml"
+                            })
+                            filePublish("9999.8.*", "9999998\r\nSend_Config_File\r\n" + sDevName);
+                            //devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
                         }
                     }, {
                         text: "RestorFactory", handler: function () {
@@ -798,7 +881,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
         if (record.data.depth == 4) {
             var sDevNodeName = record.data.value;
             var sNodeType = record.data.type;
-            var sDevName = sDevNodeName.substr(0, 4);
+            var sDevName = record.data.text;
             if (record.parentNode.data.text == "Schedule") {
                 Ext.create("Ext.menu.Menu", {
                     //floating: true,
@@ -1502,8 +1585,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             items: [
                                 Ext.create("propertypegrid", {
                                     title: "Parameters",
-                                    th:th,
-                                    record:record,
+                                    th: th,
+                                    record: record,
                                     store: Ext.create("Ext.data.Store", {
                                         id: "ParametersStore",
                                         autoLoad: true,
@@ -1697,8 +1780,8 @@ function getTreeJsonByUrl(url) {
         "children": [{
             expanded: false,
             text: url,
-            checked:true,
-            qtip:"On Line",
+            checked: true,
+            qtip: "On Line",
             children: getDevAll(url)
         }
         ]
