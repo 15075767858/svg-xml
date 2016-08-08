@@ -2,380 +2,43 @@
 <root>
     <plant  name="001">
         <master_node  number="1">
-            <type>55</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
+            <type>0</type>
+            <key>9900001</key>
         </master_node>
         <master_node  number="2">
-            <type>55</type>
+            <type>1</type>
+            <key>9900101</key>
             <slots  number="1">
-                <node>3</node>
-                <slot_number>1</slot_number>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
+                <default>
+                </default>
             </slots>
         </master_node>
         <master_node  number="3">
-            <type>62</type>
+            <type>2</type>
+            <key>9900202</key>
             <slots  number="1">
-                <node>1</node>
-                <slot_number>0</slot_number>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
+                <default>
+                </default>
             </slots>
         </master_node>
         <master_node  number="4">
-            <type>62</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <node>1</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-    </plant>
-    <plant  name="002">
-        <master_node  number="5">
-            <type>55</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="6">
-            <type>62</type>
-            <slots  number="1">
-                <node>7</node>
-                <slot_number>0</slot_number>
-            </slots>
-            <slots  number="2">
-                <node>8</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="7">
-            <type>58</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="8">
-            <type>2</type>
-            <key>9900201</key>
-            <slots  number="1">
-                <node>5</node>
-                <slot_number>1</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="9">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>10</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="10">
             <type>3</type>
             <key>9900301</key>
         </master_node>
-        <master_node  number="11">
-            <type>2</type>
+        <master_node  number="5">
+            <type>4</type>
+            <key>9900401</key>
             <slots  number="1">
-                <default>0</default>
+                <default>
+                </default>
             </slots>
         </master_node>
-        <master_node  number="12">
-            <type>2</type>
-            <mode>0</mode>
+        <master_node  number="6">
+            <type>5</type>
+            <key>9900501</key>
             <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="13">
-            <type>2</type>
-            <slots  number="1">
-                <node>12</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="14">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>11</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="15">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>12</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-    </plant>
-    <plant  name="003">
-        <master_node  number="16">
-            <type>58</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="17">
-            <type>61</type>
-            <mode>0</mode>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="18">
-            <type>58</type>
-            <slots  number="1">
-                <node>17</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="19">
-            <type>2</type>
-            <key>9900201</key>
-            <slots  number="1">
-                <node>16</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="20">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>17</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="21">
-            <type>2</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="22">
-            <type>2</type>
-            <slots  number="1">
-                <node>23</node>
-                <slot_number>0</slot_number>
-            </slots>
-            <slots  number="2">
-                <node>24</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="23">
-            <type>2</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="24">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>21</node>
-                <slot_number>1</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="25">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>26</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="26">
-            <type>2</type>
-            <key>9900202</key>
-        </master_node>
-        <master_node  number="27">
-            <type>2</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="28">
-            <type>2</type>
-            <mode>0</mode>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="29">
-            <type>2</type>
-            <slots  number="1">
-                <node>28</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="30">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>27</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="31">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>28</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-    </plant>
-    <plant  name="004">
-        <master_node  number="32">
-            <type>58</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="33">
-            <type>55</type>
-            <slots  number="1">
-                <node>32</node>
-                <slot_number>0</slot_number>
-            </slots>
-            <slots  number="2">
-                <node>35</node>
-                <slot_number>1</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="34">
-            <type>62</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="35">
-            <type>55</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <node>34</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-    </plant>
-    <plant  name="005">
-        <master_node  number="36">
-            <type>2</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="37">
-            <type>2</type>
-            <slots  number="1">
-                <node>38</node>
-                <slot_number>0</slot_number>
-            </slots>
-            <slots  number="2">
-                <node>39</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="38">
-            <type>2</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="39">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>36</node>
-                <slot_number>1</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="40">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>41</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="41">
-            <type>2</type>
-            <key>9900202</key>
-        </master_node>
-        <master_node  number="42">
-            <type>2</type>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="43">
-            <type>2</type>
-            <mode>0</mode>
-            <slots  number="1">
-                <default>0</default>
-            </slots>
-            <slots  number="2">
-                <default>0</default>
-            </slots>
-        </master_node>
-        <master_node  number="44">
-            <type>2</type>
-            <slots  number="1">
-                <node>43</node>
-                <slot_number>2</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="45">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>42</node>
-                <slot_number>0</slot_number>
-            </slots>
-        </master_node>
-        <master_node  number="46">
-            <type>2</type>
-            <key>9900202</key>
-            <slots  number="1">
-                <node>43</node>
-                <slot_number>0</slot_number>
+                <default>
+                </default>
             </slots>
         </master_node>
     </plant>

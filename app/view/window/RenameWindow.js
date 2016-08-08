@@ -50,22 +50,25 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 })
 
                 for (var i = 0; i < keys.length; i++) {
-
                     var Object_Name = keys[i].querySelector("Object_Name").innerHTML;
+                    //var Object_Name=keys[i].getAttribute("number")
                     var keyType = keys[i].getAttribute("number").substr(4, 1)
                     var fieldsItems = [];
-                    var types=me["type"+keyType];
+                    var types = me["type" + keyType];
                     console.log(types)
+                    if (!types) {
+                        continue;
+                    }
                     for (var j = 0; j < types.length; j++) {
                         var typeTag = keys[i].getElementsByTagName(types[j])[0];
 
                         var fieldName = types[j];
                         //var value = typeTag.innerHTML;
                         var value;
-                        if(typeTag){
-                            value=typeTag.innerHTML;
-                        }else{
-                            value=""
+                        if (typeTag) {
+                            value = typeTag.innerHTML;
+                        } else {
+                            value = ""
                         }
                         var textfield = {
                             fieldLabel: fieldName,
@@ -114,14 +117,12 @@ Ext.define("svgxml.view.window.RenameWindow", {
         myAjax("resources/test1.php?par=getKeys&devname=" + sDevName, function (response) {
             var datas = Ext.decode(response.responseText)
             console.log(datas)
-            var fields = me.fields;
+            //var fields = me.fields;
             datas.sort(function (a, b) {
-                var akey = a['key'].substr(4, 1);
-                var bkey = b['key'].substr(4, 1);
-
+                var akey = a['key']
+                var bkey = b['key']
                 return akey - bkey;
             })
-
 
             var store = Ext.create("Ext.data.JsonStore", {
                 fields: me.fields,
@@ -132,16 +133,29 @@ Ext.define("svgxml.view.window.RenameWindow", {
             store.setData(datas)
 
             for (var i = 0; i < datas.length; i++) {
-                //store.setData(datas[i]);
+
                 var fieldsItems = [];
+
+                var keyType = datas[i].key.substr(4, 1);
+
+                var fields = me["type" + keyType];
+                if (!fields) {
+                    //Ext.Msg.alert("Error","invalid fields")
+                    console.log("fields=" + fields)
+                    continue;
+                }
+
                 for (var j = 0; j < fields.length; j++) {
+                    console.log(fields[j])
+                    var fieldName = fields[j]
 
 
+                    //var fieldName = store.config.fields[j];
+                    /*
+                     if (!datas[i][fieldName]) {
+                     continue;
+                     }*/
 
-                    var fieldName = store.config.fields[j];
-                    if (!datas[i][fieldName]) {
-                        continue;
-                    }
 
                     var textfield = {
                         fieldLabel: fieldName,
@@ -150,6 +164,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
                     fieldsItems.push(textfield);
                 }
+
                 var gridpanel = Ext.create("Ext.form.Panel", {
                     title: datas[i]['Object_Name'],
                     key: datas[i]['key'],
@@ -175,10 +190,13 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.setWidth(512);
         me.setMaxHeight(Ext.getBody().getHeight())
 
-        var fields = ["Object_Name", "Offset", "Description", "Device_Type", "Inactive_Text", "Active_Text",
+        var fields = ["Object_Name", "Offset", "Description", "Device_Type",
+            "Inactive_Text", "Active_Text",
             "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit",
-            "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value", "Offset", "Set_Alarm", "AV_count", "BV_count", "SCHEDULE_count"];
-        me.fields = fields;
+            "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Present_Value",
+            "Offset", "Set_Alarm", "AV_count", "BV_count", "SCHEDULE_count",
+        ];
+
         me.type0 = ["Object_Name", "Offset", "Description", "Device_Type", "Units", "Min_Pres_Value", "Max_Pres_Value", "COV_Increment", "High_Limit", "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Notify_Type", "Time_Delay", "Notification_Class"];
         me.type1 = ["Object_Name", "Offset", "Description", "Device_Type", "COV_Increment", "High_Limit", "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Notify_Type", "Time_Delay", "Notification_Class"];
         me.type2 = ["Object_Name", "Description", "COV_Increment", "High_Limit", "Low_Limit", "Deadband", "Limit_Enable", "Event_Enable", "Notify_Type", "Time_Delay", "Notification_Class"];
@@ -186,7 +204,10 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.type4 = ["Object_Name", "Description", "Device_Type", "Inactive_Text", "Active_Text", "Event_Enable", "Notify_Type", "Time_Delay", "Alarm_Value", "Notification_Class"];
         me.type5 = ["Object_Name", "Description", "Device_Type", "Inactive_Text", "Active_Text", "Event_Enable", "Notify_Type", "Time_Delay", "Alarm_Value", "Notification_Class"];
         me.type6 = ["Object_Name", "Description", "Priority_For_Writing"];
-        me.type8=['Object_Name'];
+        me.type8 = ['Object_Name'];
+
+        var fields = ["AV_count", "BV_count", "SCHEDULE_count"].concat(me.type0).concat(me.type1).concat(me.type2).concat(me.type3).concat(me.type4).concat(me.type5).concat(me.type6);
+        me.fields = fields;
         if (me.text) {
             me.xmlSources()
         } else if (me.sDevName) {

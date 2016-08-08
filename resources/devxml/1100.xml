@@ -1,10 +1,8 @@
 <root>
  <key  number="1100101">
   <Object_Name>1</Object_Name>
-  <Description>ANALOG OUTPUT 1</Description>
-  <Device_Type>0-10=0-100</Device_Type>
-  <Active_Text>Off</Active_Text>
-  <Units>1</Units>
+  <object_Name>1</object_Name>
+
 
  </key>
 </root>

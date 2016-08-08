@@ -175,7 +175,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.68  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.70  ');
                             }
                         }
                     ]
@@ -192,6 +192,7 @@ function saveGridpanelsConfigs(fileName) {
     } else {
         fileName = "../1000.json";
     }
+
     var drawpanel = getCurrentDrawPanel();
     var gridpanels = getCurrentDrawPanelGirdPanels();
     var aGridPanels = [];

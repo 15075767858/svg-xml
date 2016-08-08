@@ -94,6 +94,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
             ]
         })
     },
+
     saveAsClick: function () {
         saveXml()
         var states = getDevNamesAllDataStore(true)
@@ -422,14 +423,10 @@ function saveXml(text) {
     //root = sortNodeNumber(root)
     changeKey(root, text);
     console.log(root)
-
     console.log(root[0].outerHTML)
-
     datas['content'] = formatXml(replacePID(sXmlNameSpace + root[0].outerHTML));
-
     //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
     function replacePID(text) {
-
         text = text.replaceAll("<p>", "<P>");
         text = text.replaceAll("</p>", "</P>");
         text = text.replaceAll("<i>", "<I>");
@@ -538,19 +535,27 @@ function saveXml(text) {
             }
         }
     }
+
 }
 //var panelCount = 1;
 
 function xmlAppendPlant(root) {
+
     var plants = getCurrentDrawPanelPlants();
+
     console.info(plants)
 
     for (var i = 0; i < plants.length; i++) {
         var plant = $("<plant name='" + plants[i].name + "'></plant>");
-        root.append(plant)
+
+        root.append(plant);
+
         plantAppendMasterNode(plant, plants[i].id);
+
     }
+
     //panelCount = 1;
+
 }
 
 function plantAppendMasterNode(plant, plantId) {
@@ -574,7 +579,6 @@ function panelAddCurPlantIndex() {
     var plants = getCurrentDrawPanelPlants();
     var aGridpanels = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < plants.length; i++) {
-
         for (var j = 0; j < aGridpanels.length; j++) {
             if (aGridpanels[j].datas.plantId == plants[i].id) {
                 aGridpanels[j].curPlantIndex = count;

@@ -1,3 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
+ <plant  name="001">
+  <master_node  number="1">
+   <type>0</type>
+   <key>9900001</key>
+  </master_node>
+  <master_node  number="2">
+   <type>1</type>
+   <key>9900101</key>
+   <slots  number="1">
+    <default>
+    </default>
+   </slots>
+  </master_node>
+  <master_node  number="3">
+   <type>2</type>
+   <key>9900202</key>
+   <slots  number="1">
+    <default>
+    </default>
+   </slots>
+  </master_node>
+  <master_node  number="4">
+   <type>3</type>
+   <key>9900301</key>
+  </master_node>
+  <master_node  number="5">
+   <type>4</type>
+   <key>9900401</key>
+   <slots  number="1">
+    <default>
+    </default>
+   </slots>
+  </master_node>
+  <master_node  number="6">
+   <type>5</type>
+   <key>9900501</key>
+   <slots  number="1">
+    <default>
+    </default>
+   </slots>
+  </master_node>
+ </plant>
 </root>

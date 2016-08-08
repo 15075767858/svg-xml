@@ -89,10 +89,11 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                     data: aData
                 })
 
-                /*setInterval(function(){
+                /*setInterval(function()(
                  aData[1].value=Math.random()*100
                  console.log(aData)
                  },1000)*/
+                
                 console.info(ostore)
 
                 getCurrentDrawPanel().add(

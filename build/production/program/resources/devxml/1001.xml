@@ -3,17 +3,11 @@
 	<AV_count>3</AV_count>
 	<BV_count>3</BV_count>
 	<SCHEDULE_count>1</SCHEDULE_count>
-
-	<key  number="1001001">
-		<Object_Name>ANALOG INPUT1 </Object_Name>
-		<Offset>0.000</Offset>
-		<Description>ANALOG INPUT 1</Description>
-		<Device_Type>0-10=0-100</Device_Type>
-		<Units>98</Units>
-		<Min_Pres_Value>0.000</Min_Pres_Value>
-		<Max_Pres_Value>100.000</Max_Pres_Value>
-		<COV_Increment>1.000</COV_Increment>
-		<High_Limit>100.000</High_Limit>
+	<key  number="1001202">
+		<Object_Name>ANALOG VALUE2</Object_Name>
+		<Description>ANALOG VALUE 2</Description>
+		<COV_Increment>0.500</COV_Increment>
+		<High_Limit>100</High_Limit>
 		<Low_Limit>0.000</Low_Limit>
 		<Deadband>0.000</Deadband>
 		<Limit_Enable>0</Limit_Enable>
@@ -40,6 +34,25 @@
 		<Time_Delay>0</Time_Delay>
 		<Notification_Class>1</Notification_Class>
 	</key>
+	<key  number="1001001">
+		<Object_Name>ANALOG INPUT1 </Object_Name>
+		<Offset>0.000</Offset>
+		<Description>ANALOG INPUT 1</Description>
+		<Device_Type>0-10=0-100</Device_Type>
+		<Units>98</Units>
+		<Min_Pres_Value>0.000</Min_Pres_Value>
+		<Max_Pres_Value>100.000</Max_Pres_Value>
+		<COV_Increment>1.000</COV_Increment>
+		<High_Limit>100.000</High_Limit>
+		<Low_Limit>0.000</Low_Limit>
+		<Deadband>0.000</Deadband>
+		<Limit_Enable>0</Limit_Enable>
+		<Event_Enable>0</Event_Enable>
+		<Notify_Type>0</Notify_Type>
+		<Time_Delay>0</Time_Delay>
+		<Notification_Class>1</Notification_Class>
+	</key>
+
 	<key  number="1001003">
 		<Object_Name>ANALOG INPUT3 </Object_Name>
 		<Offset>0.000</Offset>
@@ -134,19 +147,7 @@
 		<Time_Delay>0</Time_Delay>
 		<Notification_Class>1</Notification_Class>
 	</key>
-	<key  number="1001202">
-		<Object_Name>ANALOG VALUE2</Object_Name>
-		<Description>ANALOG VALUE 2</Description>
-		<COV_Increment>0.500</COV_Increment>
-		<High_Limit>100</High_Limit>
-		<Low_Limit>0.000</Low_Limit>
-		<Deadband>0.000</Deadband>
-		<Limit_Enable>0</Limit_Enable>
-		<Event_Enable>0</Event_Enable>
-		<Notify_Type>0</Notify_Type>
-		<Time_Delay>0</Time_Delay>
-		<Notification_Class>1</Notification_Class>
-	</key>
+
 	<key  number="1001203">
 		<Object_Name>ANALOG VALUE3</Object_Name>
 		<Description>ANALOG VALUE 3</Description>
