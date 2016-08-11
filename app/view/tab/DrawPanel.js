@@ -36,17 +36,18 @@ Ext.define("svgxml.view.tab.DrawPanel", {
 
             selectstart: function (th) {
                 th.stopEvent();
-                return ;
+                return;
             },
             contextmenu: function (th, el, eOpts) {
                 console.log(arguments)
                 if (el.tagName != "svg") {
                     th.stopEvent();
                     return;
-                };
+                }
+                ;
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
-                    x: th.pageX+15,
-                    y: th.pageY+10,
+                    x: th.pageX + 15,
+                    y: th.pageY + 10,
                     listeners: {
                         show: function (thi, eOpts) {
                             try {
@@ -79,50 +80,129 @@ Ext.define("svgxml.view.tab.DrawPanel", {
             },
             notifyDrop: function (ddSource, e, data) {
                 var selectRecord = ddSource.dragData.records[0].data;
-                console.info(selectRecord)
                 var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
-                console.log(typeName)
-                aData = slotsJson[typeName].initData();
-                aData[1].value = Number.valueOf()(value.substr(5, 6));
-                var ostore = Ext.create("Ext.data.Store", {
-                    fields: ["name", "value"],
-                    data: aData
-                })
 
-                /*setInterval(function()(
-                 aData[1].value=Math.random()*100
-                 console.log(aData)
-                 },1000)*/
-                
-                console.info(ostore)
+                if (type == 2 || type == 5) {
+                    var win = Ext.create("Ext.window.Window", {
+                        title: "Set Default",
+                        resizable: false,
+                        autoShow: true,
+                        items: [
+                            {
+                                xtype: "form",
+                                padding: 10,
+                                author: {
+                                    width: "100%"
+                                }
+                                ,
+                                items: [
+                                    {
+                                        xtype: "checkbox", fieldLabel: "Default",
+                                        reference: "DefaultCheckbox"
+                                    },
+                                    {
+                                        xtype: "textfield", fieldLabel: "Value",
+                                        name: "defaultValue",
+                                        bind: {
+                                            disabled: "{!DefaultCheckbox.checked}"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        buttons: [
+                            {
+                                text: "OK", handler: function () {
+                                var defaultValue = win.down("form").getForm().getValues().defaultValue;
+                                console.log(defaultValue)
+                                getCurrentDrawPanel().add(createDevGrid(selectRecord, defaultValue))
+                                win.close()
+                            }
+                            },
+                            {
+                                text: "Cancel", handler: function () {
 
-                getCurrentDrawPanel().add(
-                    Ext.create("svgxml.view.grid.TypeGrid", {
+                                win.close()
+                            }
+                            }
+                        ]
+                    })
+                } else {
+                    getCurrentDrawPanel().add(createDevGrid(selectRecord))
+                }
+
+                function createDevGrid(selectRecord, defaultValue) {
+                    var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
+                    if (defaultValue == undefined) {
+                        aData = slotsJson[typeName].initData();
+                        Ext.Msg.alert("Waring","INPUT Default Value .")
+                    } else {
+                        aData = slotsJson[typeName].initData(defaultValue);
+                    }
+
+                    aData[1].value = Number.valueOf()(value.substr(5, 6));
+                    var ostore = Ext.create("Ext.data.Store", {
+                        fields: ["name", "value"],
+                        data: aData
+                    })
+                    var grid = Ext.create("svgxml.view.grid.TypeGrid", {
                         title: title,
                         store: ostore,
-                        x: e.browserEvent.offsetX+5,
-                        y: e.browserEvent.offsetY+5,
+                        x: e.browserEvent.offsetX + 5,
+                        y: e.browserEvent.offsetY + 5,
                         icon: "resources/img/SVG/" + typeName + ".svg",
                         listeners: {
                             add: function () {
                                 setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
                             },
                             render: function (thi) {
-                                /*thi.datas.isAddSlot=slotsJson[getNameByType(type)].isAddSlot;
-                                 thi.datas.plantId=""
-                                 thi.datas.type =type;
-                                 thi.datas.value =value;*/
+
                                 thi.datas = {
                                     isAddSlot: slotsJson[getNameByType(type)].isAddSlot,
                                     plantId: "",
                                     type: type,
                                     value: value
                                 };
-                                //console.log(thi.getStore().data);
                             }
                         }
                     })
-                );
+                    return grid;
+                }
+
+                /*                console.log(typeName)
+                 console.log(title)
+                 console.log(value);
+                 aData = slotsJson[typeName].initData();
+                 aData[1].value = Number.valueOf()(value.substr(5, 6));
+                 var ostore = Ext.create("Ext.data.Store", {
+                 fields: ["name", "value"],
+                 data: aData
+                 })*/
+                /* getCurrentDrawPanel().add(
+
+                 Ext.create("svgxml.view.grid.TypeGrid", {
+                 title: title,
+                 store: ostore,
+                 x: e.browserEvent.offsetX + 5,
+                 y: e.browserEvent.offsetY + 5,
+                 icon: "resources/img/SVG/" + typeName + ".svg",
+                 listeners: {
+                 add: function () {
+                 setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                 },
+                 render: function (thi) {
+
+                 thi.datas = {
+                 isAddSlot: slotsJson[getNameByType(type)].isAddSlot,
+                 plantId: "",
+                 type: type,
+                 value: value
+                 };
+                 }
+                 }
+                 })
+
+                 );*/
 
                 // Reference the record (single selection) for readability
 

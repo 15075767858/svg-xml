@@ -48,12 +48,14 @@ var slotsJson = {
     },
     'AV': {
         type: "2",
-        initData: function () {
+        initData: function (defaultValue) {
             var arr = new Array()
 
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'Instance', 'value': ""}
-            arr[2] = {'name': 'In', 'value': ""}
+            if(defaultValue){
+                arr[2] = {'name': 'In', 'value': defaultValue}
+            }
             return arr;
         },
         isAddSlot: false
@@ -87,12 +89,13 @@ var slotsJson = {
 
     'BV': {
         type: "5",
-        initData: function () {
+        initData: function (defaultValue) {
             var arr = new Array()
-
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'Instance', 'value': ""}
-            arr[2] = {'name': 'In', 'value': ""}
+            if(defaultValue){
+                arr[2] = {'name': 'In', 'value': defaultValue}
+            }
             return arr;
         },
         isAddSlot: false

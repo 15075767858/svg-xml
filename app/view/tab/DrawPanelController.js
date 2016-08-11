@@ -384,10 +384,10 @@ function getStoreData(gridPanelItems) {
     for (var i = 0; i < gridPanelItems.length; i++) {
         var name = gridPanelItems[i].data.name;
         var value = gridPanelItems[i].data.value;
-        if(gridPanelItems[i].data.select){
-            var select=gridPanelItems[i].data.select;
-            storeData.push({name: name, value: value,select:select})
-        }else{
+        if (gridPanelItems[i].data.select) {
+            var select = gridPanelItems[i].data.select;
+            storeData.push({name: name, value: value, select: select})
+        } else {
             storeData.push({name: name, value: value})
         }
     }
@@ -452,7 +452,7 @@ function typegridCache(th) {
 
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
         typegrid.datas = items[i].datas;
-        if(typegrid.datas.name){
+        if (typegrid.datas.name) {
             typegrid.setTitle(typegrid.datas.name)
         }
 //        console.log(typegrid.datas);
@@ -490,10 +490,16 @@ function typegridCache(th) {
         if (type >= 10) {
             return
         }
-        console.log(typegrid.store)
-        console.log(item)
+        //console.log(typegrid.store)
+        //console.log(item)
+        var data;
+        console.log(item.store.data)
+        if(item.store.data[2]){
+        data = slotsJson[getNameByType(type)].initData(item.store.data[2].value);
+        }else{
+            data = slotsJson[getNameByType(type)].initData();
 
-        var data = slotsJson[getNameByType(type)].initData();
+        }
         console.log(data)
         try {
             data[1].value = item.store.data[1].value;
@@ -887,11 +893,11 @@ My.getShortPathNode = function (rootNode, endNode) {
 My.getLeafPointAll = function (testNode, endNode, arr) {
 //    console.log(testNode)
 
-   /* fangka++
-    if (fangka > 100) {
-        fangka = 0
-        return
-    }*/
+    /* fangka++
+     if (fangka > 100) {
+     fangka = 0
+     return
+     }*/
     //console.log(fangka)
     if (!testNode) {
         console.log(testNode)
