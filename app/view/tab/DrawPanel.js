@@ -82,7 +82,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                 var selectRecord = ddSource.dragData.records[0].data;
                 var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
 
-                if (type == 2 || type == 5) {
+                /*if (type == 2 || type == 5) {
                     var win = Ext.create("Ext.window.Window", {
                         title: "Set Default",
                         resizable: false,
@@ -129,16 +129,19 @@ Ext.define("svgxml.view.tab.DrawPanel", {
                     })
                 } else {
                     getCurrentDrawPanel().add(createDevGrid(selectRecord))
-                }
+                }*/
+                getCurrentDrawPanel().add(createDevGrid(selectRecord))
 
                 function createDevGrid(selectRecord, defaultValue) {
                     var aData, type = selectRecord.type, typeName = getNameByType(selectRecord.type), value = selectRecord.value, title = selectRecord.text;
-                    if (defaultValue == undefined) {
+                    /*if (defaultValue == undefined) {
                         aData = slotsJson[typeName].initData();
                         Ext.Msg.alert("Waring","INPUT Default Value .")
                     } else {
                         aData = slotsJson[typeName].initData(defaultValue);
-                    }
+                    }*/
+
+                    aData = slotsJson[typeName].initData(defaultValue);
 
                     aData[1].value = Number.valueOf()(value.substr(5, 6));
                     var ostore = Ext.create("Ext.data.Store", {
@@ -159,7 +162,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
 
                                 thi.datas = {
                                     isAddSlot: slotsJson[getNameByType(type)].isAddSlot,
-                                    plantId: "",
+                                    plantId: getCurrentPlant().id,
                                     type: type,
                                     value: value
                                 };

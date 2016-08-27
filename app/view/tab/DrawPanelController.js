@@ -4,7 +4,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
     boxready: function (th, width, height, eOpts) {
         th.el.dom.childNodes[0].childNodes[0].style.height = "300%"
         th.el.dom.childNodes[0].childNodes[0].style.width = "150%"
-        console.log(th.el.getViewSize())
+        My.currentDrawPanelDiv = th.el.dom.querySelector("div")
 
         var svg = d3.select(th.el.dom).select(".x-autocontainer-innerCt").append("svg").attr("class", "tempSVG" + th.id)
             .attr("width", "150%").attr("height", "300%")
@@ -12,10 +12,29 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             .style("position", "absolute")
             .style("left", "0").style("top", "0");
         try {
-            typegridCache(th)
+            var startTime = new Date().getTime()
+
+            var p = Ext.create('Ext.ProgressBar', {
+                width: 300,
+                text:"Please Wait ..."
+            });
+            th.pressBar=p
+            Ext.create("Ext.window.Window", {
+                title: "Loading ...",
+                autoShow: true,
+                items: p
+            })
+
+
+            setTimeout(function () {
+                typegridCache(th)
+                drawlines(th)
+            }, 0)
+
+            console.log("typegridcache" + (new Date().getTime() - startTime) + "毫秒")
+
         } catch (e) {
         }
-        drawlines(th)
     },
     hide: function (th) {
         var plant = Ext.get("plants" + th.getTitle())
@@ -53,7 +72,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
             //width: "100%",
             viewConfig: {
                 getRowClass: function (record, rowIndex, rowParams, store) {
-                    console.log(arguments)
+//                    console.log(arguments)
                     if (record.data.selected) {
                         if (plantWindow) {
                             plantWindow.setTitle(th.getTitle() + " " + record.data.name + " Plants");
@@ -396,6 +415,20 @@ function getStoreData(gridPanelItems) {
 }
 
 function typegridCache(th) {
+    th.pressBar.wait({
+        interval: 50, //bar will move fast!
+        duration: 200,
+        increment: 15,
+        text: 'Updating...',
+        scope: this,
+        fn: function(){
+            th.pressBar.updateText('100% !')
+            setTimeout(function(){
+                th.pressBar.up().close()
+            },1000)
+        }
+    });
+    var startTime = new Date().getTime()
 
     th = th || getCurrentDrawPanel();
     var fileName;
@@ -417,8 +450,7 @@ function typegridCache(th) {
                 return;
             }
             try {
-
-                console.log(text)
+                //console.log(text)
                 var ojson = Ext.decode(text);
 
                 th.datas.datasArray = Ext.decode(ojson.datasArray);
@@ -431,6 +463,8 @@ function typegridCache(th) {
             }
         }
     });
+
+    console.log("ajax" + (new Date().getTime() - startTime) + "毫秒")
     var items = th.datas.gridpanelConfigs;// Ext.decode(localStorage.getItem("gridpanelConfigs"));
     var plants = th.datas.plants;// Ext.decode(localStorage.getItem("plants"))
     //console.log(plants.length)
@@ -440,6 +474,7 @@ function typegridCache(th) {
         console.log(plants)
         return;
     }
+
     var store = Ext.data.StoreManager.lookup('store' + th.getTitle());
     for (var i = 0; i < plants.length; i++) {
         var data = th.datas.data
@@ -448,37 +483,57 @@ function typegridCache(th) {
         //addCurrentDrawPanelPlant(plants[i]);
     }
 
-    for (var i = 0; i < items.length; i++) {
 
-        var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items[i].typegrid);
-        typegrid.datas = items[i].datas;
+    var typegrid, i, ids, trs, currentPlantId = getCurrentPlant().id;
+    console.log(items.length)
+
+
+
+    for (i = 0; i < items.length; i++) {
+        console.log(i)
+
+        createTypeGrid(items[i])
+
+    }
+
+    function createTypeGrid(items){
+        var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);
+
+        typegrid.datas = items.datas;
+
         if (typegrid.datas.name) {
             typegrid.setTitle(typegrid.datas.name)
         }
-//        console.log(typegrid.datas);
-//        console.log(items[i].store.data)
+
         typegrid.setStore(Ext.create("Ext.data.Store", {
-            data: items[i].store.data,
-            fields: items[i].store.fields
+            data: items.store.data,
+            fields: items.store.fields
         }))
-        isDev(typegrid, items[i])
+
+        isDev(typegrid, items)
+
+        //var startTime = new Date().getTime()
+        ids = Ext.decode(items.typegrid.trsIds);
+
         th.add(typegrid);
-        var ids = Ext.decode(items[i].typegrid.trsIds);
-        var trs = typegrid.el.dom.querySelectorAll("tr");
-        for (var j = 0; j < trs.length; j++) {
-//            console.log(trs[j])
-//            console.log(ids[j])
-            trs[j].id = ids[j];
-        }
         isLogicShowRows(typegrid)
 
-        if (getCurrentPlant().id != items[i].datas.plantId) {
+        trs = typegrid.el.dom.querySelectorAll("tr");
+
+
+        for (var j = 0; j < trs.length; j++) {
+            trs[j].id = ids[j];
+        }
+
+
+        if (currentPlantId != items.datas.plantId) {
             typegrid.hide()
         }
     }
     function isLogicShowRows(typegrid) {
         if (typegrid.datas.type == 56) {
             var columns = Ext.getCmp("win" + typegrid.id).down("grid").getColumns();
+
             for (var i = 0; i < typegrid.datas.rows; i++) {
                 columns[i].show()
             }
@@ -493,14 +548,14 @@ function typegridCache(th) {
         //console.log(typegrid.store)
         //console.log(item)
         var data;
-        console.log(item.store.data)
-        if(item.store.data[2]){
-        data = slotsJson[getNameByType(type)].initData(item.store.data[2].value);
-        }else{
+//        console.log(item.store.data)
+        if (item.store.data[2]) {
+            data = slotsJson[getNameByType(type)].initData(item.store.data[2].value);
+        } else {
             data = slotsJson[getNameByType(type)].initData();
 
         }
-        console.log(data)
+  //      console.log(data)
         try {
             data[1].value = item.store.data[1].value;
             data[2].value = item.store.data[2].value;
@@ -515,14 +570,26 @@ function typegridCache(th) {
      datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
 }
 
+function test() {
+    var startTime = new Date().getTime()
+
+    //var i=0;
+    for (var i = 0; i < 100000000; i++) {
+
+    }
+    console.log("drawline" + (new Date().getTime() - startTime) + "毫秒")
+}
+
 function drawlines(drawpanel) {
+    var startTime = new Date().getTime()
+
     d3.selectAll(".tempCircle").remove()
+    My.gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
+
     var currentDrawPanel = drawpanel || getCurrentDrawPanel();
-
+    drawpanel = currentDrawPanel
     var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id);
-
-    var datasArray = drawpanel.datas.datasArray;
-
+    var datasArray = currentDrawPanel.datas.datasArray;
     if (!datasArray) {
         return;
     }
@@ -539,14 +606,15 @@ function drawlines(drawpanel) {
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
 
+    var i, o, iElWidth, iElHeight, marginTop, polyline, circle, pointStart, pointEnd, startPathNode, endPathNode, arr;
 
-    for (var i = 0; i < datasArray.length; i++) {//value 是起点
+    for (i = 0; i < datasArray.length; i++) {//value 是起点
+
         var oStartEndJson = datasArray[i];
 //        console.log(oStartEndJson)
         for (o in oStartEndJson) {
-            //console.log(oStartEndJson)
-            var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
-            var dEnd = Ext.getDom(document.getElementById(o));
+            //var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
+            //var dEnd = Ext.getDom(document.getElementById(o));
             var oElStart = Ext.get(oStartEndJson[o]);
             var oElEnd = Ext.get(o);
 
@@ -556,16 +624,18 @@ function drawlines(drawpanel) {
                 return
             }
 
-            var iElWidth = oElStart.el.getWidth();
-            var iElHeight = oElStart.el.getHeight() / 2;
+            oElStartEl = oElStart.el;
+            oElEndEl = oElEnd.el;
+
+
+            iElWidth = oElStartEl.getWidth();
+            iElHeight = oElStartEl.getHeight() / 2;
+
+
             var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
             var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
             var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft + drawpanelScrollLeft;
             var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
-//            console.log(oSvg)
-
-            //oSvg.append("rect").attr("x", iStartLeft).attr("y",iStartTop).attr("width", "100").attr("height", "100").attr("fill", "red");
-            var polyline, circle;
 
             if (iStartLeft < 0 & iStartTop < 0 & iEndLeft < 0 & iEndTop < 0) {
                 //break;
@@ -573,6 +643,7 @@ function drawlines(drawpanel) {
             }
 //            console.log(iStartLeft + "  " + iStartTop)
 //            console.log(iEndLeft + " " + iEndTop)
+
             if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {
                 circle = oSvg.append("circle")
                     .attr("r", CIRCLE_MIN_R)
@@ -586,7 +657,6 @@ function drawlines(drawpanel) {
                 //alert("circle")
                 //continue
             } else {
-
                 polyline = oSvg.append("polyline")
                     .attr("stroke", "blue")
                     .attr("stroke-width", STROKEWIDTH_MIN)
@@ -595,8 +665,8 @@ function drawlines(drawpanel) {
                     .attr("data-start", oStartEndJson[o])
                     .attr("data-end", o)
                     .attr("data-index", i);
-
             }
+
 
             if (polyline) {
                 polyline.on("mouseover", function () {
@@ -679,37 +749,41 @@ function drawlines(drawpanel) {
                 })
                 if (iStartLeft < 0 || iStartTop < 0) {
                     circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop + 12);
-                    console.log("start")
+                    //console.log("start")
                     continue;
                 }
                 if (iEndLeft < 0 || iEndTop < 0) {
                     circle.attr("cx", iStartLeft + 10).attr("cy", iStartTop)
-                    console.log("end")
+                    //console.log("end")
                     continue;
                 }
             }
 
-            var pointStart = [iStartLeft + My.JIANGE, iStartTop];
-            var pointEnd = [iEndLeft - My.JIANGE, iEndTop]
-
-
+            pointStart = [iStartLeft + My.JIANGE, iStartTop];
+            pointEnd = [iEndLeft - My.JIANGE, iEndTop];
             My.PathNodeManager.removeAll()
-            var startPathNode = new My.PathNode(pointStart[0], pointStart[1])
-            var endPathNode = new My.PathNode(pointEnd[0], pointEnd[1])
-            var arr = My.getShortPathNode(startPathNode, endPathNode);
+            startPathNode = new My.PathNode(pointStart[0], pointStart[1]);
+            endPathNode = new My.PathNode(pointEnd[0], pointEnd[1]);
+
+            arr = My.getShortPathNode(startPathNode, endPathNode);
+
+
+            //console.log(arr);
+
+
             arr.unshift(iStartLeft, iStartTop);
+
             arr.push(iEndLeft, iEndTop);
-
             polyline.attr("points", arr);
-
             //polyline.attr("points", pointAll);
             //console.log(pointAll)
-
             polyline = null;
             circle = null;
 
         }
+
     }
+
     /*
      for (var i = 0; i < My.PathNodes.length; i++) {
      circle = oSvg.append("circle")
@@ -721,10 +795,13 @@ function drawlines(drawpanel) {
      .attr("cx", My.PathNodes[i].x + drawpanelScrollLeft)
      .attr("cy", My.PathNodes[i].y + drawpanelScrollTop)
      }*/
+    if (isDebug) {
+        console.log("drawline" + (new Date().getTime() - startTime) + "毫秒")
+    }
+
 }
 
 var My = {};
-
 My.PathNodes = [];
 My.MaxPathNodeId = 0;
 My.JIANGE = 10;
@@ -777,14 +854,14 @@ My.PathNode = function (x, y) {//节点对象
     }
     this.getX = function (is) {
         if (is) {
-            var drawpanelScrollLeft = getCurrentDrawPanel().el.dom.querySelector("div").scrollLeft
+            var drawpanelScrollLeft = My.currentDrawPanelDiv.scrollLeft
             return this.x - drawpanelScrollLeft;
         }
         return this.x
     }
     this.getY = function (is) {
         if (is) {
-            var drawpanelScrollTop = getCurrentDrawPanel().el.dom.querySelector("div").scrollTop
+            var drawpanelScrollTop = My.currentDrawPanelDiv.scrollTop
             return this.y + drawpanelScrollTop
         }
         return this.y;
@@ -796,12 +873,17 @@ My.PathNode = function (x, y) {//节点对象
             return null;
         }
     }
+
     this.init = (function (pathNode) {
         My.PathNodeManager.init(pathNode);
     })(this)
+
 }
+
 My.PathNodeManager = {
+
     init: function (pathNode) {
+
         var id = "pathnode-" + My.MaxPathNodeId;
         My.MaxPathNodeId++;
         if (My.PathNodeManager.getById(id)) {
@@ -867,8 +949,10 @@ My.PathNode.prototype.getNextNodeCenterPoint = function () {
 
 
 My.getShortPathNode = function (rootNode, endNode) {
+
     var leafArr = []
     My.getLeafPointAll(rootNode, endNode, leafArr)
+
     leafArr.sort(function (a, b) {
         return a.toRootNodeLength() - b.toRootNodeLength();
     })
@@ -877,9 +961,7 @@ My.getShortPathNode = function (rootNode, endNode) {
 
     leafArr[0].getToRootPath(arr)
     arr[0] = [endNode.x, arr[1][1]]
-
     arr.unshift([endNode.x, endNode.y]);
-
     arr.reverse()
     /*for (var i = 0; i < arr.length; i++) {
      console.log(arr[i])
@@ -891,19 +973,14 @@ My.getShortPathNode = function (rootNode, endNode) {
 }
 
 My.getLeafPointAll = function (testNode, endNode, arr) {
-//    console.log(testNode)
 
-    /* fangka++
-     if (fangka > 100) {
-     fangka = 0
-     return
-     }*/
-    //console.log(fangka)
     if (!testNode) {
         console.log(testNode)
         return;
     }
+
     var tn = My.getStartNodeTopButtomNodePathByEndX(testNode, endNode);
+
     if (tn == null) {
         return;
     }
@@ -921,6 +998,7 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
         return;
     }
     arr.push(tn);
+
 }
 
 My.PathNode.prototype.initLeftNodeRightNode = function (endNode) {
@@ -972,11 +1050,16 @@ My.PathNode.prototype.initLeftNodeRightNode = function (endNode) {
 My.getStartNodeTopButtomNodePathByEndX = function (startNode, endNode) {
     //获取距离起点最近的 并且和 在一条直线伤的 gridpanel
     //console.log(tn.rightNode)
+    var leftToRight, gX, gY, gH, nY, leftNode, rightNode
+
+    var gridPanels = My.gridPanels;
+
     if (!startNode || !endNode) {
         return null;
     }
-    var gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
-    var leftToRight = startNode.x < endNode.x;
+
+
+    leftToRight = startNode.x < endNode.x;
 
     /*if(fangka>100){
      fangka=0;
@@ -994,10 +1077,10 @@ My.getStartNodeTopButtomNodePathByEndX = function (startNode, endNode) {
 
     for (var i = 0; i < gridPanels.length; i++) {
         //console.log(gridPanels[i])
-        var gX = gridPanels[i].x
-        var gY = gridPanels[i].y
-        var gH = gridPanels[i].getHeight();
-        var nY = startNode.getY()
+        gX = gridPanels[i].x
+        gY = gridPanels[i].y
+        gH = gridPanels[i].getHeight();
+        nY = startNode.getY()
 
 //        console.log(gridPanels[i].el.dom)
 
@@ -1016,11 +1099,11 @@ My.getStartNodeTopButtomNodePathByEndX = function (startNode, endNode) {
                 //alert(gX)
                 //console.log("面板.X=" + gX)
                 //console.log("起点.X=" + startNode.getX())
-                var leftNode = My.getGridPanelPoint(gridPanels[i], 'nw');
+                leftNode = My.getGridPanelPoint(gridPanels[i], 'nw');
                 if (leftNode) {
                     startNode.setLeftNode(leftNode);
                 }
-                var rightNode = My.getGridPanelPoint(gridPanels[i], 'sw');
+                rightNode = My.getGridPanelPoint(gridPanels[i], 'sw');
                 if (rightNode) {
                     startNode.setRightNode(rightNode);
                 }
@@ -1028,12 +1111,12 @@ My.getStartNodeTopButtomNodePathByEndX = function (startNode, endNode) {
             }
         } else {
             if (gX < startNode.getX() & gX > endNode.getX()) {
-                var leftNode = My.getGridPanelPoint(gridPanels[i], 'ne')
+                leftNode = My.getGridPanelPoint(gridPanels[i], 'ne')
                 if (leftNode) {
                     startNode.setLeftNode(leftNode);
                 }
                 startNode.setLeftNode(leftNode);
-                var rightNode = My.getGridPanelPoint(gridPanels[i], 'se');
+                rightNode = My.getGridPanelPoint(gridPanels[i], 'se');
                 if (rightNode) {
                     startNode.setRightNode(rightNode);
                 }

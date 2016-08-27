@@ -1,0 +1,28 @@
+<root>
+ <key  number="9900001">
+  <Object_Name>1</Object_Name>
+  <Description>ANALOG OUTPUT 1</Description>
+  <Device_Type>0-10=0-100</Device_Type>
+  <Active_Text>Off</Active_Text>
+  <Units>1</Units>
+  <Min_Pres_Value>95</Min_Pres_Value>
+  <Max_Pres_Value>0</Max_Pres_Value>
+  <COV_Increment>1.2</COV_Increment>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0.000</Deadband>
+  <Limit_Enable>0</Limit_Enable>
+  <Event_Enable>0</Event_Enable>
+  <Present_Value>0</Present_Value>
+  <Set_Alarm>
+   <High_Limit>100</High_Limit>
+   <Low_Limit>0</Low_Limit>
+   <Deadband>0</Deadband>
+   <delay_time>10</delay_time>
+   <notification_class>1</notification_class>
+   <event_type>0</event_type>
+   <limit>0</limit>
+   <Event_Enable>0</Event_Enable>
+  </Set_Alarm>
+ </key>
+</root>

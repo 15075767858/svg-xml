@@ -263,6 +263,27 @@ Ext.define('scale', {
     data: slotsJson.scale.initData(),
     proxy: oproxy
 });
+Ext.define('buffer', {
+    extend: "Ext.data.Store",
+    storeId: 'bufferStore',
+    fields: ['name', 'value'],
+    data: slotsJson.buffer.initData(),
+    proxy: oproxy
+});
+Ext.define('Delayoff', {
+    extend: "Ext.data.Store",
+    storeId: 'DelayoffStore',
+    fields: ['name', 'value'],
+    data: slotsJson.Delayoff.initData(),
+    proxy: oproxy
+});
+Ext.define('NOT', {
+    extend: "Ext.data.Store",
+    storeId: 'NOTStore',
+    fields: ['name', 'value'],
+    data: slotsJson.NOT.initData(),
+    proxy: oproxy
+});
 /*
  Ext.define('timer', {
  extend:"Ext.data.Store",

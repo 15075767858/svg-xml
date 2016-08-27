@@ -2,27 +2,14 @@
 <root>
  <plant  name="001">
   <master_node  number="1">
-   <type>5</type>
-   <key>9900501</key>
+   <type>61</type>
+   <mode>0</mode>
    <slots  number="1">
-    <default>qwe</default>
+    <default>0</default>
    </slots>
-  </master_node>
-  <master_node  number="2">
-   <type>5</type>
-   <key>9900501</key>
-  </master_node>
-  <master_node  number="3">
-   <type>4</type>
-   <key>9900401</key>
-   <slots  number="1">
-    <default>
-    </default>
+   <slots  number="2">
+    <default>0</default>
    </slots>
-  </master_node>
-  <master_node  number="4">
-   <type>2</type>
-   <key>9900202</key>
   </master_node>
  </plant>
 </root>

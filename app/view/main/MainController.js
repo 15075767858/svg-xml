@@ -209,3 +209,9 @@ function getPrefix(prefixIndex) {
 String.prototype.replaceAll = function(s1,s2){
     return this.replace(new RegExp(s1,"gm"),s2);
 }
+window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function (/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+            return window.setTimeout(callback, 1000 / 60);
+        };
+})();

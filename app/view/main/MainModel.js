@@ -30,21 +30,21 @@ var slotsJson = {
             arr[1] = {'name': 'Instance', 'value': ""}
             return arr
         },
-        isAddSlot: false,
-        maxSlot: 10
+        isAddSlot: false
     },
     'AO': {
         type: "1",
-        initData: function () {
+        initData: function (defaultValue) {
             var arr = new Array()
-
-            arr[0] = {'name': 'Out', 'value': "0"}
-            arr[1] = {'name': 'Instance', 'value': ""}
-            arr[2] = {'name': 'In', 'value': ""}
+            arr[0] = {'name': 'Out', 'value': "0"};
+            arr[1] = {'name': 'Instance', 'value': ""};
+            if (defaultValue) {
+                arr[2] = {'name': 'In', 'value': ""};
+            }
             return arr;
         },
-        isAddSlot: false
-        //maxSlot:10
+        isAddSlot: true,
+        maxSlot:2
     },
     'AV': {
         type: "2",
@@ -53,19 +53,18 @@ var slotsJson = {
 
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'Instance', 'value': ""}
-            if(defaultValue){
+            if (defaultValue) {
                 arr[2] = {'name': 'In', 'value': defaultValue}
             }
             return arr;
         },
-        isAddSlot: false
-        //maxSlot:10
+        isAddSlot: true,
+        maxSlot:2
     },
     'BI': {
         type: "3",
         initData: function () {
             var arr = new Array()
-
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'Instance', 'value': "0"}
             return arr;
@@ -75,16 +74,18 @@ var slotsJson = {
     },
     'BO': {
         type: "4",
-        initData: function () {
+        initData: function (defaultValue) {
             var arr = new Array()
 
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'Instance', 'value': ""}
+            if(defaultValue){
             arr[2] = {'name': 'In', 'value': ""}
+            }
             return arr;
         },
-        isAddSlot: false
-        //maxSlot:10
+        isAddSlot: true,
+        maxSlot:2
     },
 
     'BV': {
@@ -93,13 +94,13 @@ var slotsJson = {
             var arr = new Array()
             arr[0] = {'name': 'Out', 'value': "0"}
             arr[1] = {'name': 'Instance', 'value': ""}
-            if(defaultValue){
+            if (defaultValue) {
                 arr[2] = {'name': 'In', 'value': defaultValue}
             }
             return arr;
         },
-        isAddSlot: false
-        //maxSlot:10
+        isAddSlot: true,
+        maxSlot:2
     },
 
     'add': {
@@ -396,7 +397,6 @@ var slotsJson = {
     },
 
 
-
     'SCFM': {
         type: "74",
         initData: function () {
@@ -427,7 +427,39 @@ var slotsJson = {
             return arr;
         },
         isAddSlot: false
+    },
+    "buffer":{
+        type:"76",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"};
+            arr[1] = {'name': 'In', 'value': "0"};
+            return arr;
+        },
+        isAddSlot: false
+    },
+    "Delayoff":{
+        type:"77",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"}
+            arr[1] = {'name': 'In', 'value': "0"}
+            arr[2] = {'name': 'DelayTime(s)', 'value': "2"}
+            return arr;
+        },
+        isAddSlot: false
+    },
+    "NOT":{
+        type:"78",
+        initData: function () {
+            var arr = new Array();
+            arr[0] = {'name': 'Out', 'value': "0"};
+            arr[1] = {'name': 'In', 'value': "0"};
+            return arr;
+        },
+        isAddSlot: false
     }
+
 
 };
 
@@ -558,6 +590,24 @@ var Imgs = [{
     {
         name: "scale",
         src: "resources/img/SVG/scale.svg",
+        Img_0: "",
+        Img_1: ""
+    },
+    {
+        name: "buffer",
+        src: "resources/img/SVG/buffer.svg",
+        Img_0: "",
+        Img_1: ""
+    },
+    {
+        name: "Delayoff",
+        src: "resources/img/SVG/Delayoff.svg",
+        Img_0: "",
+        Img_1: ""
+    },
+    {
+        name: "NOT",
+        src: "resources/img/SVG/NOT.svg",
         Img_0: "",
         Img_1: ""
     }

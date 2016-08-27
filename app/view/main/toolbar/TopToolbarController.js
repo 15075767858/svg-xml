@@ -368,7 +368,7 @@ function filePublish(key, value) {
             var text = response.responseText;
             if (text == 1) {
                 delayToast('Success', 'Publish Ok.', 0)
-            }else if(text==3){
+            } else if (text == 3) {
                 Ext.Msg.alert('Info', 'The user is reading the other files, please download later');
             }
             else if (text == 2 || text == 3) {
@@ -422,8 +422,10 @@ function saveXml(text) {
     datas['fileName'] = "../" + text;
     //root = sortNodeNumber(root)
     changeKey(root, text);
-    console.log(root)
-    console.log(root[0].outerHTML)
+    if (isDebug) {
+        console.log(root)
+        console.log(root[0].outerHTML)
+    }
     datas['content'] = formatXml(replacePID(sXmlNameSpace + root[0].outerHTML));
     //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
     function replacePID(text) {
@@ -451,7 +453,7 @@ function saveXml(text) {
         if (text == "1000") {
             return;
         }
-        if(text=="../../../local.xml"){
+        if (text == "../../../local.xml") {
             return;
         }
         text = text.substr(text.length - 4, text.length);
@@ -543,7 +545,7 @@ function xmlAppendPlant(root) {
 
     var plants = getCurrentDrawPanelPlants();
 
-    console.info(plants)
+    //console.info(plants)
 
     for (var i = 0; i < plants.length; i++) {
         var plant = $("<plant name='" + plants[i].name + "'></plant>");
@@ -583,7 +585,8 @@ function panelAddCurPlantIndex() {
             if (aGridpanels[j].datas.plantId == plants[i].id) {
                 aGridpanels[j].curPlantIndex = count;
                 count++;
-                console.log(aGridpanels[j])
+
+                //console.log(aGridpanels[j])
             }
         }
     }
@@ -597,14 +600,14 @@ function get_A_Master_node(gridpanel) {
     masterNode.append("<type>" + iType + "</type>");
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
-    console.log(gridpanel)
+    //console.log(gridpanel)
     var gridPanelItems = gridpanel.store.data.items;
-    console.log(gridPanelItems)
+    //console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
     gridPanelItems = isKeyFilter(gridPanelItems, masterNode, gridpanel);
     var startIndex = 0;
     for (var i = 0; i < gridPanelItems.length; i++) {
-        console.log(gridPanelItems[i]);
+        //  console.log(gridPanelItems[i]);
         if (gridPanelItems[i].data["name"] == "Out") {
             continue;
         }
@@ -614,11 +617,11 @@ function get_A_Master_node(gridpanel) {
         if (gridPanelItems[i].data["name"] == "mode") {
             continue;
         }
-        console.log(gridPanelItems[i])
+        //console.log(gridPanelItems[i])
         startIndex++;
         var name = gridPanelItems[i].data["name"];
         var value = gridPanelItems[i].data["value"];
-        console.log(gridPanelItems[i].data.select)
+        //console.log(gridPanelItems[i].data.select)
         if (gridPanelItems[i].data['select']) {
             var select = gridPanelItems[i].data.select;
             for (var j = 0; j < select.length; j++) {
@@ -667,7 +670,7 @@ function isLogic(gridpanel, masterNode) {
     var columns = Ext.getCmp("win" + gridpanel.id).down("grid").getColumns()
     var index;
     for (var i = 0; i < columns.length; i++) {
-        console.log(columns[i])
+        //console.log(columns[i])
     }
     for (var i = 3; i < columns.length; i++) {
         if (columns[i].hidden) {
@@ -698,7 +701,7 @@ function isPidSave(gridpanel, masterNode) {
     } else {
         return;
     }
-    console.log(items)
+    //console.log(items)
     masterNode.append("<P>" + items[0].data.value + "</P>")
     masterNode.append("<I>" + items[1].data.value + "</I>")
     masterNode.append("<D>" + items[2].data.value + "</D>")
@@ -746,7 +749,7 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
     var name = gridPanelItems[0].data["name"];
     var value = gridPanelItems[0].data["value"];
     if (name == 'mode') {// if (name != "Out" && name != "In") {
-        console.log(gridPanelItems[0])
+//        console.log(gridPanelItems[0])
         var select = gridPanelItems[0].data.select;
         for (var i = 0; i < select.length; i++) {
             if (select[i].name == value) {
@@ -788,9 +791,9 @@ function getStartGridPanelIndexAndItemIndex(gridpanel, index) {
         for (var j = 0; j < trs.length; j++) {
             //alert(trs[j].id+"  "+startTrId)
             if (trs[j].id == startTrId) {
-                console.log(trs[j])
+                //              console.log(trs[j])
                 var sn = j;
-                console.log(items)
+//                console.log(items)
                 if (items[0].data['name'] == "mode") {
                     sn = j - 1
                 }
@@ -846,21 +849,13 @@ function currentDrawPanelGirdPanelsAddTitle() {
 function getCurrentDrawPanelGirdPanels(drawpanel) {
     var drawpanel = drawpanel || getCurrentDrawPanel();
     var aGridpanels = [];
+
     var girdpanels = Ext.ComponentQuery.query("gridpanel", drawpanel);
     for (var i = 0; i < girdpanels.length; i++) {
         girdpanels[i].index = i + 1
-
-        //console.log(girdpanels[i])
-        //if (!girdpanels[i].hidden) {
-        /*girdpanels.el.on({
-         click:function(){
-         alert("asd")
-         }
-         })*/
         aGridpanels.push(girdpanels[i])
-        //aGridpanels[i]=girdpanels[i]
-        //}
     }
+
     return aGridpanels;
 }
 
@@ -890,6 +885,7 @@ function setCurrentPlant(index) {
         }
         updateCurrentDrawPanelPlant(plants[i], i)
     }
+
 }
 
 function getCurrentDrawPanelPlantByIndex(index) {
@@ -929,6 +925,8 @@ function getCurrentPlantGridPanles(plant) {
 
     var curPlantGridPanelArr = [];
     var gridPanels = getCurrentDrawPanelGirdPanels();
+
+
     for (var i = 0; i < gridPanels.length; i++) {
         if (plant.id == gridPanels[i].datas.plantId) {
             curPlantGridPanelArr.push(gridPanels[i])

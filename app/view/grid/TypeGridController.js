@@ -47,14 +47,29 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
     girdviewready: function (panel, eO) {
 
-        if (panel.datas.type < 10) {
+
+        //if (panel.datas.type < 10) {
             //console.info(th.store.data.item[1].data.value)
             //console.info(th.datas.value.substr(5,6))
             //console.info(th.store)
             //th.store.data.items[1].data.value=th.datas.value.substr(5,6)
             //th.store.commitChanges();
             //console.info(th.store.items)
-        }
+            panel.store.addListener("beginupdate",function(){
+                setTimeout(function(){
+
+              var containerHeight=  Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
+//                console.log(containerHeight)
+                var gridheight=containerHeight+panel.header.getHeight();
+  //              console.log(gridheight)
+    //            console.log(panel.getHeight())
+                if(panel.getHeight()!=gridheight){
+                    panel.setHeight(gridheight);
+                }
+
+                },500)
+            })
+        //}
         if (panel.datas.type == 67) {
             console.log(panel)
 
@@ -74,8 +89,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     }
                 }
             });
-        }
-        ;
+        };
 
 
         if (panel.datas.type == 74) {
@@ -248,7 +262,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
          });
          }*/
 
-        if (panel.datas.plantId.length < 2) {
+        //if (!panel.datas.plantId.length < 2) {
+        if (!panel.datas.plantId) {
             var plant = getCurrentPlant()
             panel.datas.plantId = plant.id
         }
@@ -432,16 +447,18 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     y: e.pageY + 10,
                     listeners: {
                         show: function (menu, eOpts) {
+                            var gridTitle=me.datas.title||getNameByType(me.datas.type);
+
                             d3.select(menu.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
                             if (record.data.name == "In") {
 
-                                if(me.store.data.length>slotsJson[me.datas.title].initData().length){
+                                if(me.store.data.length>slotsJson[gridTitle].initData().length){
                                     var delSlot = menu.getComponent("delSlot").on("click", menu.getController().delSlotclick, me);
                                     delSlot.setDisabled(false);
                                 }
                             }
                             if (me.datas.type > 10) {
-                                var title = me.datas.title;
+                                var title = gridTitle;
                                 if (slotsJson[title].isAddSlot) {
                                     var addSlot = menu.getComponent("addSlot").on("click", menu.getController().addSlotclick, me);
                                     addSlot.setDisabled(false);

@@ -692,10 +692,8 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                             var aAll = 0;
                                             console.log(aAll)
                                             for (var i = 0; i < keys.length; i++) {
-                                             //aAll += keys[i].children.length;
-                                                console.log(keys[i])
-                                             aAll += keys[i].getElementsByTagName("*").length;
-                                             }
+                                                aAll += keys[i].getElementsByTagName("*").length;
+                                            }
                                             var count = 0;
                                             var delayCount = 0;
                                             for (var i = 0; i < keys.length; i++) {
@@ -704,7 +702,6 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 var devname = keys[i].getAttribute("number");
                                                 for (var j = 0; j < tags.length; j++) {
                                                     count++;
-
                                                     var progressNumber = count / aAll;
                                                     if (count % 10 == 0) {
                                                         delayCount++
@@ -840,16 +837,39 @@ Ext.define('svgxml.view.tree.DevTreeController', {
 
                         }
                     }, {
-                        text: "Save...", handler: function () {
-                            sDevName = record.data.text;
-                            myAjax(null, null, {
-                                par: "copyFile",
-                                sources: "devxml/" + sDevName + ".xml",
-                                target: "/mnt/nandflash/" + sDevName + ".xml"
-                            })
-                            filePublish("9999.8.*", "9999998\r\nSend_Config_File\r\n" + sDevName);
-                            //devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
-                        }
+                        text: "Save...",
+                        menu: [
+                            {
+                                text: "Save Property", handler: function () {
+                                var devName = record.data.text.substr(0,4)
+                                devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
+                            }
+
+
+                            },
+                            {
+                                text: "Download Property", handler: function () {
+                                var sDevName = record.data.text;
+                                myAjax(null, null, {
+                                    par: "copyFile",
+                                    sources: "devxml/" + sDevName + ".xml",
+                                    target: "/mnt/nandflash/" + sDevName + ".xml"
+                                })
+                                //filePublish("9999.8.*", "9999998\r\nSend_Config_File\r\n" + sDevName);
+                                //delayToast("Massage","publish ok "+record.data.text+".8.*" + " 9999998\r\nSend_Config_File\r\n" + record.data.text)
+                                myAjax("resources/test1.php?par=file_exists&filename=devxml/" + record.data.text + ".xml", function (response) {
+                                    if (response.responseText == 1) {
+                                        filePublish(record.data.text + ".8.*", "9999998\r\nSend_Config_File\r\n" + record.data.text);
+                                        //filePublish(record.data.text+".8.*", "9999998\r\nSend_Config_File\r\n" + record.data.text);
+                                        //location.href = "resources/test1.php?par=backup&filename=devxml/" + record.data.text + ".xml"
+                                    } else {
+                                        Ext.Msg.alert("Massage", "file does not exist .");
+                                    }
+                                })
+                            }
+                            }
+                        ],
+
                     }, {
                         text: "RestorFactory", handler: function () {
                             var devName = record.data.text;

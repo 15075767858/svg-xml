@@ -28,6 +28,14 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         //console.log(menu.up().getComponent('paste').setDisabled(true))
     },
     copyclick: function (menu, e, eOpts) {
+        var typegrid = menu.up("typegrid");
+        var type = typegrid.datas.type;
+        if(type==1||type==2||type==4||type==5){
+            if(typegrid.store.data.length>2){
+                Ext.Msg.alert("Massage","Cannot copy ")
+                return;
+            }
+        }
         hideCom = cloneTypegrid(menu.up("typegrid"), e);
 
     },
@@ -61,9 +69,11 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         hideCom.setPagePosition(typegrid.x + hideCom.up().getX() + hideCom.width + 50, typegrid.y + hideCom.up().getY(), true)
     },
     addSlotclick: function (menu, item, e, eOpts) {
-        var gridpanel =this;
+        var gridpanel = this;
+        var type = parseInt(gridpanel.datas.type);
         console.log(gridpanel)
-        var typeGirdName = menu.up("typegrid").datas.title;
+        var typeGirdName = menu.up("typegrid").datas.title || getNameByType(gridpanel.datas.type);
+
         var store = gridpanel.getStore();
         console.log(store)
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
@@ -71,7 +81,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             return;
         }
 
-        if (gridpanel.datas.type=="56") {
+        if (gridpanel.datas.type == "56") {
             store.add({
                 'name': 'In',
                 delay: "0",
@@ -88,14 +98,23 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 time9: "0"
             })
         } else {
+            if (type == 1 || type == 2 || type == 4 || type == 5) {
+                var arrs = getCurrentDrawPanelGirdPanels();
+                for (var i = 0; i < arrs.length; i++) {
+                    console.log(arrs[i])
+                    if (arrs[i].datas.value == gridpanel.datas.value & arrs[i].id != gridpanel.id & arrs[i].store.data.length > 2) {
+                        Ext.Msg.alert("Massage", "Cannot add Slot, the same Slot 。")
+                        return
+                    }
+                }
+
+            }
             store.add({
                 name: "In",
                 value: "0"
             })
             //store.commitChanges()
         }
-
-
 
 
         //console.log(this.setStore(store))
@@ -105,24 +124,24 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
 
         var store = this.getStore();
         console.log(store)
-        store.removeAt(store.data.length-1);
+        store.removeAt(store.data.length - 1);
         //this.setStore(store);
         drawlines(getCurrentDrawPanel())
-       /* var datasArray = getCurrentDrawPanel().datas.datasArray;
-        var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
-        console.log(datasArray)
-        d3.selectAll("polyline").each(function () {
-            console.log(d3.select(this).attr("data-end") + " " + targetid)
-            for (var i = 0; i < datasArray.length; i++) {
-                console.log(datasArray[i][targetid])
-                if (datasArray[i][targetid]) {
-                    getCurrentDrawPanel().datas.datasArray.splice(i, 1)
-                }
-            }
-            if (d3.select(this).attr("data-end") == targetid) {
-                d3.select(this).remove()
-            }
-        })*/
+        /* var datasArray = getCurrentDrawPanel().datas.datasArray;
+         var targetid = d3.select(menu.up().el.dom).attr("data-targetid");
+         console.log(datasArray)
+         d3.selectAll("polyline").each(function () {
+         console.log(d3.select(this).attr("data-end") + " " + targetid)
+         for (var i = 0; i < datasArray.length; i++) {
+         console.log(datasArray[i][targetid])
+         if (datasArray[i][targetid]) {
+         getCurrentDrawPanel().datas.datasArray.splice(i, 1)
+         }
+         }
+         if (d3.select(this).attr("data-end") == targetid) {
+         d3.select(this).remove()
+         }
+         })*/
     },
     LinkMarkClick: function (menu, item, e, eOpts) {
         var curDrawPanel = getCurrentDrawPanel();
@@ -198,7 +217,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         var _this = this;
         var store = Ext.data.StoreManager.lookup("store" + _this.id);
         console.log(store)
-        teststore=store
+        teststore = store
         console.log(_this)
         var input1 = Ext.create("Ext.form.field.Text", {
             fieldLabel: 'diameter(D)',
@@ -408,7 +427,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             height: 135,
             layout: "fit",
             autoShow: true,
-            bodyPadding:15,
+            bodyPadding: 15,
             items: {
                 xtype: "form",
                 border: false,
@@ -416,27 +435,27 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     labelAlign: 'left',
                     labelWidth: 60
                 },
-                items:{
-                    fieldLabel:"title",
-                    xtype:"textfield",
-                    itemId:"titlefield",
-                    value:girdpanel.title
+                items: {
+                    fieldLabel: "title",
+                    xtype: "textfield",
+                    itemId: "titlefield",
+                    value: girdpanel.title
                 }
             },
             buttons: [
                 {
                     text: "OK", handler: function () {
                     var value = win.down("form").getComponent('titlefield').value;
-                    girdpanel.datas.name=value;
+                    girdpanel.datas.name = value;
                     girdpanel.setTitle(value)
-                    delayToast("Message","change title ok.");
+                    delayToast("Message", "change title ok.");
                     win.close();
                 }
                 }
             ]
         });
 
-        testwin=win;
+        testwin = win;
 
     },
     LinkFormClick: function (menu, item, e, eOpts) {
@@ -582,7 +601,7 @@ function cloneTypegrid(typegrid, e) {
     });
     oTypeGrid.datas = {}
     for (o in  typegrid.datas) {
-        oTypeGrid.datas[typegrid.datas[o]] = o;
+        oTypeGrid.datas[o] = typegrid.datas[o];
     }
 
 
