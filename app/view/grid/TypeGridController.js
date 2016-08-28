@@ -49,26 +49,16 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
 
         //if (panel.datas.type < 10) {
-            //console.info(th.store.data.item[1].data.value)
-            //console.info(th.datas.value.substr(5,6))
-            //console.info(th.store)
-            //th.store.data.items[1].data.value=th.datas.value.substr(5,6)
-            //th.store.commitChanges();
-            //console.info(th.store.items)
-            panel.store.addListener("beginupdate",function(){
-                setTimeout(function(){
-
-              var containerHeight=  Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
-//                console.log(containerHeight)
-                var gridheight=containerHeight+panel.header.getHeight();
-  //              console.log(gridheight)
-    //            console.log(panel.getHeight())
-                if(panel.getHeight()!=gridheight){
-                    panel.setHeight(gridheight);
-                }
-
-                },500)
-            })
+        //console.info(th.store.data.item[1].data.value)
+        //console.info(th.datas.value.substr(5,6))
+        //console.info(th.store)
+        //th.store.data.items[1].data.value=th.datas.value.substr(5,6)
+        //th.store.commitChanges();
+        //console.info(th.store.items)
+        /*panel.store.addListener("beginupdate",function(){
+         setTimeout(function(){
+         },500)
+         })*/
         //}
         if (panel.datas.type == 67) {
             console.log(panel)
@@ -89,7 +79,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     }
                 }
             });
-        };
+        }
+        ;
 
 
         if (panel.datas.type == 74) {
@@ -131,9 +122,9 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             //var typeGirdName = this.getTitle();
             var store = panel.store//Ext.data.StoreManager.lookup("store" + _this.id);
 
-            store.addListener("beginupdate",function(){
-                var gridheight=Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight()+panel.header.getHeight()
-                if(panel.getHeight()!=gridheight){
+            store.addListener("beginupdate", function () {
+                var gridheight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight() + panel.header.getHeight()
+                if (panel.getHeight() != gridheight) {
                     panel.setHeight(gridheight)
                 }
             })
@@ -447,12 +438,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     y: e.pageY + 10,
                     listeners: {
                         show: function (menu, eOpts) {
-                            var gridTitle=me.datas.title||getNameByType(me.datas.type);
+                            var gridTitle = me.datas.title || getNameByType(me.datas.type);
 
                             d3.select(menu.el.dom).attr("data-targetid", d3.select(item).attr("data-targetid"));
                             if (record.data.name == "In") {
 
-                                if(me.store.data.length>slotsJson[gridTitle].initData().length){
+                                if (me.store.data.length > slotsJson[gridTitle].initData().length) {
                                     var delSlot = menu.getComponent("delSlot").on("click", menu.getController().delSlotclick, me);
                                     delSlot.setDisabled(false);
                                 }
@@ -538,14 +529,28 @@ function currentDrawPanelGridPanelsTrSetId() {
         for (var j = 0; j < aRowsAll.length; j++) {
             //console.log("1"+aRowsAll[j].id+"1")
             //console.log(aRowsAll[j].length)
-            if ($.trim(aRowsAll[j].id).length == 0) {
+            var trId = $.trim(aRowsAll[j].id);
+            if (trId.length == 0 || trId == undefined || trId == "undefined" || trId.substr(0, 1) != "t") {
                 //console.log(aRowsAll[j].id)
                 //console.log(aRowsAll[j].id.length)
                 //alert(aRowsAll[j].id)
-                aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
+                //aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
+                var id = generateTrId();
+                console.log(id)
+                aRowsAll[j].id = id
             }
         }
     }
+}
+function generateTrId() {
+
+    var id = "t" + Math.floor(Math.random() * 10000000000);
+    var dom = document.getElementById(id);
+    if (dom) {
+        id = generateTrId()
+    }
+
+    return id;
 }
 
 function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
@@ -673,25 +678,31 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
+            console.log(aRowsAll[i].id)
             var left = drawpanelScrollLeft + Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
+
+
             var top = drawpanelScrollTop + Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
 
             var columnid = d3.select(aRowsAll[i]).attr("id");
+
             var tempLineEnd;
 
-            if (aRowsAll[i].querySelector("di" +
-                    "v").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "mode" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
+            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "mode" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
 
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 
                 tempLineEnd.on("mouseover", function () {
                     d3.select(this).attr("r", CIRCLE_MAX_R);
                 });
+
                 tempLineEnd.on("mouseout", function () {
                     d3.select(this).attr("fill", "green").attr("r", CIRCLE_MIN_R);
                 });
+
                 sStartItemTrId = item.querySelector("tr").id;
             }
+            console.log("wanle")
 
         }
 
@@ -721,10 +732,9 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             }
         };
     };
-
-
     function drawTempline() {
         var drawpanel = getCurrentDrawPanel()
+
         d3.select("#tempLine").remove();
         var svg = d3.select(".tempSVG" + drawpanel.id);
 

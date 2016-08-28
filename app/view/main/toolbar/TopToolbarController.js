@@ -900,7 +900,7 @@ function selectPlant(plant) {
     var aTypeGrids = getCurrentDrawPanelGirdPanels();
     for (var i = 0; i < aTypeGrids.length; i++) {
         if (aTypeGrids[i].datas.plantId == plant.id) {
-            console.log(aTypeGrids[i])
+            //console.log(aTypeGrids[i])
             aTypeGrids[i].show();
         } else {
             //console.log(aTypeGrids[i])

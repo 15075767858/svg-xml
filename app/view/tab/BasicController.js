@@ -23,34 +23,45 @@ Ext.define('svgxml.view.tab.BasicController', {
                 isTarget: false
             })
             dd.afterDragDrop = function (target, e, id) {
-                    var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
-                    console.log(typeName)
+                var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
+                console.log(typeName)
 
-                var store=Ext.create(typeName, {
+                var store = Ext.create(typeName, {
                     listeners: {
-                        add: function (store) {
-                            setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                        beginupdate: function (store) {
+                            console.log("beginupdate")
+                            setTimeout(function () {
+
+                                var containerHeight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
+                                var gridheight = containerHeight + panel.header.getHeight();
+                                if (panel.getHeight() != gridheight) {
+                                    panel.setHeight(gridheight);
+                                }
+                                currentDrawPanelGridPanelsTrSetId()
+                            }, 1000)
+
+                            //setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
                         }
                     }
                 })
                 store.setData(slotsJson[typeName].initData())
-                    Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
-                        title: typeName,
-                        store: store,
-                        x: e.browserEvent.offsetX,
-                        y: e.browserEvent.offsetY,
-                        icon: "resources/img/SVG/" + typeName + ".svg",
-                        listeners: {
-                            render: function (thi) {
-                                thi.datas = {
-                                    isAddSlot: slotsJson[typeName].isAddSlot,
-                                    plantId: "",
-                                    type: slotsJson[typeName].type,
-                                    title:typeName
-                                };
-                            }
+               var panel =  Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
+                    title: typeName,
+                    store: store,
+                    x: e.browserEvent.offsetX,
+                    y: e.browserEvent.offsetY,
+                    icon: "resources/img/SVG/" + typeName + ".svg",
+                    listeners: {
+                        render: function (thi) {
+                            thi.datas = {
+                                isAddSlot: slotsJson[typeName].isAddSlot,
+                                plantId: "",
+                                type: slotsJson[typeName].type,
+                                title: typeName
+                            };
                         }
-                    }));
+                    }
+                }));
             }
 
             Ext.apply(dd, overrides);
@@ -225,7 +236,7 @@ Ext.define('pid', {
     extend: "Ext.data.Store",
     storeId: 'pidStore',
     fields: ['name', 'value'],
-    data:  slotsJson.pid.initData(),
+    data: slotsJson.pid.initData(),
     proxy: oproxy
 });
 Ext.define('pulse', {
