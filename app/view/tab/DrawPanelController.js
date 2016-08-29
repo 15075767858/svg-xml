@@ -503,8 +503,8 @@ function typegridCache(th) {
     console.log(items.length)
 
 
-    for (i = 0; i < items.length; i++) {
-        console.log(i)
+    for (var i = 0; i < items.length; i++) {
+//        console.log(i)
 
         createTypeGrid(items[i])
 
@@ -512,6 +512,7 @@ function typegridCache(th) {
 
     function createTypeGrid(items) {
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);
+        console.log(items.typegrid)
 
         typegrid.datas = items.datas;
 
@@ -523,26 +524,27 @@ function typegridCache(th) {
             data: items.store.data,
             fields: items.store.fields
         }))
-
         isDev(typegrid, items)
 
+
         //var startTime = new Date().getTime()
-        ids = Ext.decode(items.typegrid.trsIds);
+        var  ids = Ext.decode(items.typegrid.trsIds);
 
         th.add(typegrid);
         isLogicShowRows(typegrid)
 
-        trs = typegrid.el.dom.querySelectorAll("tr");
+       var  trs = typegrid.el.dom.querySelectorAll("tr");
 
 
         for (var j = 0; j < trs.length; j++) {
+            trs[j].id = ids[j];
 
-            if ((!ids[j])||ids[j].substr(0, 1) != "t") {
+            /*if ((!ids[j]) || ids[j].substr(0, 1) != "t") {
                 console.log(ids[j])
                 trs[j].id = generateTrId()
             } else {
                 trs[j].id = ids[j];
-            }
+            }*/
         }
 
 
@@ -627,9 +629,9 @@ function drawlines(drawpanel) {
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
 
-    var i, o, oElStartEl, oElEndEl, iElWidth, iElHeight, marginTop, polyline, circle, pointStart, pointEnd, startPathNode, endPathNode, arr;
+    var o, oElStartEl, oElEndEl, iElWidth, iElHeight, marginTop, polyline, circle, pointStart, pointEnd, startPathNode, endPathNode;
 
-    for (i = 0; i < datasArray.length; i++) {//value 是起点
+    for (var i = 0; i < datasArray.length; i++) {//value 是起点
 
         var oStartEndJson = datasArray[i];
 //        console.log(oStartEndJson)
@@ -637,7 +639,10 @@ function drawlines(drawpanel) {
             //var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
             //var dEnd = Ext.getDom(document.getElementById(o));
             var oElStart = Ext.get(oStartEndJson[o]);
+
+            //var startPanel = oElStart.up(".x-panel").component;
             var oElEnd = Ext.get(o);
+          //var endPanel = oElEnd.up(".x-panel").component;
 
             if (!oElEnd || !oElStart) {
                 drawpanel.datas.datasArray.splice(i, 1);
@@ -645,13 +650,12 @@ function drawlines(drawpanel) {
                 return
             }
 
-            oElStartEl = oElStart.el;
-            oElEndEl = oElEnd.el;
+            var oElStartEl = oElStart.el;
+            var oElEndEl = oElEnd.el;
 
 
-            iElWidth = oElStartEl.getWidth();
-            iElHeight = oElStartEl.getHeight() / 2;
-
+            var iElWidth = oElStartEl.getWidth();
+            var iElHeight = oElStartEl.getHeight() / 2;
 
             var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
             var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
@@ -664,8 +668,15 @@ function drawlines(drawpanel) {
             }
 //            console.log(iStartLeft + "  " + iStartTop)
 //            console.log(iEndLeft + " " + iEndTop)
+            polyline = null;
+            circle = null;
+            console.log(iStartLeft)
+            console.log(iStartTop)
+            console.log(iEndLeft)
+            console.log(iEndTop)
+            if (iStartLeft <= 0 || iStartTop <= 0 || iEndLeft <= 0 || iEndTop <= 0) {
 
-            if (iStartLeft < 0 || iStartTop < 0 || iEndLeft < 0 || iEndTop < 0) {
+                //if (startPanel.hidden||endPanel.hidden) {
                 circle = oSvg.append("circle")
                     .attr("r", CIRCLE_MIN_R)
                     .attr("stroke-width", STROKEWIDTH_MIN)
@@ -686,8 +697,11 @@ function drawlines(drawpanel) {
                     .attr("data-start", oStartEndJson[o])
                     .attr("data-end", o)
                     .attr("data-index", i);
+
             }
 
+            console.log(polyline)
+            console.log(circle)
 
             if (polyline) {
                 polyline.on("mouseover", function () {
@@ -783,26 +797,22 @@ function drawlines(drawpanel) {
             pointStart = [iStartLeft + My.JIANGE, iStartTop];
             pointEnd = [iEndLeft - My.JIANGE, iEndTop];
             My.PathNodeManager.removeAll()
-            startPathNode = new My.PathNode(pointStart[0], pointStart[1]);
-            endPathNode = new My.PathNode(pointEnd[0], pointEnd[1]);
 
-            arr = My.getShortPathNode(startPathNode, endPathNode);
-
-
+            var startPathNode = new My.PathNode(pointStart[0], pointStart[1]);
+            var endPathNode = new My.PathNode(pointEnd[0], pointEnd[1]);
+            var arr = My.getShortPathNode(startPathNode, endPathNode);
             //console.log(arr);
-
-
             arr.unshift(iStartLeft, iStartTop);
 
             arr.push(iEndLeft, iEndTop);
             polyline.attr("points", arr);
             //polyline.attr("points", pointAll);
             //console.log(pointAll)
-            polyline = null;
-            circle = null;
+
 
         }
-
+        polyline = null;
+        circle = null;
     }
 
     /*
@@ -1003,10 +1013,10 @@ My.getShortPathNode = function (rootNode, endNode) {
 //var countaaa = 0
 My.getLeafPointAll = function (testNode, endNode, arr) {
     /*countaaa++
-    console.log(countaaa)
-    if(countaaa>100){
-        return ;
-    }*/
+     console.log(countaaa)
+     if(countaaa>100){
+     return ;
+     }*/
     if (!testNode) {
         return;
     }
@@ -1020,20 +1030,20 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     /*if (tn.leftNode) {
      test(tn.leftNode, endNode);
      }*/
-    console.log(tn)
-    console.log(tn.rightNode)
-    console.log(tn.leftNode)
+//    console.log(tn)
+//    console.log(tn.rightNode)
+//    console.log(tn.leftNode)
 
     if (tn.rightNode) {
 
 //        console.log("%c right     Node  is : ", "color:blue");
         My.getLeafPointAll(tn.rightNode, endNode, arr);
-        console.log("right")
+//        console.log("right")
     }
     if (tn.leftNode) {
 //        console.log("%c left      Node  is : ", "color:red");
         My.getLeafPointAll(tn.leftNode, endNode, arr)
-        console.log("left")
+//        console.log("left")
 
     }
     arr.push(tn);

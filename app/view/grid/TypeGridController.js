@@ -575,7 +575,7 @@ function currentDrawPanelGridPanelsTrSetId() {
                 //alert(aRowsAll[j].id)
                 //aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
                 var id = generateTrId();
-                console.log(id)
+//                console.log(id)
                 aRowsAll[j].id = id
             }
         }
