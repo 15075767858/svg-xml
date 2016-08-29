@@ -263,10 +263,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         oHead.onmousedown = function (e) {
 
             //console.log(e)
-            panel.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
+            //panel.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
+            panel.data = {x: panel.getX(), y:panel.getY()}
         }
         oHead.oncontextmenu = function (e) {
-
 
             panel.add(
                 Ext.create('svgxml.view.grid.menu.gridmenu', {
@@ -304,17 +304,56 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
 
     girdmove: function (t, x, y, eOpts) {
-        if (!t.isAni) {
-            drawlines(t.up("drawpanel"))
-        }
-        //console.log(t.data.x)
-        //console.log(t.data.y)
-        if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
-            //console.log(x + " " + y)
-            //t.setPagePosition(t.up().getX() + 10, t.up().getY() + 10, true)
-            t.setPagePosition(t.data.x, t.data.y, true)
-        }
 
+        console.log(arguments)
+
+        /*if (!t.isAni) {
+            drawlines(t.up("drawpanel"))
+        }*/
+       var grids =  getCurrentPlantGridPanles(getCurrentPlant())
+        for(var i=0;i<grids.length;i++){
+            if(t.id==grids[i].id){
+                continue
+            }
+            var isColls = isCollsionWithRect(t,grids[i]);
+            if(isColls){
+                //t.setX(t.data.x)
+                //t.setY(t.data.y)
+                //t.x= t.data.x
+                //t.y= t.data.y
+                t.setPagePosition(t.data.x+=5, t.data.y+=5, false)
+            }
+        }
+        if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
+            t.setPagePosition(t.data.x+=5, t.data.y+=5, false)
+            //t.setX(t.data.x)
+            //t.setY(t.data.y)
+           // t.x= t.data.x
+           // t.y= t.data.y
+        }
+        drawlines();
+       function isCollsionWithRect(data1,data2) {
+
+           var x1=data1.getX();
+           var y1=data1.getY();
+           var w1=data1.getWidth();
+           var h1=data1.getHeight();
+           var x2=data2.getX();
+           var y2=data2.getY();
+           var w2=data2.getWidth();
+           var h2=data2.getHeight();
+
+            if (x1 >= x2 && x1 >= x2 + w2) {
+                return false;
+            } else if (x1 <= x2 && x1 + w1 <= x2) {
+                return false;
+            } else if (y1 >= y2 && y1 >= y2 + h2) {
+                return false;
+            } else if (y1 <= y2 && y1 + h1 <= y2) {
+                return false;
+            }
+            return true;
+        }
     }
     ,
     render: function (th) {
@@ -542,6 +581,7 @@ function currentDrawPanelGridPanelsTrSetId() {
         }
     }
 }
+
 function generateTrId() {
 
     var id = "t" + Math.floor(Math.random() * 10000000000);

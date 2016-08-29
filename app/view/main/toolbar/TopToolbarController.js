@@ -598,6 +598,7 @@ function get_A_Master_node(gridpanel) {
     var iType = gridpanel.datas.type;
     masterNode.attr("number", gridpanel.curPlantIndex);
     masterNode.append("<type>" + iType + "</type>");
+    console.log(gridpanel)
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
     //console.log(gridpanel)
@@ -750,7 +751,12 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
     var value = gridPanelItems[0].data["value"];
     if (name == 'mode') {// if (name != "Out" && name != "In") {
 //        console.log(gridPanelItems[0])
+
         var select = gridPanelItems[0].data.select;
+        if(!select){
+            var title = gridpanel.datas.title;
+            select=slotsJson[title].initData()[0].select;
+        }
         for (var i = 0; i < select.length; i++) {
             if (select[i].name == value) {
                 value = select[i].value;
@@ -844,7 +850,6 @@ function getCurrentDrawPanelDatasArray(drawpanel) {
 }
 function currentDrawPanelGirdPanelsAddTitle() {
     var ps = getCurrentDrawPanelGirdPanels()
-
 }
 function getCurrentDrawPanelGirdPanels(drawpanel) {
     var drawpanel = drawpanel || getCurrentDrawPanel();

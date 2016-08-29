@@ -19,6 +19,7 @@ Ext.define("svgxml.view.tab.DrawPanel", {
     layout: {
         type: "absolute"
     },
+
     initComponent: function () {
         this.height = 3000;
         this.width = 3000;

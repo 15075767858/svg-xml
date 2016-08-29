@@ -602,7 +602,6 @@ function test() {
 }
 
 function drawlines(drawpanel) {
-
     var startTime = new Date().getTime()
 
     d3.selectAll(".tempCircle").remove()
@@ -1001,9 +1000,13 @@ My.getShortPathNode = function (rootNode, endNode) {
 
     return arr;
 }
-
+//var countaaa = 0
 My.getLeafPointAll = function (testNode, endNode, arr) {
-
+    /*countaaa++
+    console.log(countaaa)
+    if(countaaa>100){
+        return ;
+    }*/
     if (!testNode) {
         return;
     }
@@ -1020,10 +1023,7 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     console.log(tn)
     console.log(tn.rightNode)
     console.log(tn.leftNode)
-    count++
-    if(count>1000){
-        return ;
-    }
+
     if (tn.rightNode) {
 
 //        console.log("%c right     Node  is : ", "color:blue");
@@ -1039,7 +1039,6 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     arr.push(tn);
 
 }
-var count = 0
 My.PathNode.prototype.initLeftNodeRightNode = function (endNode) {
     console.log(this)
     var me = this;
