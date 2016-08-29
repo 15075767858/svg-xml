@@ -6,17 +6,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ab2cb7-0149-4e60-9c92-86c11b2d0373" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program.tar" afterPath="$PROJECT_DIR$/build/production/program.tar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program.zip" afterPath="$PROJECT_DIR$/build/production/program.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000" afterPath="$PROJECT_DIR$/1000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000.json" afterPath="$PROJECT_DIR$/1000.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/MainModel.js" afterPath="$PROJECT_DIR$/app/view/main/MainModel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" afterPath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/tab/DrawPanel.js" afterPath="$PROJECT_DIR$/app/view/tab/DrawPanel.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" afterPath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/app.js" afterPath="$PROJECT_DIR$/build/production/program/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/1001" afterPath="$PROJECT_DIR$/resources/devsinfo/1001" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/1005" afterPath="$PROJECT_DIR$/resources/devsinfo/1005" />
     </list>
     <ignored path="svgxml.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,27 +41,22 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DevTreeController.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+    <leaf>
+      <file leaf-file-name="DrawPanel.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5535456">
-              <caret line="1773" column="5" selection-start-line="1773" selection-start-column="5" selection-end-line="1773" selection-end-column="5" />
-              <folding>
-                <element signature="e#31307#36056#0" expanded="false" />
-                <element signature="e#37296#37788#0" expanded="false" />
-                <element signature="e#43480#44491#0" expanded="false" />
-                <marker date="1470189494000" expanded="true" signature="5087:5097" placeholder="..." />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="220" column="0" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test1.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/test1.php">
+      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-37.041668">
-              <caret line="163" column="1" selection-start-line="163" selection-start-column="1" selection-end-line="163" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.6041968">
+              <caret line="1024" column="16" selection-start-line="1024" selection-start-column="16" selection-end-line="1024" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -91,7 +81,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindowController.js" />
         <option value="$PROJECT_DIR$/app/view/window/AlarmWindowModel.js" />
         <option value="$PROJECT_DIR$/app/view/window/AlarmWindowController.js" />
         <option value="$PROJECT_DIR$/app/model/Alerm.js" />
@@ -108,7 +97,6 @@
         <option value="$PROJECT_DIR$/resources/xmlRW.php" />
         <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/resources/devxml/1000.xml" />
-        <option value="$PROJECT_DIR$/resources/devsinfo/1005" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/active.json" />
         <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
@@ -136,12 +124,14 @@
         <option value="$PROJECT_DIR$/app/view/window/RenameWindow.js" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
         <option value="$PROJECT_DIR$/1000.xml" />
-        <option value="$PROJECT_DIR$/1000.json" />
         <option value="$PROJECT_DIR$/1000" />
-        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
         <option value="$PROJECT_DIR$/app/view/main/MainModel.js" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanel.js" />
+        <option value="$PROJECT_DIR$/resources/devsinfo/1001" />
+        <option value="$PROJECT_DIR$/resources/devsinfo/1005" />
+        <option value="$PROJECT_DIR$/1000.json" />
+        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
       </list>
     </option>
   </component>
@@ -226,7 +216,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -236,29 +226,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svgxml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devxml" />
+              <option name="myItemId" value="sass" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -268,7 +240,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -282,7 +254,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -300,29 +272,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="window" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svgxml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -344,7 +294,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -366,7 +316,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -388,33 +338,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="toolbar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svgxml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
+              <option name="myItemId" value="program" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -427,32 +351,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="grid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svgxml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svg-xml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menu" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -499,6 +397,17 @@
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/svgxml/index.html">
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -573,7 +482,7 @@
     <frame x="1920" y="-356" width="1080" height="1778" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25337186" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26782274" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963988" sideWeight="0.50386846" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -614,27 +523,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3884638">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37080637">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5298897">
@@ -909,13 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/1000.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="57" selection-start-line="0" selection-start-column="57" selection-end-line="0" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/1000.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.625">
@@ -945,38 +826,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
+    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.010853835">
+          <caret line="1773" column="5" selection-start-line="1773" selection-start-column="5" selection-end-line="1773" selection-end-column="5" />
+          <folding>
+            <element signature="e#31307#36056#0" expanded="false" />
+            <element signature="e#37296#37788#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/test1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.011045655">
+          <caret line="163" column="1" selection-start-line="163" selection-start-column="1" selection-end-line="163" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sencha-error-20160614.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32706222">
+          <caret line="79" column="31" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/devsinfo/1005">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="497" column="72" selection-start-line="497" selection-start-column="72" selection-end-line="497" selection-end-column="72" />
+          <caret line="0" column="5314" selection-start-line="0" selection-start-column="5314" selection-end-line="0" selection-end-column="5314" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/1000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/devsinfo/1001">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13653137">
+          <caret line="0" column="38144" selection-start-line="0" selection-start-column="38144" selection-end-line="0" selection-end-column="38144" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="137" column="69" selection-start-line="137" selection-start-column="69" selection-end-line="137" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/test1.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-37.041668">
-          <caret line="163" column="1" selection-start-line="163" selection-start-column="1" selection-end-line="163" selection-end-column="1" />
+          <caret line="220" column="0" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5535456">
-          <caret line="1773" column="5" selection-start-line="1773" selection-start-column="5" selection-end-line="1773" selection-end-column="5" />
-          <folding>
-            <element signature="e#31307#36056#0" expanded="false" />
-            <element signature="e#37296#37788#0" expanded="false" />
-            <element signature="e#43480#44491#0" expanded="false" />
-            <marker date="1470189494000" expanded="true" signature="5087:5097" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.6041968">
+          <caret line="1024" column="16" selection-start-line="1024" selection-start-column="16" selection-end-line="1024" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

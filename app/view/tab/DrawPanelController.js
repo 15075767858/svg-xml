@@ -1003,7 +1003,6 @@ My.getShortPathNode = function (rootNode, endNode) {
 }
 
 My.getLeafPointAll = function (testNode, endNode, arr) {
-    console.log("kazaizhe")
 
     if (!testNode) {
         return;
@@ -1018,8 +1017,15 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     /*if (tn.leftNode) {
      test(tn.leftNode, endNode);
      }*/
-
+    console.log(tn)
+    console.log(tn.rightNode)
+    console.log(tn.leftNode)
+    count++
+    if(count>1000){
+        return ;
+    }
     if (tn.rightNode) {
+
 //        console.log("%c right     Node  is : ", "color:blue");
         My.getLeafPointAll(tn.rightNode, endNode, arr);
         console.log("right")
@@ -1029,12 +1035,11 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
         My.getLeafPointAll(tn.leftNode, endNode, arr)
         console.log("left")
 
-        return;
     }
     arr.push(tn);
 
 }
-
+var count = 0
 My.PathNode.prototype.initLeftNodeRightNode = function (endNode) {
     console.log(this)
     var me = this;
