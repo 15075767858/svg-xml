@@ -6,11 +6,293 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ab2cb7-0149-4e60-9c92-86c11b2d0373" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/03b20f06fcc48987f642876a33ce019c8f455618/RowEditing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/04636e6d8ec09c01518318faa52597ea8e285d17/Base.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/04636e6d8ec09c01518318faa52597ea8e285d17/Checkbox.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/04636e6d8ec09c01518318faa52597ea8e285d17/Display.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/04636e6d8ec09c01518318faa52597ea8e285d17/Tag.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/04636e6d8ec09c01518318faa52597ea8e285d17/Text.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/06dcde80927dc682eb151464b19e33ebec3ca344/Resizer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/07d4a10ce6c3f942eab1dafc09620dc34255248b/Renderable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0bf8be8ed459e3c3466aff16c39b8869a77a38c5/Tip.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0c5a5964d2e5094ea207044e55011c26c257392e/Base.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0caade53f9ca2b392304259315fb339b0d70c4c2/Lockable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0d3338ceede9bbe045b0667bd33e0557a7799e15/Accordion.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0d3338ceede9bbe045b0667bd33e0557a7799e15/Border.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0d3338ceede9bbe045b0667bd33e0557a7799e15/Box.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0d3338ceede9bbe045b0667bd33e0557a7799e15/Form.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/0db60c9f966e42ed2ff6159132f767c3a9ddf385/Button.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/109291ec77fe5fd1c7b135a2dbe2e806a495d641/DD.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/109291ec77fe5fd1c7b135a2dbe2e806a495d641/StatusProxy.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/background-gradient.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/background-opacity.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/border-management.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/css-outline.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/frame.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/google-webfont.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/inner-border.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/no-select.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/rotate-element.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/slicer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/10bd946a7eb9bb0970a34c16965dc11a3af5b9e2/theme-background-image.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/133f8e74132de0efb41867e5e9e410b75dfc8fc6/Viewport.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/134d05cb738e4578f50f17a9586944424d37aa78/Accordion.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/134d05cb738e4578f50f17a9586944424d37aa78/Border.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/139ea5d3ab153dc30d53110b53a10f362cd28e53/Indicator.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1472d64f6cb1e5602703c9333ab4ccfdeaab84f5/Action.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1472d64f6cb1e5602703c9333ab4ccfdeaab84f5/Check.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1472d64f6cb1e5602703c9333ab4ccfdeaab84f5/Column.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1472d64f6cb1e5602703c9333ab4ccfdeaab84f5/RowNumberer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1472d64f6cb1e5602703c9333ab4ccfdeaab84f5/Widget.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/153939fdf73b412b54d898bd2cea79ac620d0838/BoundList.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/153939fdf73b412b54d898bd2cea79ac620d0838/Table.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/17c1a681b2a199138dd646469d2349eaf6636f45/Accordion.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/17c1a681b2a199138dd646469d2349eaf6636f45/Border.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1a2c5e94066a09a44be4350a828913eec1977659/Column.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1b33c256fdb2c1e125573ea9c2f37a54b71ef08d/ButtonGroup.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1c758c8cf940a02cea26b40abd461a8d7672dd2b/MessageBox.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1c758c8cf940a02cea26b40abd461a8d7672dd2b/Toast.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1c758c8cf940a02cea26b40abd461a8d7672dd2b/Window.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1cefe776410c955719298228b11bd59c85939b79/Component.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1cefe776410c955719298228b11bd59c85939b79/LoadMask.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1cefe776410c955719298228b11bd59c85939b79/ProgressBar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/1e7e8beb7f598a04505d1cf7f7e4da9c267136d1/Multi.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2060e612e8bd3bb8d82cfafa340401013911364b/BoundList.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2060e612e8bd3bb8d82cfafa340401013911364b/View.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/23703a474f6ddb459011745e6ae2a1dfbbb74e5d/all.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/23703a474f6ddb459011745e6ae2a1dfbbb74e5d/functions.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/25050e92b42663e2c0e076bf66c5bc738bf97b46/Base.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/25050e92b42663e2c0e076bf66c5bc738bf97b46/HtmlEditor.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2593c4f165d195acca4057d041e4a419b2696b5f/View.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/259e31a5c1dd3661abb5434d935864ecf7dd75f8/Container.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/25e9ab522c565570e891545ec45cad9f0a3f2e55/Editing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/25e9ab522c565570e891545ec45cad9f0a3f2e55/RowEditing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/25e9ab522c565570e891545ec45cad9f0a3f2e55/RowExpander.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/282518f62b2ee056c857ab028759ea8ff09c3f97/CheckboxModel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2a0903a5587a9c6042f83d4a04a477675fab7e90/FieldSet.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2a0903a5587a9c6042f83d4a04a477675fab7e90/Labelable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2a5b9f07662fcd222d337a5a3a20d34265226759/Header.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2a5b9f07662fcd222d337a5a3a20d34265226759/Panel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2a5b9f07662fcd222d337a5a3a20d34265226759/Tool.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2d631642e64b35c93f74515b19acd22ec7746536/BoundList.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2d631642e64b35c93f74515b19acd22ec7746536/DropZone.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2d631642e64b35c93f74515b19acd22ec7746536/MultiSelector.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/2d631642e64b35c93f74515b19acd22ec7746536/Table.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/30061a8ae4d726a1b05f9834e9813aab81e9115c/Checkbox.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/30061a8ae4d726a1b05f9834e9813aab81e9115c/Date.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/30061a8ae4d726a1b05f9834e9813aab81e9115c/Display.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/30061a8ae4d726a1b05f9834e9813aab81e9115c/HtmlEditor.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/30061a8ae4d726a1b05f9834e9813aab81e9115c/Text.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3259c808474874b0f54f91277041c6e55cd432d7/Breadcrumb.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3259c808474874b0f54f91277041c6e55cd432d7/Toolbar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3752e3966893d16d5ac5e5c814846c567ff7d895/Component.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3752e3966893d16d5ac5e5c814846c567ff7d895/Editor.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3752e3966893d16d5ac5e5c814846c567ff7d895/FocusManager.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3752e3966893d16d5ac5e5c814846c567ff7d895/LoadMask.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3752e3966893d16d5ac5e5c814846c567ff7d895/ProgressBar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3752e3966893d16d5ac5e5c814846c567ff7d895/grid-field.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/37ab9e6025bb76c6ce8155fb94ab0f8e30d4f2c6/all.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/37ab9e6025bb76c6ce8155fb94ab0f8e30d4f2c6/functions.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/37ab9e6025bb76c6ce8155fb94ab0f8e30d4f2c6/mixins.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/37e9c74abed244205dc9f9f3c63a9c598f841e13/Bar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/37e9c74abed244205dc9f9f3c63a9c598f841e13/Tab.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/Checkbox.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/Display.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/File.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/Hidden.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/HtmlEditor.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/Tag.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/Text.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3962347df5838dbc4555aea2ac963650948a8941/TextArea.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/39903afd8794b8f22c4fac170f427761609cae2d/Breadcrumb.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/39903afd8794b8f22c4fac170f427761609cae2d/Paging.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/39903afd8794b8f22c4fac170f427761609cae2d/Toolbar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3d640896abc0f2a7d255596a44e726c9abdc159e/Tip.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3f0aa25072af41981126478d1fd0e5bac6476240/Breadcrumb.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3f0aa25072af41981126478d1fd0e5bac6476240/Paging.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/3f0aa25072af41981126478d1fd0e5bac6476240/Toolbar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/402d96d39c6ad423dcb788088d1e9e447b9a63cc/View.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/402d96d39c6ad423dcb788088d1e9e447b9a63cc/ViewDropZone.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/41d8142443183982db58b7f164432f85236330b0/Component.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/41d8142443183982db58b7f164432f85236330b0/LoadMask.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/41d8142443183982db58b7f164432f85236330b0/ProgressBar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4395728ea50070736c1b5233b36a7fb91530bccc/Container.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4395728ea50070736c1b5233b36a7fb91530bccc/DropZone.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/45175a7449ee3be60827342234779c8345968873/Breadcrumb.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/45175a7449ee3be60827342234779c8345968873/Paging.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/45175a7449ee3be60827342234779c8345968873/Toolbar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4863e6077e56b64c88d7237c7659b936f29d924d/CheckboxGroup.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4863e6077e56b64c88d7237c7659b936f29d924d/FieldSet.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4863e6077e56b64c88d7237c7659b936f29d924d/Labelable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4943c9123541ea894878530e4a163f2be1c725d0/Resizer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4943c9123541ea894878530e4a163f2be1c725d0/Splitter.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4d3edb0306ececca39da0e5f011b5b17b00972c0/Container.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4d3edb0306ececca39da0e5f011b5b17b00972c0/DropZone.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/4da42c90c4d61271d2691432507ea7e0ea52c377/Menu.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/527b2a7f813bdca6bc50e8dc184dc8f52363545e/MessageBox.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/527b2a7f813bdca6bc50e8dc184dc8f52363545e/Toast.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/527b2a7f813bdca6bc50e8dc184dc8f52363545e/Window.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/564d4b350c93816a36c59b044515bee017b1fb12/Container.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/592faa4d55eae556b1a48de767ff581a85703b19/Grouping.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/592faa4d55eae556b1a48de767ff581a85703b19/RowBody.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/5bb8a88ee157f5d5a1db8392da44ffa7171912aa/AbstractChart.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/5ec1cfa2f137f6c69bcf1ecb8ed807e30bf4e043/program-all.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/600296e22e13b4d6c81e9cd4cada24ab74f39218/Bar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/600296e22e13b4d6c81e9cd4cada24ab74f39218/Tab.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/602b9f43ab5589b8af33302faad66208b9039e39/button-colors.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/633aa7f154d62ba00c4e086a23db75b1a94a599b/Button.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/633aa7f154d62ba00c4e086a23db75b1a94a599b/Button_large.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/633aa7f154d62ba00c4e086a23db75b1a94a599b/Button_medium.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/633aa7f154d62ba00c4e086a23db75b1a94a599b/Button_small.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/68ce8c7dff36c59600ef04c6acfeec1461e6845f/Header.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/68ce8c7dff36c59600ef04c6acfeec1461e6845f/Panel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/68ce8c7dff36c59600ef04c6acfeec1461e6845f/Tool.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/6e191127f955c1e98f19b0c7637004ffb2162b03/Action.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/6e191127f955c1e98f19b0c7637004ffb2162b03/Column.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/6f3f8b0f0d591dbd84b68044171a936f11b4521e/Color.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/6f3f8b0f0d591dbd84b68044171a936f11b4521e/Date.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/70bb99fae20733b93bd15cd848e853323dfd1a01/button-colors.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/715692b9872302dad3be38bae81c49f10c316168/Resizer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/715692b9872302dad3be38bae81c49f10c316168/Splitter.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/715692b9872302dad3be38bae81c49f10c316168/SplitterTracker.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/71ae7e5ad1e88a4170b161a1ae72ffa4fa1b7df0/Toast.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/71ae7e5ad1e88a4170b161a1ae72ffa4fa1b7df0/Window.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/74ac7968dec33dc621b90ce2d69d4971d202e431/AbstractChart.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/797f27bc81d5973a1b5c8f58e0d0b00be5f135d6/Grid.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/7ba191a74226cc25c2f27e0e55e049f4e8414941/Multi.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/7e04e37efc6fc2bea8e19adbe8c900d44e9e82da/Color.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/7e04e37efc6fc2bea8e19adbe8c900d44e9e82da/Date.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/7ea548cb0af7431cb183e9a249aee6a04ac17a71/Grid.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/7f117973b679b82aa9c78ddffeb053ba0ceaa1e3/Filters.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/81363c95b4cc86ec64d9b1e3ca5fb85488986e81/StatusProxy.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/81d122cffcfb039c1b4f91a7e0f79f0a8974575b/Dashboard.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/82e90b1ee18804c86743bac37e1e6b26b892b237/Panel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/852681eea5c12c6158fc44798910f27506c9f64c/Menu.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/855e7adf0492db6b2a6d83e40ac5c33b2a9db26c/GoogleRssView.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/88b73fe80f2077e0017cb22041e57adff52d2ca4/Panel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/89aee07556924cba494ad3307854551b5906df19/CheckboxModel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/89ebd18dc0b4d86467e0a6c83dce89bd3fa8f158/MessageBox.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/89ebd18dc0b4d86467e0a6c83dce89bd3fa8f158/Window.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/8b5acda219bcd11462057b20ff1466e4990b0fa0/Action.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/8b5acda219bcd11462057b20ff1466e4990b0fa0/Check.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/8b5acda219bcd11462057b20ff1466e4990b0fa0/Column.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/8c13fe1b461392ba383d372a2dd462f7fcefb665/Tip.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/8c593b272141b8658cdf2df6cd4622dfa4121575/Button.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/8f881bedd8f4157049b12d4c169d7b02f3da9fb3/Spinner.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/91325b870dab6badec9b860b24d7d41da133bdba/Resizer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/91325b870dab6badec9b860b24d7d41da133bdba/Splitter.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/92f7c5a29ebbc690cab95440be96273474b8175e/FieldSet.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/92f7c5a29ebbc690cab95440be96273474b8175e/Labelable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/943810bb35a51d336638f3079a74669cfaf3bd51/CheckboxModel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/944bb149dc202dcd8b6b137965a0bcffd4652c3e/Color.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/944bb149dc202dcd8b6b137965a0bcffd4652c3e/Date.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/949adbe7863124d1e6a67ad31285090fcf910240/CheckboxModel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/95d5da112b263b9b2b36fd5f794258b27d07c98e/Menu.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9abf8260a990034b99c84eb24cb994e2f3eb2bb7/Action.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9abf8260a990034b99c84eb24cb994e2f3eb2bb7/Check.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9abf8260a990034b99c84eb24cb994e2f3eb2bb7/Column.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9abf8260a990034b99c84eb24cb994e2f3eb2bb7/RowNumberer.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9abf8260a990034b99c84eb24cb994e2f3eb2bb7/Widget.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9be8a69eef0754e7547826093e363c63c45f0315/Color.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9be8a69eef0754e7547826093e363c63c45f0315/Date.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9dfd284fcc815d90219608f60dcf57ccf78f0f30/Grouping.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9dfd284fcc815d90219608f60dcf57ccf78f0f30/RowBody.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9dfd284fcc815d90219608f60dcf57ccf78f0f30/Summary.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9ec9c8f268bea3cb4bfa4cfb63b8b75ba48f1f4c/Container.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9ec9c8f268bea3cb4bfa4cfb63b8b75ba48f1f4c/DropZone.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/9f9804d0d60f3fd09522652b913eb5fdee5a63e9/Component.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a0fae2464f6191b014dd2bc61bf7088e66bced77/Editing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a0fae2464f6191b014dd2bc61bf7088e66bced77/RowEditing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a0fae2464f6191b014dd2bc61bf7088e66bced77/RowExpander.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a234e8351a85628e1123e96d7af829ce68272f51/all.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a234e8351a85628e1123e96d7af829ce68272f51/functions.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a234e8351a85628e1123e96d7af829ce68272f51/mixins.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/a7f477730e5623f4307f0f2adf417047ab31299a/SpreadsheetModel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ac7658da8f4c7d5246f048a662e095e67b3a2495/program-all.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b010a0710c5bcda358d26e2f3fee0082172dc256/Component.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b010a0710c5bcda358d26e2f3fee0082172dc256/FocusManager.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b010a0710c5bcda358d26e2f3fee0082172dc256/LoadMask.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b010a0710c5bcda358d26e2f3fee0082172dc256/ProgressBar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b010a0710c5bcda358d26e2f3fee0082172dc256/grid-field.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b04f4561221a4b11c287e753c9e3b36bb963e436/SubTable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b27ee9ca6f9573c8e0a011d1bbce168158e5e9e1/Indicator.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/b54cff31dbb2bd308a249ce0348a7b6a5738b7c5/Splitter.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/bd6195fda9aba38fe458423368f876ef8412c911/Dashboard.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/c467453eb6cc4ea72800c28343125f87bdfc8125/BoundList.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/c467453eb6cc4ea72800c28343125f87bdfc8125/MultiSelector.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/c467453eb6cc4ea72800c28343125f87bdfc8125/Table.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/c6119b87491fcafe0f6c907893565a286eb50f33/Filters.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/c74bdc2309da651db7f038cda2aad9c77647d841/Inspector.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/cce3141c0387bac12535cfa95f3bc85d933ff31e/background-gradient.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d051921d5f8d99243dcd084c0089950b51667080/CellEditing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d051921d5f8d99243dcd084c0089950b51667080/Editing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d051921d5f8d99243dcd084c0089950b51667080/RowEditing.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d051921d5f8d99243dcd084c0089950b51667080/RowExpander.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d18ba6ef3b0c58d6d9c7a675fb01e09c25855e8a/CheckboxGroup.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d18ba6ef3b0c58d6d9c7a675fb01e09c25855e8a/FieldSet.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d1fb2a43cfbe238ee770ebc7e14db2cb2e2a6648/Button.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d1fb2a43cfbe238ee770ebc7e14db2cb2e2a6648/Segmented.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/d63a5d3fe008710078fbf80a756fe2a4fd2d257c/Filters.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/db1b0face00bd9e8ee45f1adb93ba256d22da7d5/Grouping.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/db1b0face00bd9e8ee45f1adb93ba256d22da7d5/RowBody.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/db43e9ae1312d91f9a4fa76b94248bc093b8dcb1/Bar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/db43e9ae1312d91f9a4fa76b94248bc093b8dcb1/Tab.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/de290171ca2793442680323d67b8056bf8e044ae/Grouping.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e0ed1abc9d1fd51be7a21036f40cd89dcec76016/ButtonGroup.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e5b34acb36d3f6770141ec96488b8b42a5e68b31/Dock.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e63250ed72cd49925256e068bc8933e77ecbc701/File.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e63250ed72cd49925256e068bc8933e77ecbc701/HtmlEditor.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e80f89d56103ea54d0446e614a6848f243e3f841/Menu.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e9dfae8df24b5d41ba4e559b1cf8a7c435765fa5/ButtonGroup.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e9e46533c74b4e91518c2f03bfb7d5d63d453c3f/Bar.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/e9e46533c74b4e91518c2f03bfb7d5d63d453c3f/Tab.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ea491f965a7246e36e199c23350075d4d4c5414e/TouchScroller.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Absolute.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Auto.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Border.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Box.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Center.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Column.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Container.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Fit.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Form.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/ecef5e87cae6a10a630e9554f1e0e3bb33f270c5/Table.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/eff18f2c751a6890786726afdd636a667c101a1c/Multi.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/f07ebb4bebf1f7afbb5b913cfdbb11eb784a04ab/View.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/f095706d07008f557ca0ce27c986f77aa3132e37/Tip.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/f1c02251878d70286a56d1d6e50f1050c6c168a8/Button.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/f49275f1f8fbfd18af84a8bb3cf38cb6234a0890/Panel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/f49275f1f8fbfd18af84a8bb3cf38cb6234a0890/Tool.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/f6a523a7a517be749d16671f9c54b826c71e2be8/Lockable.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fce69a14d80d21bd34e9efcadb2e7624465c1e46/ButtonGroup.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fd78f6a508564fd931b1251d857f8136c3ed1206/Header.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fd78f6a508564fd931b1251d857f8136c3ed1206/Panel.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fd78f6a508564fd931b1251d857f8136c3ed1206/Table.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fd78f6a508564fd931b1251d857f8136c3ed1206/Title.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fd78f6a508564fd931b1251d857f8136c3ed1206/Tool.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/.sass-cache/fdf72e5f68375bf16c9657a4c33a7f330671b140/GoogleRssView.scssc" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000" afterPath="$PROJECT_DIR$/1000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000.json" afterPath="$PROJECT_DIR$/1000.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/grid/TypeGrid.js" afterPath="$PROJECT_DIR$/app/view/grid/TypeGrid.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/grid/TypeGridController.js" afterPath="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" afterPath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" afterPath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.json" afterPath="$PROJECT_DIR$/bootstrap.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/app.js" afterPath="$PROJECT_DIR$/build/production/program/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devsinfo/1001" afterPath="$PROJECT_DIR$/build/production/program/resources/devsinfo/1001" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devsinfo/1005" afterPath="$PROJECT_DIR$/build/production/program/resources/devsinfo/1005" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devsinfo/1100" afterPath="$PROJECT_DIR$/build/production/program/resources/devsinfo/1100" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devsinfo/9900" afterPath="$PROJECT_DIR$/build/production/program/resources/devsinfo/9900" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/config.rb" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/config.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss.tmp" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss.tmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sencha-compiler/app/full-page-master-bundle.js" afterPath="$PROJECT_DIR$/build/temp/production/program/sencha-compiler/app/full-page-master-bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/program-example.scss" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/program-example.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/program-example.scss.tmp" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/program-example.scss.tmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.sh" afterPath="$PROJECT_DIR$/run.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sass/example/bootstrap.json" afterPath="$PROJECT_DIR$/sass/example/bootstrap.json" />
     </list>
     <ignored path="svgxml.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,11 +323,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5989011">
-              <caret line="658" column="0" selection-start-line="658" selection-start-column="0" selection-end-line="658" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="801" column="51" selection-start-line="801" selection-start-column="51" selection-end-line="801" selection-end-column="51" />
+              <folding>
+                <element signature="e#27703#28512#0" expanded="false" />
+                <element signature="e#28582#28780#0" expanded="false" />
+                <element signature="e#28834#30732#0" expanded="false" />
+                <element signature="e#30785#31004#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-26.518518">
+              <caret line="183" column="13" selection-start-line="183" selection-start-column="13" selection-end-line="183" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/run.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.02349256">
+              <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TopToolbarController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="358" column="30" selection-start-line="358" selection-start-column="28" selection-end-line="358" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -55,20 +372,10 @@
         <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
+              <caret line="331" column="8" selection-start-line="331" selection-start-column="8" selection-end-line="331" selection-end-column="8" />
               <folding>
-                <element signature="e#1912#2025#0" expanded="false" />
+                <element signature="e#1910#2023#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="1100" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/devsinfo/1100">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="3959" selection-start-line="0" selection-start-column="3959" selection-end-line="0" selection-end-column="3959" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -77,7 +384,7 @@
         <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -102,7 +409,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/model/Alerm.js" />
         <option value="$PROJECT_DIR$/app/view/window/ImgSvgWindow.js" />
         <option value="$PROJECT_DIR$/resources/d3.js" />
         <option value="$PROJECT_DIR$/bootstrap.js" />
@@ -141,18 +447,19 @@
         <option value="$PROJECT_DIR$/1000.xml" />
         <option value="$PROJECT_DIR$/1000" />
         <option value="$PROJECT_DIR$/app/view/main/MainModel.js" />
-        <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
         <option value="$PROJECT_DIR$/resources/devsinfo/1005" />
         <option value="$PROJECT_DIR$/resources/devsinfo/9900" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanel.js" />
         <option value="$PROJECT_DIR$/app.json" />
-        <option value="$PROJECT_DIR$/app/view/grid/TypeGrid.js" />
         <option value="$PROJECT_DIR$/resources/devsinfo/1100" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
         <option value="$PROJECT_DIR$/resources/devsinfo/1001" />
-        <option value="$PROJECT_DIR$/1000.json" />
+        <option value="$PROJECT_DIR$/app/view/grid/TypeGrid.js" />
         <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
+        <option value="$PROJECT_DIR$/1000.json" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
+        <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
+        <option value="$PROJECT_DIR$/run.sh" />
       </list>
     </option>
   </component>
@@ -224,6 +531,9 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches">
+        <subPane />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -476,9 +786,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -599,15 +906,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-356" width="1080" height="1897" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21098267" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21483622" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963988" sideWeight="0.50386846" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982844" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.078029886" sideWeight="0.49613154" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27780852" sideWeight="0.49613154" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -662,13 +969,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0736623">
-          <caret line="112" column="10" selection-start-line="112" selection-start-column="10" selection-end-line="112" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGridController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -891,13 +1191,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/devsinfo/9900">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8235294">
-          <caret line="0" column="5314" selection-start-line="0" selection-start-column="5314" selection-end-line="0" selection-end-column="5314" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/devsinfo/1005">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -938,7 +1231,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08364312">
           <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -946,10 +1238,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24908425">
           <caret line="95" column="22" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
-          <folding>
-            <marker date="1472273763000" expanded="true" signature="917:1018" placeholder="..." />
-            <marker date="1472273763000" expanded="true" signature="1032:1044" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -957,15 +1245,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="333" column="0" selection-start-line="333" selection-start-column="0" selection-end-line="333" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -973,7 +1252,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="256" column="17" selection-start-line="256" selection-start-column="17" selection-end-line="256" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -981,14 +1259,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9828767">
           <caret line="0" column="66448" selection-start-line="0" selection-start-column="66448" selection-end-line="0" selection-end-column="66448" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="16" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+    <entry file="file://$PROJECT_DIR$/resources/devsinfo/9900">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="833" column="12" selection-start-line="833" selection-start-column="8" selection-end-line="833" selection-end-column="12" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1001,26 +1294,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/devsinfo/1100">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="3959" selection-start-line="0" selection-start-column="3959" selection-end-line="0" selection-end-column="3959" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.708">
+          <caret line="0" column="9407" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="66448" />
           <folding />
         </state>
       </provider>
@@ -1028,17 +1305,46 @@
     <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
+          <caret line="331" column="8" selection-start-line="331" selection-start-column="8" selection-end-line="331" selection-end-column="8" />
           <folding>
-            <element signature="e#1912#2025#0" expanded="false" />
+            <element signature="e#1910#2023#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5989011">
-          <caret line="658" column="0" selection-start-line="658" selection-start-column="0" selection-end-line="658" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="801" column="51" selection-start-line="801" selection-start-column="51" selection-end-line="801" selection-end-column="51" />
+          <folding>
+            <element signature="e#27703#28512#0" expanded="false" />
+            <element signature="e#28582#28780#0" expanded="false" />
+            <element signature="e#28834#30732#0" expanded="false" />
+            <element signature="e#30785#31004#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="358" column="30" selection-start-line="358" selection-start-column="28" selection-end-line="358" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.518518">
+          <caret line="183" column="13" selection-start-line="183" selection-start-column="13" selection-end-line="183" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02349256">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
           <folding />
         </state>
       </provider>

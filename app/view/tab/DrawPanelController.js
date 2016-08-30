@@ -528,23 +528,23 @@ function typegridCache(th) {
 
 
         //var startTime = new Date().getTime()
-        var  ids = Ext.decode(items.typegrid.trsIds);
+        var ids = Ext.decode(items.typegrid.trsIds);
 
         th.add(typegrid);
         isLogicShowRows(typegrid)
 
-       var  trs = typegrid.el.dom.querySelectorAll("tr");
+        var trs = typegrid.el.dom.querySelectorAll("tr");
 
 
         for (var j = 0; j < trs.length; j++) {
             trs[j].id = ids[j];
 
             /*if ((!ids[j]) || ids[j].substr(0, 1) != "t") {
-                console.log(ids[j])
-                trs[j].id = generateTrId()
-            } else {
-                trs[j].id = ids[j];
-            }*/
+             console.log(ids[j])
+             trs[j].id = generateTrId()
+             } else {
+             trs[j].id = ids[j];
+             }*/
         }
 
 
@@ -629,20 +629,21 @@ function drawlines(drawpanel) {
     var iDrawPanelLeft = drawpanel.el.getLeft();
     var iDrawPanelTop = drawpanel.el.getTop();
 
-    var o, oElStartEl, oElEndEl, iElWidth, iElHeight, marginTop, polyline, circle, pointStart, pointEnd, startPathNode, endPathNode;
 
     for (var i = 0; i < datasArray.length; i++) {//value 是起点
 
         var oStartEndJson = datasArray[i];
 //        console.log(oStartEndJson)
-        for (o in oStartEndJson) {
+        for (var o in oStartEndJson) {
             //var dStart = Ext.getDom(document.getElementById(oStartEndJson[o]));
             //var dEnd = Ext.getDom(document.getElementById(o));
             var oElStart = Ext.get(oStartEndJson[o]);
 
             //var startPanel = oElStart.up(".x-panel").component;
+
             var oElEnd = Ext.get(o);
-          //var endPanel = oElEnd.up(".x-panel").component;
+
+            //var endPanel = oElEnd.up(".x-panel").component;
 
             if (!oElEnd || !oElStart) {
                 drawpanel.datas.datasArray.splice(i, 1);
@@ -653,14 +654,24 @@ function drawlines(drawpanel) {
             var oElStartEl = oElStart.el;
             var oElEndEl = oElEnd.el;
 
-
             var iElWidth = oElStartEl.getWidth();
             var iElHeight = oElStartEl.getHeight() / 2;
 
-            var iStartLeft = oElStart.el.getLeft() - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
-            var iStartTop = oElStart.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
-            var iEndLeft = oElEnd.el.getLeft() - iDrawPanelLeft + drawpanelScrollLeft;
-            var iEndTop = oElEnd.el.getTop() - iDrawPanelTop + iElHeight + drawpanelScrollTop;
+
+            var oElStartLeft = oElStart.getLeft();
+            var oElStartTop = oElStart.getTop();
+            var oElEndLeft = oElEnd.getLeft();
+            var oElEndTop = oElEnd.getTop();
+            console.log(oElStartLeft)
+            console.log(oElStartTop)
+            console.log(oElEndLeft)
+            console.log(oElEndTop)
+            var iStartLeft=0, iStartTop=0, iEndLeft=0, iEndTop=0;
+            iStartLeft = oElStartLeft - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
+            iStartTop = oElStartTop - iDrawPanelTop + iElHeight + drawpanelScrollTop;
+            iEndLeft = oElEndLeft - iDrawPanelLeft + drawpanelScrollLeft;
+            iEndTop = oElEndTop - iDrawPanelTop + iElHeight + drawpanelScrollTop;
+
 
             if (iStartLeft < 0 & iStartTop < 0 & iEndLeft < 0 & iEndTop < 0) {
                 //break;
@@ -668,14 +679,14 @@ function drawlines(drawpanel) {
             }
 //            console.log(iStartLeft + "  " + iStartTop)
 //            console.log(iEndLeft + " " + iEndTop)
-            polyline = null;
-            circle = null;
             console.log(iStartLeft)
             console.log(iStartTop)
             console.log(iEndLeft)
             console.log(iEndTop)
-            if (iStartLeft <= 0 || iStartTop <= 0 || iEndLeft <= 0 || iEndTop <= 0) {
+            var circle, polyline;
 
+
+            if (oElStartLeft == 0 || oElStartTop == 0 || oElEndLeft == 0 || oElEndTop == 0) {
                 //if (startPanel.hidden||endPanel.hidden) {
                 circle = oSvg.append("circle")
                     .attr("r", CIRCLE_MIN_R)
@@ -782,20 +793,25 @@ function drawlines(drawpanel) {
                     tip.hide()
 
                 })
-                if (iStartLeft < 0 || iStartTop < 0) {
+
+                if (oElStartLeft == 0 || oElStartTop == 0) {
                     circle.attr("cx", iEndLeft - 10).attr("cy", iEndTop + 12);
                     //console.log("start")
                     continue;
                 }
-                if (iEndLeft < 0 || iEndTop < 0) {
+                if (oElEndLeft == 0 || oElEndTop == 0) {
                     circle.attr("cx", iStartLeft + 10).attr("cy", iStartTop)
                     //console.log("end")
                     continue;
                 }
             }
 
-            pointStart = [iStartLeft + My.JIANGE, iStartTop];
-            pointEnd = [iEndLeft - My.JIANGE, iEndTop];
+            if(!polyline){
+                continue
+            }
+
+            var pointStart = [iStartLeft + My.JIANGE, iStartTop];
+            var pointEnd = [iEndLeft - My.JIANGE, iEndTop];
             My.PathNodeManager.removeAll()
 
             var startPathNode = new My.PathNode(pointStart[0], pointStart[1]);
@@ -808,11 +824,11 @@ function drawlines(drawpanel) {
             polyline.attr("points", arr);
             //polyline.attr("points", pointAll);
             //console.log(pointAll)
-
+            polyline = null;
+            circle = null;
 
         }
-        polyline = null;
-        circle = null;
+
     }
 
     /*

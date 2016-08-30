@@ -7,6 +7,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
         "svgxml.view.grid.LogicGridPanel"
     ],
 
+    //hideMode:"offsets",
     controller: "grid-typegrid",
     viewModel: {
         type: "grid-typegrid"

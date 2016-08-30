@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /Library/WebServer/Documents/svg-xml/app.js
+// @require /Library/WebServer/Documents/program/app.js

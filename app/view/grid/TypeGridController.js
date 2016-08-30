@@ -46,8 +46,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     },
     girdviewready: function (panel, eO) {
-
-
         //if (panel.datas.type < 10) {
         //console.info(th.store.data.item[1].data.value)
         //console.info(th.datas.value.substr(5,6))
