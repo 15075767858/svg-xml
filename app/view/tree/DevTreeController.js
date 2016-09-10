@@ -589,11 +589,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 autoShow: true,
                 x: e.pageX,
                 y: e.pageY,
+                listeners:{
+                  boxready:function(){
+                      var me=this;
+
+                      var menu= me.getComponent("deviceinforamation");
+//                      var fileName = record.data.text;
+                      var fileName ="devxml/" + record.data.text + ".xml";
+
+                      fileExists(fileName,function(response){
+                          console.log(response.responseText!=1)
+                          if(response.responseText!=1){
+                              setTimeout(function(){
+                                  menu.setDisabled(true)
+                              },100)
+                          }
+                      })
+                  }
+                },
                 items: [
                     {
                         bind: {
                             disabled: "{!linkDataBase}"
                         },
+                        itemId:"deviceinforamation",
                         text: "deviceinforamation",
                         handler: function () {
                             console.log(record)
@@ -767,13 +786,19 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                     {
                         text: "backup",
                         handler: function () {
-                            myAjax("resources/test1.php?par=file_exists&filename=devxml/" + record.data.text + ".xml", function (response) {
+                            var fileName ="devxml/" + record.data.text + ".xml";
+                            fileExists(fileName,function (response) {
                                 if (response.responseText == 1) {
-                                    location.href = "resources/test1.php?par=backup&filename=devxml/" + record.data.text + ".xml"
+                                    location.href = "resources/test1.php?par=backup&filename="+fileName
                                 } else {
                                     Ext.Msg.alert("Massage", "file does not exist .");
                                 }
                             })
+
+
+
+                           /* myAjax("resources/test1.php?par=file_exists&filename=devxml/" + record.data.text + ".xml",
+                            )*/
                         }
                     },
 
@@ -841,7 +866,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                         menu: [
                             {
                                 text: "Save Property", handler: function () {
-                                var devName = record.data.text.substr(0,4)
+                                var devName = record.data.text.substr(0, 4)
                                 devPublish(devName + ".8.*", devName + "701\r\nPresent_Value\r\n1");
                             }
 

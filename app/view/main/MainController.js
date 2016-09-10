@@ -43,7 +43,9 @@ Ext.define('svgxml.view.main.MainController', {
     }
 });
 
-
+function fileExists(fileName,resFn) {
+    myAjax("resources/test1.php?par=file_exists&filename="+fileName, resFn)
+}
 var ActiveJson={
     get:function(name){
         var value = null;

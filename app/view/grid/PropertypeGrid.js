@@ -1,3 +1,5 @@
+
+
 Ext.define("svgxml.view.grid.PropertypeGrid", {
     extend: "Ext.grid.Panel",
     xtype: "propertypegrid",
@@ -36,6 +38,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                     return false
                 }
                 var rowRecord = context.record;
+
                 Ext.Ajax.request({
                     url: "resources/test1.php",
                     method: "GET",
@@ -57,7 +60,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                 if (context.record.data.type == "Object_Name") {
 
                     //record.set("text","adasda")
-                    context.grid.record.set("text",context.record.data.value);
+                    context.grid.record.set("text", context.record.data.value);
                     //devTreeStoreLoad()
                     //var devtree = Ext.getCmp("leftDevTree")
                     //devtree.expandAll()
