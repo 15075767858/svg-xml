@@ -593,15 +593,6 @@ function typegridCache(th) {
      datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
 }
 
-function test() {
-    var startTime = new Date().getTime()
-
-    //var i=0;
-    for (var i = 0; i < 100000000; i++) {
-
-    }
-    console.log("drawline" + (new Date().getTime() - startTime) + "毫秒")
-}
 
 function drawlines(drawpanel) {
     var startTime = new Date().getTime()
@@ -1026,13 +1017,10 @@ My.getShortPathNode = function (rootNode, endNode) {
 
     return arr;
 }
-//var countaaa = 0
+
 My.getLeafPointAll = function (testNode, endNode, arr) {
-    /*countaaa++
-     console.log(countaaa)
-     if(countaaa>100){
-     return ;
-     }*/
+    console.log("kazaizhe")
+
     if (!testNode) {
         return;
     }
@@ -1046,25 +1034,23 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     /*if (tn.leftNode) {
      test(tn.leftNode, endNode);
      }*/
-//    console.log(tn)
-//    console.log(tn.rightNode)
-//    console.log(tn.leftNode)
 
     if (tn.rightNode) {
-
 //        console.log("%c right     Node  is : ", "color:blue");
         My.getLeafPointAll(tn.rightNode, endNode, arr);
-//        console.log("right")
+        console.log("right")
     }
     if (tn.leftNode) {
 //        console.log("%c left      Node  is : ", "color:red");
         My.getLeafPointAll(tn.leftNode, endNode, arr)
-//        console.log("left")
+        console.log("left")
 
+        return;
     }
     arr.push(tn);
 
 }
+
 My.PathNode.prototype.initLeftNodeRightNode = function (endNode) {
     console.log(this)
     var me = this;
@@ -1272,7 +1258,6 @@ My.isCollsionWithRect = function (x1, y1, w1, h1,
     }
     return true;
 }
-
 
 function testCreate() {
     var a = new Date().getTime()
