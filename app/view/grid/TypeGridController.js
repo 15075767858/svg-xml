@@ -59,7 +59,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
          })*/
         //}
         if (panel.datas.type == 67) {
-            console.log(panel)
+//            console.log(panel)
 
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
@@ -303,7 +303,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     girdmove: function (t, x, y, eOpts) {
 
-        console.log(arguments)
+//        console.log(arguments)
 
         /*if (!t.isAni) {
             drawlines(t.up("drawpanel"))

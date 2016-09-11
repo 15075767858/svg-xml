@@ -512,7 +512,7 @@ function typegridCache(th) {
 
     function createTypeGrid(items) {
         var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);
-        console.log(items.typegrid)
+//        console.log(items.typegrid)
 
         typegrid.datas = items.datas;
 
@@ -662,10 +662,10 @@ function drawlines(drawpanel) {
             var oElStartTop = oElStart.getTop();
             var oElEndLeft = oElEnd.getLeft();
             var oElEndTop = oElEnd.getTop();
-            console.log(oElStartLeft)
-            console.log(oElStartTop)
-            console.log(oElEndLeft)
-            console.log(oElEndTop)
+//            console.log(oElStartLeft)
+//            console.log(oElStartTop)
+//            console.log(oElEndLeft)
+//            console.log(oElEndTop)
             var iStartLeft=0, iStartTop=0, iEndLeft=0, iEndTop=0;
             iStartLeft = oElStartLeft - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
             iStartTop = oElStartTop - iDrawPanelTop + iElHeight + drawpanelScrollTop;
@@ -679,10 +679,10 @@ function drawlines(drawpanel) {
             }
 //            console.log(iStartLeft + "  " + iStartTop)
 //            console.log(iEndLeft + " " + iEndTop)
-            console.log(iStartLeft)
-            console.log(iStartTop)
-            console.log(iEndLeft)
-            console.log(iEndTop)
+//            console.log(iStartLeft)
+//            console.log(iStartTop)
+//            console.log(iEndLeft)
+//            console.log(iEndTop)
             var circle, polyline;
 
 
@@ -711,8 +711,8 @@ function drawlines(drawpanel) {
 
             }
 
-            console.log(polyline)
-            console.log(circle)
+//            console.log(polyline)
+//            console.log(circle)
 
             if (polyline) {
                 polyline.on("mouseover", function () {

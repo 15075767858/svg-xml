@@ -513,7 +513,7 @@ function saveXml(text) {
             }
         }
 
-        console.log(root)
+//        console.log(root)
         return root;
     }
 
@@ -598,7 +598,7 @@ function get_A_Master_node(gridpanel) {
     var iType = gridpanel.datas.type;
     masterNode.attr("number", gridpanel.curPlantIndex);
     masterNode.append("<type>" + iType + "</type>");
-    console.log(gridpanel)
+//    console.log(gridpanel)
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
     //console.log(gridpanel)
@@ -662,7 +662,7 @@ function get_A_Master_node(gridpanel) {
 function isLogic(gridpanel, masterNode) {
     var items;
     if (gridpanel.datas.type == "56") {
-        console.log(gridpanel)
+//        console.log(gridpanel)
         items = gridpanel.store.data.items;
     } else {
         return;
