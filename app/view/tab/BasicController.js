@@ -295,6 +295,13 @@ Ext.define('NOT', {
     data: slotsJson.NOT.initData(),
     proxy: oproxy
 });
+Ext.define('MULTI_INPUT', {
+    extend: "Ext.data.Store",
+    storeId: 'MULTI_INPUTStore',
+    fields: ['name', 'value'],
+    data: slotsJson.MULTI_INPUT.initData(),
+    proxy: oproxy
+});
 /*
  Ext.define('timer', {
  extend:"Ext.data.Store",

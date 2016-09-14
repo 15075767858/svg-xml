@@ -458,6 +458,33 @@ var slotsJson = {
             return arr;
         },
         isAddSlot: false
+    },
+    "MULTI_INPUT":{
+        type:"79",
+        initData:function(){
+            var arr=new Array();
+            arr[0] = {'name': 'Out', 'value': "0"};
+            arr[1] = {'name': 'In', 'value': "0"};
+            arr[2] = {'name': 'choice', 'value': "1"};
+            arr[3] = {'name': 'In', 'value': "0"};
+            arr[4] = {'name': 'In', 'value': "0"};
+            arr[5] = {'name': 'In', 'value': "0"};
+            arr[6] = {'name': 'In', 'value': "0"};
+            arr[7] = {'name': 'In', 'value': "0"};
+            arr[8] = {'name': 'In', 'value': "0"};
+            arr[9] = {'name': 'In', 'value': "0"};
+            arr[10] = {'name': 'In', 'value': "0"};
+            arr[11] = {'name': 'In', 'value': "0"};
+            arr[12] = {'name': 'In', 'value': "0"};
+            arr[13] = {'name': 'In', 'value': "0"};
+            arr[14] = {'name': 'In', 'value': "0"};
+            arr[15] = {'name': 'In', 'value': "0"};
+            arr[16] = {'name': 'In', 'value': "0"};
+            arr[17] = {'name': 'In', 'value': "0"};
+            arr[18] = {'name': 'In', 'value': "0"};
+
+            return arr;
+        }
     }
 
 
@@ -608,6 +635,12 @@ var Imgs = [{
     {
         name: "NOT",
         src: "resources/img/SVG/NOT.svg",
+        Img_0: "",
+        Img_1: ""
+    },
+    {
+        name: "MULTI_INPUT",
+        src: "resources/img/SVG/MULTI_INPUT.svg",
         Img_0: "",
         Img_1: ""
     }

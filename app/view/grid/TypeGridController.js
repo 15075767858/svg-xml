@@ -46,21 +46,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     },
     girdviewready: function (panel, eO) {
-        //if (panel.datas.type < 10) {
-        //console.info(th.store.data.item[1].data.value)
-        //console.info(th.datas.value.substr(5,6))
-        //console.info(th.store)
-        //th.store.data.items[1].data.value=th.datas.value.substr(5,6)
-        //th.store.commitChanges();
-        //console.info(th.store.items)
-        /*panel.store.addListener("beginupdate",function(){
-         setTimeout(function(){
-         },500)
-         })*/
-        //}
-        if (panel.datas.type == 67) {
-//            console.log(panel)
 
+        if (panel.datas.type == 67) {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
@@ -303,11 +290,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     girdmove: function (t, x, y, eOpts) {
 
-//        console.log(arguments)
-
-        /*if (!t.isAni) {
-            drawlines(t.up("drawpanel"))
-        }*/
        var grids =  getCurrentPlantGridPanles(getCurrentPlant())
         for(var i=0;i<grids.length;i++){
             if(t.id==grids[i].id){
@@ -332,10 +314,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         drawlines();
        function isCollsionWithRect(data1,data2) {
 
-           var x1=data1.getX();
-           var y1=data1.getY();
-           var w1=data1.getWidth();
-           var h1=data1.getHeight();
+           var x1=data1.getX()-My.JIANGE*2;
+           var y1=data1.getY()-My.JIANGE*2;
+           var w1=data1.getWidth()+My.JIANGE*2;
+           var h1=data1.getHeight()+My.JIANGE*2;
            var x2=data2.getX();
            var y2=data2.getY();
            var w2=data2.getWidth();
@@ -364,6 +346,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     },
     girditemdblclick: function (me, record, item, index, e, eopts) {
         console.log(arguments)
+        var gridPanel = this.view;
         if (record.data.name == "Out") {
             return;
         }
@@ -381,6 +364,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     //   win.down("form").loadRecord(record);
                 },
                 show: function (th) {
+
                     th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name", editable: false});
                     if (record.data.select) {
                         var store = Ext.create('Ext.data.Store', {
@@ -399,6 +383,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             valueField: 'name'
                         });
                     } else {
+                        if(gridPanel.datas.type=='79'&index==2){
+                            th.down("form").add({xtype: "combo", name: "value", fieldLabel: "value",editable: false,store:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]});
+                            return;
+                        }
                         th.down("form").add({xtype: "textfield", name: "value", fieldLabel: "value"});
                     }
                 }
@@ -679,8 +667,9 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2 + drawpanelScrollTop;
 
     //var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
-
-    var aRowsAll = getCanLinesRowsAll(th.up())
+    var girdPanel=th.up()
+    console.log(girdPanel)
+    var aRowsAll = getCanLinesRowsAll(girdPanel)
 
     function getCanLinesRowsAll(gridpanel) {
         var typegrids = getCurrentDrawPanelGirdPanels()
@@ -698,6 +687,9 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         for (var i = 0; i < typegrids.length; i++) {
             var rows = typegrids[i].el.dom.querySelectorAll(".x-grid-row")
             for (var j = 0; j < rows.length; j++) {
+                if(typegrids[i].datas.type=="79"&j>2){
+                    continue;
+                }
                 aRowsAll.push(rows[j])
             }
         }
@@ -716,9 +708,9 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
-            console.log(aRowsAll[i].id)
+            console.log(aRowsAll[i])
+            //console.log(aRowsAll[i].id)
             var left = drawpanelScrollLeft + Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
-
 
             var top = drawpanelScrollTop + Ext.get(aRowsAll[i]).getTop() - iDrawPanelTop + parseInt(Ext.get(aRowsAll[i]).getHeight() / 2);
 
@@ -740,7 +732,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
 
                 sStartItemTrId = item.querySelector("tr").id;
             }
-            console.log("wanle")
+            //console.log("wanle")
 
         }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ff52e786-db31-4805-8f7e-e3b1285d7bbd" name="192.168.253.253" url="http://192.168.253.253">
+        <fileTransfer host="192.168.253.253" port="21" password="dfcbdfcedfc7dfc3dfc4df9bdf9adf9adf9adf9adfc8dfcbdfd9" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

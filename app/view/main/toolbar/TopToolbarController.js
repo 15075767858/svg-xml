@@ -318,38 +318,39 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                         console.log(arguments)
                     }
                 }
-            },
-            buttons: [{
-                text: 'Select Path',
-                handler: function () {
+            }
+            /*,
+             buttons: [{
+             text: 'Select Path',
+             handler: function () {
 
-                    var grid = this.up("window").down("grid")
-                    var records = grid.getSelection();
-                    console.log(records);
-                    var fileNames = "";
-                    if (records.length == 0) {
-                        Ext.Msg.alert('Status', 'Select a file please.');
-                        return;
-                    }
-                    Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
-                    for (var i = 0; i < records.length; i++) {
-                        Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
-                        fileNames += records[i].data.name + ",";
-                    }
+             var grid = this.up("window").down("grid")
+             var records = grid.getSelection();
+             console.log(records);
+             var fileNames = "";
+             if (records.length == 0) {
+             Ext.Msg.alert('Status', 'Select a file please.');
+             return;
+             }
+             Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
+             for (var i = 0; i < records.length; i++) {
+             Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
+             fileNames += records[i].data.name + ",";
+             }
 
-                    setTimeout(function () {
-                        Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
+             setTimeout(function () {
+             Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
 
-                        setTimeout(function () {
+             setTimeout(function () {
+             location.href="resources/devsinfo/"+records[0].data.name
+             //location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
+             Ext.MessageBox.close();
+             win.close();
+             }, 500)
+             }, 1000)
 
-                            location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
-                            Ext.MessageBox.close();
-                            win.close();
-                        }, 500)
-                    }, 1000)
-
-                }
-            }]
+             }
+             }]*/
         })
     }
 });
@@ -631,6 +632,7 @@ function get_A_Master_node(gridpanel) {
                 }
             }
         }
+
         var slots = $("<slots number='" + startIndex + "'></slots>");
         var aGirdPanelIII = getStartGridPanelIndexAndItemIndex(gridpanel, i);//判断当前tr上的id是否有相应的线，有的话返回起点的坐标
         if (!aGirdPanelIII[0] && !aGirdPanelIII[1]) {
@@ -639,7 +641,16 @@ function get_A_Master_node(gridpanel) {
             slots.append($("<node>" + aGirdPanelIII[0] + "</node>"));
             slots.append($("<slot_number>" + aGirdPanelIII[1] + "</slot_number>"));
         }
+
+
+        if (gridpanel.datas.type == "79" & i > 2) {
+            slots=$("<slots number='0'></slots>");
+            slots.append($("<node>0</node>"));
+            slots.append($("<slot_number>0</slot_number>"));
+        }
         masterNode.append(slots);
+
+        //数据校验 图片缓存 优化性能
 
         /*if (iType == 1 || iType == 2 || iType == 4 || iType == 5) {
          console.log(slots.find("default"))
@@ -753,9 +764,9 @@ function isModelFilter(gridPanelItems, masterNode, gridpanel) {
 //        console.log(gridPanelItems[0])
 
         var select = gridPanelItems[0].data.select;
-        if(!select){
+        if (!select) {
             var title = gridpanel.datas.title;
-            select=slotsJson[title].initData()[0].select;
+            select = slotsJson[title].initData()[0].select;
         }
         for (var i = 0; i < select.length; i++) {
             if (select[i].name == value) {

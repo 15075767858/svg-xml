@@ -50,29 +50,7 @@ Ext.define("svgxml.view.grid.TypeGrid", {
     columnLines : true,
     initComponent: function () {
         var me =this;
-        /*me.bbar=[{
-            hidden:true,
-            text:"index",
-            scope:me,
-            handler:function(){
-                console.log(arguments)
-                var panels = getCurrentDrawPanelGirdPanels();
-                for(var i=0;i<panels.length;i++){
-                    console.log(panels[i])
-                    if(panels[i].button){
-                        panels[i].removeDocked(panels[i].button);
-                    }
-                    var button = Ext.create("Ext.button.Button",{
-                        text:panels[i].index,
-                        hidden:true
-                    })
-                    panels[i].button=button;
-                    panels[i].addDocked(button)
-                }
-                saveXml()
-                console.info(this.index)
-            }
-        }]*/
+
         this.width = 90;
         this.columns = [
             {

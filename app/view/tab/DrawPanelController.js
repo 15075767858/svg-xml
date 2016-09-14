@@ -668,14 +668,15 @@ function drawlines(drawpanel) {
                 //break;
                 continue;
             }
+
 //            console.log(iStartLeft + "  " + iStartTop)
 //            console.log(iEndLeft + " " + iEndTop)
 //            console.log(iStartLeft)
 //            console.log(iStartTop)
 //            console.log(iEndLeft)
 //            console.log(iEndTop)
-            var circle, polyline;
 
+            var circle, polyline;
 
             if (oElStartLeft == 0 || oElStartTop == 0 || oElEndLeft == 0 || oElEndTop == 0) {
                 //if (startPanel.hidden||endPanel.hidden) {
@@ -699,7 +700,6 @@ function drawlines(drawpanel) {
                     .attr("data-start", oStartEndJson[o])
                     .attr("data-end", o)
                     .attr("data-index", i);
-
             }
 
 //            console.log(polyline)
@@ -842,7 +842,7 @@ function drawlines(drawpanel) {
 var My = {};
 My.PathNodes = [];
 My.MaxPathNodeId = 0;
-My.JIANGE = 10;
+My.JIANGE = 5;
 My.PathNode = function (x, y) {//节点对象
 
     this.x = x;
@@ -850,6 +850,7 @@ My.PathNode = function (x, y) {//节点对象
     this.leftNode = null;
     this.rightNode = null;
     this.parentNode = null;
+    this.count=0;
     this.getLeftNodeLength = function () {
         console.log(this.leftNode)
         return Math.abs(this.x - this.leftNode.x) + Math.abs(this.y - this.leftNode.y)
@@ -951,7 +952,6 @@ My.PathNodeManager = {
 My.PathNode.prototype.toRootNodeLength = function () {
     var me = this;
     var length = 0;
-
     if (me.parentNode) {
         var parentNode = me.parentNode;
         var width = Math.abs(me.x - parentNode.x);
@@ -963,9 +963,7 @@ My.PathNode.prototype.toRootNodeLength = function () {
 }
 
 My.PathNode.prototype.getToRootPath = function (arr) {
-
     var me = this;
-
     arr.push(me.getNextNodeCenterPoint())
     arr.push([me.x, me.y]);
     if (me.parentNode) {
@@ -1020,6 +1018,14 @@ My.getShortPathNode = function (rootNode, endNode) {
 
 My.getLeafPointAll = function (testNode, endNode, arr) {
     console.log("kazaizhe")
+    testNode.count++
+    endNode.count++
+    if(testNode.count>100){
+        console.log(testNode)
+    }
+    if(endNode.count>100){
+        console.log(endNode)
+    }
 
     if (!testNode) {
         return;
@@ -1031,9 +1037,7 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
         return;
     }
 
-    /*if (tn.leftNode) {
-     test(tn.leftNode, endNode);
-     }*/
+
 
     if (tn.rightNode) {
 //        console.log("%c right     Node  is : ", "color:blue");
