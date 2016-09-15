@@ -62,7 +62,6 @@ Ext.define('svgxml.view.main.Main', {
             width: "200%",
             //split: true,
             //collapsible: true,
-            title: "Program"
         })
     ]
 });

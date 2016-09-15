@@ -538,7 +538,6 @@ function saveXml(text) {
             }
         }
     }
-
 }
 //var panelCount = 1;
 
@@ -557,6 +556,14 @@ function xmlAppendPlant(root) {
 
     }
 
+    var lineSize = getCurrentDrawPanel().datas.datasArray.length
+
+    if(lineSize==lineCount){
+        delayToast("Save Massage","All line size is "+lineSize+",save "+lineCount+" line ");
+    }else{
+        Ext.Msg.alert("Save Exception " ,"All line size is "+lineSize+",save "+lineCount+" line ");
+    }
+    lineCount=0;
     //panelCount = 1;
 
 }
@@ -593,7 +600,7 @@ function panelAddCurPlantIndex() {
     }
 
 }
-
+var lineCount=0
 function get_A_Master_node(gridpanel) {
     var masterNode = $(document.createElement("master_node"));
     var iType = gridpanel.datas.type;
@@ -638,8 +645,11 @@ function get_A_Master_node(gridpanel) {
         if (!aGirdPanelIII[0] && !aGirdPanelIII[1]) {
             slots.append("<default>" + value + "</default>")
         } else {
+
             slots.append($("<node>" + aGirdPanelIII[0] + "</node>"));
             slots.append($("<slot_number>" + aGirdPanelIII[1] + "</slot_number>"));
+            lineCount++
+
         }
 
 
@@ -647,6 +657,7 @@ function get_A_Master_node(gridpanel) {
             slots=$("<slots number='0'></slots>");
             slots.append($("<node>0</node>"));
             slots.append($("<slot_number>0</slot_number>"));
+
         }
         masterNode.append(slots);
 

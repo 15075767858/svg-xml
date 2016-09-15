@@ -166,6 +166,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                         text: "paste...",
                                         listeners: {
                                             boxready: function () {
+
+
                                                 if (ogridpanle.copyGridPanels) {
                                                     this.setDisabled(false);
                                                 } else {
@@ -174,7 +176,9 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                             }
                                         },
                                         handler: function () {
+
                                             var plant = getCurrentDrawPanelPlantByIndex(index);
+
                                             console.log(plant)
                                             var randomNumber = Math.floor(Math.random() * 100000);
 
@@ -504,7 +508,6 @@ function typegridCache(th) {
 
 
     for (var i = 0; i < items.length; i++) {
-//        console.log(i)
 
         createTypeGrid(items[i])
 
@@ -594,6 +597,7 @@ function typegridCache(th) {
 }
 
 
+
 function drawlines(drawpanel) {
     var startTime = new Date().getTime()
 
@@ -601,6 +605,8 @@ function drawlines(drawpanel) {
     My.gridPanels = getCurrentPlantGridPanles(getCurrentPlant());
 
     var currentDrawPanel = drawpanel || getCurrentDrawPanel();
+
+
     drawpanel = currentDrawPanel
     var oSvg = d3.select(currentDrawPanel.el.dom).select(".tempSVG" + currentDrawPanel.id);
     var datasArray = currentDrawPanel.datas.datasArray;
@@ -833,6 +839,10 @@ function drawlines(drawpanel) {
      .attr("cx", My.PathNodes[i].x + drawpanelScrollLeft)
      .attr("cy", My.PathNodes[i].y + drawpanelScrollTop)
      }*/
+
+    var mainTab = Ext.getCmp("frametab_drawpanel")
+    mainTab.viewModel.set("allLine",currentDrawPanel.datas.datasArray.length);
+
     if (isDebug) {
         console.log("drawline" + (new Date().getTime() - startTime) + "毫秒")
     }

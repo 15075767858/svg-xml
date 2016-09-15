@@ -11,9 +11,15 @@ Ext.define('svgxml.view.tab.FramedTabs', {
     ],
     id:"frametab_drawpanel",
     controller: 'framedtabs',
+    viewModel:Ext.create("Ext.app.ViewModel",{
+        data:{
+            allLine:0
+        }
+    }),
     //frame: true,
     width: 4000,
     height: 3000,
+
     defaults: {
         //bodyPadding: 10,
         autoScroll: true
@@ -26,6 +32,10 @@ Ext.define('svgxml.view.tab.FramedTabs', {
             html:"show number"
         }
     ],
+    bind:{
+      title:"Program (line {allLine})"
+    },
+    //title: "",
     showIndex:true,
     items:{
       xtype:"drawpanel",
@@ -36,4 +46,3 @@ Ext.define('svgxml.view.tab.FramedTabs', {
       //  render:"render"
     }
 });
-

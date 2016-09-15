@@ -2,87 +2,28 @@
 <root>
  <plant  name="001">
   <master_node  number="1">
-   <type>79</type>
+   <type>55</type>
    <slots  number="1">
     <default>0</default>
    </slots>
    <slots  number="2">
-    <node>2</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
-   </slots>
-   <slots  number="0">
-    <node>0</node>
-    <slot_number>0</slot_number>
+    <default>0</default>
    </slots>
   </master_node>
   <master_node  number="2">
-   <type>51</type>
+   <type>61</type>
+   <mode>0</mode>
    <slots  number="1">
     <default>0</default>
    </slots>
    <slots  number="2">
-    <default>0</default>
+    <node>1</node>
+    <slot_number>2</slot_number>
    </slots>
   </master_node>
+ </plant>
+ <plant  name="002">
+ </plant>
+ <plant  name="003">
  </plant>
 </root>

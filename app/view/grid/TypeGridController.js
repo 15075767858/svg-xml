@@ -473,6 +473,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                     delSlot.setDisabled(false);
                                 }
                             }
+
                             if (me.datas.type > 10) {
                                 var title = gridTitle;
                                 if (slotsJson[title].isAddSlot) {
