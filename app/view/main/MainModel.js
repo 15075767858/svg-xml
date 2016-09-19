@@ -395,8 +395,20 @@ var slotsJson = {
         },
         isAddSlot: false
     },
-
-
+    'select':{
+        type:"73",
+        initData:function(){
+            var arr=new Array();
+            arr[0] = {'name': 'Out', 'value': "0"};
+            arr[1] = {'name': 'select', 'value': "1"};
+            arr[2] = {'name': 'In', 'value': "0"};
+            arr[3] = {'name': 'In', 'value': "0"};
+            arr[4] = {'name': 'In', 'value': "0"};
+            return arr;
+        },
+        isAddSlot:true,
+        maxSlot:9
+    },
     'SCFM': {
         type: "74",
         initData: function () {
@@ -428,6 +440,7 @@ var slotsJson = {
         },
         isAddSlot: false
     },
+
     "buffer":{
         type:"76",
         initData: function () {
@@ -449,6 +462,7 @@ var slotsJson = {
         },
         isAddSlot: false
     },
+
     "NOT":{
         type:"78",
         initData: function () {
@@ -459,32 +473,19 @@ var slotsJson = {
         },
         isAddSlot: false
     },
-    "MULTI_INPUT":{
+    "Integer":{
         type:"79",
         initData:function(){
             var arr=new Array();
             arr[0] = {'name': 'Out', 'value': "0"};
             arr[1] = {'name': 'In', 'value': "0"};
-            arr[2] = {'name': 'choice', 'value': "1"};
+            arr[2] = {'name': 'select', 'value': "1"};
             arr[3] = {'name': 'In', 'value': "0"};
             arr[4] = {'name': 'In', 'value': "0"};
-            arr[5] = {'name': 'In', 'value': "0"};
-            arr[6] = {'name': 'In', 'value': "0"};
-            arr[7] = {'name': 'In', 'value': "0"};
-            arr[8] = {'name': 'In', 'value': "0"};
-            arr[9] = {'name': 'In', 'value': "0"};
-            arr[10] = {'name': 'In', 'value': "0"};
-            arr[11] = {'name': 'In', 'value': "0"};
-            arr[12] = {'name': 'In', 'value': "0"};
-            arr[13] = {'name': 'In', 'value': "0"};
-            arr[14] = {'name': 'In', 'value': "0"};
-            arr[15] = {'name': 'In', 'value': "0"};
-            arr[16] = {'name': 'In', 'value': "0"};
-            arr[17] = {'name': 'In', 'value': "0"};
-            arr[18] = {'name': 'In', 'value': "0"};
-
             return arr;
-        }
+        },
+        isAddSlot:true,
+        maxSlot:10
     }
 
 
@@ -609,6 +610,12 @@ var Imgs = [{
         Img_1: ""
     },
     {
+        name: "select",
+        src: "resources/img/SVG/select.svg",
+        Img_0: "",
+        Img_1: ""
+    },
+    {
         name: "SCFM",
         src: "resources/img/SVG/SCFM.svg",
         Img_0: "",
@@ -639,8 +646,8 @@ var Imgs = [{
         Img_1: ""
     },
     {
-        name: "MULTI_INPUT",
-        src: "resources/img/SVG/MULTI_INPUT.svg",
+        name: "Integer",
+        src: "resources/img/SVG/Integer.svg",
         Img_0: "",
         Img_1: ""
     }

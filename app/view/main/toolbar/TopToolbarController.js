@@ -422,6 +422,17 @@ function saveXml(text) {
     var datas = {};
     datas['fileName'] = "../" + text;
     //root = sortNodeNumber(root)
+
+
+    var lineSize = getCurrentDrawPanel().datas.datasArray.length
+
+    if(lineSize==lineCount){
+        delayToast("Save Massage","All line size is "+lineSize+",save "+lineCount+" line ");
+    }else{
+        Ext.Msg.alert("Save Exception " ,"All line size is "+lineSize+",save "+lineCount+" line ");
+    }
+    lineCount=0;
+
     changeKey(root, text);
     if (isDebug) {
         console.log(root)
@@ -555,16 +566,6 @@ function xmlAppendPlant(root) {
         plantAppendMasterNode(plant, plants[i].id);
 
     }
-
-    var lineSize = getCurrentDrawPanel().datas.datasArray.length
-
-    if(lineSize==lineCount){
-        delayToast("Save Massage","All line size is "+lineSize+",save "+lineCount+" line ");
-    }else{
-        Ext.Msg.alert("Save Exception " ,"All line size is "+lineSize+",save "+lineCount+" line ");
-    }
-    lineCount=0;
-    //panelCount = 1;
 
 }
 

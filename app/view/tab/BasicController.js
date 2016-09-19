@@ -260,6 +260,13 @@ Ext.define('Switch', {
     data: slotsJson.Switch.initData(),
     proxy: oproxy
 });
+Ext.define('select', {
+    extend: "Ext.data.Store",
+    storeId: 'selectStore',
+    fields: ['name', 'value'],
+    data: slotsJson.select.initData(),
+    proxy: oproxy
+});
 Ext.define('SCFM', {
     extend: "Ext.data.Store",
     storeId: 'SCFMStore',
@@ -295,11 +302,11 @@ Ext.define('NOT', {
     data: slotsJson.NOT.initData(),
     proxy: oproxy
 });
-Ext.define('MULTI_INPUT', {
+Ext.define('Integer', {
     extend: "Ext.data.Store",
-    storeId: 'MULTI_INPUTStore',
+    storeId: 'IntegerStore',
     fields: ['name', 'value'],
-    data: slotsJson.MULTI_INPUT.initData(),
+    data: slotsJson.Integer.initData(),
     proxy: oproxy
 });
 /*

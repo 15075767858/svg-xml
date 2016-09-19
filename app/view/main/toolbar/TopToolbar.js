@@ -110,7 +110,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                             allowBlank: false,
                                             anchor: '100%',
                                             buttonText: 'Select Program...'
-                                        },
+                                        }
 
                                     ]
                                 }

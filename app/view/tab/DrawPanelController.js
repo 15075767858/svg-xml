@@ -104,7 +104,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                 items: [
                                     {
                                         text: "copy...",
-                                        //disabled: true
+                                        disabled: true,
                                         handler: function () {
                                             ogridpanle.copyGridPanels = [];
                                             var plant = getCurrentDrawPanelPlantByIndex(index);
@@ -1032,9 +1032,11 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     endNode.count++
     if(testNode.count>100){
         console.log(testNode)
+        return ;
     }
     if(endNode.count>100){
         console.log(endNode)
+        return ;
     }
 
     if (!testNode) {

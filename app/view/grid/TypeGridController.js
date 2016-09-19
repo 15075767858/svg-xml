@@ -291,18 +291,23 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     girdmove: function (t, x, y, eOpts) {
 
        var grids =  getCurrentPlantGridPanles(getCurrentPlant())
+        var isColls2=false;
         for(var i=0;i<grids.length;i++){
             if(t.id==grids[i].id){
                 continue
             }
-            var isColls = isCollsionWithRect(t,grids[i]);
+            var  isColls = isCollsionWithRect(t,grids[i]);
             if(isColls){
+                isColls2=true
                 //t.setX(t.data.x)
                 //t.setY(t.data.y)
                 //t.x= t.data.x
                 //t.y= t.data.y
                 t.setPagePosition(t.data.x+=5, t.data.y+=5, false)
             }
+        }
+        if(!isColls2){
+        drawlines();
         }
         if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
             t.setPagePosition(t.data.x+=5, t.data.y+=5, false)
@@ -311,17 +316,15 @@ Ext.define('svgxml.view.grid.TypeGridController', {
            // t.x= t.data.x
            // t.y= t.data.y
         }
-        drawlines();
        function isCollsionWithRect(data1,data2) {
-
-           var x1=data1.getX()-My.JIANGE*2;
-           var y1=data1.getY()-My.JIANGE*2;
-           var w1=data1.getWidth()+My.JIANGE*2;
-           var h1=data1.getHeight()+My.JIANGE*2;
-           var x2=data2.getX();
-           var y2=data2.getY();
-           var w2=data2.getWidth();
-           var h2=data2.getHeight();
+           var x1=data1.getX();
+           var y1=data1.getY();
+           var w1=data1.getWidth();
+           var h1=data1.getHeight();
+           var x2=data2.getX()-My.JIANGE*3;
+           var y2=data2.getY()-My.JIANGE*3;
+           var w2=data2.getWidth()+My.JIANGE*3*2;
+           var h2=data2.getHeight()+My.JIANGE*3*2;
 
             if (x1 >= x2 && x1 >= x2 + w2) {
                 return false;
@@ -384,7 +387,39 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                         });
                     } else {
                         if(gridPanel.datas.type=='79'&index==2){
-                            th.down("form").add({xtype: "combo", name: "value", fieldLabel: "value",editable: false,store:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]});
+                            th.down("form").add({xtype: "combo",
+                                name: "value",
+                                fieldLabel: "value",
+                                editable: false,
+                                store:[1,2,3,4,5,6,7,8],
+                                listeners:{
+                                    change:function(field,newValue,oldValue){
+                                        if(newValue>gridPanel.store.getCount()-3){
+                                            Ext.Msg.alert("Massage","Value cannot be greater than "+(gridPanel.store.getCount()-3))
+                                            field.setValue(oldValue)
+                                        }
+
+                                    }
+                                }
+                            });
+                            return;
+                        }
+                        if(gridPanel.datas.type=='73'&index==1){
+                            th.down("form").add({xtype: "combo",
+                                name: "value",
+                                fieldLabel: "value",
+                                editable: false,
+                                store:[1,2,3,4,5,6,7,8],
+                                listeners:{
+                                    change:function(field,newValue,oldValue){
+                                        if(newValue>gridPanel.store.getCount()-2){
+                                            Ext.Msg.alert("Massage","Value cannot be greater than "+(gridPanel.store.getCount()-3))
+                                            field.setValue(oldValue)
+                                        }
+
+                                    }
+                                }
+                            });
                             return;
                         }
                         th.down("form").add({xtype: "textfield", name: "value", fieldLabel: "value"});

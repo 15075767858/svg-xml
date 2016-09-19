@@ -30,9 +30,9 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     copyclick: function (menu, e, eOpts) {
         var typegrid = menu.up("typegrid");
         var type = typegrid.datas.type;
-        if(type==1||type==2||type==4||type==5){
-            if(typegrid.store.data.length>2){
-                Ext.Msg.alert("Massage","Cannot copy ")
+        if (type == 1 || type == 2 || type == 4 || type == 5) {
+            if (typegrid.store.data.length > 2) {
+                Ext.Msg.alert("Massage", "Cannot copy ")
                 return;
             }
         }
@@ -75,7 +75,8 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         var typeGirdName = menu.up("typegrid").datas.title || getNameByType(gridpanel.datas.type);
 
         var store = gridpanel.getStore();
-        console.log(store)
+        console.log(store.data.length)
+        console.log(slotsJson[typeGirdName].maxSlot)
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
