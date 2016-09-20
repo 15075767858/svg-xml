@@ -17,12 +17,16 @@ Ext.define('svgxml.view.tab.BasicController', {
     basicViewready: function () {
         var overrides = {};
         var aTables = Ext.get("leftPanelIcons").select(".x-grid-item")
+
         Ext.each(aTables.elements, function (el) {
             var dd = new Ext.dd.DragSource(el, {
                 ddGroup: "IconDragDropGroup",
                 isTarget: false
             })
+
             dd.afterDragDrop = function (target, e, id) {
+
+
                 var typeName = Ext.get(el).select(".x-grid-cell-inner").elements[1].innerHTML;
                 console.log(typeName)
 
@@ -44,8 +48,10 @@ Ext.define('svgxml.view.tab.BasicController', {
                         }
                     }
                 })
+
                 store.setData(slotsJson[typeName].initData())
-               var panel =  Ext.getCmp(id).add(Ext.create("svgxml.view.grid.TypeGrid", {
+
+                var typeGrid = Ext.create("svgxml.view.grid.TypeGrid", {
                     title: typeName,
                     store: store,
                     x: e.browserEvent.offsetX,
@@ -61,7 +67,10 @@ Ext.define('svgxml.view.tab.BasicController', {
                             };
                         }
                     }
-                }));
+                })
+
+
+                var panel = Ext.getCmp(id).add(typeGrid);
             }
 
             Ext.apply(dd, overrides);

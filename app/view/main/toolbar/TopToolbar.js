@@ -39,7 +39,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                             handler: function () {
                                 var title = getCurrentDrawPanel().title;
 
-                                saveGridpanelsConfigs(title);
+                                //saveGridpanelsConfigs(title);
                                 var startTime = new Date().getTime()
                                 saveXml(title);
                                 console.log("saveXml" + (new Date().getTime() - startTime) + "毫秒")
@@ -179,7 +179,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.94  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.95  ');
                             }
                         }
                     ]

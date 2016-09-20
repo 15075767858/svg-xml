@@ -91,11 +91,9 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                     }
 
                     e.stopEvent();
-                    var drawpanel = getCurrentDrawPanel()
+                    var drawpanel = getCurrentDrawPanel();
                     if (e.button == 2) {
-                        ogridpanle.config.listeners.itemclick.call(ogridpanle, th, record, item, index, e, eOpts)
-
-
+                        ogridpanle.config.listeners.itemclick.call(ogridpanle, th, record, item, index, e, eOpts);
                         Ext.create("Ext.menu.Menu", {
                                 //floating: true,
                                 autoShow: true,
@@ -104,9 +102,9 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                 items: [
                                     {
                                         text: "copy...",
-                                        disabled: true,
                                         handler: function () {
                                             ogridpanle.copyGridPanels = [];
+
                                             var plant = getCurrentDrawPanelPlantByIndex(index);
                                             var gridPanels = getCurrentPlantGridPanles(plant)
                                             for (var i = 0; i < gridPanels.length; i++) {
@@ -484,6 +482,8 @@ function typegridCache(th) {
     });
 
     console.log("ajax" + (new Date().getTime() - startTime) + "毫秒")
+
+
     var items = th.datas.gridpanelConfigs;// Ext.decode(localStorage.getItem("gridpanelConfigs"));
     var plants = th.datas.plants;// Ext.decode(localStorage.getItem("plants"))
     //console.log(plants.length)
@@ -493,6 +493,7 @@ function typegridCache(th) {
         console.log(plants)
         return;
     }
+
 
     var store = Ext.data.StoreManager.lookup('store' + th.getTitle());
     for (var i = 0; i < plants.length; i++) {
@@ -541,13 +542,6 @@ function typegridCache(th) {
 
         for (var j = 0; j < trs.length; j++) {
             trs[j].id = ids[j];
-
-            /*if ((!ids[j]) || ids[j].substr(0, 1) != "t") {
-             console.log(ids[j])
-             trs[j].id = generateTrId()
-             } else {
-             trs[j].id = ids[j];
-             }*/
         }
 
 

@@ -41,6 +41,26 @@ Ext.define('svgxml.view.tab.FramedTabs', {
       xtype:"drawpanel",
         title:"1000"
     },
+    addDrawPanel:function(text){
+        var me=this;
+
+        var drawpanels = me.query("drawpanel");
+        for (var i = 0; i < drawpanels.length; i++) {
+            if (drawpanels[i].title == text) {
+                me.setActiveTab(drawpanels[i].id);
+                return;
+            }
+            drawpanels[i].close()
+        }
+
+        var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
+            title: text
+        })
+        //console.log(tabpanel.items)
+        me.add(drawpanel)
+        me.setActiveTab(drawpanel.id);
+
+    },
     listeners : {
       //  viewready: "viewready",
       //  render:"render"

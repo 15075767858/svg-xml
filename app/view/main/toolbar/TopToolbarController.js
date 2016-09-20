@@ -66,7 +66,9 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                             //var ojsonstr = response.responseText
 
                             var tabpanel = Ext.getCmp("frametab_drawpanel");
-                            var drawpanels = Ext.ComponentQuery.query("drawpanel");
+                            tabpanel.addDrawPanel(text)
+
+                            /*var drawpanels = Ext.ComponentQuery.query("drawpanel");
                             for (var i = 0; i < drawpanels.length; i++) {
                                 if (drawpanels[i].title == text) {
                                     tabpanel.setActiveTab(drawpanels[i].id);
@@ -80,7 +82,8 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                             })
                             //console.log(tabpanel.items)
                             tabpanel.add(drawpanel)
-                            tabpanel.setActiveTab(drawpanel.id);
+                            tabpanel.setActiveTab(drawpanel.id);*/
+
                         }
                     })
                     win.close();
@@ -133,7 +136,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     }
 
                     saveXml(text);
-                    saveGridpanelsConfigs(text);
+                    //saveGridpanelsConfigs(text);
                     win.close();
                 }
                 },
@@ -402,6 +405,8 @@ function devPublish(key, value, success) {
 }
 
 function saveXml(text) {
+    var fileName = text;
+
     panelAddCurPlantIndex()
     text = text || "1000";
     var fName = text;
@@ -421,15 +426,15 @@ function saveXml(text) {
     xmlAppendPlant(root)
     var datas = {};
     datas['fileName'] = "../" + text;
-    //root = sortNodeNumber(root)
-
-
     var lineSize = getCurrentDrawPanel().datas.datasArray.length
-
     if(lineSize==lineCount){
+        saveGridpanelsConfigs(fileName)
+
         delayToast("Save Massage","All line size is "+lineSize+",save "+lineCount+" line ");
     }else{
-        Ext.Msg.alert("Save Exception " ,"All line size is "+lineSize+",save "+lineCount+" line ");
+        Ext.Msg.alert("Save Exception " ,"All line size is "+lineSize+",save "+lineCount+" line ,The server will reload。");
+        getCurrentDrawPanel().close()
+        var tabpanel = Ext.getCmp("frametab_drawpanel").addDrawPanel(fileName)
     }
     lineCount=0;
 

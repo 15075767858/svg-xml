@@ -17,9 +17,8 @@ Ext.define('svgxml.view.main.MainController', {
   boxready:  function () {
 
     function autoSave() {
-        var fileNmae = getCurrentDrawPanel().title;
-        saveGridpanelsConfigs(fileNmae)
-        saveXml(fileNmae)
+        var fileName = getCurrentDrawPanel().title;
+        saveXml(fileName)
     }
     var runner = new Ext.util.TaskRunner();
     setTimeout(function () {

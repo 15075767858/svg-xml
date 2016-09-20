@@ -48,6 +48,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     girdviewready: function (panel, eO) {
 
         if (panel.datas.type == 67) {
+
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
                 fields: ['name', 'value'],
@@ -64,8 +65,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     }
                 }
             });
-        }
-        ;
+        };
 
 
         if (panel.datas.type == 74) {
@@ -226,23 +226,12 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             });
         }
 
-        /*if(th.datas.type==56){
-         Ext.create('Ext.data.Store', {
-         storeId:"store"+th.getId(),
-         fields: ['name', "delay","time",'value'],
-         data: [
-         {delay:"0",time:"0",'name': 'Out', 'value': "0"},
-         {delay:"0",time:"0",'name': 'In', 'value': "0"},
-         {delay:"0",time:"0",'name': 'In', 'value': "0"}
-         ]
-         });
-         }*/
 
-        //if (!panel.datas.plantId.length < 2) {
         if (!panel.datas.plantId) {
             var plant = getCurrentPlant()
             panel.datas.plantId = plant.id
         }
+
         currentDrawPanelGridPanelsTrSetId();
         var oHead = panel.getHeader().el.dom;
         oHead.onmousedown = function (e) {
