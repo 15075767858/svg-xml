@@ -107,8 +107,13 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
                                             var plant = getCurrentDrawPanelPlantByIndex(index);
                                             var gridPanels = getCurrentPlantGridPanles(plant)
+
                                             for (var i = 0; i < gridPanels.length; i++) {
-                                                console.log(gridPanels[i])
+
+                                                var resJson = getTypeGridDatas(gridPanels[i]);
+                                                ogridpanle.copyGridPanels.push(resJson);
+/*                                              console.log(gridPanels[i])
+
                                                 var config = gridPanels[i].config;
                                                 var datas = gridPanels[i].datas;
                                                 var gridPanelItems = gridPanels[i].store.data.items;
@@ -154,8 +159,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                                         }
                                                     }
                                                 })
-                                                //drawpanel.add(typegrid)
                                                 ogridpanle.copyGridPanels.push(typegrid)
+                                                */
                                             }
 
                                         }
@@ -174,27 +179,26 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                             }
                                         },
                                         handler: function () {
+                                            //var plant = getCurrentDrawPanelPlantByIndex(index);
 
-                                            var plant = getCurrentDrawPanelPlantByIndex(index);
-
-                                            console.log(plant)
+                                            var plant = getCurrentPlant()
                                             var randomNumber = Math.floor(Math.random() * 100000);
 
-                                            var drawpanel = getCurrentDrawPanel();
-                                            var gridpanels = ogridpanle.copyGridPanels;
-                                            for (var i = 0; i < gridpanels.length; i++) {
-                                                console.log(gridpanels[i])
-                                                drawpanel.add(ogridpanle.copyGridPanels[i]);
-                                                gridpanels[i].datas.plantId = plant.id;
-                                                if (plant.id == getCurrentPlant().id) {
-                                                    gridpanels[i].show();
-                                                } else {
-                                                    gridpanels[i].hide();
-                                                }
+                                            var gridpanelDatas = ogridpanle.copyGridPanels;
+
+                                            var gridpanels=[];
+
+                                            for (var i = 0; i < gridpanelDatas.length; i++) {
+
+                                                var gridPanel = createTypeGrid(gridpanelDatas[i]);
+                                                gridpanels.push(gridPanel);
+                                                gridPanel.datas.plantId = plant.id;
                                             }
+
                                             gridPanelsTrIdAddRandom(gridpanels, randomNumber);
 
                                             ogridpanle.copyGridPanels = false;
+                                            drawlines()
                                         }
                                     }
                                 ]
@@ -207,16 +211,12 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
                     ogridpanle.datas = {index: index}
                     setCurrentPlant(index)
-                    console.log(1)
                     selectPlant(getCurrentPlant())
-                    console.log(2)
 
                     //双击事件的操作
                     var ostore = grid.getStore();
-                    console.log(3)
 
                     var aItems = th.datas.data;
-                    console.log(4)
 
                     for (var i = 0; i < aItems.length; i++) {
                         if (i == index) {
@@ -226,16 +226,12 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                             aItems[i].selected = false;
                         }
                     }
-                    console.log(5)
 
                     ostore.setData(aItems)
-                    console.log(6)
 
                     grid.setStore(ostore)
-                    console.log(7)
 
                     drawlines()
-                    console.log(8)
 
                     //grid.el.dom.childNodes[0].childNodes[index].style.backgroundColor = "skyblue";
                 },
@@ -504,56 +500,44 @@ function typegridCache(th) {
     }
 
 
-    var typegrid, i, ids, trs, currentPlantId = getCurrentPlant().id;
+
     console.log(items.length)
 
-
+    var currentPlantId = getCurrentPlant().id
     for (var i = 0; i < items.length; i++) {
+        var typegrid = createTypeGrid(items[i])
 
-        createTypeGrid(items[i])
-
-    }
-
-    function createTypeGrid(items) {
-        var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);
-//        console.log(items.typegrid)
-
-        typegrid.datas = items.datas;
-
-        if (typegrid.datas.name) {
-            typegrid.setTitle(typegrid.datas.name)
-        }
-
-        typegrid.setStore(Ext.create("Ext.data.Store", {
-            data: items.store.data,
-            fields: items.store.fields
-        }))
-        isDev(typegrid, items)
-
-
-        //var startTime = new Date().getTime()
-        var ids = Ext.decode(items.typegrid.trsIds);
-
-        th.add(typegrid);
-        isLogicShowRows(typegrid)
-
+        var ids = Ext.decode(items[i].typegrid.trsIds);
         var trs = typegrid.el.dom.querySelectorAll("tr");
-
-
         for (var j = 0; j < trs.length; j++) {
             trs[j].id = ids[j];
         }
-
-
-        if (currentPlantId != items.datas.plantId) {
-            typegrid.hide()
+        if (currentPlantId != typegrid.datas.plantId) {
+            typegrid.hide();
         }
     }
+}
+function createTypeGrid(items) {
+    var drawPanel=getCurrentDrawPanel();
+    var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);
 
+    typegrid.datas = items.datas;
+
+    if (typegrid.datas.name) {
+        typegrid.setTitle(typegrid.datas.name)
+    }
+    typegrid.setStore(
+        Ext.create(getNameByType(items.datas.type), {
+            data: items.store.data,
+            //fields: items.store.fields
+        })
+    )
+    drawPanel.add(typegrid);
+    isDev(typegrid, items)
+    isLogicShowRows(typegrid)
     function isLogicShowRows(typegrid) {
         if (typegrid.datas.type == 56) {
             var columns = Ext.getCmp("win" + typegrid.id).down("grid").getColumns();
-
             for (var i = 0; i < typegrid.datas.rows; i++) {
                 columns[i].show()
             }
@@ -565,17 +549,12 @@ function typegridCache(th) {
         if (type >= 10) {
             return
         }
-        //console.log(typegrid.store)
-        //console.log(item)
         var data;
-//        console.log(item.store.data)
         if (item.store.data[2]) {
             data = slotsJson[getNameByType(type)].initData(item.store.data[2].value);
         } else {
             data = slotsJson[getNameByType(type)].initData();
-
         }
-        //      console.log(data)
         try {
             data[1].value = item.store.data[1].value;
             data[2].value = item.store.data[2].value;
@@ -584,13 +563,8 @@ function typegridCache(th) {
         typegrid.store.setData(data)
 
     }
-
-    /*console.log(datasArray)
-     console.log(Ext.decode(localStorage.getItem("datasArray")))
-     datasArray=Ext.decode(localStorage.getItem("datasArray"));*/
+    return typegrid
 }
-
-
 
 function drawlines(drawpanel) {
     var startTime = new Date().getTime()
@@ -657,7 +631,7 @@ function drawlines(drawpanel) {
 //            console.log(oElStartTop)
 //            console.log(oElEndLeft)
 //            console.log(oElEndTop)
-            var iStartLeft=0, iStartTop=0, iEndLeft=0, iEndTop=0;
+            var iStartLeft = 0, iStartTop = 0, iEndLeft = 0, iEndTop = 0;
             iStartLeft = oElStartLeft - iDrawPanelLeft + iElWidth + drawpanelScrollLeft;
             iStartTop = oElStartTop - iDrawPanelTop + iElHeight + drawpanelScrollTop;
             iEndLeft = oElEndLeft - iDrawPanelLeft + drawpanelScrollLeft;
@@ -797,7 +771,7 @@ function drawlines(drawpanel) {
                 }
             }
 
-            if(!polyline){
+            if (!polyline) {
                 continue
             }
 
@@ -835,7 +809,7 @@ function drawlines(drawpanel) {
      }*/
 
     var mainTab = Ext.getCmp("frametab_drawpanel")
-    mainTab.viewModel.set("allLine",currentDrawPanel.datas.datasArray.length);
+    mainTab.viewModel.set("allLine", currentDrawPanel.datas.datasArray.length);
 
     if (isDebug) {
         console.log("drawline" + (new Date().getTime() - startTime) + "毫秒")
@@ -854,7 +828,7 @@ My.PathNode = function (x, y) {//节点对象
     this.leftNode = null;
     this.rightNode = null;
     this.parentNode = null;
-    this.count=0;
+    this.count = 0;
     this.getLeftNodeLength = function () {
         console.log(this.leftNode)
         return Math.abs(this.x - this.leftNode.x) + Math.abs(this.y - this.leftNode.y)
@@ -1024,13 +998,13 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     console.log("kazaizhe")
     testNode.count++
     endNode.count++
-    if(testNode.count>100){
+    if (testNode.count > 100) {
         console.log(testNode)
-        return ;
+        return;
     }
-    if(endNode.count>100){
+    if (endNode.count > 100) {
         console.log(endNode)
-        return ;
+        return;
     }
 
     if (!testNode) {
@@ -1042,7 +1016,6 @@ My.getLeafPointAll = function (testNode, endNode, arr) {
     if (tn == null) {
         return;
     }
-
 
 
     if (tn.rightNode) {

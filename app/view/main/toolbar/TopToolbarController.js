@@ -69,20 +69,20 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                             tabpanel.addDrawPanel(text)
 
                             /*var drawpanels = Ext.ComponentQuery.query("drawpanel");
-                            for (var i = 0; i < drawpanels.length; i++) {
-                                if (drawpanels[i].title == text) {
-                                    tabpanel.setActiveTab(drawpanels[i].id);
-                                    return;
-                                }
-                                drawpanels[i].close()
-                            }
+                             for (var i = 0; i < drawpanels.length; i++) {
+                             if (drawpanels[i].title == text) {
+                             tabpanel.setActiveTab(drawpanels[i].id);
+                             return;
+                             }
+                             drawpanels[i].close()
+                             }
 
-                            var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
-                                title: text
-                            })
-                            //console.log(tabpanel.items)
-                            tabpanel.add(drawpanel)
-                            tabpanel.setActiveTab(drawpanel.id);*/
+                             var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
+                             title: text
+                             })
+                             //console.log(tabpanel.items)
+                             tabpanel.add(drawpanel)
+                             tabpanel.setActiveTab(drawpanel.id);*/
 
                         }
                     })
@@ -272,10 +272,10 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                 xtype: "grid",
                 width: "100%",
                 region: 'center',
-                /*selModel: {
-                 mode: "SIMPLE",
-                 selType: 'checkboxmodel'
-                 },*/
+                selModel: {
+                    mode: "SIMPLE",
+                    selType: 'checkboxmodel'
+                },
                 store: Ext.create("Ext.data.Store", {
                     fields: ["name", "lasttime", "size", "filetype"],
                     proxy: {
@@ -322,38 +322,47 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     }
                 }
             }
-            /*,
-             buttons: [{
-             text: 'Select Path',
-             handler: function () {
+            ,
+            buttons: [{
+                text: 'Select Path',
+                handler: function () {
 
-             var grid = this.up("window").down("grid")
-             var records = grid.getSelection();
-             console.log(records);
-             var fileNames = "";
-             if (records.length == 0) {
-             Ext.Msg.alert('Status', 'Select a file please.');
-             return;
-             }
-             Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
-             for (var i = 0; i < records.length; i++) {
-             Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
-             fileNames += records[i].data.name + ",";
-             }
+                    var grid = this.up("window").down("grid")
+                    var records = grid.getSelection();
+                    console.log(records);
+                    var fileNames = "";
+                    if (records.length == 0) {
+                        Ext.Msg.alert('Status', 'Select a file please.');
+                        return;
+                    }
+                    Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
+                    for (var i = 0; i < records.length; i++) {
+                        Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
+                        fileNames += "devsinfo/"+records[i].data.name + " ";
+                    }
 
-             setTimeout(function () {
-             Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
+                    console.log(fileNames)
 
-             setTimeout(function () {
-             location.href="resources/devsinfo/"+records[0].data.name
-             //location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
-             Ext.MessageBox.close();
-             win.close();
-             }, 500)
-             }, 1000)
+                    setTimeout(function () {
 
-             }
-             }]*/
+                        Ext.MessageBox.updateProgress(1 / 1, 'The server is preparing for the ' + (records.length ));
+                        setTimeout(function () {
+                            myAjax("resources/test1.php", function () {
+                                location.href = "resources/pragramBackup.tar.gz";
+                                //myAjax("resources/pragramBackup.tar.gz")
+                            }, {
+                                par: "system",
+                                command: "tar czvf pragramBackup.tar.gz "+ fileNames
+                            })
+                            //location.href = "resources/devsinfo/" + records[0].data.name
+                            //location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
+                            Ext.MessageBox.close();
+                            win.close();
+                        }, 500)
+                    }, 1000)
+
+                }
+            }]
         })
     }
 });
@@ -427,16 +436,16 @@ function saveXml(text) {
     var datas = {};
     datas['fileName'] = "../" + text;
     var lineSize = getCurrentDrawPanel().datas.datasArray.length
-    if(lineSize==lineCount){
+    if (lineSize == lineCount) {
         saveGridpanelsConfigs(fileName)
 
-        delayToast("Save Massage","All line size is "+lineSize+",save "+lineCount+" line ");
-    }else{
-        Ext.Msg.alert("Save Exception " ,"All line size is "+lineSize+",save "+lineCount+" line ,The server will reload。");
+        delayToast("Save Massage", "All line size is " + lineSize + ",save " + lineCount + " line ");
+    } else {
+        Ext.Msg.alert("Save Exception ", "All line size is " + lineSize + ",save " + lineCount + " line ,The server will reload。");
         getCurrentDrawPanel().close()
         var tabpanel = Ext.getCmp("frametab_drawpanel").addDrawPanel(fileName)
     }
-    lineCount=0;
+    lineCount = 0;
 
     changeKey(root, text);
     if (isDebug) {
@@ -606,7 +615,7 @@ function panelAddCurPlantIndex() {
     }
 
 }
-var lineCount=0
+var lineCount = 0
 function get_A_Master_node(gridpanel) {
     var masterNode = $(document.createElement("master_node"));
     var iType = gridpanel.datas.type;
@@ -660,7 +669,7 @@ function get_A_Master_node(gridpanel) {
 
 
         if (gridpanel.datas.type == "79" & i > 2) {
-            slots=$("<slots number='0'></slots>");
+            slots = $("<slots number='0'></slots>");
             slots.append($("<node>0</node>"));
             slots.append($("<slot_number>0</slot_number>"));
 

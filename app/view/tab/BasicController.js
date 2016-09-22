@@ -69,7 +69,6 @@ Ext.define('svgxml.view.tab.BasicController', {
                     }
                 })
 
-
                 var panel = Ext.getCmp(id).add(typeGrid);
             }
 
@@ -86,6 +85,7 @@ Ext.define('svgxml.view.tab.BasicController', {
     }
 });
 
+
 var oproxy = {
     type: 'memory',
     reader: {
@@ -93,6 +93,7 @@ var oproxy = {
         rootProperty: 'items'
     }
 }
+
 
 Ext.define('AI', {
     extend: "Ext.data.Store",

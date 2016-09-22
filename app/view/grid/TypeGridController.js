@@ -65,7 +65,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     }
                 }
             });
-        };
+        }
+        ;
 
 
         if (panel.datas.type == 74) {
@@ -238,7 +239,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
             //console.log(e)
             //panel.data = {x: ( e.x - e.layerX), y: (e.y - e.layerY)}
-            panel.data = {x: panel.getX(), y:panel.getY()}
+            panel.data = {x: panel.getX(), y: panel.getY()}
         }
         oHead.oncontextmenu = function (e) {
 
@@ -279,41 +280,41 @@ Ext.define('svgxml.view.grid.TypeGridController', {
 
     girdmove: function (t, x, y, eOpts) {
 
-       var grids =  getCurrentPlantGridPanles(getCurrentPlant())
-        var isColls2=false;
-        for(var i=0;i<grids.length;i++){
-            if(t.id==grids[i].id){
+        var grids = getCurrentPlantGridPanles(getCurrentPlant())
+        var isColls2 = false;
+        for (var i = 0; i < grids.length; i++) {
+            if (t.id == grids[i].id) {
                 continue
             }
-            var  isColls = isCollsionWithRect(t,grids[i]);
-            if(isColls){
-                isColls2=true
+            var isColls = isCollsionWithRect(t, grids[i]);
+            if (isColls) {
+                isColls2 = true
                 //t.setX(t.data.x)
                 //t.setY(t.data.y)
                 //t.x= t.data.x
                 //t.y= t.data.y
-                t.setPagePosition(t.data.x+=5, t.data.y+=5, false)
+                t.setPagePosition(t.data.x += 5, t.data.y += 5, false)
             }
         }
-        if(!isColls2){
-        drawlines();
+        if (!isColls2) {
+            drawlines();
         }
         if ((x < 0 || y < 0) & !t.getActiveAnimation()) {
-            t.setPagePosition(t.data.x+=5, t.data.y+=5, false)
+            t.setPagePosition(t.data.x += 5, t.data.y += 5, false)
             //t.setX(t.data.x)
             //t.setY(t.data.y)
-           // t.x= t.data.x
-           // t.y= t.data.y
+            // t.x= t.data.x
+            // t.y= t.data.y
         }
-       function isCollsionWithRect(data1,data2) {
-           var x1=data1.getX();
-           var y1=data1.getY();
-           var w1=data1.getWidth();
-           var h1=data1.getHeight();
-           var x2=data2.getX()-My.JIANGE*3;
-           var y2=data2.getY()-My.JIANGE*3;
-           var w2=data2.getWidth()+My.JIANGE*3*2;
-           var h2=data2.getHeight()+My.JIANGE*3*2;
+        function isCollsionWithRect(data1, data2) {
+            var x1 = data1.getX();
+            var y1 = data1.getY();
+            var w1 = data1.getWidth();
+            var h1 = data1.getHeight();
+            var x2 = data2.getX() - My.JIANGE * 3;
+            var y2 = data2.getY() - My.JIANGE * 3;
+            var w2 = data2.getWidth() + My.JIANGE * 3 * 2;
+            var h2 = data2.getHeight() + My.JIANGE * 3 * 2;
 
             if (x1 >= x2 && x1 >= x2 + w2) {
                 return false;
@@ -375,16 +376,17 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             valueField: 'name'
                         });
                     } else {
-                        if(gridPanel.datas.type=='79'&index==2){
-                            th.down("form").add({xtype: "combo",
+                        if (gridPanel.datas.type == '79' & index == 2) {
+                            th.down("form").add({
+                                xtype: "combo",
                                 name: "value",
                                 fieldLabel: "value",
                                 editable: false,
-                                store:[1,2,3,4,5,6,7,8],
-                                listeners:{
-                                    change:function(field,newValue,oldValue){
-                                        if(newValue>gridPanel.store.getCount()-3){
-                                            Ext.Msg.alert("Massage","Value cannot be greater than "+(gridPanel.store.getCount()-3))
+                                store: [1, 2, 3, 4, 5, 6, 7, 8],
+                                listeners: {
+                                    change: function (field, newValue, oldValue) {
+                                        if (newValue > gridPanel.store.getCount() - 3) {
+                                            Ext.Msg.alert("Massage", "Value cannot be greater than " + (gridPanel.store.getCount() - 3))
                                             field.setValue(oldValue)
                                         }
 
@@ -393,16 +395,17 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                             });
                             return;
                         }
-                        if(gridPanel.datas.type=='73'&index==1){
-                            th.down("form").add({xtype: "combo",
+                        if (gridPanel.datas.type == '73' & index == 1) {
+                            th.down("form").add({
+                                xtype: "combo",
                                 name: "value",
                                 fieldLabel: "value",
                                 editable: false,
-                                store:[1,2,3,4,5,6,7,8],
-                                listeners:{
-                                    change:function(field,newValue,oldValue){
-                                        if(newValue>gridPanel.store.getCount()-2){
-                                            Ext.Msg.alert("Massage","Value cannot be greater than "+(gridPanel.store.getCount()-3))
+                                store: [1, 2, 3, 4, 5, 6, 7, 8],
+                                listeners: {
+                                    change: function (field, newValue, oldValue) {
+                                        if (newValue > gridPanel.store.getCount() - 2) {
+                                            Ext.Msg.alert("Massage", "Value cannot be greater than " + (gridPanel.store.getCount() - 3))
                                             field.setValue(oldValue)
                                         }
 
@@ -604,46 +607,90 @@ function generateTrId() {
     return id;
 }
 
-function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
+
+/*function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
+
     var drawpanel = getCurrentDrawPanel()
+
     var datasArray = drawpanel.datas.datasArray
     console.log(datasArray);
-    var newDatasArray = []
+    var newDatasArray = [];
+
     for (var i = 0; i < datasArray.length; i++) {
         var ojson = {};
-        for (okey in datasArray[i]) {
-            var skey = idAddNumber(okey, randomnumber)
-            console.log(okey)
-            var svalue = idAddNumber(datasArray[i][okey], randomnumber)
-            ojson[skey] = svalue
-            console.log(ojson)
+        for (var okey in datasArray[i]) {
+            var skey = idAddNumber(okey, randomnumber);
+            var svalue = idAddNumber(datasArray[i][okey], randomnumber);
+            ojson[skey] = svalue;
         }
+
         newDatasArray.push(ojson)
+
         newDatasArray.push(datasArray[i])
     }
+
+
     for (var i = 0; i < aGridPanels.length; i++) {
         console.log(aGridPanels[i])
+
         var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
-        var aCloneRowsAll = aGridPanels[i].cloneGridpanel.el.dom.querySelectorAll("tr");
+        var aCloneRowsAll = Ext.decode(aGridPanels[i].trsIds);
+        console.log(aCloneRowsAll)
         for (var j = 0; j < aRowsAll.length; j++) {
             var sid = aCloneRowsAll[j].id;
-
             if (sid) {
-                //console.log(sid)
-                //console.log(randomnumber)
-                //console.log("t"+(parseInt(sid.substr(1,sid.length))+randomnumber))
+
                 aRowsAll[j].id = idAddNumber(sid, randomnumber)
-                //aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
+
             }
         }
     }
     drawpanel.datas.datasArray = newDatasArray;
-    console.log(drawpanel.datas.datasArray);
     function idAddNumber(sid, randomnumber) {
         return "t" + (parseInt(sid.substr(1, sid.length)) + randomnumber);
     }
-}
+}*/
+function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
+    var drawpanel = getCurrentDrawPanel()
 
+    var datasArray = Ext.decode(Ext.encode(drawpanel.datas.datasArray));
+    for (var i = 0; i < datasArray.length; i++) {
+
+        var ojson = datasArray[i];
+        for (var key in ojson) {
+
+            var skey = idAddNumber(key, randomnumber);
+            var svalue = idAddNumber(ojson[key], randomnumber);
+            ojson[skey] = svalue;
+        }
+    }
+
+    for (var i = 0; i < aGridPanels.length; i++) {
+        console.log(aGridPanels[i])
+
+        var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
+        var aCloneRowsAll = Ext.decode(aGridPanels[i].trsIds);
+        console.log(aCloneRowsAll)
+
+        for (var j = 0; j < aRowsAll.length; j++) {
+            console.log(j)
+            var sid = aCloneRowsAll[j];
+            console.log(sid)
+
+                aRowsAll[j].id = idAddNumber(sid, randomnumber)
+                console.log(aRowsAll[j])
+
+        }
+    }
+
+    drawpanel.datas.datasArray = drawpanel.datas.datasArray.concat(datasArray)
+    console.log(drawpanel.datas.datasArray)
+
+    function idAddNumber(sid, randomnumber) {
+        return "t" + (parseInt(sid.substr(1, sid.length)) + randomnumber);
+    }
+
+}
 function removeTemp() {
     d3.select("#tempCircle").remove()
     d3.select("#tempLineEnd").remove()
@@ -692,7 +739,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
     var eItemHeight = eItem.getTop() - iDrawPanelTop + eItem.getHeight() / 2 + drawpanelScrollTop;
 
     //var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
-    var girdPanel=th.up()
+    var girdPanel = th.up()
     console.log(girdPanel)
     var aRowsAll = getCanLinesRowsAll(girdPanel)
 
@@ -712,7 +759,7 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         for (var i = 0; i < typegrids.length; i++) {
             var rows = typegrids[i].el.dom.querySelectorAll(".x-grid-row")
             for (var j = 0; j < rows.length; j++) {
-                if(typegrids[i].datas.type=="79"&j>2){
+                if (typegrids[i].datas.type == "79" & j > 2) {
                     continue;
                 }
                 aRowsAll.push(rows[j])

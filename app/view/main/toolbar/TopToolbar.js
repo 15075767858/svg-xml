@@ -137,7 +137,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                                 url: 'resources/test1.php?par=updateProgram',
                                                 method: "POST",
                                                 metadata: {"enctype": "multipart/form-data"},
-                                                Massage:function(form, action){
+                                                Massage: function (form, action) {
                                                     if (action.response.responseText.indexOf("Error") >= 0) {
                                                         Ext.Msg.alert("Exception", "auto update failure , Please use manual installation package update 。 ");
                                                         return;
@@ -156,10 +156,10 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                                     });
                                                 },
                                                 success: function (form, action) {
-                                                    this.Massage(form,action)
+                                                    this.Massage(form, action)
                                                 },
                                                 failure: function (form, action) {
-                                                    this.Massage(form,action)
+                                                    this.Massage(form, action)
                                                 }
                                             });
 
@@ -179,7 +179,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.95  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.97  ');
                             }
                         }
                     ]
@@ -197,12 +197,18 @@ function saveGridpanelsConfigs(fileName) {
         fileName = "../1000.json";
     }
     var drawpanel = getCurrentDrawPanel();
+
+
     var gridpanels = getCurrentDrawPanelGirdPanels();
     var aGridPanels = [];
     for (var i = 0; i < gridpanels.length; i++) {
-        var typeGridConfig = getGridPanelConfig(gridpanels[i]);
+    /*    var typeGridConfig = getGridPanelConfig(gridpanels[i]);
+
+
         var storeConfig = getStoreConfig(gridpanels[i]);
+
         var datas = gridpanels[i].datas;
+
         if (gridpanels[i].datas.type == 56) {
             var columns = Ext.getCmp("win" + gridpanels[i].id).down("grid").getColumns();
             for (var j = 0; j < columns.length; j++) {
@@ -214,24 +220,10 @@ function saveGridpanelsConfigs(fileName) {
             }
         }
         aGridPanels.push({typegrid: typeGridConfig, store: storeConfig, datas: datas});
+*/
+        var resJson = getTypeGridDatas(gridpanels[i]);
+        aGridPanels.push(resJson);
     }
-    /*var datasArray = drawpanel.datas.datasArray
-     var datasArrayStr='"[';
-     for(var i=0;i<datasArray.length;i++){
-     for(var skey in datasArray[i]){
-     var key = "t"+parseInt((skey).substr(1,skey.length)-1);
-     var value="t"+parseInt((datasArray[i][skey]).substr(1,datasArray[i][skey].length)-1);
-     console.log(datasArray[i])
-     console.log(key+"  "+value)
-     if(i!=datasArray.length-1){
-     datasArrayStr+='{\"'+key+'\":\"'+value+'\"},';
-     }else{
-     datasArrayStr+='{\"'+key+'\":\"'+value+'\"}';
-     }
-     }
-     }
-     datasArrayStr+=']"';
-     console.log(datasArrayStr)*/
 
     var oJson = {
         //datasArray:datasArrayStr,
@@ -268,6 +260,25 @@ function getGridPanelRowsIds(gridpanel) {
     return ids;
 }
 
+function getTypeGridDatas(typegrid) {
+    var typeGridConfig = getGridPanelConfig(typegrid);
+    var storeConfig=getStoreConfig(typegrid);
+    var datas=typegrid.datas;
+    typeGridConfig =Ext.decode(Ext.encode(typeGridConfig))
+    storeConfig =Ext.decode(Ext.encode(storeConfig))
+    datas =Ext.decode(Ext.encode(datas))
+    if (typegrid.datas.type == 56) {
+        var columns = Ext.getCmp("win" + typegrid.id).down("grid").getColumns();
+        for (var j = 0; j < columns.length; j++) {
+            if (columns[j].hidden) {
+                datas.rows = j;
+                break;
+            }
+            datas.rows = 10;
+        }
+    }
+    return {typegrid: typeGridConfig, store: storeConfig, datas: datas};
+}
 function getGridPanelConfig(gridpanel) {
     var config = gridpanel.getConfig()
     //console.log(gridpanel)
@@ -313,12 +324,12 @@ function getStoreConfig(gridpanel) {
     var fields = getStoreFields(store);
     return {data: data, fields: fields}
 }
-function getStoreDatas(store){
-    var items =  store.data.items;
-    var arr=[];
-    var ojson={};
-    for(var i=0;i<items.length;i++){
-        arr[i]={name:items[i].data.name,value:items[i].data.value};
+function getStoreDatas(store) {
+    var items = store.data.items;
+    var arr = [];
+    var ojson = {};
+    for (var i = 0; i < items.length; i++) {
+        arr[i] = {name: items[i].data.name, value: items[i].data.value};
     }
     return arr;
 }
@@ -329,4 +340,21 @@ function getStoreFields(store) {
     }
     return fields;
 }
+/*var datasArray = drawpanel.datas.datasArray
+ var datasArrayStr='"[';
+ for(var i=0;i<datasArray.length;i++){
+ for(var skey in datasArray[i]){
+ var key = "t"+parseInt((skey).substr(1,skey.length)-1);
+ var value="t"+parseInt((datasArray[i][skey]).substr(1,datasArray[i][skey].length)-1);
+ console.log(datasArray[i])
+ console.log(key+"  "+value)
+ if(i!=datasArray.length-1){
+ datasArrayStr+='{\"'+key+'\":\"'+value+'\"},';
+ }else{
+ datasArrayStr+='{\"'+key+'\":\"'+value+'\"}';
+ }
+ }
+ }
+ datasArrayStr+=']"';
+ console.log(datasArrayStr)*/
 

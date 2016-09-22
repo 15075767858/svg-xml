@@ -1763,6 +1763,13 @@ function getNameByType(type) {
     if (type == 5) {
         return "BV"
     }
+    if(type>=10){
+        for(var data in slotsJson){
+            if(slotsJson[data].type==type){
+                return data
+            }
+        }
+    }
     return null;
 }
 
