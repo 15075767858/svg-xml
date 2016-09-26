@@ -575,24 +575,34 @@ function isPidMenu(girdpanel, menu) {
 
 
 function currentDrawPanelGridPanelsTrSetId() {
-    var aGridPanels = getCurrentDrawPanelGirdPanels();
+    //var aGridPanels = getCurrentDrawPanelGirdPanels();
+    var aGridPanels = getCurrentDrawPanel().items.items;
     for (var i = 0; i < aGridPanels.length; i++) {
         var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
 
         for (var j = 0; j < aRowsAll.length; j++) {
-            //console.log("1"+aRowsAll[j].id+"1")
-            //console.log(aRowsAll[j].length)
             var trId = $.trim(aRowsAll[j].id);
             if (trId.length == 0 || trId == undefined || trId == "undefined" || trId.substr(0, 1) != "t") {
-                //console.log(aRowsAll[j].id)
-                //console.log(aRowsAll[j].id.length)
-                //alert(aRowsAll[j].id)
-                //aRowsAll[j].id = "t" + Math.floor(Math.random() * 10000000000);
+
                 var id = generateTrId();
-//                console.log(id)
-                aRowsAll[j].id = id
+                //aRowsAll[j].id = id
+                datasArrayChangeId(aRowsAll[j].id, id)
+
+                Ext.get(aRowsAll[j]).setId(id)
+
+
             }
         }
+    }
+}
+
+function datasArrayChangeId(oldId, newId) {
+    if (oldId.length > 0 & newId.length > 0) {
+        var drawPanel = getCurrentDrawPanel()
+        var arr = drawPanel.datas.datasArray
+        var str = Ext.encode(arr);
+        str = str.replaceAll(oldId, newId);
+        drawPanel.datas.datasArray = Ext.decode(str)
     }
 }
 
@@ -610,46 +620,46 @@ function generateTrId() {
 
 /*function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
 
-    var drawpanel = getCurrentDrawPanel()
+ var drawpanel = getCurrentDrawPanel()
 
-    var datasArray = drawpanel.datas.datasArray
-    console.log(datasArray);
-    var newDatasArray = [];
+ var datasArray = drawpanel.datas.datasArray
+ console.log(datasArray);
+ var newDatasArray = [];
 
-    for (var i = 0; i < datasArray.length; i++) {
-        var ojson = {};
-        for (var okey in datasArray[i]) {
-            var skey = idAddNumber(okey, randomnumber);
-            var svalue = idAddNumber(datasArray[i][okey], randomnumber);
-            ojson[skey] = svalue;
-        }
+ for (var i = 0; i < datasArray.length; i++) {
+ var ojson = {};
+ for (var okey in datasArray[i]) {
+ var skey = idAddNumber(okey, randomnumber);
+ var svalue = idAddNumber(datasArray[i][okey], randomnumber);
+ ojson[skey] = svalue;
+ }
 
-        newDatasArray.push(ojson)
+ newDatasArray.push(ojson)
 
-        newDatasArray.push(datasArray[i])
-    }
+ newDatasArray.push(datasArray[i])
+ }
 
 
-    for (var i = 0; i < aGridPanels.length; i++) {
-        console.log(aGridPanels[i])
+ for (var i = 0; i < aGridPanels.length; i++) {
+ console.log(aGridPanels[i])
 
-        var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
-        var aCloneRowsAll = Ext.decode(aGridPanels[i].trsIds);
-        console.log(aCloneRowsAll)
-        for (var j = 0; j < aRowsAll.length; j++) {
-            var sid = aCloneRowsAll[j].id;
-            if (sid) {
+ var aRowsAll = aGridPanels[i].el.dom.querySelectorAll("tr");
+ var aCloneRowsAll = Ext.decode(aGridPanels[i].trsIds);
+ console.log(aCloneRowsAll)
+ for (var j = 0; j < aRowsAll.length; j++) {
+ var sid = aCloneRowsAll[j].id;
+ if (sid) {
 
-                aRowsAll[j].id = idAddNumber(sid, randomnumber)
+ aRowsAll[j].id = idAddNumber(sid, randomnumber)
 
-            }
-        }
-    }
-    drawpanel.datas.datasArray = newDatasArray;
-    function idAddNumber(sid, randomnumber) {
-        return "t" + (parseInt(sid.substr(1, sid.length)) + randomnumber);
-    }
-}*/
+ }
+ }
+ }
+ drawpanel.datas.datasArray = newDatasArray;
+ function idAddNumber(sid, randomnumber) {
+ return "t" + (parseInt(sid.substr(1, sid.length)) + randomnumber);
+ }
+ }*/
 function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
     var drawpanel = getCurrentDrawPanel()
 
@@ -677,8 +687,8 @@ function gridPanelsTrIdAddRandom(aGridPanels, randomnumber) {
             var sid = aCloneRowsAll[j];
             console.log(sid)
 
-                aRowsAll[j].id = idAddNumber(sid, randomnumber)
-                console.log(aRowsAll[j])
+            aRowsAll[j].id = idAddNumber(sid, randomnumber)
+            console.log(aRowsAll[j])
 
         }
     }
@@ -740,7 +750,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
 
     //var aRowsAll = thi.el.dom.querySelectorAll(".x-grid-row");
     var girdPanel = th.up()
-    console.log(girdPanel)
     var aRowsAll = getCanLinesRowsAll(girdPanel)
 
     function getCanLinesRowsAll(gridpanel) {
@@ -780,7 +789,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
         var _this = d3.select(this);
 
         for (var i = 0; i < aRowsAll.length; i++) {
-            console.log(aRowsAll[i])
             //console.log(aRowsAll[i].id)
             var left = drawpanelScrollLeft + Ext.get(aRowsAll[i]).getLeft() - iDrawPanelLeft - 10;
 

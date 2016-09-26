@@ -112,55 +112,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
                                                 var resJson = getTypeGridDatas(gridPanels[i]);
                                                 ogridpanle.copyGridPanels.push(resJson);
-/*                                              console.log(gridPanels[i])
 
-                                                var config = gridPanels[i].config;
-                                                var datas = gridPanels[i].datas;
-                                                var gridPanelItems = gridPanels[i].store.data.items;
 
-                                                var storeData = getStoreData(gridPanelItems);
-
-                                                var ostore = Ext.create("Ext.data.Store", {
-                                                    fields: ["name", "value"],
-                                                    data: storeData
-                                                })
-
-                                                var typegrid = Ext.create("svgxml.view.grid.TypeGrid", {
-                                                    title: config.title,
-                                                    store: ostore,
-                                                    x: Ext.getBody().getWidth() / 2,
-                                                    y: Ext.getBody().getHeight() / 2,
-                                                    x1: gridPanels[i].x,
-                                                    y1: gridPanels[i].y,
-                                                    isAni: true,
-                                                    icon: config.icon,
-                                                    cloneGridpanel: gridPanels[i],
-                                                    listeners: {
-                                                        add: function () {
-                                                            setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
-                                                        },
-                                                        boxready: function () {
-                                                            var me = this;
-                                                            me.setPosition(this.x1, this.y1, true);
-                                                            setTimeout(function () {
-                                                                delete me.isAni;
-                                                                drawlines(drawpanel)
-                                                            }, 3000)
-                                                        },
-                                                        render: function (thi) {
-                                                            thi.datas = {
-                                                                isAddSlot: datas.isAddSlot,
-                                                                //plantId: "",
-                                                                plantId: datas.plantId,
-                                                                type: datas.type,
-                                                                value: datas.value
-                                                            };
-                                                            //console.log(thi.getStore().data);
-                                                        }
-                                                    }
-                                                })
-                                                ogridpanle.copyGridPanels.push(typegrid)
-                                                */
                                             }
 
                                         }
@@ -510,13 +463,16 @@ function typegridCache(th) {
         var ids = Ext.decode(items[i].typegrid.trsIds);
         var trs = typegrid.el.dom.querySelectorAll("tr");
         for (var j = 0; j < trs.length; j++) {
+
             trs[j].id = ids[j];
         }
         if (currentPlantId != typegrid.datas.plantId) {
             typegrid.hide();
         }
     }
+
 }
+
 function createTypeGrid(items) {
     var drawPanel=getCurrentDrawPanel();
     var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);

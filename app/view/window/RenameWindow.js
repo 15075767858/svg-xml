@@ -23,8 +23,10 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var sDevName = me.text.substring(0, me.text.indexOf('.'));
         me.title = sDevName;
         me.sDevName = sDevName;
-        var items = []
+ //       var items = []
         me.items = []
+
+
 
         Ext.Ajax.request({
             async: false,
@@ -92,7 +94,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                         bodyPadding: 10,
                         items: fieldsItems
                     })
-                    items.push(formPanel)
+//                    items.push(formPanel)
                     me.items.push(formPanel)
                 }
 
@@ -104,8 +106,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         });
 
 
-        console.log(items)
-        me.items = items;
+//        me.items = items;
 
     },
     databaseSources: function () {

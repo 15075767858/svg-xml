@@ -253,6 +253,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
         })
     },
     backupClick: function () {
+
         /* var fileNames = getDevInfoFileNames()
 
          var namesJsonArr = [];
@@ -260,12 +261,15 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
          namesJsonArr.push({name: fileNames[i]})
          }*/
 
+
         var win = Ext.create("Ext.window.Window", {
             title: "Backup •••",
             frame: true,
             width: 800,
             height: 600,
+
             //bodyPadding: 10,
+
             autoShow: true,
             layout: "border",
             items: {
@@ -314,6 +318,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                             }
                         }, 1000)
                     },
+
                     select: function () {
                         console.log(arguments)
                     },
@@ -338,7 +343,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                     Ext.MessageBox.progress('please wait', {msg: 'Server Ready ...'});
                     for (var i = 0; i < records.length; i++) {
                         Ext.MessageBox.updateProgress(i + 1 / records.length + 1, 'The server is preparing for the ' + (i + 1));
-                        fileNames += "devsinfo/"+records[i].data.name + " ";
+                        fileNames += "devsinfo/" + records[i].data.name + " ";
                     }
 
                     console.log(fileNames)
@@ -352,7 +357,7 @@ Ext.define('svgxml.view.main.toolbar.TopToolbarController', {
                                 //myAjax("resources/pragramBackup.tar.gz")
                             }, {
                                 par: "system",
-                                command: "tar czvf pragramBackup.tar.gz "+ fileNames
+                                command: "tar czvf pragramBackup.tar.gz " + fileNames
                             })
                             //location.href = "resources/devsinfo/" + records[0].data.name
                             //location.href = "resources/FileUD.php?par=downfile&filenames=" + fileNames.substr(0, fileNames.length - 1);
@@ -437,6 +442,7 @@ function saveXml(text) {
     datas['fileName'] = "../" + text;
     var lineSize = getCurrentDrawPanel().datas.datasArray.length
     if (lineSize == lineCount) {
+
         saveGridpanelsConfigs(fileName)
 
         delayToast("Save Massage", "All line size is " + lineSize + ",save " + lineCount + " line ");
@@ -452,6 +458,7 @@ function saveXml(text) {
         console.log(root)
         console.log(root[0].outerHTML)
     }
+
     datas['content'] = formatXml(replacePID(sXmlNameSpace + root[0].outerHTML));
     //console.log($.parseXML(formatXml(sXmlNameSpace + root[0].outerHTML)).toXMLString())
     function replacePID(text) {
@@ -590,10 +597,12 @@ function plantAppendMasterNode(plant, plantId) {
         //if (aGridpanels[i].datas.plantId == panels[index].id) {
         if (aGridpanels[i].datas.plantId == plantId) {
             plant.append(get_A_Master_node(aGridpanels[i]));
+
             //aGridpanels[i].curPlantIndex = panelCount;
             //console.info(aGridpanels[i]);
             //console.info(panelCount);
             //panelCount++;
+
         }
     }
 }
@@ -615,23 +624,25 @@ function panelAddCurPlantIndex() {
     }
 
 }
-var lineCount = 0
+
+var lineCount = 0;
+
 function get_A_Master_node(gridpanel) {
     var masterNode = $(document.createElement("master_node"));
     var iType = gridpanel.datas.type;
     masterNode.attr("number", gridpanel.curPlantIndex);
     masterNode.append("<type>" + iType + "</type>");
-//    console.log(gridpanel)
     isPidSave(gridpanel, masterNode);
     isSCFMSave(gridpanel, masterNode);
-    //console.log(gridpanel)
     var gridPanelItems = gridpanel.store.data.items;
-    //console.log(gridPanelItems)
     gridPanelItems = isModelFilter(gridPanelItems, masterNode, gridpanel);
     gridPanelItems = isKeyFilter(gridPanelItems, masterNode, gridpanel);
+
     var startIndex = 0;
+
     for (var i = 0; i < gridPanelItems.length; i++) {
         //  console.log(gridPanelItems[i]);
+
         if (gridPanelItems[i].data["name"] == "Out") {
             continue;
         }
@@ -641,6 +652,7 @@ function get_A_Master_node(gridpanel) {
         if (gridPanelItems[i].data["name"] == "mode") {
             continue;
         }
+
         //console.log(gridPanelItems[i])
         startIndex++;
         var name = gridPanelItems[i].data["name"];
@@ -658,12 +670,15 @@ function get_A_Master_node(gridpanel) {
         var slots = $("<slots number='" + startIndex + "'></slots>");
         var aGirdPanelIII = getStartGridPanelIndexAndItemIndex(gridpanel, i);//判断当前tr上的id是否有相应的线，有的话返回起点的坐标
         if (!aGirdPanelIII[0] && !aGirdPanelIII[1]) {
+
             slots.append("<default>" + value + "</default>")
+
         } else {
 
             slots.append($("<node>" + aGirdPanelIII[0] + "</node>"));
             slots.append($("<slot_number>" + aGirdPanelIII[1] + "</slot_number>"));
-            lineCount++
+
+            lineCount++;
 
         }
 

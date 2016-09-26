@@ -75,7 +75,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                                     icon: Ext.Msg.INFO,
                                     fn: function (btn) {
                                         if (btn === 'yes') {
-                                            location.href = "../index.html";
+                                            location.href = "../default.html";
                                         } else if (btn === 'no') {
 
                                         } else {
@@ -179,7 +179,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.97  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 1.98  ');
                             }
                         }
                     ]
