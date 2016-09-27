@@ -272,6 +272,8 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
                                                         aGirdPanels[j].hide()
                                                     }
                                                 }
+                                                drawlines()
+
                                                 delayToast("Massage", "Remove current plant successfully .")
                                             } else if (btn === 'no') {
 

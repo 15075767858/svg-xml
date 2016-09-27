@@ -216,3 +216,122 @@ window.requestAnimFrame = (function () {
             return window.setTimeout(callback, 1000 / 60);
         };
 })();
+
+
+
+function devsSplitType(datas) {
+    var AI = {
+        name: 'AI',
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+    var AO = {
+        name: 'AO',
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+    var AV = {
+        name: 'AV',
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+    var BI = {
+        name: 'BI',
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+    var BO = {
+        name: 'BO',
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+    var BV = {
+        name: 'BV',
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+    var SCHEDULE = {
+        name: "SCHEDULE",
+        count: 0,
+        devs: "",
+        keys:[]
+    }
+
+
+    datas.find(function (data, index, all) {
+        if (data.key.substr(4, 1) == 0) {
+            AI.count++;
+            AI.devs += data.Object_Name + ""
+            AI.keys.push(data)
+        }
+    })
+
+    datas.find(function (data, index, all) {
+        if (data.key.substr(4, 1) == 1) {
+            AO.count++;
+            AO.devs += data.Object_Name + ""
+            AO.keys.push(data)
+        }
+    })
+    datas.find(function (data, index, all) {
+
+        if (data.key.substr(4, 1) == 2) {
+            AV.count++;
+            AV.devs += data.Object_Name + ""
+            AV.keys.push(data)
+        }
+
+    })
+    datas.find(function (data, index, all) {
+
+        if (data.key.substr(4, 1) == 3) {
+            BI.count++;
+            BI.devs += data.Object_Name + ""
+            BI.keys.push(data)
+        }
+
+    })
+    datas.find(function (data, index, all) {
+
+        if (data.key.substr(4, 1) == 4) {
+            BO.count++;
+            BO.devs += data.Object_Name + ""
+            BO.keys.push(data)
+        }
+
+    })
+    datas.find(function (data, index, all) {
+        if (data.key.substr(4, 1) == 5) {
+            BV.count++;
+            BV.devs += data.Object_Name + ""
+            BV.keys.push(data)
+        }
+    })
+
+    datas.find(function (data, index, all) {
+        if (data.key.substr(4, 1) == 6) {
+            SCHEDULE.count++;
+            SCHEDULE.devs += data['Object_Name'] + "";
+            SCHEDULE.keys.push(data)
+        }
+    })
+
+    var arr = []
+
+    arr.push(SCHEDULE)
+    arr.push(BV)
+    arr.push(BO)
+    arr.push(BI)
+    arr.push(AV)
+    arr.push(AO)
+    arr.push(AI)
+    console.log(arr)
+    return arr;
+
+}

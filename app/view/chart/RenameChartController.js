@@ -27,9 +27,10 @@ Ext.define('svgxml.view.chart.RenameChartController', {
         var chart = this.lookupReference('chart');
         chart.preview();
     },
-    deleteType:function(button){
+    deleteType: function (button) {
         var cartesian = this.view.down("cartesian")
         var model = cartesian.getStore().getAt(button.devType)
+        console.log(model)
         var win = Ext.create('Ext.window.Window', {
             title: 'Delete •••',
             frame: true,
@@ -46,11 +47,14 @@ Ext.define('svgxml.view.chart.RenameChartController', {
                     xtype: "combobox",
                     allowBlank: false,
                     fieldLabel: 'select file name',
-                    store: aDevNames,
+                    store: Ext.create("Ext.data.Store", {
+                        fields: ['key', "Object_Name"],
+                        data: model.data.keys
+                    }),
                     editable: false,
                     queryMode: 'local',
-                    displayField: 'name',
-                    valueField: 'name',
+                    displayField: 'Object_Name',
+                    valueField: 'key',
                     autoSelect: false
                 }
             ],
@@ -58,43 +62,27 @@ Ext.define('svgxml.view.chart.RenameChartController', {
                 {
                     text: 'Ok', handler: function () {
                     var text = win.down("combobox").getValue();
+
                     if (text == null) {
                         Ext.Msg.alert('Info', 'Plase select file name.');
                         return;
                     }
+
                     win.close();
-                    Ext.Ajax.request({
-                        url: "resources/xmlRW.php",
-                        async: false,
-                        params: {
-                            fileName: "devsinfo/" + text,
-                            rw: "r"
-                        },
-                        success: function (response) {
-                            //var ojsonstr = response.responseText
 
-                            var tabpanel = Ext.getCmp("frametab_drawpanel");
-                            tabpanel.addDrawPanel(text)
 
-                            /*var drawpanels = Ext.ComponentQuery.query("drawpanel");
-                             for (var i = 0; i < drawpanels.length; i++) {
-                             if (drawpanels[i].title == text) {
-                             tabpanel.setActiveTab(drawpanels[i].id);
-                             return;
-                             }
-                             drawpanels[i].close()
-                             }
+                    model.set("count", model.get('count') - 1)
 
-                             var drawpanel = Ext.create("svgxml.view.tab.DrawPanel", {
-                             title: text
-                             })
-                             //console.log(tabpanel.items)
-                             tabpanel.add(drawpanel)
-                             tabpanel.setActiveTab(drawpanel.id);*/
+                    var key = model.get("key")
 
-                        }
-                    })
-                    win.close();
+                    console.log(cartesian.up("window"))
+                    /*model.data.keys.find(function(v,index){
+                     console.log(v)
+                     if(v.key==text){
+                     model.data.keys.splice(index,1)
+                     return ;
+                     }
+                     })*/
                 }
                 },
                 {
@@ -104,16 +92,21 @@ Ext.define('svgxml.view.chart.RenameChartController', {
                 }
             ]
         })
-
-        model.set("count",model.get('count')-1)
-
         testcartesian = cartesian;
+
     },
-    addType:function(button){
+    addType: function (button) {
 
         var cartesian = this.view.down("cartesian")
         var model = cartesian.getStore().getAt(button.devType)
-        model.set("count",model.get('count')+1)
+        model.set("count", model.get('count') + 1)
+        var keys = model.get("keys")
+        testkeys = keys
+        var key =keys[keys.length - 1].key
+        var window = cartesian.up("window");
+        window.insrtDevForm(key);
+
+
     }
 
 });

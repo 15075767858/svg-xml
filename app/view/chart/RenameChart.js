@@ -11,6 +11,7 @@ Ext.define('svgxml.view.chart.RenameChart', {
         type: 'chart-renamechart'
     },
     layout:"hbox",
+    title:"devices",
     initComponent: function () {
         var me = this;
 
@@ -43,12 +44,12 @@ Ext.define('svgxml.view.chart.RenameChart', {
                 {devType:0,text:"+",handler:"addType",handler:"addType"},
                 {devType:0,text:"-",scope:chart,handler:"deleteType"}
             ]}
-        ]
+        ];
 
         var chart =  Ext.create({
             xtype: 'cartesian',
-            width: 500,
-            height: 300,
+            width: "100%",
+            height: 260,
             flipXY:true,
             innerPadding: '0 10 0 10',
             store: {
@@ -99,13 +100,23 @@ Ext.define('svgxml.view.chart.RenameChart', {
                 },
                 tooltip:{
                     trackMouse:true,
+                    //maxWidth:"",
+                    //minWidth:"",
+                    //maxHeight:"",
+                    //minHeight:"",
                     style:{
                         wordWrap:"break-word"
                     },
                     renderer:function(record, item){
-                        console.log(this)
+
                         console.log(arguments)
-                        this.setHtml("<div style='background-color: #0f5f99;color: white'>"+record.data.devs+"</div>")
+                        var keys = record.data.keys;
+                        var str= ""
+                        for(var i=0;i<keys.length;i++){
+                            str+=keys[i].Object_Name
+                        }
+
+                        this.setHtml("<div style='background-color: #0f5f99;color: white'>"+str+"</div>")
                     }
                 }
             }

@@ -31,7 +31,8 @@ Ext.define('svgxml.view.tab.BasicController', {
                 console.log(typeName)
 
                 var store = Ext.create(typeName, {
-                    listeners: {
+                   /* listeners: {
+
                         beginupdate: function (store) {
                             console.log("beginupdate")
                             setTimeout(function () {
@@ -46,7 +47,7 @@ Ext.define('svgxml.view.tab.BasicController', {
 
                             //setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
                         }
-                    }
+                    }*/
                 })
 
                 store.setData(slotsJson[typeName].initData())

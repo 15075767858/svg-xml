@@ -71,12 +71,12 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
     addSlotclick: function (menu, item, e, eOpts) {
         var gridpanel = this;
         var type = parseInt(gridpanel.datas.type);
-        console.log(gridpanel)
+        //console.log(gridpanel)
         var typeGirdName = menu.up("typegrid").datas.title || getNameByType(gridpanel.datas.type);
 
         var store = gridpanel.getStore();
-        console.log(store.data.length)
-        console.log(slotsJson[typeGirdName].maxSlot)
+       //console.log(store.data.length)
+       //console.log(slotsJson[typeGirdName].maxSlot)
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
@@ -102,7 +102,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             if (type == 1 || type == 2 || type == 4 || type == 5) {
                 var arrs = getCurrentDrawPanelGirdPanels();
                 for (var i = 0; i < arrs.length; i++) {
-                    console.log(arrs[i])
+                    //console.log(arrs[i])
                     if (arrs[i].datas.value == gridpanel.datas.value & arrs[i].id != gridpanel.id & arrs[i].store.data.length > 2) {
                         Ext.Msg.alert("Massage", "Cannot add Slot, the same Slot 。")
                         return

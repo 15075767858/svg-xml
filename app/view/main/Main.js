@@ -104,13 +104,31 @@ var testwin = null
 var teststore = null;
 Ext.onReady(function () {
     setTimeout(function () {
+        /*myAjax("resources/test1.php?par=getKeys&devname=" + "1001", function (response) {
+            var datas = Ext.decode(response.responseText)
 
-        /*Ext.create("Ext.window.Window",{
-            width:600,
-            height:512,
-            autoShow:true,
-            items:Ext.create('svgxml.view.chart.RenameChart')
+            var storeData = devsSplitType(datas)
+
+            console.log(storeData)
+
+            Ext.create("Ext.window.Window", {
+                width: 600,
+                height: 512,
+                autoShow: true,
+                items: Ext.create('svgxml.view.chart.RenameChart', {
+                    storeData: storeData
+                })
+            })
+
+
+
         })*/
+        Ext.create('svgxml.view.window.RenameWindow', {
+            //sDevNodeName: sDevNodeName,
+            sDevName:"1001",
+            width: 800,
+            height: 1024
+        })
 
     }, 3000)
 

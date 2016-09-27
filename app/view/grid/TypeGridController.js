@@ -45,7 +45,25 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         })
 
     },
+    boxready:function(panel){
+
+        panel.store.addListener("beginupdate", function () {
+            console.log("beginupdate")
+            setTimeout(function () {
+
+                var containerHeight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
+                var gridheight = containerHeight + panel.header.getHeight();
+                if (panel.getHeight() != gridheight) {
+                    panel.setHeight(gridheight);
+                }
+                currentDrawPanelGridPanelsTrSetId()
+            }, 1000)
+        })
+    },
     girdviewready: function (panel, eO) {
+
+
+
 
         if (panel.datas.type == 67) {
 

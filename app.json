@@ -2,8 +2,8 @@
     /**
      * The application's namespace.
      */
-    "name": "svgxml",
-    //"name": "program",
+    //"name": "svgxml",
+    "name": "program",
     /**
      * The version of the application.
      */

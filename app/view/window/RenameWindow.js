@@ -23,9 +23,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var sDevName = me.text.substring(0, me.text.indexOf('.'));
         me.title = sDevName;
         me.sDevName = sDevName;
- //       var items = []
+        //       var items = []
         me.items = []
-
 
 
         Ext.Ajax.request({
@@ -133,57 +132,126 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
             store.setData(datas)
 
+            me.items.push(
+                Ext.create('svgxml.view.chart.RenameChart', {
+                    storeData: devsSplitType(datas),
+                    minHeight: 300
+                })
+            )
+
             for (var i = 0; i < datas.length; i++) {
 
-                var fieldsItems = [];
+                /*var fieldsItems = [];
 
-                var keyType = datas[i].key.substr(4, 1);
+                 var keyType = datas[i].key.substr(4, 1);
 
-                var fields = me["type" + keyType];
-                if (!fields) {
-                    //Ext.Msg.alert("Error","invalid fields")
-                    console.log("fields=" + fields)
-                    continue;
-                }
+                 var fields = me["type" + keyType];
+                 if (!fields) {
+                 //Ext.Msg.alert("Error","invalid fields")
+                 console.log("fields=" + fields)
+                 continue;
+                 }
 
-                for (var j = 0; j < fields.length; j++) {
-                    console.log(fields[j])
-                    var fieldName = fields[j]
+                 for (var j = 0; j < fields.length; j++) {
+                 console.log(fields[j])
+                 var fieldName = fields[j]
+                 var textfield = {
+                 fieldLabel: fieldName,
+                 name: fieldName
+                 };
 
+                 fieldsItems.push(textfield);
+                 }
 
-                    //var fieldName = store.config.fields[j];
-                    /*
-                     if (!datas[i][fieldName]) {
-                     continue;
-                     }*/
+                 var gridpanel = Ext.create("Ext.form.Panel", {
+                 title: datas[i]['Object_Name'],
+                 key: datas[i]['key'],
+                 defaultType: 'textfield',
+                 defaults: {
+                 anchor: '100%'
+                 },
+                 minHeight: 300,
+                 scrollable: true,
+                 url: "resources/test1.php?par=setRenameValue&devname=" + me.sDevName,
+                 scrollable: true,
+                 bodyPadding: 10,
+                 items: fieldsItems
+                 })*/
 
-
-                    var textfield = {
-                        fieldLabel: fieldName,
-                        name: fieldName
-                    };
-
-                    fieldsItems.push(textfield);
-                }
-
-                var gridpanel = Ext.create("Ext.form.Panel", {
-                    title: datas[i]['Object_Name'],
-                    key: datas[i]['key'],
-                    defaultType: 'textfield',
-                    defaults: {
-                        anchor: '100%'
-                    },
-                    minHeight: 300,
-                    scrollable: true,
-                    url: "resources/test1.php?par=setRenameValue&devname=" + sDevName,
-                    scrollable: true,
-                    bodyPadding: 10,
-                    items: fieldsItems
-                })
-                me.items.push(gridpanel)
-                gridpanel.getForm().loadRecord(store.getAt(i))
+                var gridpanel = me.createDevForm(datas[i]);
+                me.items.push(gridpanel);
+                gridpanel.getForm().loadRecord(store.getAt(i));
             }
         })
+    },
+    createDevForm: function (data) {
+        var me = this;
+        var keyType = data.key.substr(4, 1);
+        var fields = me["type" + keyType];
+        var fieldsItems = [];
+
+        if (!fields) {
+            console.log("fields=" + fields)
+            return;
+        }
+
+        for (var i = 0; i < fields.length; i++) {
+            //console.log(fields[i])
+            var fieldName = fields[i]
+            var textfield = {
+                fieldLabel: fieldName,
+                name: fieldName,
+                listeners: {
+                    change: function (field, newValue) {
+                        if (field.name == "Object_Name") {
+                            var form = field.up("form")
+                            if (form) {
+                                form.setTitle(newValue)
+                            }
+                        }
+                    }
+                }
+            };
+            fieldsItems.push(textfield);
+        }
+
+        var panel = Ext.create("Ext.form.Panel", {
+            //title: data.Object_name,
+            title: data['Object_Name'],
+            key: data.key,
+            defaultType: 'textfield',
+            defaults: {
+                anchor: '100%'
+            },
+            minHeight: 300,
+            url: "resources/test1.php?par=setRenameValue&devname=" + me.sDevName,
+            scrollable: true,
+            bodyPadding: 10,
+            items: fieldsItems
+        })
+
+        return panel;
+    },
+
+    insrtDevForm: function (key) {
+        var me = this;
+        var inertIndex = 0;
+        me.items.items.find(function (v, index) {
+            if (v.key == key) {
+                inertIndex = index+1;
+            }
+        })
+
+        var form = me.createDevForm({key: parseInt(key) + 1 + ""});
+        me.insert(inertIndex, form)
+
+
+    },
+    deleteDevForm: function (key) {
+        var me = this;
+        var form = me.query('[key=' + key + ']')[0];
+        me.remove(form);
+
     },
     initComponent: function () {
         var me = this;
@@ -229,14 +297,17 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var bvcount = 0;
         var schedulecount = 0;
 
+
         root.appendChild(av);
         root.appendChild(bv);
         root.appendChild(schedule);
 
-        for (var i = 0; i < items.length; i++) {
-            console.log(items[i]);
+
+        for (var i = 1; i < items.length; i++) {
+            //console.log(items[i]);
 
             var form = items[i].getForm();
+
             var res = form.getFieldValues();
             var key = document.createElement("key");
             var keytype = items[i].key.substr(4, 1);
@@ -258,6 +329,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
             root.appendChild(key);
             myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
                 try {
+
                     var alermJson = Ext.decode(response.responseText);
                     if (alermJson['Set_Alarm']) {
                         //var setAlarm = document.createElement("Set_Alarm");
@@ -269,6 +341,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                             key.appendChild(tag);
                         }
                     }
+
                 } catch (e) {
                     console.log(e)
                 }
@@ -287,46 +360,20 @@ Ext.define("svgxml.view.window.RenameWindow", {
             xmlstr = xmlstr.replaceAll(field.toLocaleLowerCase(), me.fields[i]);
         }
 
+
         return xmlstr;
     },
     buttons: [
         {
+            text: "Save ...",
+            handler: function () {
+
+            }
+        },
+        "->",
+        {
             text: "Ok", handler: function () {
-            /*var items = me.items.items;
-             var root = document.createElement("root");
-             for (var i = 0; i < items.length; i++) {
-             console.log(items[i]);
-             /!*items[i].submit({
-             method: "POST"
-             })*!/
-             var form = items[i].getForm();
-             var res = form.getFieldValues();
-             var key = document.createElement("key");
-             key.setAttribute("number", items[i].key);
-             for (var type in res) {
-             var tag = document.createElement(type)
-             tag.innerHTML = res[type];
-             key.appendChild(tag);
-             }
-             root.appendChild(key);
-             myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
-             try {
-             var alermJson = Ext.decode(response.responseText);
-             if (alermJson['Set_Alarm']) {
-             var setAlarm = document.createElement("Set_Alarm");
-             var aPars = alermJson['Set_Alarm'][0]
-             for (var type in aPars) {
-             var tag = document.createElement(type)
-             tag.innerHTML = aPars[type];
-             setAlarm.appendChild(tag);
-             }
-             key.appendChild(setAlarm);
-             }
-             } catch (e) {
-             console.log(e)
-             }
-             })
-             }*/
+
             var me = this.up("window");
 
             var xmlstr = me.getXmlStr()
@@ -356,9 +403,45 @@ Ext.define("svgxml.view.window.RenameWindow", {
         },
         {
             text: "Close", handler: function () {
+            var me = this;
             me.close();
         }
         }
     ]
 });
 
+/*var items = me.items.items;
+ var root = document.createElement("root");
+ for (var i = 0; i < items.length; i++) {
+ console.log(items[i]);
+ /!*items[i].submit({
+ method: "POST"
+ })*!/
+ var form = items[i].getForm();
+ var res = form.getFieldValues();
+ var key = document.createElement("key");
+ key.setAttribute("number", items[i].key);
+ for (var type in res) {
+ var tag = document.createElement(type)
+ tag.innerHTML = res[type];
+ key.appendChild(tag);
+ }
+ root.appendChild(key);
+ myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
+ try {
+ var alermJson = Ext.decode(response.responseText);
+ if (alermJson['Set_Alarm']) {
+ var setAlarm = document.createElement("Set_Alarm");
+ var aPars = alermJson['Set_Alarm'][0]
+ for (var type in aPars) {
+ var tag = document.createElement(type)
+ tag.innerHTML = aPars[type];
+ setAlarm.appendChild(tag);
+ }
+ key.appendChild(setAlarm);
+ }
+ } catch (e) {
+ console.log(e)
+ }
+ })
+ }*/
