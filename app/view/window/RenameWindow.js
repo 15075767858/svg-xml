@@ -16,6 +16,9 @@ Ext.define("svgxml.view.window.RenameWindow", {
     //maxHeight:Ext.getBody().getHeight(),
     layout: 'accordion',
     scrollable: true,
+    listeners:{
+        boxready:"boxready"
+    },
     xmlSources: function () {
 
         var me = this;
@@ -132,12 +135,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
             store.setData(datas)
 
-            me.items.push(
-                Ext.create('svgxml.view.chart.RenameChart', {
-                    storeData: devsSplitType(datas),
-                    minHeight: 300
-                })
-            )
+
 
             for (var i = 0; i < datas.length; i++) {
 
@@ -181,14 +179,23 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 var gridpanel = me.createDevForm(datas[i]);
                 me.items.push(gridpanel);
                 gridpanel.getForm().loadRecord(store.getAt(i));
+
             }
+
         })
+    },
+
+    getChartStoreData:function () {
+        var me = this;
+        var items = me.items.items;
+        return devsSplitType(items);
     },
     createDevForm: function (data) {
         var me = this;
         var keyType = data.key.substr(4, 1);
         var fields = me["type" + keyType];
         var fieldsItems = [];
+
 
         if (!fields) {
             console.log("fields=" + fields)
@@ -238,7 +245,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var inertIndex = 0;
         me.items.items.find(function (v, index) {
             if (v.key == key) {
-                inertIndex = index+1;
+                inertIndex = index + 1;
             }
         })
 
@@ -248,11 +255,15 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
     },
     deleteDevForm: function (key) {
+
+        console.log(key)
         var me = this;
         var form = me.query('[key=' + key + ']')[0];
         me.remove(form);
 
+
     },
+
     initComponent: function () {
         var me = this;
         me.setHeight(680);
@@ -359,8 +370,6 @@ Ext.define("svgxml.view.window.RenameWindow", {
             console.log(me.fields[i])
             xmlstr = xmlstr.replaceAll(field.toLocaleLowerCase(), me.fields[i]);
         }
-
-
         return xmlstr;
     },
     buttons: [

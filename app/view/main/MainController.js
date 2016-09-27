@@ -14,22 +14,23 @@ Ext.define('svgxml.view.main.MainController', {
 
     alias: 'controller.main',
 
-  boxready:  function () {
+    boxready: function () {
 
-    function autoSave() {
-        var fileName = getCurrentDrawPanel().title;
-        saveXml(fileName)
-    }
-    var runner = new Ext.util.TaskRunner();
-    setTimeout(function () {
-        var task = runner.start({
-            run: autoSave,
-            interval: 60*1000
-        })
-    }, 60*1000)
+        function autoSave() {
+            var fileName = getCurrentDrawPanel().title;
+            saveXml(fileName)
+        }
 
-},
-    onClick:function(){
+        var runner = new Ext.util.TaskRunner();
+        setTimeout(function () {
+            var task = runner.start({
+                run: autoSave,
+                interval: 60 * 1000
+            })
+        }, 60 * 1000)
+
+    },
+    onClick: function () {
         alert("aaa");
     },
     onClickButton: function () {
@@ -42,51 +43,51 @@ Ext.define('svgxml.view.main.MainController', {
     }
 });
 
-function fileExists(fileName,resFn) {
-    myAjax("resources/test1.php?par=file_exists&filename="+fileName, resFn)
+function fileExists(fileName, resFn) {
+    myAjax("resources/test1.php?par=file_exists&filename=" + fileName, resFn)
 }
-var ActiveJson={
-    get:function(name){
+var ActiveJson = {
+    get: function (name) {
         var value = null;
-        myAjax("active.json",function(response){
-            var activeJson=Ext.decode(response.responseText)
+        myAjax("active.json", function (response) {
+            var activeJson = Ext.decode(response.responseText)
 
-            value =  activeJson[name];
+            value = activeJson[name];
         })
         return value;
     }
 }
 
-function lookforProperty(grid,store){
+function lookforProperty(grid, store) {
     saveXml()
     console.log(arguments)
-    var tag=null;
-    myAjax("1000",function(response){
+    var tag = null;
+    myAjax("1000", function (response) {
         var jXml = $($.parseXML(response.responseText))
         console.log(jXml)
-        tag=jXml.find("master_node[number="+grid.curPlantIndex+"]");
+        tag = jXml.find("master_node[number=" + grid.curPlantIndex + "]");
     })
-    if(tag.length){
+    if (tag.length) {
         return null;
     }
-    if(grid.datas.type==74){
+    if (grid.datas.type == 74) {
 
-        store.set(store.getAt(0).data.name,tag.find("P").html())
-        store.set(store.getAt(1).data.name,tag.find("D").html())
+        store.set(store.getAt(0).data.name, tag.find("P").html())
+        store.set(store.getAt(1).data.name, tag.find("D").html())
         console.log(store)
     }
 
     return tag;
 }
 
-function generateJson (key,value){
+function generateJson(key, value) {
     var str = '{ "' + key + '": "' + value + '" }'
-    var oJSON=JSON.parse(str);
-    for(o in oJSON){
+    var oJSON = JSON.parse(str);
+    for (o in oJSON) {
         if (o != "" & o != null & oJSON[o] != "" & oJSON[o] != null) {
             if (oJSON[null]) {
                 return null;
-            }else{
+            } else {
                 return oJSON;
             }
         }
@@ -94,25 +95,24 @@ function generateJson (key,value){
 }
 
 
-
-function delayToast(title,html,delay) {
-    setTimeout(function(){
+function delayToast(title, html, delay) {
+    setTimeout(function () {
         Ext.toast({
-            minWidth:200,
+            minWidth: 200,
             title: title,
             html: html,
             align: 'br'
         });
-    },delay)
+    }, delay)
 }
 
 String.prototype.removeLineEnd = function () {
     return this.replace(/(<.+?\s+?)(?:\n\s*?(.+?=".*?"))/g, '$1 $2')
 }
 
-function formatXml1(str){
+function formatXml1(str) {
     //去除输入框中xmll两端的空格。
-    str = str.replace(/^\s+|\s+$/g,"");
+    str = str.replace(/^\s+|\s+$/g, "");
     var source = new ActiveXObject("Msxml2.DOMDocument");
     //装载数据
     source.async = false;
@@ -121,7 +121,7 @@ function formatXml1(str){
     var stylesheet = new ActiveXObject("Msxml2.DOMDocument");
     stylesheet.async = false;
     stylesheet.resolveExternals = false;
-    stylesheet.load(path+"/XlsTmpl/temp/format.xsl");
+    stylesheet.load(path + "/XlsTmpl/temp/format.xsl");
 
     // 创建结果对象
     var result = new ActiveXObject("Msxml2.DOMDocument");
@@ -130,14 +130,13 @@ function formatXml1(str){
     // 把解析结果放到结果对象中方法1
     source.transformNodeToObject(stylesheet, result);
     //alert(result.xml);
-    if(result.xml==''||result.xml==null){
+    if (result.xml == '' || result.xml == null) {
         alert('xml报文格式错误，请检查');
         return false;
     }
-    var finalStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +result.xml;
+    var finalStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" + result.xml;
     return finalStr;
 }
-
 
 
 function formatXml(text) {
@@ -207,8 +206,8 @@ function getPrefix(prefixIndex) {
 
     return output.join('');
 }
-String.prototype.replaceAll = function(s1,s2){
-    return this.replace(new RegExp(s1,"gm"),s2);
+String.prototype.replaceAll = function (s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2);
 }
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -218,107 +217,117 @@ window.requestAnimFrame = (function () {
 })();
 
 
-
 function devsSplitType(datas) {
     var AI = {
         name: 'AI',
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
     var AO = {
         name: 'AO',
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
     var AV = {
         name: 'AV',
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
     var BI = {
         name: 'BI',
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
     var BO = {
         name: 'BO',
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
     var BV = {
         name: 'BV',
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
     var SCHEDULE = {
         name: "SCHEDULE",
         count: 0,
         devs: "",
-        keys:[]
+        keys: []
     }
 
 
     datas.find(function (data, index, all) {
-        if (data.key.substr(4, 1) == 0) {
-            AI.count++;
-            AI.devs += data.Object_Name + ""
-            AI.keys.push(data)
+        console.log(data)
+        if (data.key) {
+            if (data.key.substr(4, 1) == 0) {
+                AI.count++;
+                AI.devs += data.title + ""
+                AI.keys.push(data)
+            }
         }
     })
 
     datas.find(function (data, index, all) {
-        if (data.key.substr(4, 1) == 1) {
-            AO.count++;
-            AO.devs += data.Object_Name + ""
-            AO.keys.push(data)
+        if (data.key) {
+            if (data.key.substr(4, 1) == 1) {
+                AO.count++;
+                AO.devs += data.title + ""
+                AO.keys.push(data)
+            }
         }
     })
     datas.find(function (data, index, all) {
-
-        if (data.key.substr(4, 1) == 2) {
-            AV.count++;
-            AV.devs += data.Object_Name + ""
-            AV.keys.push(data)
-        }
-
-    })
-    datas.find(function (data, index, all) {
-
-        if (data.key.substr(4, 1) == 3) {
-            BI.count++;
-            BI.devs += data.Object_Name + ""
-            BI.keys.push(data)
+        if (data.key) {
+            if (data.key.substr(4, 1) == 2) {
+                AV.count++;
+                AV.devs += data.title + ""
+                AV.keys.push(data)
+            }
         }
 
     })
     datas.find(function (data, index, all) {
-
-        if (data.key.substr(4, 1) == 4) {
-            BO.count++;
-            BO.devs += data.Object_Name + ""
-            BO.keys.push(data)
+        if (data.key) {
+            if (data.key.substr(4, 1) == 3) {
+                BI.count++;
+                BI.devs += data.title + ""
+                BI.keys.push(data)
+            }
+        }
+    })
+    datas.find(function (data, index, all) {
+        if (data.key) {
+            if (data.key.substr(4, 1) == 4) {
+                BO.count++;
+                BO.devs += data.title + ""
+                BO.keys.push(data)
+            }
         }
 
     })
     datas.find(function (data, index, all) {
-        if (data.key.substr(4, 1) == 5) {
-            BV.count++;
-            BV.devs += data.Object_Name + ""
-            BV.keys.push(data)
+        if (data.key) {
+            if (data.key.substr(4, 1) == 5) {
+                BV.count++;
+                BV.devs += data.title + ""
+                BV.keys.push(data)
+            }
         }
     })
 
     datas.find(function (data, index, all) {
-        if (data.key.substr(4, 1) == 6) {
-            SCHEDULE.count++;
-            SCHEDULE.devs += data['Object_Name'] + "";
-            SCHEDULE.keys.push(data)
+        if (data.key) {
+            if (data.key.substr(4, 1) == 6) {
+                SCHEDULE.count++;
+                SCHEDULE.devs += data.title + "";
+                SCHEDULE.keys.push(data)
+            }
         }
     })
 

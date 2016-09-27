@@ -27,10 +27,15 @@ Ext.define('svgxml.view.chart.RenameChartController', {
         var chart = this.lookupReference('chart');
         chart.preview();
     },
+
     deleteType: function (button) {
+        console.log(this)
         var cartesian = this.view.down("cartesian")
+        var me=cartesian.up()
+
         var model = cartesian.getStore().getAt(button.devType)
         console.log(model)
+
         var win = Ext.create('Ext.window.Window', {
             title: 'Delete •••',
             frame: true,
@@ -48,12 +53,12 @@ Ext.define('svgxml.view.chart.RenameChartController', {
                     allowBlank: false,
                     fieldLabel: 'select file name',
                     store: Ext.create("Ext.data.Store", {
-                        fields: ['key', "Object_Name"],
+                        fields: ['key', "title"],
                         data: model.data.keys
                     }),
                     editable: false,
                     queryMode: 'local',
-                    displayField: 'Object_Name',
+                    displayField: 'title',
                     valueField: 'key',
                     autoSelect: false
                 }
@@ -70,19 +75,11 @@ Ext.define('svgxml.view.chart.RenameChartController', {
 
                     win.close();
 
-
-                    model.set("count", model.get('count') - 1)
-
-                    var key = model.get("key")
-
-                    console.log(cartesian.up("window"))
-                    /*model.data.keys.find(function(v,index){
-                     console.log(v)
-                     if(v.key==text){
-                     model.data.keys.splice(index,1)
-                     return ;
-                     }
-                     })*/
+                    //model.set("count", model.get('count') - 1)
+                    //var key = model.get("key")
+                    var window = cartesian.up("window");
+                    window.deleteDevForm(text);
+                    me.loadStoreData()
                 }
                 },
                 {
@@ -98,14 +95,14 @@ Ext.define('svgxml.view.chart.RenameChartController', {
     addType: function (button) {
 
         var cartesian = this.view.down("cartesian")
-        var model = cartesian.getStore().getAt(button.devType)
-        model.set("count", model.get('count') + 1)
-        var keys = model.get("keys")
-        testkeys = keys
-        var key =keys[keys.length - 1].key
+
+        var model = cartesian.getStore().getAt(button.devType);
+        var keys = model.get("keys");
+        var key = keys[keys.length - 1].key;
         var window = cartesian.up("window");
         window.insrtDevForm(key);
 
+        cartesian.up().loadStoreData()
 
     }
 
