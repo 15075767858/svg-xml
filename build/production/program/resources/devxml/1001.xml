@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
+ <AI_count>4</AI_count>
+ <AO_count>2</AO_count>
  <AV_count>3</AV_count>
+ <BI_count>8</BI_count>
+ <BO_count>3</BO_count>
  <BV_count>2</BV_count>
  <SCHEDULE_count>1</SCHEDULE_count>
  <key  number="1001001">

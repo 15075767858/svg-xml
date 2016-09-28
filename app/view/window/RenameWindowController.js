@@ -9,7 +9,6 @@ Ext.define('svgxml.view.window.RenameWindowController', {
         })
         //me.add(chart)
         me.insert(0, chart)
-        testchart=chart
         chart.expand()
     }
 

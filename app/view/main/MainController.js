@@ -263,7 +263,7 @@ function devsSplitType(datas) {
 
 
     datas.find(function (data, index, all) {
-        console.log(data)
+       // console.log(data)
         if (data.key) {
             if (data.key.substr(4, 1) == 0) {
                 AI.count++;

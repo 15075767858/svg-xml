@@ -48,7 +48,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
     boxready:function(panel){
 
         panel.store.addListener("beginupdate", function () {
-            console.log("beginupdate")
+           //console.log("beginupdate")
             setTimeout(function () {
 
                 var containerHeight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();

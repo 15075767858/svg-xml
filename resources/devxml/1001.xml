@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
+ <AI_count>4</AI_count>
+ <AO_count>2</AO_count>
  <AV_count>3</AV_count>
+ <BI_count>8</BI_count>
+ <BO_count>3</BO_count>
  <BV_count>2</BV_count>
  <SCHEDULE_count>1</SCHEDULE_count>
  <key  number="1001001">
@@ -77,39 +81,6 @@
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
   <Notification_Class>1</Notification_Class>
- </key>
- <key  number="1001005">
-  <Object_Name>qqq</Object_Name>
-  <Offset>
-  </Offset>
-  <Description>
-  </Description>
-  <Device_Type>
-  </Device_Type>
-  <Units>
-  </Units>
-  <Min_Pres_Value>
-  </Min_Pres_Value>
-  <Max_Pres_Value>
-  </Max_Pres_Value>
-  <COV_Increment>
-  </COV_Increment>
-  <High_Limit>
-  </High_Limit>
-  <Low_Limit>
-  </Low_Limit>
-  <Deadband>
-  </Deadband>
-  <Limit_Enable>
-  </Limit_Enable>
-  <Event_Enable>
-  </Event_Enable>
-  <Notify_Type>
-  </Notify_Type>
-  <Time_Delay>
-  </Time_Delay>
-  <Notification_Class>
-  </Notification_Class>
  </key>
  <key  number="1001101">
   <Object_Name>ANALOG OUTPUT112</Object_Name>

@@ -33,20 +33,20 @@ Ext.define('svgxml.view.chart.RenameChart', {
         me.rbar = [
             {
                 text: "AI", menu: [
-                {devType: 6, text: "+", handler: "addType", handler: "addType"},
-                {devType: 6, text: "-", scope: chart, handler: "deleteType"}
+                {devType: 0, text: "+", handler: "addType", handler: "addType"},
+                {devType: 0, text: "-", scope: chart, handler: "deleteType"}
             ]
             },
             {
                 text: "AO", menu: [
-                {devType: 5, text: "+", handler: "addType", handler: "addType"},
-                {devType: 5, text: "-", scope: chart, handler: "deleteType"}
+                {devType: 1, text: "+", handler: "addType", handler: "addType"},
+                {devType: 1, text: "-", scope: chart, handler: "deleteType"}
             ]
             },
             {
                 text: "AV", menu: [
-                {devType: 4, text: "+", handler: "addType", handler: "addType"},
-                {devType: 4, text: "-", scope: chart, handler: "deleteType"}
+                {devType: 2, text: "+", handler: "addType", handler: "addType"},
+                {devType: 2, text: "-", scope: chart, handler: "deleteType"}
             ]
             },
             {
@@ -57,20 +57,20 @@ Ext.define('svgxml.view.chart.RenameChart', {
             },
             {
                 text: "BO", menu: [
-                {devType: 2, text: "+", handler: "addType", handler: "addType"},
-                {devType: 2, text: "-", scope: chart, handler: "deleteType"}
+                {devType: 4, text: "+", handler: "addType", handler: "addType"},
+                {devType: 4, text: "-", scope: chart, handler: "deleteType"}
             ]
             },
             {
                 text: "BV", menu: [
-                {devType: 1, text: "+", handler: "addType", handler: "addType"},
-                {devType: 1, text: "-", scope: chart, handler: "deleteType"}
+                {devType: 5, text: "+", handler: "addType", handler: "addType"},
+                {devType: 5, text: "-", scope: chart, handler: "deleteType"}
             ]
             },
             {
                 text: "SCHDULE", menu: [
-                {devType: 0, text: "+", handler: "addType", handler: "addType"},
-                {devType: 0, text: "-", scope: chart, handler: "deleteType"}
+                {devType: 6, text: "+", handler: "addType", handler: "addType"},
+                {devType: 6, text: "-", scope: chart, handler: "deleteType"}
             ]
             }
         ];

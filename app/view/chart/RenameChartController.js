@@ -31,7 +31,7 @@ Ext.define('svgxml.view.chart.RenameChartController', {
     deleteType: function (button) {
         console.log(this)
         var cartesian = this.view.down("cartesian")
-        var me=cartesian.up()
+        var me = cartesian.up()
 
         var model = cartesian.getStore().getAt(button.devType)
         console.log(model)
@@ -95,14 +95,30 @@ Ext.define('svgxml.view.chart.RenameChartController', {
     addType: function (button) {
 
         var cartesian = this.view.down("cartesian")
+        var window = cartesian.up("window");
 
         var model = cartesian.getStore().getAt(button.devType);
-        var keys = model.get("keys");
-        var key = keys[keys.length - 1].key;
-        var window = cartesian.up("window");
-        window.insrtDevForm(key);
+        console.log(model)
+        var lastText = window.sDevName + button.devType;
+        Ext.MessageBox.prompt('Add •••', 'Please enter your key:', function (ms, v, scope) {
+            if (ms == 'ok') {
+                if (v.length == 7 & v.substr(0, 5) == lastText&!isNaN(v)) {
+                    window.insrtDevForm(v);
+                } else {
+                    Ext.Msg.alert('Exception', "Please enter 7 digits after two .")
+                }
 
-        cartesian.up().loadStoreData()
+            }
+        }, this, false, lastText);
+
+        /*var keys = model.get("keys");
+        if (keys.length) {
+            var key = keys[keys.length - 1].key;
+            window.insrtDevForm(key);
+        } else {
+
+        }*/
+        //cartesian.up().loadStoreData()
 
     }
 

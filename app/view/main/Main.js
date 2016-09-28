@@ -65,6 +65,7 @@ Ext.define('svgxml.view.main.Main', {
         })
     ]
 });
+
 function isTime(val) {
     var vals = val.split(":")
     if (vals.length != 3) {
@@ -129,7 +130,6 @@ Ext.onReady(function () {
             width: 800,
             height: 1024
         })
-
     }, 3000)
 
 })

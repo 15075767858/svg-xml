@@ -16,8 +16,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
     //maxHeight:Ext.getBody().getHeight(),
     layout: 'accordion',
     scrollable: true,
-    listeners:{
-        boxready:"boxready"
+    listeners: {
+        boxready: "boxready"
     },
     xmlSources: function () {
 
@@ -136,7 +136,6 @@ Ext.define("svgxml.view.window.RenameWindow", {
             store.setData(datas)
 
 
-
             for (var i = 0; i < datas.length; i++) {
 
                 /*var fieldsItems = [];
@@ -185,7 +184,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         })
     },
 
-    getChartStoreData:function () {
+    getChartStoreData: function () {
         var me = this;
         var items = me.items.items;
         return devsSplitType(items);
@@ -242,16 +241,36 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
     insrtDevForm: function (key) {
         var me = this;
+
+        var items = me.items.items;
+
+        console.log(key)
         var inertIndex = 0;
-        me.items.items.find(function (v, index) {
-            if (v.key == key) {
-                inertIndex = index + 1;
+
+        for (var i = 0; i < items.length; i++) {
+
+            if (key < items[i].key) {
+                inertIndex = i;
+
+                console.log(items[i].key, "----", i)
+
+                break;
             }
-        })
+        }
 
-        var form = me.createDevForm({key: parseInt(key) + 1 + ""});
-        me.insert(inertIndex, form)
+        var form = me.createDevForm({key: key});
+        if (inertIndex) {
+            me.insert(inertIndex, form)
+        } else {
+            me.add(form);
+        }
+        /*items.find(function (v, index) {
+         if (v.key == key) {
+         inertIndex = index + 1;
+         }
+         })
 
+         */
 
     },
     deleteDevForm: function (key) {
@@ -286,7 +305,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.type6 = ["Object_Name", "Description", "Priority_For_Writing"];
         me.type8 = ['Object_Name'];
 
-        var fields = ["AV_count", "BV_count", "SCHEDULE_count"].concat(me.type0).concat(me.type1).concat(me.type2).concat(me.type3).concat(me.type4).concat(me.type5).concat(me.type6);
+        var fields = ["AI_count", "AO_count", "AV_count", "BI_count", "BO_count", "BV_count", "SCHEDULE_count"].concat(me.type0).concat(me.type1).concat(me.type2).concat(me.type3).concat(me.type4).concat(me.type5).concat(me.type6);
         me.fields = fields;
         if (me.text) {
             me.xmlSources()
@@ -301,15 +320,27 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var me = this;
         var items = me.items.items;
         var root = document.createElement("root");
+        var ai = document.createElement("AI_count");
+        var ao = document.createElement("AO_count");
         var av = document.createElement("AV_count");
+        var bi = document.createElement("BI_count");
+        var bo = document.createElement("BO_count");
         var bv = document.createElement("BV_count");
         var schedule = document.createElement("SCHEDULE_count");
+        var aicount = 0;
+        var aocount = 0;
         var avcount = 0;
+        var bicount = 0;
+        var bocount = 0;
         var bvcount = 0;
         var schedulecount = 0;
 
 
+        root.appendChild(ai);
+        root.appendChild(ao);
         root.appendChild(av);
+        root.appendChild(bi);
+        root.appendChild(bo);
         root.appendChild(bv);
         root.appendChild(schedule);
 
@@ -322,8 +353,20 @@ Ext.define("svgxml.view.window.RenameWindow", {
             var res = form.getFieldValues();
             var key = document.createElement("key");
             var keytype = items[i].key.substr(4, 1);
+            if (keytype == "0") {
+                aicount++
+            }
+            if (keytype == "1") {
+                aocount++
+            }
             if (keytype == "2") {
                 avcount++
+            }
+            if (keytype == "3") {
+                bicount++
+            }
+            if (keytype == "4") {
+                bocount++
             }
             if (keytype == "5") {
                 bvcount++
@@ -346,7 +389,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                         //var setAlarm = document.createElement("Set_Alarm");
                         var aPars = alermJson['Set_Alarm'][0]
                         for (var type in aPars) {
-                            var tag = document.createElement(type)
+                            var tag = document.createElement(type);
                             tag.innerHTML = aPars[type];
                             //setAlarm.appendChild(tag);
                             key.appendChild(tag);
@@ -358,7 +401,12 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 }
             })
         }
+
+        ai.innerHTML = aicount;
+        ao.innerHTML = aocount;
         av.innerHTML = avcount;
+        bi.innerHTML = bicount;
+        bo.innerHTML = bocount;
         bv.innerHTML = bvcount;
         schedule.innerHTML = schedulecount;
         //var root = me.saveXml();
@@ -372,10 +420,45 @@ Ext.define("svgxml.view.window.RenameWindow", {
         }
         return xmlstr;
     },
+    saveXml: function (filename) {
+        var me = this;
+
+        var xmlstr = me.getXmlStr()
+        xmlstr = formatXml(xmlstr);
+        console.log(xmlstr)
+
+        var datas = {
+            rw: "w",
+            fileName: "devxml/" + filename + ".xml",
+            content: '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\r\n' + xmlstr
+        }
+        $.ajax({
+            type: "POST",
+            url: "resources/xmlRW.php",
+            data: datas,
+            success: function () {
+                delayToast("Status", "Saved file " + datas.fileName + " successfully.", 0);
+            }
+        });
+
+        setTimeout(function () {
+            me.close()
+        }, 1000)
+    },
     buttons: [
         {
             text: "Save ...",
             handler: function () {
+                var me = this.up("window");
+                Ext.MessageBox.prompt("Save ...", "please input filename", function (ms, v) {
+                    if (ms == 'ok') {
+                        if(v){
+                        me.saveXml(v)
+                        }else{
+                           Ext.Msg.alert("Exception","filename exception .")
+                        }
+                    }
+                })
 
             }
         },
@@ -384,30 +467,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
             text: "Ok", handler: function () {
 
             var me = this.up("window");
-
-            var xmlstr = me.getXmlStr()
-            console.log(xmlstr)
-
-            xmlstr = formatXml(xmlstr);
-            var datas = {
-                rw: "w",
-                fileName: "devxml/" + me.sDevName + ".xml",
-                content: '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\r\n' + xmlstr
-            }
-            $.ajax({
-                type: "POST",
-                url: "resources/xmlRW.php",
-                data: datas,
-                success: function () {
-                    delayToast("Status", "Saved file " + datas.fileName + " successfully.", 0);
-                }
-            });
-
-            setTimeout(function () {
-                me.close()
-            }, 1000)
-            //console.log(decoder.encodeXml(key))
-
+            me.saveXml(me.sDevName)
+            return;
         }
         },
         {

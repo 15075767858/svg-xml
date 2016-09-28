@@ -8,12 +8,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ab2cb7-0149-4e60-9c92-86c11b2d0373" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/.sass-cache/d08d7d0d822b06a58a8f65107a7d31ca00d43097/program-all.scssc" afterPath="$PROJECT_DIR$/build/.sass-cache/d08d7d0d822b06a58a8f65107a7d31ca00d43097/program-all.scssc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program.tar.gz" afterPath="$PROJECT_DIR$/build/production/program.tar.gz" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/chart/RenameChart.js" afterPath="$PROJECT_DIR$/app/view/chart/RenameChart.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/chart/RenameChartController.js" afterPath="$PROJECT_DIR$/app/view/chart/RenameChartController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/grid/TypeGridController.js" afterPath="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/Main.js" afterPath="$PROJECT_DIR$/app/view/main/Main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/MainController.js" afterPath="$PROJECT_DIR$/app/view/main/MainController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/window/RenameWindow.js" afterPath="$PROJECT_DIR$/app/view/window/RenameWindow.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/window/RenameWindowController.js" afterPath="$PROJECT_DIR$/app/view/window/RenameWindowController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.json" afterPath="$PROJECT_DIR$/bootstrap.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/app.js" afterPath="$PROJECT_DIR$/build/production/program/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devxml/1001.xml" afterPath="$PROJECT_DIR$/build/production/program/resources/devxml/1001.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devxml/i1024.xml" afterPath="$PROJECT_DIR$/build/production/program/resources/devxml/i1024.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devxml/i830.xml" afterPath="$PROJECT_DIR$/build/production/program/resources/devxml/i830.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devxml/i852.xml" afterPath="$PROJECT_DIR$/build/production/program/resources/devxml/i852.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss.tmp" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss.tmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i1024.xml" afterPath="$PROJECT_DIR$/devxml/i1024.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i830.xml" afterPath="$PROJECT_DIR$/devxml/i830.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i852.xml" afterPath="$PROJECT_DIR$/devxml/i852.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/i830.xml" afterPath="$PROJECT_DIR$/ext/i830.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devxml/1001.xml" afterPath="$PROJECT_DIR$/resources/devxml/1001.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devxml/i1024.xml" afterPath="$PROJECT_DIR$/resources/devxml/i1024.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devxml/i830.xml" afterPath="$PROJECT_DIR$/resources/devxml/i830.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devxml/i852.xml" afterPath="$PROJECT_DIR$/resources/devxml/i852.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sass/example/bootstrap.json" afterPath="$PROJECT_DIR$/sass/example/bootstrap.json" />
     </list>
     <ignored path="svgxml.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,57 +66,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27341294">
-              <caret line="181" column="83" selection-start-line="181" selection-start-column="83" selection-end-line="181" selection-end-column="83" />
-              <folding>
-                <element signature="e#9130#9754#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RenameWindow.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RenameWindow.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindow.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="187" column="21" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.71024513">
+              <caret line="459" column="21" selection-start-line="459" selection-start-column="21" selection-end-line="459" selection-end-column="21" />
               <folding>
-                <element signature="e#4574#5791#0" expanded="false" />
+                <element signature="e#4575#5792#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RenameWindowController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindowController.js">
+      <file leaf-file-name="i830.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/devxml/i830.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+            <state vertical-scroll-proportion="-0.625">
+              <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RenameChart.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChart.js">
+      <file leaf-file-name="BasicController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/tab/BasicController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="136" column="46" selection-start-line="136" selection-start-column="46" selection-end-line="136" selection-end-column="46" />
-              <folding>
-                <marker date="1474990516000" expanded="true" signature="4698:4736" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="306" column="27" selection-start-line="306" selection-start-column="27" selection-end-line="306" selection-end-column="27" />
+              <caret line="122" column="3" selection-start-line="122" selection-start-column="3" selection-end-line="122" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -104,42 +102,7 @@
         <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChartController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="100" column="8" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-              <folding>
-                <marker date="1474967642000" expanded="true" signature="917:1018" placeholder="..." />
-                <marker date="1474967642000" expanded="true" signature="1032:1044" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TypeGridController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
-              <folding>
-                <element signature="e#4608#4880#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/tab/BasicController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+              <caret line="103" column="29" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -164,7 +127,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/view/tab/FramedTabsController.js" />
         <option value="$PROJECT_DIR$/resources/xmlRW.php" />
         <option value="$PROJECT_DIR$/resources/devxml/1000.xml" />
         <option value="$PROJECT_DIR$/index.html" />
@@ -204,17 +166,18 @@
         <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
         <option value="$PROJECT_DIR$/app/view/tab/BasicController.js" />
-        <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
         <option value="$PROJECT_DIR$/app/view/grid/TypeGrid.js" />
         <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" />
         <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
         <option value="$PROJECT_DIR$/app/view/main/Main.js" />
-        <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
-        <option value="$PROJECT_DIR$/app/view/window/RenameWindow.js" />
         <option value="$PROJECT_DIR$/app/view/window/RenameWindowController.js" />
+        <option value="$PROJECT_DIR$/app/view/main/MainController.js" />
         <option value="$PROJECT_DIR$/app/view/chart/RenameChart.js" />
         <option value="$PROJECT_DIR$/app/view/chart/RenameChartController.js" />
+        <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
+        <option value="$PROJECT_DIR$/resources/devxml/aaa.xml" />
+        <option value="$PROJECT_DIR$/app/view/window/RenameWindow.js" />
       </list>
     </option>
   </component>
@@ -285,10 +248,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -571,6 +530,10 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches">
+        <subPane />
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -699,7 +662,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32851636" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24662814" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25144508" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963988" sideWeight="0.50386846" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32851636" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -740,53 +703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/img/PNG/timer.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/img/SVG/fd.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2542373">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/img/SVG/tolalazer.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43583536">
-          <caret line="36" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/LogicGridPanelController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGridController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6419753">
-          <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../home/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/img/SVG/Integer.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.053418804">
@@ -909,13 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="992" column="0" selection-start-line="992" selection-start-column="0" selection-end-line="992" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ext/packages/sencha-amf/build/sencha-amf-dev.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -962,13 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33878353">
           <caret line="0" column="2244496" selection-start-line="0" selection-start-column="2244496" selection-end-line="0" selection-end-column="2244496" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChartModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1038,14 +940,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/BasicController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/run.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.07542426">
@@ -1064,85 +958,157 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
-          <folding>
-            <element signature="e#4608#4880#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGrid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="136" column="46" selection-start-line="136" selection-start-column="46" selection-end-line="136" selection-end-column="46" />
-          <folding>
-            <marker date="1474990516000" expanded="true" signature="4698:4736" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="306" column="27" selection-start-line="306" selection-start-column="27" selection-end-line="306" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindowController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.10370836">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindow.js">
+    <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChartModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="187" column="21" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="21" />
-          <folding>
-            <element signature="e#4574#5791#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChartController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="8" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+    <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1891892">
+          <caret line="265" column="9" selection-start-line="265" selection-start-column="9" selection-end-line="265" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+          <caret line="1175" column="0" selection-start-line="1175" selection-start-column="0" selection-end-line="1175" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/build/ext-all-rtl-debug.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5876807">
+          <caret line="118799" column="29" selection-start-line="118799" selection-start-column="29" selection-end-line="118799" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/src/form/Basic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9082338">
+          <caret line="648" column="4" selection-start-line="648" selection-start-column="4" selection-end-line="648" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/src/form/Panel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8799497">
+          <caret line="402" column="22" selection-start-line="402" selection-start-column="22" selection-end-line="402" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
           <folding>
-            <marker date="1474967642000" expanded="true" signature="917:1018" placeholder="..." />
-            <marker date="1474967642000" expanded="true" signature="1032:1044" placeholder="..." />
+            <element signature="e#4609#4881#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27341294">
+        <state vertical-scroll-proportion="0.0">
           <caret line="181" column="83" selection-start-line="181" selection-start-column="83" selection-end-line="181" selection-end-column="83" />
           <folding>
             <element signature="e#9130#9754#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.83972347">
+          <caret line="126" column="48" selection-start-line="126" selection-start-column="48" selection-end-line="126" selection-end-column="48" />
+          <folding>
+            <marker date="1475018932000" expanded="true" signature="917:1018" placeholder="..." />
+            <marker date="1475018932000" expanded="true" signature="1032:1044" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/devxml/9900.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/devxml/1001.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.91810346">
+          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+          <caret line="71" column="27" selection-start-line="71" selection-start-column="27" selection-end-line="71" selection-end-column="27" />
+          <folding>
+            <marker date="1475021151000" expanded="true" signature="4698:4736" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/devxml/i830.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/BasicController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="122" column="3" selection-start-line="122" selection-start-column="3" selection-end-line="122" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/chart/RenameChartController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="29" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71024513">
+          <caret line="459" column="21" selection-start-line="459" selection-start-column="21" selection-end-line="459" selection-end-column="21" />
+          <folding>
+            <element signature="e#4575#5792#0" expanded="false" />
           </folding>
         </state>
       </provider>
