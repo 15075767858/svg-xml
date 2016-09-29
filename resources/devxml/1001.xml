@@ -11,7 +11,8 @@
   <Object_Name>''</Object_Name>
   <Offset>1.5</Offset>
   <Description>ANALOG OUTPUT 3</Description>
-  <Device_Type>0-10=0-100</Device_Type>
+  <combobox-1161-inputel>
+  </combobox-1161-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.00010</Max_Pres_Value>
@@ -31,7 +32,8 @@
   <Object_Name>ANA</Object_Name>
   <Offset>0.000</Offset>
   <Description>ANALOG INPUT 212123</Description>
-  <Device_Type>NTC20K</Device_Type>
+  <combobox-1178-inputel>
+  </combobox-1178-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.0000</Max_Pres_Value>
@@ -49,8 +51,8 @@
   <Object_Name>ANALOG INPUT3111</Object_Name>
   <Offset>0.000</Offset>
   <Description>ANALOG INPUT311</Description>
-  <Device_Type>
-  </Device_Type>
+  <combobox-1195-inputel>
+  </combobox-1195-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -68,7 +70,8 @@
   <Object_Name>ANALOG INPUT4 </Object_Name>
   <Offset>0.000</Offset>
   <Description>ANALOG INPUT 4</Description>
-  <Device_Type>0-10=0-100</Device_Type>
+  <combobox-1212-inputel>
+  </combobox-1212-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -86,7 +89,8 @@
   <Object_Name>ANALOG OUTPUT112</Object_Name>
   <Offset>1.000</Offset>
   <Description>ANALOG OUTPUT1</Description>
-  <Device_Type>0-10=0-100</Device_Type>
+  <combobox-1229-inputel>
+  </combobox-1229-inputel>
   <COV_Increment>0.500</COV_Increment>
   <High_Limit>0.000</High_Limit>
   <Low_Limit>0.000</Low_Limit>
@@ -101,7 +105,8 @@
   <Object_Name>ANALOG OUTPUT2</Object_Name>
   <Offset>1.000</Offset>
   <Description>ANALOG OUTPUT2</Description>
-  <Device_Type>0-10=0-100</Device_Type>
+  <combobox-1243-inputel>
+  </combobox-1243-inputel>
   <COV_Increment>0.500</COV_Increment>
   <High_Limit>0.000</High_Limit>
   <Low_Limit>0.000</Low_Limit>
@@ -154,7 +159,8 @@
  <key  number="1001301">
   <Object_Name>BINARY_INPUT1123</Object_Name>
   <Description>BINARY_INPUT 1</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1292-inputel>
+  </combobox-1292-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -166,7 +172,8 @@
  <key  number="1001302">
   <Object_Name>BINARY_INPUT2</Object_Name>
   <Description>BINARY_INPUT 2</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1303-inputel>
+  </combobox-1303-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -178,7 +185,8 @@
  <key  number="1001303">
   <Object_Name>BINARY_INPUT3</Object_Name>
   <Description>BINARY_INPUT 3</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1314-inputel>
+  </combobox-1314-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -190,7 +198,8 @@
  <key  number="1001304">
   <Object_Name>BINARY_INPUT4</Object_Name>
   <Description>BINARY_INPUT 4</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1325-inputel>
+  </combobox-1325-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -202,7 +211,8 @@
  <key  number="1001305">
   <Object_Name>BINARY_INPUT5</Object_Name>
   <Description>BINARY_INPUT 5</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1336-inputel>
+  </combobox-1336-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -214,7 +224,8 @@
  <key  number="1001306">
   <Object_Name>BINARY_INPUT6</Object_Name>
   <Description>BINARY_INPUT 6</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1347-inputel>
+  </combobox-1347-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -226,7 +237,8 @@
  <key  number="1001307">
   <Object_Name>BINARY_INPUT7</Object_Name>
   <Description>BINARY_INPUT 7</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1358-inputel>
+  </combobox-1358-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -238,7 +250,8 @@
  <key  number="1001308">
   <Object_Name>BINARY_INPUT8</Object_Name>
   <Description>BINARY_INPUT 8</Description>
-  <Device_Type>normal open</Device_Type>
+  <combobox-1369-inputel>
+  </combobox-1369-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -250,7 +263,8 @@
  <key  number="1001401">
   <Object_Name>BINARY_OUTPUT 1</Object_Name>
   <Description>BINARY_OUTPUT 1</Description>
-  <Device_Type>normal</Device_Type>
+  <combobox-1380-inputel>
+  </combobox-1380-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -262,7 +276,8 @@
  <key  number="1001402">
   <Object_Name>BINARY_OUTPUT 2</Object_Name>
   <Description>BINARY_OUTPUT 2</Description>
-  <Device_Type>normal</Device_Type>
+  <combobox-1391-inputel>
+  </combobox-1391-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -274,7 +289,8 @@
  <key  number="1001403">
   <Object_Name>BINARY_OUTPUT 3</Object_Name>
   <Description>BINARY_OUTPUT 3</Description>
-  <Device_Type>normal</Device_Type>
+  <combobox-1402-inputel>
+  </combobox-1402-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -286,7 +302,8 @@
  <key  number="1001501">
   <Object_Name>BINARY_VALUE111</Object_Name>
   <Description>BINARY_VALUE1</Description>
-  <Device_Type>normal</Device_Type>
+  <combobox-1413-inputel>
+  </combobox-1413-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
@@ -298,7 +315,8 @@
  <key  number="1001502">
   <Object_Name>BINARY_VALUE2</Object_Name>
   <Description>BINARY_VALUE2</Description>
-  <Device_Type>normal</Device_Type>
+  <combobox-1424-inputel>
+  </combobox-1424-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>

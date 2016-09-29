@@ -46,17 +46,17 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                 defaults: {
                                     margin: "73 0 73 0",
                                     allowBlank: false,
-                                    minValue:0,
+                                    minValue: 0,
                                 },
                                 items: [{
-                                    disabled:me.isBiov(),
-                                    hidden:me.isBiov(),
+                                    disabled: me.isBiov(),
+                                    hidden: me.isBiov(),
                                     name: "high_limit",
                                     fieldLabel: "Height Limit",
                                     bind: "{high_limit}"
                                 }, {
-                                    disabled:me.isBiov(),
-                                    hidden:me.isBiov(),
+                                    disabled: me.isBiov(),
+                                    hidden: me.isBiov(),
                                     name: "low_limit",
                                     fieldLabel: "Low Limit",
                                     bind: "{low_limit}"
@@ -65,8 +65,8 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                     fieldLabel: "Delay Time",
                                     bind: "{delay_time}"
                                 }, {
-                                    disabled:me.isBiov(),
-                                    hidden:me.isBiov(),
+                                    disabled: me.isBiov(),
+                                    hidden: me.isBiov(),
                                     name: "deadband",
                                     fieldLabel: "Deadband",
                                     bind: "{deadband}"
@@ -114,8 +114,8 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                         margin: "15 0 15 0",
                                         fieldLabel: 'Event Type',
                                         name: 'event_type',
-                                        disabled:(me.isAiov())&me.isBiov(),
-                                        hidden:(me.isAiov())&me.isBiov(),
+                                        disabled: (me.isAiov()) & me.isBiov(),
+                                        hidden: (me.isAiov()) & me.isBiov(),
                                         displayField: 'name',
                                         valueField: 'value',
                                         allowBlank: false,
@@ -137,8 +137,8 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                         margin: "15 0 15 0",
                                         fieldLabel: 'Alarm Value',
                                         name: 'alarm_value',
-                                        disabled:!me.isBiov(),
-                                        hidden:!me.isBiov(),
+                                        disabled: !me.isBiov(),
+                                        hidden: !me.isBiov(),
                                         displayField: 'name',
                                         valueField: 'value',
                                         allowBlank: false,
@@ -171,22 +171,24 @@ Ext.define("svgxml.view.window.AlarmWindow", {
 
                                 items: [
                                     {
-                                        disabled:me.isBiov(),
-                                        hidden:me.isBiov(),
+                                        disabled: me.isBiov(),
+                                        hidden: me.isBiov(),
                                         reference: "checked1",
                                         fieldLabel: 'Enable Limit',
                                         boxLabel: 'Enable Height Limit',
+                                        submitValue:false,
                                         bind: "{ck1}"
                                     }, {
-                                        disabled:me.isBiov(),
-                                        hidden:me.isBiov(),
+                                        disabled: me.isBiov(),
+                                        hidden: me.isBiov(),
                                         reference: "checked2",
                                         boxLabel: 'Enable Low Limit',
+                                        submitValue:false,
                                         bind: "{ck2}"
                                     },
                                     {
-                                        disabled:me.isBiov(),
-                                        hidden:me.isBiov(),
+                                        disabled: me.isBiov(),
+                                        hidden: me.isBiov(),
                                         xtype: "hiddenfield",
                                         name: "limit",
                                         bind: '{limit}'
@@ -195,15 +197,18 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                                         reference: "checked3",
                                         fieldLabel: 'Event Enable',
                                         boxLabel: 'ENABLE_TO_NORMAL',
-                                        bind: '{ck3}'
+                                        bind: '{ck3}',
+                                        submitValue:false
                                     }, {
                                         reference: "checked4",
                                         boxLabel: 'ENABLE_TO_OFFNORMAL',
-                                        bind: '{ck4}'
+                                        bind: '{ck4}',
+                                        submitValue:false
                                     }, {
                                         reference: "checked5",
                                         boxLabel: 'ENABLE_TO_FAULT',
-                                        bind: '{ck5}'
+                                        bind: '{ck5}',
+                                        submitValue:false
                                     }, {
                                         xtype: "hiddenfield",
                                         name: "event_enable",
@@ -217,9 +222,23 @@ Ext.define("svgxml.view.window.AlarmWindow", {
             }
         });
         me.items = meForm;
+
         me.buttons = [
             {
                 text: "Ok", handler: function () {
+
+                if (me.localData) {
+                    var values = meForm.getValues();
+                    var ojson = {
+                        Set_Alarm: [
+                            values
+                        ]
+                    }
+                    me.submitAlarm(Ext.encode(ojson));
+                    me.close()
+                    return;
+                }
+
                 if (meForm.isValid()) {
                     meForm.submit({
                         url: "resources/test1.php?par=addAlarm&nodename=" + me.sDevNodeName,
@@ -227,9 +246,7 @@ Ext.define("svgxml.view.window.AlarmWindow", {
                         failure: function (form, action) {
                             delayToast('Success', me.sDevNodeName + ' Change value Alarm success .', 0)
                             devPublish(me.sDevName + ".8.*", me.sDevNodeName + "\r\nSet_Alarm\r\n" + (Ext.encode(action.result)).replaceAll("\\s*|\t|\r|\n", ""), 0);
-
                             me.close()
-
                         },
                         success: function (form, action) {
                             delayToast('Success', me.sDevNodeName + ' Change value Alarm success .', 0)
@@ -247,25 +264,61 @@ Ext.define("svgxml.view.window.AlarmWindow", {
             }
         ];
         me.callParent();
-    }
-    ,isBiov:function(){
-        var me=this;
+    },
+    getAlarmFormData: function () {
+
+        var me = this;
+        if (me.localData) {
+            try {
+                var data = Ext.decode(me.alarmData)['Set_Alarm'][0];
+                var alarm = Ext.create("svgxml.model.Alerm", data);
+
+                me.down("form").loadRecord(alarm);
+
+            } catch (e) {
+            }
+            return
+        }
+
+        myAjax("resources/test1.php?par=getAlarm&nodename=" + me.sDevNodeName, function (response) {
+            console.log(arguments)
+            try {
+                var data = Ext.decode(response.responseText)['Set_Alarm'][0];
+                var alarm = Ext.create("svgxml.model.Alerm", data);
+
+                me.alarmData = alarm;
+                console.log(alarm);
+                me.down("form").loadRecord(alarm);
+            } catch (e) {
+                setTimeout(function () {
+                    Ext.Msg.alert('Massage', 'invalid date , This attribute is initialized, ok .');
+                }, 500);
+                return;
+            }
+        })
+
+        return me.alarmData;
+
+    },
+    isBiov: function () {
+        var me = this;
         var text = me.sDevNodeType;
         console.log(me)
         console.log(text)
-        if(text=="BI"||text=="BO"||text=="BV"){
+        if (text == "BI" || text == "BO" || text == "BV") {
             return true;
         }
         return false;
-    },isAiov:function(){
-    var me=this;
-    var text = me.sDevNodeType;
-    console.log(me)
-    console.log(text)
-    if(text=="AI"||text=="AO"||text=="AV"){
-        return true;
+    },
+    isAiov: function () {
+        var me = this;
+        var text = me.sDevNodeType;
+        console.log(me)
+        console.log(text)
+        if (text == "AI" || text == "AO" || text == "AV") {
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 });
 

@@ -69,6 +69,9 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
 
             },
             beforeedit: function (editor, context, eOpts) {
+
+
+
                 var win = editor.cmp.up();
                 console.log(win)
                 var sDevNodeName = win.datas.record.data.value;
@@ -86,6 +89,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                 var rowRecord = context.record;
                 for (var i = 0; i < aWriteArr.length; i++) {
                     if (rowRecord.data.type == aWriteArr[i]) {
+
                         if ((sNodeType == "0" || sNodeType == "3") & rowRecord.data.type == "Present_Value") {
                             return false;
                         }
@@ -308,6 +312,7 @@ Ext.define("svgxml.view.grid.PropertypeGrid", {
                         if (sNodeType != "0" & rowRecord.data.type == "Offset") {
                             return false;
                         }
+
                         if (rowRecord.data.type == "Inactive_Text") {
                             context.column.setEditor({
                                 xtype: "combobox",

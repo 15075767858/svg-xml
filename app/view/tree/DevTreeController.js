@@ -1963,6 +1963,7 @@ function getScheduleByDev(devName) {
             var text = response.responseText;
             devjson = eval(text);
 //            console.log(devjson)
+            console.log(devjson)
             devjson.sort(function (a, b) {
                 return a.text - b.text
             })
