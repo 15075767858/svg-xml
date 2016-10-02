@@ -28,9 +28,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.sDevName = sDevName;
         //       var items = []
         me.items = []
-
-
         Ext.Ajax.request({
+
             async: false,
             url: "resources/devxml/" + me.text,
 
@@ -39,65 +38,67 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 if (!xml) {
                     Ext.Msg.alert("Error", "invalid data !");
                 }
-
                 var domKeys = xml.querySelectorAll("key");
-                //getvalue
                 var keys = [];
                 for (var i = 0; i < domKeys.length; i++) {
                     keys[i] = domKeys[i];
                 }
-
                 keys.sort(function (a, b) {
                     var akey = a.getAttribute("number")
                     var bkey = b.getAttribute("number")
                     return akey - bkey;
                 })
-
                 for (var i = 0; i < keys.length; i++) {
+
                     var Object_Name = keys[i].querySelector("Object_Name").innerHTML;
-                    //var Object_Name=keys[i].getAttribute("number")
                     var keyType = keys[i].getAttribute("number").substr(4, 1)
-                    var fieldsItems = [];
+                    //var fieldsItems = [];
                     var types = me["type" + keyType];
-                    console.log(types)
+                    //console.log(types)
                     if (!types) {
                         continue;
                     }
+
+                    var formData = {};
                     for (var j = 0; j < types.length; j++) {
                         var typeTag = keys[i].getElementsByTagName(types[j])[0];
-
                         var fieldName = types[j];
-                        //var value = typeTag.innerHTML;
                         var value;
                         if (typeTag) {
                             value = typeTag.innerHTML;
                         } else {
                             value = ""
                         }
-                        var textfield = {
-                            fieldLabel: fieldName,
-                            name: fieldName,
-                            value: value
-                        };
-                        fieldsItems.push(textfield);
+                        /*var textfield = {
+                         fieldLabel: fieldName,
+                         name: fieldName,
+                         value: value
+                         };*/
+
+                        formData[fieldName] = value;
+
+                        //fieldsItems.push(textfield);
                     }
+                    console.log(formData)
+                    /*
+                     var formPanel = Ext.create("Ext.form.Panel", {
+                     title: Object_Name,
+                     key: keys[i].getAttribute("number"),
+                     defaultType: 'textfield',
+                     defaults: {
+                     anchor: '100%'
+                     },
+                     minHeight: 300,
+                     scrollable: true,
+                     url: "resources/test1.php?par=setRenameValue&devname=" + sDevName,
+                     bodyPadding: 10,
+                     items: fieldsItems
+                     })*/
 
+                    var formPanel = me.createDevForm({Object_Name: Object_Name, key: keys[i].getAttribute('number')});
 
-                    var formPanel = Ext.create("Ext.form.Panel", {
-                        title: Object_Name,
-                        key: keys[i].getAttribute("number"),
-                        defaultType: 'textfield',
-                        defaults: {
-                            anchor: '100%'
-                        },
-                        minHeight: 300,
-                        scrollable: true,
-                        url: "resources/test1.php?par=setRenameValue&devname=" + sDevName,
-                        bodyPadding: 10,
-                        items: fieldsItems
-                    })
-//                    items.push(formPanel)
                     me.items.push(formPanel)
+                    formPanel.getForm().setValues(formData)
                 }
 
 
@@ -111,6 +112,147 @@ Ext.define("svgxml.view.window.RenameWindow", {
 //        me.items = items;
 
     },
+    createDevForm: function (data) {
+
+        var me = this;
+        var keyType = data.key.substr(4, 1);
+        var fields = me["type" + keyType];
+        var fieldsItems = [];
+
+
+        if (!fields) {
+            console.log("fields=" + fields)
+            return;
+        }
+
+        for (var i = 0; i < fields.length; i++) {
+            //console.log(fields[i])
+            var fieldName = fields[i];
+            var textfield = null;
+            if (fieldName == "Inactive_Text") {
+                textfield = {
+                    fieldLabel: fieldName,
+                    name: fieldName,
+                    xtype: "combobox",
+                    editable: false,
+                    store: ActiveJson.get("Inactive_Text_Defaults")
+                }
+            } else if (fieldName == "Active_Text") {
+                textfield = {
+                    fieldLabel: fieldName,
+                    name: fieldName,
+                    xtype: "combobox",
+                    editable: false,
+                    store: ActiveJson.get("Active_Text_Defaults")
+                }
+            } else if (fieldName == "Device_Type") {
+
+                var combostore = Ext.create('Ext.data.Store', {
+
+                    autoLoad: false,
+                    fields: ['name'],
+                    data: [
+                        {"name": "0-10=0-100"},
+                        {"name": "NTC10K"},
+                        {"name": "NTC20K"},
+                        {"name": "BI"}
+                    ]
+                })
+
+                textfield = {
+                    fieldLabel: fieldName,
+                    xtype: "combobox",
+                    store: combostore,
+                    validator: function (val) {
+                        if (val == "NTC10K" || val == "NTC20K" || val == "BI") {
+                            return true
+                        }
+                        var arr = val.split("=");
+                        if (arr.length != 2) {
+                            return false;
+                        }
+                        for (var i = 0; i < arr.length; i++) {
+                            var arr_ = arr[i].split("-");
+                            if (arr_.length < 2 || arr_.length > 3) {
+                                return false;
+                            }
+                            isNaN(arr_[0])
+                            isNaN(arr_[1])
+                        }
+                        return true;
+                    },
+                    displayField: 'name',
+                    valueField: 'name'
+                }
+
+            } else if (fieldName == 'Alarm') {
+                textfield = {
+                    fieldLabel: fieldName,
+                    name: fieldName,
+                    listeners: {
+                        focus: function (field, newValue) {
+
+                            Ext.create('svgxml.view.window.AlarmWindow', {
+                                id: "alermwindow",
+                                sDevNodeName: panel.key,
+                                sDevName: panel.key.substr(0, 4),
+                                sDevNodeType: panel.key.substr(4, 1),
+                                alarmData: field.getValue(),
+                                localData: true,
+                                submitAlarm: function (value) {
+                                    field.setValue(value)
+                                }
+                            })
+                        }
+                    }
+                };
+            } else if (fieldName == "Object_Name") {
+                textfield = {
+                    fieldLabel: fieldName,
+                    name: fieldName,
+                    value: data["Object_Name"],
+                    listeners: {
+                        change: function (field, newValue) {
+                            if (field.name == "Object_Name") {
+                                var form = field.up("form")
+                                if (form) {
+                                    form.setTitle(newValue)
+                                }
+                            }
+                            if (!form) {
+                                return;
+                            }
+                        }
+                    }
+                };
+            } else {
+                textfield = {
+                    fieldLabel: fieldName,
+                    name: fieldName,
+
+                };
+            }
+            fieldsItems.push(textfield);
+        }
+        console.log(data)
+        var panel = Ext.create("Ext.form.Panel", {
+            //title: data.Object_name,
+            title: data['Object_Name'],
+            key: data.key,
+            defaultType: 'textfield',
+            defaults: {
+                anchor: '100%'
+            },
+            minHeight: 300,
+            url: "resources/test1.php?par=setRenameValue&devname=" + me.sDevName,
+            scrollable: true,
+            bodyPadding: 10,
+            items: fieldsItems
+        })
+
+        return panel;
+    },
+
     databaseSources: function () {
         var me = this;
         me.title = me.sDevName + " rename";
@@ -210,140 +352,6 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
         }
         return data;
-    },
-    createDevForm: function (data) {
-
-        var me = this;
-        var keyType = data.key.substr(4, 1);
-        var fields = me["type" + keyType];
-        var fieldsItems = [];
-
-
-        if (!fields) {
-            console.log("fields=" + fields)
-            return;
-        }
-
-        for (var i = 0; i < fields.length; i++) {
-            //console.log(fields[i])
-            var fieldName = fields[i];
-            var textfield = null;
-            if (fieldName == "Inactive_Text") {
-                textfield = {
-                    fieldLabel: fieldName,
-                    name: fieldName,
-                    xtype: "combobox",
-                    editable: false,
-                    store: ActiveJson.get("Inactive_Text_Defaults")
-                }
-            } else if (fieldName == "Active_Text") {
-                textfield = {
-                    fieldLabel: fieldName,
-                    name: fieldName,
-                    xtype: "combobox",
-                    editable: false,
-                    store: ActiveJson.get("Active_Text_Defaults")
-                }
-            } else if (fieldName == "Device_Type") {
-
-                var combostore = Ext.create('Ext.data.Store', {
-
-                    autoLoad: false,
-                    fields: ['name'],
-                    data: [
-                        {"name": "0-10=0-100"},
-                        {"name": "NTC10K"},
-                        {"name": "NTC20K"},
-                        {"name": "BI"}
-                    ]
-                })
-
-                textfield = {
-                    fieldLabel: fieldName,
-                    xtype: "combobox",
-                    store: combostore,
-                    validator: function (val) {
-                        if (val == "NTC10K" || val == "NTC20K" || val == "BI") {
-                            return true
-                        }
-                        var arr = val.split("=");
-                        if (arr.length != 2) {
-                            return false;
-                        }
-                        for (var i = 0; i < arr.length; i++) {
-                            var arr_ = arr[i].split("-");
-                            if (arr_.length < 2 || arr_.length > 3) {
-                                return false;
-                            }
-                            isNaN(arr_[0])
-                            isNaN(arr_[1])
-                        }
-                        return true;
-                    },
-                    displayField: 'name',
-                    valueField: 'name'
-                }
-
-            } else if (fieldName == 'Alarm') {
-                textfield = {
-                    fieldLabel: fieldName,
-                    name: fieldName,
-                    listeners: {
-                        focus: function (field, newValue) {
-
-                            Ext.create('svgxml.view.window.AlarmWindow', {
-                                id: "alermwindow",
-                                sDevNodeName: panel.key,
-                                sDevName: panel.key.substr(0, 4),
-                                sDevNodeType: panel.key.substr(4, 1),
-                                alarmData: field.getValue(),
-                                localData: true,
-                                submitAlarm: function (value) {
-                                    field.setValue(value)
-                                }
-                            })
-                        }
-                    }
-                };
-            } else {
-                textfield = {
-                    fieldLabel: fieldName,
-                    name: fieldName,
-
-                    listeners: {
-                        change: function (field, newValue) {
-                            if (field.name == "Object_Name") {
-                                var form = field.up("form")
-                                if (form) {
-                                    form.setTitle(newValue)
-                                }
-                            }
-                            if (!form) {
-                                return;
-                            }
-                        }
-                    }
-                };
-            }
-            fieldsItems.push(textfield);
-        }
-
-        var panel = Ext.create("Ext.form.Panel", {
-            //title: data.Object_name,
-            title: data['Object_Name'],
-            key: data.key,
-            defaultType: 'textfield',
-            defaults: {
-                anchor: '100%'
-            },
-            minHeight: 300,
-            url: "resources/test1.php?par=setRenameValue&devname=" + me.sDevName,
-            scrollable: true,
-            bodyPadding: 10,
-            items: fieldsItems
-        })
-
-        return panel;
     },
 
     insrtDevForm: function (key, Object_Name) {
@@ -668,6 +676,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         for (var i = 0; i < items.length; i++) {
             items[i].setValue(items[i].getValue().replace(oldValue, newValue));
         }
+
         Ext.Msg.alert("Massage", items.length + " project have been changed");
     }
 });

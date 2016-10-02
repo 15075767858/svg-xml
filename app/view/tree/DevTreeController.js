@@ -1261,6 +1261,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                             text: "References",
                             handler: function () {
 
+                                var sDevName=(sDevNodeName+"").substr(0,4)
                                 myAjax("resources/test1.php?par=getreferencesdev&nodename=" + sDevNodeName, function (response) {
                                     var text = eval(response.responseText.trim());
                                     console.log(text)
@@ -1302,21 +1303,30 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                         }
                                     })
                                     console.log(targetData)
+
                                     for (var i = 0; i < text.length; i++) {
+                                        console.log(i)
 
                                         if (sDevName == getNetNumberValue()) {
                                             sourceData.push({'name': text[i], "identifier": "85", "arrayIndex": "-1"})
                                         } else {
+                                            console.log(text[i])
+                                            console.log(sDevName)
                                             if (sDevName == (text[i] + "").substr(0, 4)) {
+
                                                 sourceData.push({
                                                     'name': text[i],
                                                     "identifier": "85",
                                                     "arrayIndex": "-1"
                                                 })
+
                                             }
+
                                         }
+
                                         for (var j = 0; j < targetData.length; j++) {
                                             if (text[i] == targetData[j].name) {
+                                                console.log("pop")
                                                 sourceData.pop()
                                             }
                                         }
@@ -1433,7 +1443,9 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                     },
                                                     store: "refSourceStore",
                                                     columns: [
-                                                        {header: 'Name', dataIndex: 'name', flex: 1},
+                                                        {
+                                                            header: 'Name', dataIndex: 'name', flex: 1
+                                                        },
                                                         {
                                                             header: 'Identifier',
                                                             dataIndex: 'identifier',
@@ -1883,24 +1895,6 @@ function getDevAll() {
             text: aNames[i], allowDrop: false, allowDrag: false, expanded: false, children: getTypeByDev(aNames[i])
         })
     }
-    /*var scheduleArr=[];
-     childrenArr.push({
-     text: "Schedule",
-     expanded: false,
-     allowDrop: false,
-     allowDrag: false,
-     children: scheduleArr
-     })
-     var NetCount = 1100;
-     for (var i = 0; i < 89; i++) {
-     var netArr = getScheduleByDev(NetCount);
-     if(netArr.length!=0){
-     scheduleArr.push({
-     text:NetCount , allowDrop: false, allowDrag: false, expanded: false, children:netArr
-     })
-     }
-     NetCount += 100;
-     }*/
     return childrenArr;
 }
 
@@ -1962,6 +1956,7 @@ function getScheduleByDev(devName) {
         success: function (response) {
             var text = response.responseText;
             devjson = eval(text);
+
 //            console.log(devjson)
             console.log(devjson)
             devjson.sort(function (a, b) {

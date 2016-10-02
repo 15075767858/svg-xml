@@ -126,11 +126,11 @@ Ext.onReady(function () {
         })*/
 
 
-        Ext.create('svgxml.view.window.RenameWindow', {
+      /*  Ext.create('svgxml.view.window.RenameWindow', {
             sDevName:"1001",
             width: 800,
             height: 1024
-        })
+        })*/
     }, 3000)
 
 })

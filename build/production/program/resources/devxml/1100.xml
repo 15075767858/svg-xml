@@ -1,8 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
+ <AI_count>0</AI_count>
+ <AO_count>1</AO_count>
+ <AV_count>0</AV_count>
+ <BI_count>1</BI_count>
+ <BO_count>0</BO_count>
+ <BV_count>0</BV_count>
+ <SCHEDULE_count>0</SCHEDULE_count>
  <key  number="1100101">
-  <Object_Name>1</Object_Name>
-  <object_Name>1</object_Name>
-
-
+  <Object_Name>10</Object_Name>
+  <Offset>
+  </Offset>
+  <Description>ANALOG OUTPUT 1</Description>
+  <Device_Type>0-10=0-100</Device_Type>
+  <COV_Increment>1.2</COV_Increment>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0</Deadband>
+  <Limit_Enable>0</Limit_Enable>
+  <Event_Enable>0</Event_Enable>
+  <Notify_Type>
+  </Notify_Type>
+  <Time_Delay>
+  </Time_Delay>
+  <Notification_Class>
+  </Notification_Class>
+ </key>
+ <key  number="1100332">
+  <Object_Name>
+  </Object_Name>
+  <Description>
+  </Description>
+  <Device_Type>
+  </Device_Type>
+  <Inactive_Text>
+  </Inactive_Text>
+  <Active_Text>
+  </Active_Text>
+  <Event_Enable>
+  </Event_Enable>
+  <Notify_Type>
+  </Notify_Type>
+  <Time_Delay>
+  </Time_Delay>
+  <Alarm_Value>
+  </Alarm_Value>
+  <Notification_Class>
+  </Notification_Class>
+ </key>
+ <key  number="1100801">
+  <Object_Name>aaaaaaaa</Object_Name>
  </key>
 </root>

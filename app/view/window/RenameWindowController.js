@@ -87,7 +87,7 @@ Ext.define('svgxml.view.window.RenameWindowController', {
             var keyField = Ext.create("Ext.form.field.Text", {
                 margin: 10,
                 fieldLabel: "Key",
-                value: lastText + "01"
+                value: "9901201"
             })
             var win = Ext.create('Ext.window.Window', {
                 title: 'Add •••',
@@ -109,7 +109,7 @@ Ext.define('svgxml.view.window.RenameWindowController', {
                         editable: false,
                         queryMode: 'local',
                         autoSelect: false,
-                        value: me.sDevName.substr(0, 2) + "00",
+                        value: "9900",
                         listeners: {
                             change: function (field, newValue, oldValue) {
                                 var value = Ext.String.leftPad(newValue, 4, "0");
@@ -131,7 +131,7 @@ Ext.define('svgxml.view.window.RenameWindowController', {
                         editable: false,
                         queryMode: 'local',
                         autoSelect: false,
-                        value: parseInt(me.sDevName.substr(2, 2)),
+                        value:"01",
                         listeners: {
                             change: function (field, newValue, oldValue) {
                                 var value = Ext.String.leftPad(newValue, 2, "0");
