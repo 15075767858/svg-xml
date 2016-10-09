@@ -450,7 +450,6 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var bvcount = 0;
         var schedulecount = 0;
 
-
         root.appendChild(ai);
         root.appendChild(ao);
         root.appendChild(av);
@@ -489,12 +488,15 @@ Ext.define("svgxml.view.window.RenameWindow", {
             if (keytype == "6") {
                 schedulecount++
             }
+
             key.setAttribute("number", items[i].key);
+
             for (var type in res) {
                 var tag = document.createElement(type)
                 tag.innerHTML = res[type];
                 key.appendChild(tag);
             }
+
             root.appendChild(key);
             myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
                 try {
@@ -657,9 +659,24 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
         {
             text: "Ok", handler: function () {
-
             var me = this.up("window");
-            me.saveXml(me.sDevName)
+            console.log(me.sDevName)
+
+            Ext.MessageBox.prompt("Save", "please input device", function (ms, v) {
+                if (ms == 'ok') {
+                    if (isNaN(v) || v.length != 4) {
+
+                        Ext.Msg.alert("Key Exception", "The key ,Does not meet the requirements")
+
+                        return;
+                    }
+                    if (v) {
+                        me.saveXml(v)
+                    } else {
+                        Ext.Msg.alert("Exception", "filename exception .")
+                    }
+                }
+            },this,"",me.sDevName)
             return;
         }
         },

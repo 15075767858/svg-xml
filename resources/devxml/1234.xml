@@ -11,7 +11,8 @@
   <Object_Name>UI1 </Object_Name>
   <Offset>0.01</Offset>
   <Description>ANALOG INPUT1</Description>
-  <combo-3651-inputel>  </combo-3651-inputel>
+  <combobox-2447-inputel>
+  </combobox-2447-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -25,12 +26,21 @@
   <Time_Delay>0</Time_Delay>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>100</Low_Limit>
+  <Deadband>100</Deadband>
+  <delay_time>100</delay_time>
+  <Notification_Class>3</Notification_Class>
+  <event_type>1</event_type>
+  <limit>11</limit>
+  <Event_Enable>111</Event_Enable>
  </key>
  <key  number="1001002">
   <Object_Name>UI2 </Object_Name>
   <Offset>0.01</Offset>
   <Description>ANALOG INPUT2</Description>
-  <combo-3651-inputel>  </combo-3651-inputel>
+  <combobox-2465-inputel>
+  </combobox-2465-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -44,12 +54,21 @@
   <Time_Delay>0</Time_Delay>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0</Deadband>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <limit>0</limit>
+  <Event_Enable>0</Event_Enable>
  </key>
-  <key  number="1001003">
+ <key  number="1001003">
   <Object_Name>UI3 </Object_Name>
   <Offset>0.01</Offset>
   <Description>ANALOG INPUT3</Description>
-  <combo-3651-inputel>  </combo-3651-inputel>
+  <combobox-2483-inputel>
+  </combobox-2483-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -63,12 +82,21 @@
   <Time_Delay>0</Time_Delay>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0</Deadband>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <limit>0</limit>
+  <Event_Enable>0</Event_Enable>
  </key>
-  <key  number="1001004">
+ <key  number="1001004">
   <Object_Name>UI4 </Object_Name>
   <Offset>0.01</Offset>
   <Description>ANALOG INPUT4</Description>
-  <combo-3651-inputel>  </combo-3651-inputel>
+  <combobox-2501-inputel>
+  </combobox-2501-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -83,11 +111,12 @@
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
-  <key  number="1001005">
+ <key  number="1001005">
   <Object_Name>UI5 </Object_Name>
   <Offset>0.01</Offset>
   <Description>ANALOG INPUT5</Description>
-  <combo-3651-inputel>  </combo-3651-inputel>
+  <combobox-2519-inputel>
+  </combobox-2519-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -102,11 +131,12 @@
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
-  <key  number="1001006">
+ <key  number="1001006">
   <Object_Name>UI6 </Object_Name>
   <Offset>0.01</Offset>
   <Description>ANALOG INPUT6</Description>
-  <combo-3651-inputel>  </combo-3651-inputel>
+  <combobox-2537-inputel>
+  </combobox-2537-inputel>
   <Units>98</Units>
   <Min_Pres_Value>0.000</Min_Pres_Value>
   <Max_Pres_Value>100.000</Max_Pres_Value>
@@ -125,8 +155,8 @@
   <Object_Name>ANALOG OUTPUT1</Object_Name>
   <Offset>1.000</Offset>
   <Description>ANALOG OUTPUT1</Description>
-  <combo-3723-inputel>
-  </combo-3723-inputel>
+  <combobox-2555-inputel>
+  </combobox-2555-inputel>
   <COV_Increment>0.500</COV_Increment>
   <High_Limit>100</High_Limit>
   <Low_Limit>0.000</Low_Limit>
@@ -137,13 +167,21 @@
   <Time_Delay>1</Time_Delay>
   <Notification_Class>1</Notification_Class>
   <Alarm>0 </Alarm>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0</Deadband>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <limit>0</limit>
+  <Event_Enable>0</Event_Enable>
  </key>
  <key  number="1001102">
   <Object_Name>ANALOG OUTPUT2</Object_Name>
   <Offset>1.000</Offset>
   <Description>ANALOG OUTPUT2</Description>
-  <combo-3738-inputel>
-  </combo-3738-inputel>
+  <combobox-2570-inputel>
+  </combobox-2570-inputel>
   <COV_Increment>0.500</COV_Increment>
   <High_Limit>100</High_Limit>
   <Low_Limit>0.000</Low_Limit>
@@ -159,8 +197,8 @@
   <Object_Name>ANALOG OUTPUT3</Object_Name>
   <Offset>1.000</Offset>
   <Description>ANALOG OUTPUT 3</Description>
-  <combo-3753-inputel>
-  </combo-3753-inputel>
+  <combobox-2585-inputel>
+  </combobox-2585-inputel>
   <COV_Increment>0.500</COV_Increment>
   <High_Limit>100</High_Limit>
   <Low_Limit>0.000</Low_Limit>
@@ -171,13 +209,14 @@
   <Time_Delay>1</Time_Delay>
   <Notification_Class>1</Notification_Class>
   <Alarm>
-  </Alarm>0</key>
+  </Alarm>
+ </key>
  <key  number="1001104">
   <Object_Name>ANALOG OUTPUT4</Object_Name>
   <Offset>1.000</Offset>
   <Description>ANALOG OUTPUT4</Description>
-  <combo-3768-inputel>
-  </combo-3768-inputel>
+  <combobox-2600-inputel>
+  </combobox-2600-inputel>
   <COV_Increment>0.500</COV_Increment>
   <High_Limit>100</High_Limit>
   <Low_Limit>0.000</Low_Limit>
@@ -202,6 +241,14 @@
   <Time_Delay>0</Time_Delay>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <High_Limit>100</High_Limit>
+  <Low_Limit>0</Low_Limit>
+  <Deadband>0</Deadband>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <limit>0</limit>
+  <Event_Enable>0</Event_Enable>
  </key>
  <key  number="1001202">
   <Object_Name>ANALOG VALUE2</Object_Name>
@@ -262,266 +309,300 @@
  <key  number="1001301">
   <Object_Name>BINARY_INPUT1</Object_Name>
   <Description>BINARY_INPUT 1</Description>
-  <combo-3847-inputel>
-  </combo-3847-inputel>
+  <combobox-2679-inputel>
+  </combobox-2679-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>1</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>1</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <Alarm_value>0</Alarm_value>
+  <Event_Enable>0</Event_Enable>
  </key>
  <key  number="1001302">
   <Object_Name>BINARY_INPUT2</Object_Name>
   <Description>BINARY_INPUT 2</Description>
-  <combo-3859-inputel>
-  </combo-3859-inputel>
+  <combobox-2691-inputel>
+  </combobox-2691-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>1</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>1</Time_Delay>
-  <Alarm_value>1</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001303">
   <Object_Name>BINARY_INPUT3</Object_Name>
   <Description>BINARY_INPUT 3</Description>
-  <combo-3871-inputel>
-  </combo-3871-inputel>
+  <combobox-2703-inputel>
+  </combobox-2703-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001304">
   <Object_Name>BINARY_INPUT4</Object_Name>
   <Description>BINARY_INPUT 4</Description>
-  <combo-3883-inputel>
-  </combo-3883-inputel>
+  <combobox-2715-inputel>
+  </combobox-2715-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001305">
   <Object_Name>BINARY_INPUT5</Object_Name>
   <Description>BINARY_INPUT 5</Description>
-  <combo-3895-inputel>
-  </combo-3895-inputel>
+  <combobox-2727-inputel>
+  </combobox-2727-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001306">
   <Object_Name>BINARY_INPUT6</Object_Name>
   <Description>BINARY_INPUT 6</Description>
-  <combo-3907-inputel>
-  </combo-3907-inputel>
+  <combobox-2739-inputel>
+  </combobox-2739-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001307">
   <Object_Name>BINARY_INPUT7</Object_Name>
   <Description>BINARY_INPUT 7</Description>
-  <combo-3919-inputel>
-  </combo-3919-inputel>
+  <combobox-2751-inputel>
+  </combobox-2751-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001308">
   <Object_Name>BINARY_INPUT8</Object_Name>
   <Description>BINARY_INPUT 8</Description>
-  <combo-3931-inputel>
-  </combo-3931-inputel>
+  <combobox-2763-inputel>
+  </combobox-2763-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001401">
   <Object_Name>BINARY_OUTPUT 1</Object_Name>
   <Description>BINARY_OUTPUT 1</Description>
-  <combo-3943-inputel>
-  </combo-3943-inputel>
+  <combobox-2775-inputel>
+  </combobox-2775-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <Alarm_value>0</Alarm_value>
+  <Event_Enable>101</Event_Enable>
  </key>
  <key  number="1001402">
   <Object_Name>BINARY_OUTPUT 2</Object_Name>
   <Description>BINARY_OUTPUT 2</Description>
-  <combo-3955-inputel>
-  </combo-3955-inputel>
+  <combobox-2787-inputel>
+  </combobox-2787-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001403">
   <Object_Name>BINARY_OUTPUT 3</Object_Name>
   <Description>BINARY_OUTPUT 3</Description>
-  <combo-3967-inputel>
-  </combo-3967-inputel>
+  <combobox-2799-inputel>
+  </combobox-2799-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001404">
   <Object_Name>BINARY_OUTPUT 4</Object_Name>
   <Description>BINARY_OUTPUT4</Description>
-  <combo-3979-inputel>
-  </combo-3979-inputel>
+  <combobox-2811-inputel>
+  </combobox-2811-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001405">
   <Object_Name>BINARY_OUTPUT 5</Object_Name>
   <Description>BINARY_OUTPUT 5</Description>
-  <combo-3991-inputel>
-  </combo-3991-inputel>
+  <combobox-2823-inputel>
+  </combobox-2823-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001406">
   <Object_Name>BINARY_OUTPUT 6</Object_Name>
   <Description>BINARY_OUTPUT 6</Description>
-  <combo-4003-inputel>
-  </combo-4003-inputel>
+  <combobox-2835-inputel>
+  </combobox-2835-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001501">
   <Object_Name>BINARY_VALUE1</Object_Name>
   <Description>BINARY_VALUE1</Description>
-  <combo-4015-inputel>
-  </combo-4015-inputel>
+  <combobox-2847-inputel>
+  </combobox-2847-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
+  <delay_time>10</delay_time>
+  <Notification_Class>1</Notification_Class>
+  <event_type>0</event_type>
+  <Alarm_value>0</Alarm_value>
+  <Event_Enable>0</Event_Enable>
  </key>
  <key  number="1001502">
   <Object_Name>BINARY_VALUE2</Object_Name>
   <Description>BINARY_VALUE2</Description>
-  <combo-4027-inputel>
-  </combo-4027-inputel>
+  <combobox-2859-inputel>
+  </combobox-2859-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001503">
   <Object_Name>BINARY_VALUE3</Object_Name>
   <Description>BINARY_VALUE3</Description>
-  <combo-4039-inputel>
-  </combo-4039-inputel>
+  <combobox-2871-inputel>
+  </combobox-2871-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001504">
   <Object_Name>BINARY_VALUE4</Object_Name>
   <Description>BINARY_VALUE4</Description>
-  <combo-4051-inputel>
-  </combo-4051-inputel>
+  <combobox-2883-inputel>
+  </combobox-2883-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
  <key  number="1001505">
   <Object_Name>BINARY_VALUE5</Object_Name>
   <Description>BINARY_VALUE5</Description>
-  <combo-4063-inputel>
-  </combo-4063-inputel>
+  <combobox-2895-inputel>
+  </combobox-2895-inputel>
   <Inactive_Text>Off</Inactive_Text>
   <Active_Text>On</Active_Text>
   <Event_Enable>0</Event_Enable>
   <Notify_Type>0</Notify_Type>
   <Time_Delay>0</Time_Delay>
-  <Alarm_value>0</Alarm_value>
+  <Alarm_value>
+  </Alarm_value>
   <Notification_Class>1</Notification_Class>
   <Alarm>0</Alarm>
  </key>
@@ -530,7 +611,8 @@
   <Description>SCHEDULE 2</Description>
   <Priority_For_Writing>8</Priority_For_Writing>
   <Alarm>
-  </Alarm>0 </key>
+  </Alarm>
+ </key>
  <key  number="1001801">
   <Object_Name>i1024Controller</Object_Name>
  </key>

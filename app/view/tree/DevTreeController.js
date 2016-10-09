@@ -84,6 +84,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                                                 Ext.Msg.alert('Info', 'Plase select file name.');
                                                 return;
                                             }
+                                            console.log(text)
                                             Ext.create('svgxml.view.window.RenameWindow', {
                                                 //sDevNodeName: sDevNodeName,
                                                 text: text,
