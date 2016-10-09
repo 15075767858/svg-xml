@@ -139,7 +139,7 @@ Ext.define('svgxml.view.tab.DrawPanelController', {
 
                                             var gridpanelDatas = ogridpanle.copyGridPanels;
 
-                                            var gridpanels=[];
+                                            var gridpanels = [];
 
                                             for (var i = 0; i < gridpanelDatas.length; i++) {
 
@@ -455,7 +455,6 @@ function typegridCache(th) {
     }
 
 
-
     console.log(items.length)
 
     var currentPlantId = getCurrentPlant().id
@@ -475,8 +474,8 @@ function typegridCache(th) {
 
 }
 
-function createTypeGrid(items) {
-    var drawPanel=getCurrentDrawPanel();
+function createTypeGrid(items, index) {
+    var drawPanel = getCurrentDrawPanel();
     var typegrid = Ext.create("svgxml.view.grid.TypeGrid", items.typegrid);
 
     typegrid.datas = items.datas;
@@ -490,7 +489,15 @@ function createTypeGrid(items) {
             //fields: items.store.fields
         })
     )
-    drawPanel.add(typegrid);
+    if (index != undefined) {
+        console.log(index)
+        console.log(drawPanel)
+        console.log(typegrid)
+        drawPanel.add(typegrid);
+        drawPanel.insert(index, typegrid);
+    } else {
+        drawPanel.add(typegrid);
+    }
     isDev(typegrid, items)
     isLogicShowRows(typegrid)
     function isLogicShowRows(typegrid) {
@@ -521,6 +528,7 @@ function createTypeGrid(items) {
         typegrid.store.setData(data)
 
     }
+
     return typegrid
 }
 

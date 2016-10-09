@@ -3,21 +3,25 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/app/view/grid/TypeGridController.js" line="62" />
     <bookmark url="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js" line="908" />
-    <bookmark url="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js" line="478" />
+    <bookmark url="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js" line="477" />
     <bookmark url="file://$PROJECT_DIR$/app/view/window/RenameWindow.js" line="28" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ab2cb7-0149-4e60-9c92-86c11b2d0373" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/devxml/i831.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/devxml/1100.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/devxml/1200.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/devxml/9900.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/devxml/i1024.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/devxml/i830.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/devxml/i852.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/resources/devxml/1001.xml" afterPath="$PROJECT_DIR$/devxml/i830.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/devsinfo/ch3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/devsinfo/chwp2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/devsinfo/chwp3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/devsinfo/ch3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/devsinfo/chwp2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/devsinfo/chwp3" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/8401" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/8403" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/8411" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/8412" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/8415" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/8416" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/devsinfo/local" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/.sass-cache/d08d7d0d822b06a58a8f65107a7d31ca00d43097/program-all.scssc" afterPath="$PROJECT_DIR$/build/.sass-cache/d08d7d0d822b06a58a8f65107a7d31ca00d43097/program-all.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program.tar.gz" afterPath="$PROJECT_DIR$/build/production/program.tar.gz" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/images/btn-group/btn-group-default-framed-corners.gif" afterPath="$PROJECT_DIR$/build/production/program/resources/images/btn-group/btn-group-default-framed-corners.gif" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/images/btn-group/btn-group-default-framed-notitle-corners.gif" afterPath="$PROJECT_DIR$/build/production/program/resources/images/btn-group/btn-group-default-framed-notitle-corners.gif" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/images/btn-group/btn-group-default-framed-notitle-sides.gif" afterPath="$PROJECT_DIR$/build/production/program/resources/images/btn-group/btn-group-default-framed-notitle-sides.gif" />
@@ -338,28 +342,29 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/images/window-header/window-header-default-top-sides.gif" afterPath="$PROJECT_DIR$/build/production/program/resources/images/window-header/window-header-default-top-sides.gif" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/images/window/window-default-corners.gif" afterPath="$PROJECT_DIR$/build/production/program/resources/images/window/window-default-corners.gif" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/images/window/window-default-sides.gif" afterPath="$PROJECT_DIR$/build/production/program/resources/images/window/window-default-sides.gif" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" afterPath="$PROJECT_DIR$/build/temp/production/program/slicer-temp/theme-capture.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000" afterPath="$PROJECT_DIR$/1000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000.json" afterPath="$PROJECT_DIR$/1000.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/Main.js" afterPath="$PROJECT_DIR$/app/view/main/Main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/grid/menu/gridmenu.js" afterPath="$PROJECT_DIR$/app/view/grid/menu/gridmenu.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" afterPath="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" afterPath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/tree/DevTreeController.js" afterPath="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/window/RenameWindow.js" afterPath="$PROJECT_DIR$/app/view/window/RenameWindow.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/window/RenameWindowController.js" afterPath="$PROJECT_DIR$/app/view/window/RenameWindowController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" afterPath="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" afterPath="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.css" afterPath="$PROJECT_DIR$/bootstrap.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.js" afterPath="$PROJECT_DIR$/bootstrap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.json" afterPath="$PROJECT_DIR$/bootstrap.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/app.js" afterPath="$PROJECT_DIR$/build/production/program/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/index.html" afterPath="$PROJECT_DIR$/build/production/program/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devxml/1001.xml" afterPath="$PROJECT_DIR$/build/production/program/resources/devxml/1001.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/devxml/1100.xml" afterPath="$PROJECT_DIR$/build/production/program/resources/devxml/1100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/production/program/resources/test1.php" afterPath="$PROJECT_DIR$/build/production/program/resources/test1.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss.tmp" afterPath="$PROJECT_DIR$/build/temp/production/program/sass/program-all.scss.tmp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i1024.xml" afterPath="$PROJECT_DIR$/devxml/i1024.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i830.xml" afterPath="$PROJECT_DIR$/devxml/i830.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i831.xml" afterPath="$PROJECT_DIR$/devxml/i831.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devxml/i852.xml" afterPath="$PROJECT_DIR$/devxml/i852.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/test1.php" afterPath="$PROJECT_DIR$/resources/test1.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sass/example/bootstrap.json" afterPath="$PROJECT_DIR$/sass/example/bootstrap.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/8401" afterPath="$PROJECT_DIR$/resources/devsinfo/8401" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/8403" afterPath="$PROJECT_DIR$/resources/devsinfo/8403" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/8411" afterPath="$PROJECT_DIR$/resources/devsinfo/8411" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/8412" afterPath="$PROJECT_DIR$/resources/devsinfo/8412" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/8415" afterPath="$PROJECT_DIR$/resources/devsinfo/8415" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/8416" afterPath="$PROJECT_DIR$/resources/devsinfo/8416" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/devsinfo/local" afterPath="$PROJECT_DIR$/resources/devsinfo/local" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.sh" afterPath="$PROJECT_DIR$/run.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sass/example/example.css" afterPath="$PROJECT_DIR$/sass/example/example.css" />
     </list>
     <ignored path="svgxml.iws" />
@@ -391,10 +396,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TopToolbar.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.29024813">
               <caret line="181" column="83" selection-start-line="181" selection-start-column="83" selection-end-line="181" selection-end-column="83" />
               <folding>
                 <element signature="e#9130#9754#0" expanded="false" />
@@ -403,36 +408,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DevTreeController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/tree/DevTreeController.js">
+      <file leaf-file-name="gridmenuController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1321" column="0" selection-start-line="1321" selection-start-column="0" selection-end-line="1321" selection-end-column="0" />
+              <caret line="455" column="66" selection-start-line="455" selection-start-column="66" selection-end-line="455" selection-end-column="66" />
               <folding>
-                <element signature="e#38077#38569#0" expanded="false" />
-                <element signature="e#82422#96398#0" expanded="false" />
-                <element signature="e#99129#99759#0" expanded="false" />
-                <marker date="1475393704000" expanded="true" signature="5087:5097" placeholder="..." />
+                <marker date="1475996002000" expanded="true" signature="19722:19799" placeholder="..." />
+                <marker date="1475996002000" expanded="true" signature="20759:20836" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RenameWindowController.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindowController.js">
+      <file leaf-file-name="DrawPanelController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5800119">
-              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="502" column="40" selection-start-line="502" selection-start-column="40" selection-end-line="502" selection-end-column="40" />
+              <folding>
+                <element signature="e#12030#12909#0" expanded="false" />
+                <element signature="e#12966#13096#0" expanded="false" />
+                <element signature="e#13224#14132#0" expanded="false" />
+                <element signature="e#25855#26322#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainModel.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/main/MainModel.js">
+      <file leaf-file-name="TopToolbarController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <caret line="892" column="9" selection-start-line="892" selection-start-column="9" selection-end-line="892" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -461,7 +469,6 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/active.json" />
         <option value="$PROJECT_DIR$/app/view/window/DrawWeeksWindow.js" />
-        <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenu.js" />
         <option value="$PROJECT_DIR$/app/view/grid/LogicGridPanel.js" />
         <option value="$PROJECT_DIR$/app/store/RenameStore.js" />
         <option value="$PROJECT_DIR$/ext/build/ext.js" />
@@ -486,13 +493,9 @@
         <option value="$PROJECT_DIR$/1000.xml" />
         <option value="$PROJECT_DIR$/app/view/tab/DrawPanel.js" />
         <option value="$PROJECT_DIR$/1000.json" />
-        <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
         <option value="$PROJECT_DIR$/app.json" />
-        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
         <option value="$PROJECT_DIR$/app/view/tab/BasicController.js" />
         <option value="$PROJECT_DIR$/app/view/grid/TypeGrid.js" />
-        <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" />
-        <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/app/view/chart/RenameChartController.js" />
         <option value="$PROJECT_DIR$/app/view/grid/TypeGridController.js" />
         <option value="$PROJECT_DIR$/resources/devxml/aaa.xml" />
@@ -505,8 +508,13 @@
         <option value="$PROJECT_DIR$/resources/devxml/1001.xml" />
         <option value="$PROJECT_DIR$/app/view/window/RenameWindow.js" />
         <option value="$PROJECT_DIR$/app/view/window/RenameWindowController.js" />
-        <option value="$PROJECT_DIR$/resources/test1.php" />
         <option value="$PROJECT_DIR$/app/view/tree/DevTreeController.js" />
+        <option value="$PROJECT_DIR$/run.sh" />
+        <option value="$PROJECT_DIR$/resources/test1.php" />
+        <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenu.js" />
+        <option value="$PROJECT_DIR$/app/view/tab/DrawPanelController.js" />
+        <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js" />
+        <option value="$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js" />
         <option value="$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js" />
       </list>
     </option>
@@ -578,6 +586,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches">
+        <subPane />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -667,28 +679,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svgxml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="program" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="window" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -856,10 +846,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches">
-        <subPane />
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -886,18 +872,18 @@
       <recent name="http://www.baidu.com" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/devsinfo" />
       <recent name="$PROJECT_DIR$/devsinfo" />
       <recent name="$PROJECT_DIR$/devsxml" />
       <recent name="$PROJECT_DIR$/ext" />
-      <recent name="$PROJECT_DIR$/resources/devsinfo" />
       <recent name="$PROJECT_DIR$/resources/img/SVG" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/devsinfo" />
       <recent name="$PROJECT_DIR$/devxml" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/resources/img/PNG" />
-      <recent name="$PROJECT_DIR$/resources/devsinfo" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
@@ -984,17 +970,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="-356" width="1080" height="1897" extended-state="0" />
+    <frame x="1920" y="-356" width="1080" height="1897" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32851636" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2283237" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2495183" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963988" sideWeight="0.50386846" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32851636" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982844" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.054233536" sideWeight="0.49613154" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.025456557" sideWeight="0.49613154" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1029,6 +1015,32 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindowController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/MainModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#9130#9754#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/grid/TypeGridModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1078,13 +1090,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/1000.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="81" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="978" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1117,33 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.3876652">
           <caret line="194" column="61" selection-start-line="194" selection-start-column="28" selection-end-line="194" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5273412">
-          <caret line="278" column="0" selection-start-line="278" selection-start-column="0" selection-end-line="278" selection-end-column="0" />
-          <folding>
-            <element signature="e#12028#12907#0" expanded="false" />
-            <element signature="e#12964#13094#0" expanded="false" />
-            <element signature="e#13222#14130#0" expanded="false" />
-            <element signature="e#25627#26094#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07542426">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52796984">
-          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1203,20 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0094399">
           <caret line="122" column="3" selection-start-line="122" selection-start-column="3" selection-end-line="122" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGrid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.19092627">
-          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9432892">
-          <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1280,10 +1244,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1154075">
           <caret line="125" column="12" selection-start-line="125" selection-start-column="12" selection-end-line="125" selection-end-column="12" />
-          <folding>
-            <marker date="1475200739000" expanded="true" signature="917:1018" placeholder="..." />
-            <marker date="1475200739000" expanded="true" signature="1032:1044" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1301,28 +1261,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="181" column="83" selection-start-line="181" selection-start-column="83" selection-end-line="181" selection-end-column="83" />
-          <folding>
-            <element signature="e#9130#9754#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/tree/DevTree.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/test1.php">
+    <entry file="file://$PROJECT_DIR$/devxml/i830.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.009052505">
-          <caret line="305" column="33" selection-start-line="305" selection-start-column="33" selection-end-line="305" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.39496782">
+          <caret line="45" column="18" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1340,22 +1297,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+    <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindowController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="674" column="0" selection-start-line="674" selection-start-column="0" selection-end-line="674" selection-end-column="0" />
-          <folding>
-            <element signature="e#770#3570#0" expanded="false" />
-            <element signature="e#2516#3273#0" expanded="false" />
-            <element signature="e#3602#5156#0" expanded="false" />
-            <element signature="e#5189#6919#0" expanded="false" />
-            <element signature="e#6950#8418#0" expanded="false" />
-            <element signature="e#8449#13294#0" expanded="false" />
-            <element signature="e#8460#8649#0" expanded="false" />
-            <element signature="e#17818#17840#0" expanded="false" />
-            <element signature="n#!!block;n#gridpanelChangeButtonText#0;n#!!block;n#saveXml#0" expanded="false" />
-            <element signature="e#20176#20220#0" expanded="false" />
-          </folding>
+          <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1367,11 +1313,109 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/window/RenameWindowController.js">
+    <entry file="file://$PROJECT_DIR$/resources/test1.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5800119">
-          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.28964308">
+          <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/1000.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="81" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="978" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/devsinfo/chwp2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6491633">
+          <caret line="97" column="28" selection-start-line="97" selection-start-column="28" selection-end-line="97" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/devxml/i831.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24575776">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/MainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/src/panel/Panel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34333527">
+          <caret line="93" column="53" selection-start-line="93" selection-start-column="50" selection-end-line="93" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbarController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="892" column="9" selection-start-line="892" selection-start-column="9" selection-end-line="892" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/tab/DrawPanelController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="502" column="40" selection-start-line="502" selection-start-column="40" selection-end-line="502" selection-end-column="40" />
+          <folding>
+            <element signature="e#12030#12909#0" expanded="false" />
+            <element signature="e#12966#13096#0" expanded="false" />
+            <element signature="e#13224#14132#0" expanded="false" />
+            <element signature="e#25855#26322#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/PropertypeGrid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.017311022">
+          <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/grid/menu/gridmenuController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="455" column="66" selection-start-line="455" selection-start-column="66" selection-end-line="455" selection-end-column="66" />
+          <folding>
+            <marker date="1475996002000" expanded="true" signature="19722:19799" placeholder="..." />
+            <marker date="1475996002000" expanded="true" signature="20759:20836" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/main/toolbar/TopToolbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29024813">
+          <caret line="181" column="83" selection-start-line="181" selection-start-column="83" selection-end-line="181" selection-end-column="83" />
+          <folding>
+            <element signature="e#9130#9754#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -883,8 +883,8 @@ function getStartTrIdByEndTrId(endTrId) {
 
 
 function getCurrentDrawPanel() {
-    var drawpanels = Ext.ComponentQuery.query("drawpanel");
 
+    var drawpanels = Ext.ComponentQuery.query("drawpanel");
     var drawpanel;
     for (var i = 0; i < drawpanels.length; i++) {
         if (!drawpanels[i].hidden && drawpanels[i].el) {
@@ -892,7 +892,6 @@ function getCurrentDrawPanel() {
             drawpanel = drawpanels[i];
         }
     }
-
     return drawpanel;
     //return Ext.getCmp("frametab_drawpanel").getActiveTab();
 }

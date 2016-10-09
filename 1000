@@ -2,86 +2,23 @@
 <root>
  <plant  name="001">
   <master_node  number="1">
-   <type>5</type>
-   <key>1010501</key>
+   <type>51</type>
    <slots  number="1">
-    <node>6</node>
-    <slot_number>4</slot_number>
+    <default>0</default>
+   </slots>
+   <slots  number="2">
+    <default>0</default>
    </slots>
   </master_node>
   <master_node  number="2">
-   <type>5</type>
-   <key>1010501</key>
+   <type>0</type>
+   <key>1001003</key>
   </master_node>
   <master_node  number="3">
-   <type>5</type>
-   <key>1010501</key>
-  </master_node>
-  <master_node  number="4">
-   <type>5</type>
-   <key>1010501</key>
-  </master_node>
-  <master_node  number="5">
-   <type>5</type>
-   <key>1010501</key>
-  </master_node>
-  <master_node  number="6">
-   <type>65</type>
-   <slots  number="1">
-    <default>1</default>
-   </slots>
-   <slots  number="2">
-    <default>3</default>
-   </slots>
-   <slots  number="3">
-    <default>3</default>
-   </slots>
-   <slots  number="4">
-    <default>0</default>
-   </slots>
-  </master_node>
-  <master_node  number="7">
-   <type>4</type>
-   <key>1010401</key>
-   <slots  number="1">
-    <node>2</node>
-    <slot_number>0</slot_number>
-   </slots>
-  </master_node>
-  <master_node  number="8">
-   <type>4</type>
-   <key>1010402</key>
-   <slots  number="1">
-    <node>3</node>
-    <slot_number>0</slot_number>
-   </slots>
-  </master_node>
-  <master_node  number="9">
    <type>58</type>
    <slots  number="1">
-    <node>4</node>
-    <slot_number>0</slot_number>
-   </slots>
-  </master_node>
-  <master_node  number="10">
-   <type>5</type>
-   <key>1001501</key>
-   <slots  number="1">
-    <default>0</default>
-   </slots>
-  </master_node>
-  <master_node  number="11">
-   <type>4</type>
-   <key>1001402</key>
-   <slots  number="1">
-    <default>0</default>
-   </slots>
-  </master_node>
-  <master_node  number="12">
-   <type>4</type>
-   <key>1001401</key>
-   <slots  number="1">
-    <default>0</default>
+    <node>1</node>
+    <slot_number>2</slot_number>
    </slots>
   </master_node>
  </plant>

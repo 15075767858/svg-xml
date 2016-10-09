@@ -16,8 +16,8 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
     style: {
         borderColor: "#111"
     },
-    listeners:{
-      show:"show"
+    listeners: {
+        show: "show"
     },
     items: [{
         text: 'cut',
@@ -64,16 +64,16 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
         text: 'Link Mark',
         itemId: 'LinkMark',
         disabled: true,
-        listeners:{
-            click:"LinkMarkClick"
+        listeners: {
+            click: "LinkMarkClick"
         }
     }, {
         text: 'Link Form',
         itemId: 'LinkForm',
         disabled: true,
         border: "0 0 1 0",
-        listeners:{
-            click:"LinkFormClick"
+        listeners: {
+            click: "LinkFormClick"
         },
         style: {
             borderColor: "#111"
@@ -93,40 +93,45 @@ Ext.define("svgxml.view.grid.menu.gridmenu", {
             borderColor: "#111"
         }, disabled: true
     }, {
-        text: 'Rename',
-        itemId: "Rename",
-        disabled: true,
-        handler:"Rename"
-    }, {
-        text: 'New plant',
-        disabled: true
-    }, {
-        text: 'Reorder',//排序
-        disabled: true
-    }, {
-        text: 'Property',
-        disabled: true,
-        itemId: 'Property',
-        border: "0 0 1 0",
-        listeners:{
-            //click:"PropertyClick"
-        },
-        style: {
-            borderColor: "#111"
+        text: "attribute",
+        itemId:"attribute",
+        handler: "attribute"
+    },
+        {
+            text: 'Rename',
+            itemId: "Rename",
+            disabled: true,
+            handler: "Rename"
+        }, {
+            text: 'New plant',
+            disabled: true
+        }, {
+            text: 'Reorder',//排序
+            disabled: true
+        }, {
+            text: 'Property',
+            disabled: true,
+            itemId: 'Property',
+            border: "0 0 1 0",
+            listeners: {
+                //click:"PropertyClick"
+            },
+            style: {
+                borderColor: "#111"
+            }
+        }, {
+            text: 'PinSlots',
+            itemId: 'PinSlots',
+            disabled: true
+        }, {
+            text: 'Backup',
+            itemId: 'Backup',
+            disabled: true
+        }, {
+            text: 'Restor',
+            itemId: 'Restor',
+            disabled: true
         }
-    }, {
-        text: 'PinSlots',
-        itemId: 'PinSlots',
-        disabled: true
-    }, {
-        text: 'Backup',
-        itemId: 'Backup',
-        disabled: true
-    }, {
-        text: 'Restor',
-        itemId: 'Restor',
-        disabled: true
-    }
     ]/*,
      listeners:{
      click:function(){

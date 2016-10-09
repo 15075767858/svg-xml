@@ -75,8 +75,8 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
         var typeGirdName = menu.up("typegrid").datas.title || getNameByType(gridpanel.datas.type);
 
         var store = gridpanel.getStore();
-       //console.log(store.data.length)
-       //console.log(slotsJson[typeGirdName].maxSlot)
+        //console.log(store.data.length)
+        //console.log(slotsJson[typeGirdName].maxSlot)
         if (store.data.length > slotsJson[typeGirdName].maxSlot) {
             Ext.Msg.alert('Info', 'This slot max length is ' + slotsJson[typeGirdName].maxSlot + '.');
             return;
@@ -417,8 +417,83 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
 
 
     },
-    Rename: function (menu) {
+    attribute: function (menu) {
+        var gridPanel = this.view.up();
+        var datas = gridPanel.datas
+        console.log(datas)
+        var win = Ext.create("Ext.window.Window", {
+            title: "change attribute",
+            autoShow: true,
+            items: {
+                xtype: "form",
+                defaultType: "textfield",
+                bodyPadding: 10,
+                items: [
+                    {
+                        fieldLabel: "key", name: "key",
+                        value: datas.value,
+                        hidden: !datas.value,
+                        disabled: !datas.value
+                    },
+                    {
+                        fieldLabel: "title",
+                        name: "title",
+                        value: datas.title,
+                        hidden: !datas.title,
+                        disabled: !datas.title
+                    },
+                    {fieldLabel: "point index", name: "index", value: gridPanel.index}
+                    //{fieldLabel: "lines", name: "lines"}
+                ]
+            },
+            buttons: [
+                {
+                    text: "Ok", handler: function () {
 
+                    var form = win.down("form");
+                    var values = form.getValues();
+                    MyGridPanel.setIndex(gridPanel, values.index);
+                    MyGridPanel.setTitle(gridPanel, values.title);
+                    win.close();
+
+                }
+                },
+                {
+                    text: "Cancel", handler: function () {
+                    win.close()
+                }
+                }
+            ]
+        })
+        var MyGridPanel = {}
+        MyGridPanel.setIndex = function (gridPanel, index) {
+            if (gridPanel.index == index) {
+                return;
+            }
+            var resDatas = getTypeGridDatas(gridPanel)
+            gridPanel.destroy();
+            var newGrid = createTypeGrid(resDatas, index - 1);
+            var trs = newGrid.el.dom.querySelectorAll("tr");
+            var ids = Ext.decode(resDatas['typegrid'].trsIds)
+            for (var j = 0; j < trs.length; j++) {
+                trs[j].id = ids[j];
+            }
+        };
+
+        MyGridPanel.setTitle = function (gridPanel, title) {
+            if (!title) {
+                return;
+            }
+            if (title == gridPanel.datas.name) {
+                return;
+            }
+            gridPanel.datas.name = title;
+            gridPanel.setTitle(title);
+        }
+
+        console.log(gridPanel)
+    },
+    Rename: function (menu) {
 
         var girdpanel = menu.up("typegrid");
 
@@ -448,7 +523,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                     text: "OK", handler: function () {
                     var value = win.down("form").getComponent('titlefield').value;
                     girdpanel.datas.name = value;
-                    girdpanel.setTitle(value)
+                    girdpanel.setTitle(value);
                     delayToast("Message", "change title ok.");
                     win.close();
                 }
