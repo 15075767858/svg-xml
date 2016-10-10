@@ -135,6 +135,8 @@ Ext.onReady(function () {
             width: 800,
             height: 1024
         })*/
+        
+
     }, 3000)
 
 })

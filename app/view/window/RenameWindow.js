@@ -146,9 +146,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                     store: ActiveJson.get("Active_Text_Defaults")
                 }
             } else if (fieldName == "Device_Type") {
-
                 var combostore = Ext.create('Ext.data.Store', {
-
                     autoLoad: false,
                     fields: ['name'],
                     data: [
@@ -162,6 +160,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 textfield = {
                     fieldLabel: fieldName,
                     xtype: "combobox",
+                    name: fieldName,
+
                     store: combostore,
                     validator: function (val) {
                         if (val == "NTC10K" || val == "NTC20K" || val == "BI") {
@@ -235,6 +235,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
             fieldsItems.push(textfield);
         }
         console.log(data)
+
         var panel = Ext.create("Ext.form.Panel", {
             //title: data.Object_name,
             title: data['Object_Name'],
@@ -356,6 +357,88 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
     insrtDevForm: function (key, Object_Name) {
         var me = this;
+        var types = {
+            "type0": {
+                "Offset": "0.100",
+                "Description": "ANALOG INPUT 1",
+                "Device_Type": "BI",
+                "Units": "98",
+                "Min_Pres_Value": "0.00",
+                "Max_Pres_Value": "100.000",
+                "COV_Increment": "1.000",
+                "High_Limit": "100.000",
+                "Low_Limit": "0.000",
+                "Deadband": "0.000",
+                "Limit_Enable": "0",
+                "Event_Enable": "0",
+                "Notify_Type": "0",
+                "Time_Delay": "0",
+                "Notification_Class": "1"
+            },
+            "type1": {
+                "Offset": "1.000",
+                "Description": "ANALOG OUTPUT1",
+                "Device_Type": "0-10=0-100",
+                "COV_Increment": "0.500",
+                "High_Limit": "100",
+                "Low_Limit": "0.000",
+                "Deadband": "0.000",
+                "Limit_Enable": "0",
+                "Event_Enable": "0",
+                "Notify_Type": "0",
+                "Time_Delay": "0",
+                "Notification_Class": "1"
+            },
+            "type2": {
+                "Description": "ANALOG VALUE 1",
+                "COV_Increment": "0.500",
+                "High_Limit": "100",
+                "Low_Limit": "0.000",
+                "Deadband": "0.000",
+                "Limit_Enable": "0",
+                "Event_Enable": "0",
+                "Notify_Type": "0",
+                "Time_Delay": "0",
+                "Notification_Class": "1"
+            },
+            "type3": {
+                "Description": "BINARY_INPUT 1",
+                "Device_Type": "normal open",
+                "Inactive_Text": "Off",
+                "Active_Text": "On",
+                "Event_Enable": "0",
+                "Notify_Type": "0",
+                "Time_Delay": "0",
+                "Alarm_Value": "0",
+                "Notification_Class": "1"
+            },
+            "type4": {
+                "Description": "BINARY_OUTPUT 1",
+                "Device_Type": "normal",
+                "Inactive_Text": "Off",
+                "Active_Text": "On",
+                "Event_Enable": "0",
+                "Notify_Type": "0",
+                "Time_Delay": "0",
+                "Alarm_Value": "0",
+                "Notification_Class": "1"
+            },
+            "type5": {
+                "Description": "BINARY_VALUE1",
+                "Device_Type": "normal",
+                "Inactive_Text": "Off",
+                "Active_Text": "On",
+                "Event_Enable": "0",
+                "Notify_Type": "0",
+                "Time_Delay": "0",
+                "Alarm_Value": "0",
+                "Notification_Class": "1"
+            },
+            "type6": {
+                "Description": "SCHEDULE1",
+                "Priority_For_Writing": "10"
+            }
+        }
 
         var items = me.items.items;
 
@@ -374,18 +457,17 @@ Ext.define("svgxml.view.window.RenameWindow", {
         }
 
         var form = me.createDevForm({key: key, Object_Name: Object_Name});
+        var type = key.substr(4, 1);
+        var values = types["type" + type];
+
+        form.getForm().setValues(values)
+
         if (inertIndex) {
-            me.insert(inertIndex, form)
+            me.insert(inertIndex, form);
         } else {
             me.add(form);
         }
-        /*items.find(function (v, index) {
-         if (v.key == key) {
-         inertIndex = index + 1;
-         }
-         })
 
-         */
 
     },
     deleteDevForm: function (key) {
@@ -424,6 +506,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.fields = fields;
         if (me.text) {
             me.xmlSources()
+            me.xmlsources = true
         } else if (me.sDevName) {
             me.databaseSources();
         }
@@ -458,12 +541,9 @@ Ext.define("svgxml.view.window.RenameWindow", {
         root.appendChild(bv);
         root.appendChild(schedule);
 
-
         for (var i = 1; i < items.length; i++) {
             //console.log(items[i]);
-
             var form = items[i].getForm();
-
             var res = form.getFieldValues();
             var key = document.createElement("key");
             var keytype = items[i].key.substr(4, 1);
@@ -488,15 +568,18 @@ Ext.define("svgxml.view.window.RenameWindow", {
             if (keytype == "6") {
                 schedulecount++
             }
+            if (me.deviceName) {
+                var newKey = me.deviceName + (items[i].key.substr(4, 7))
+                key.setAttribute("number", newKey);
 
-            key.setAttribute("number", items[i].key);
-
+            } else {
+                key.setAttribute("number", items[i].key);
+            }
             for (var type in res) {
                 var tag = document.createElement(type)
                 tag.innerHTML = res[type];
                 key.appendChild(tag);
             }
-
             root.appendChild(key);
             myAjax("resources/test1.php?par=getAlarm&nodename=" + items[i].key, function (response) {
                 try {
@@ -655,14 +738,43 @@ Ext.define("svgxml.view.window.RenameWindow", {
 
             }
         },
-        "->",
+        {
+            text: "build", handler: function () {
+            {
+                var me = this.up("window");
 
+                console.log(me.sDevName)
+                Ext.MessageBox.prompt("Save", "please input device name", function (ms, v) {
+
+                    if (ms == 'ok') {
+
+                        if (isNaN(v) || v.length != 4) {
+
+                            Ext.Msg.alert("Key Exception", "The key ,Does not meet the requirements")
+
+                            return;
+                        }
+                        if (v) {
+                            me.deviceName = v;
+                            me.saveXml(me.sDevName)
+
+                        } else {
+                            Ext.Msg.alert("Exception", "filename exception .")
+                        }
+                    }
+                }, this, "", me.sDevName)
+
+            }
+        }
+        }
+        ,
+        "->",
         {
             text: "Ok", handler: function () {
             var me = this.up("window");
             console.log(me.sDevName)
 
-            Ext.MessageBox.prompt("Save", "please input device", function (ms, v) {
+            Ext.MessageBox.prompt("Save", "please input device name", function (ms, v) {
                 if (ms == 'ok') {
                     if (isNaN(v) || v.length != 4) {
 
@@ -671,12 +783,15 @@ Ext.define("svgxml.view.window.RenameWindow", {
                         return;
                     }
                     if (v) {
-                        me.saveXml(v)
+                        me.deviceName = v;
+                        me.saveXml(me.sDevName)
+
                     } else {
                         Ext.Msg.alert("Exception", "filename exception .")
                     }
                 }
-            },this,"",me.sDevName)
+            }, this, "", me.sDevName)
+
             return;
         }
         },
@@ -697,7 +812,6 @@ Ext.define("svgxml.view.window.RenameWindow", {
         Ext.Msg.alert("Massage", items.length + " project have been changed");
     }
 });
-
 
 function devsSplitType(datas) {
 
