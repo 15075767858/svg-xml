@@ -239,6 +239,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         var panel = Ext.create("Ext.form.Panel", {
             //title: data.Object_name,
             title: data['Object_Name'],
+
             key: data.key,
             defaultType: 'textfield',
             defaults: {
@@ -248,7 +249,39 @@ Ext.define("svgxml.view.window.RenameWindow", {
             url: "resources/test1.php?par=setRenameValue&devname=" + me.sDevName,
             scrollable: true,
             bodyPadding: 10,
-            items: fieldsItems
+            items: fieldsItems,
+            tbar: [{
+                text: "commit",
+                hidden:true,
+                handler: function () {
+                    panel.saveToDataBase()
+                }
+            }],
+            saveToDataBase: function () {
+                var me = this;
+
+                me.header.remove(me.p)
+                var p = Ext.create('Ext.ProgressBar', {
+                    width: 200,
+                    buttonAlign: "left",
+                    value: 0
+                });
+                me.p=p;
+                me.header.insert(1, p)
+                var items = me.items.items;
+                var formSize = items.length;
+
+                for (var i = 0; i < items.length; i++) {
+                    (function (me, field, delay) {
+                        setTimeout(function () {
+                            console.log((delay+1) / formSize)
+                            p.setValue((delay+1) / formSize)
+                            changeDevValue(me.key, field.name, field.value)
+                        }, delay * 10)
+                    })(me, items[i], i)
+                }
+
+            }
         })
 
         return panel;
@@ -275,14 +308,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 storeId: "testStore",
                 data: datas
             })
-
-
             store.setData(datas)
-
-
             for (var i = 0; i < datas.length; i++) {
-
-
                 var gridpanel = me.createDevForm(datas[i]);
                 me.items.push(gridpanel);
                 gridpanel.getForm().loadRecord(store.getAt(i));
@@ -576,7 +603,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 key.setAttribute("number", items[i].key);
             }
             for (var type in res) {
-                var tag = document.createElement(type)
+                var tag = document.createElement(tyextension = redis.sope)
                 tag.innerHTML = res[type];
                 key.appendChild(tag);
             }
@@ -644,6 +671,18 @@ Ext.define("svgxml.view.window.RenameWindow", {
         setTimeout(function () {
             me.close()
         }, 1000)
+    },
+    build:function(){
+        var me=this;
+        var items = me.items.items;
+        for (var i = 1; i < items.length; i++) {
+            (function (me, form, delay) {
+                setTimeout(function () {
+                    form.expand();
+                    form.saveToDataBase()
+                }, delay * 1000)
+            })(me, items[i], i)
+        }
     },
     buttons: [
         {
@@ -742,27 +781,19 @@ Ext.define("svgxml.view.window.RenameWindow", {
             text: "build", handler: function () {
             {
                 var me = this.up("window");
-
-                console.log(me.sDevName)
-                Ext.MessageBox.prompt("Save", "please input device name", function (ms, v) {
-
-                    if (ms == 'ok') {
-
-                        if (isNaN(v) || v.length != 4) {
-
-                            Ext.Msg.alert("Key Exception", "The key ,Does not meet the requirements")
-
-                            return;
+                Ext.MessageBox.show({
+                    title:'Build Database?',
+                    msg: 'Do you want to build the data into the database?',
+                    buttons: Ext.MessageBox.OKCANCEL,
+                    scope: me,
+                    fn: function(ms){
+                        if(ms=='ok'){
+                            me.build()
                         }
-                        if (v) {
-                            me.deviceName = v;
-                            me.saveXml(me.sDevName)
-
-                        } else {
-                            Ext.Msg.alert("Exception", "filename exception .")
-                        }
-                    }
-                }, this, "", me.sDevName)
+                    },
+                    animateTarget: this,
+                    icon: Ext.MessageBox.QUESTION
+                });
 
             }
         }
