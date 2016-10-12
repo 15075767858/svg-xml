@@ -593,7 +593,7 @@ Ext.define('svgxml.view.tree.DevTreeController', {
                 listeners:{
                   boxready:function(){
                       var me=this;
-
+                      return ;
                       var menu= me.getComponent("deviceinforamation");
 //                      var fileName = record.data.text;
                       var fileName ="devxml/" + record.data.text + ".xml";

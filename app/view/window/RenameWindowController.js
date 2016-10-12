@@ -87,7 +87,7 @@ Ext.define('svgxml.view.window.RenameWindowController', {
             var keyField = Ext.create("Ext.form.field.Text", {
                 margin: 10,
                 fieldLabel: "Key",
-                value: "9901201"
+                value: (me.devName||"9900")+"201"
             })
             var win = Ext.create('Ext.window.Window', {
                 title: 'Add •••',
@@ -109,7 +109,7 @@ Ext.define('svgxml.view.window.RenameWindowController', {
                         editable: false,
                         queryMode: 'local',
                         autoSelect: false,
-                        value: "9900",
+                        value: me.devName||"9900",
                         listeners: {
                             change: function (field, newValue, oldValue) {
                                 var value = Ext.String.leftPad(newValue, 4, "0");

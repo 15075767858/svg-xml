@@ -125,7 +125,8 @@ Ext.onReady(function () {
         })*/
 
         Ext.create('svgxml.view.window.RenameWindow', {
-            text: "i1024.xml",
+            //text: "i1024.xml",
+            sDevName: 1001,
             width: 800,
             height: 1024
         })

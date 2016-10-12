@@ -28,6 +28,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
         me.sDevName = sDevName;
         //       var items = []
         me.items = []
+
         Ext.Ajax.request({
 
             async: false,
@@ -38,6 +39,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 if (!xml) {
                     Ext.Msg.alert("Error", "invalid data !");
                 }
+
+
                 var domKeys = xml.querySelectorAll("key");
                 var keys = [];
                 for (var i = 0; i < domKeys.length; i++) {
@@ -48,10 +51,15 @@ Ext.define("svgxml.view.window.RenameWindow", {
                     var bkey = b.getAttribute("number")
                     return akey - bkey;
                 })
+
                 for (var i = 0; i < keys.length; i++) {
 
                     var Object_Name = keys[i].querySelector("Object_Name").innerHTML;
-                    var keyType = keys[i].getAttribute("number").substr(4, 1)
+                    var keyType = keys[i].getAttribute("number").substr(4, 1);
+                    if (keyType == '3' || keyType == '4') {
+                        var devName = keys[i].getAttribute('number').substr(0,4)
+                        me.devName=devName;
+                    }
                     //var fieldsItems = [];
                     var types = me["type" + keyType];
                     //console.log(types)
@@ -252,7 +260,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
             items: fieldsItems,
             tbar: [{
                 text: "commit",
-                hidden:true,
+                hidden: true,
                 handler: function () {
                     panel.saveToDataBase()
                 }
@@ -266,7 +274,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                     buttonAlign: "left",
                     value: 0
                 });
-                me.p=p;
+                me.p = p;
                 me.header.insert(1, p)
                 var items = me.items.items;
                 var formSize = items.length;
@@ -274,8 +282,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 for (var i = 0; i < items.length; i++) {
                     (function (me, field, delay) {
                         setTimeout(function () {
-                            console.log((delay+1) / formSize)
-                            p.setValue((delay+1) / formSize)
+                            console.log((delay + 1) / formSize)
+                            p.setValue((delay + 1) / formSize)
                             changeDevValue(me.key, field.name, field.value)
                         }, delay * 10)
                     })(me, items[i], i)
@@ -603,7 +611,7 @@ Ext.define("svgxml.view.window.RenameWindow", {
                 key.setAttribute("number", items[i].key);
             }
             for (var type in res) {
-                var tag = document.createElement(tyextension = redis.sope)
+                var tag = document.createElement(type)
                 tag.innerHTML = res[type];
                 key.appendChild(tag);
             }
@@ -672,8 +680,8 @@ Ext.define("svgxml.view.window.RenameWindow", {
             me.close()
         }, 1000)
     },
-    build:function(){
-        var me=this;
+    build: function () {
+        var me = this;
         var items = me.items.items;
         for (var i = 1; i < items.length; i++) {
             (function (me, form, delay) {
@@ -782,12 +790,12 @@ Ext.define("svgxml.view.window.RenameWindow", {
             {
                 var me = this.up("window");
                 Ext.MessageBox.show({
-                    title:'Build Database?',
+                    title: 'Build Database?',
                     msg: 'Do you want to build the data into the database?',
                     buttons: Ext.MessageBox.OKCANCEL,
                     scope: me,
-                    fn: function(ms){
-                        if(ms=='ok'){
+                    fn: function (ms) {
+                        if (ms == 'ok') {
                             me.build()
                         }
                     },
