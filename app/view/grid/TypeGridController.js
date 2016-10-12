@@ -45,10 +45,10 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         })
 
     },
-    boxready:function(panel){
+    boxready: function (panel) {
 
         panel.store.addListener("beginupdate", function () {
-           //console.log("beginupdate")
+            //console.log("beginupdate")
             setTimeout(function () {
 
                 var containerHeight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
@@ -61,8 +61,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         })
     },
     girdviewready: function (panel, eO) {
-
-
 
 
         if (panel.datas.type == 67) {
@@ -103,6 +101,8 @@ Ext.define('svgxml.view.grid.TypeGridController', {
             });
         }
         ;
+
+
         if (panel.datas.type == 75) {
             Ext.create('Ext.data.Store', {
                 storeId: "store" + panel.getId(),
@@ -122,6 +122,20 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         }
         ;
 
+        if(panel.datas.type==80){
+            Ext.create('Ext.data.Store', {
+                storeId: "store" + panel.getId(),
+                fields: ['name', 'value'],
+                data: panel.datas.propertyStore || [
+                    {'name': 'time', 'value': "100"},
+                ],
+                listeners: {
+                    update: function (me, record, operation, modifiedFieldNames, details, eOpts) {
+                        panel.datas.propertyStore = getStoreDatas(me);
+                    }
+                }
+            });
+        }
         if (panel.datas.type == "56") {
             //var typeGirdName = this.getTitle();
             var store = panel.store//Ext.data.StoreManager.lookup("store" + _this.id);
@@ -279,10 +293,14 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                 linkform.setText("Link Form \"" + getCurrentDrawPanel().datas.LinkMarkTypeGrid.getTitle() + "\"")
                             }
                             changeTitle(panel, menu);
-                            isPidMenu(panel, menu);
+
+                            /*isPidMenu(panel, menu);
                             isLogicMenu(panel, menu);
                             isSCFMMenu(panel, menu);
                             isScaleMenu(panel, menu);
+                            isdoubleBOMenu(panel,menu)*/
+                            isTypeGridProperty(panel,menu);
+
                             menu.getComponent("cut").setDisabled(false);
                             menu.getComponent("copy").setDisabled(false);
                             menu.getComponent("deplicate").setDisabled(false);
@@ -375,7 +393,6 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                     //   win.down("form").loadRecord(record);
                 },
                 show: function (th) {
-
                     th.down("form").add({xtype: "textfield", name: "name", fieldLabel: "name", editable: false});
                     if (record.data.select) {
                         var store = Ext.create('Ext.data.Store', {
@@ -492,7 +509,7 @@ Ext.define('svgxml.view.grid.TypeGridController', {
         initDrawLine(th.up("drawpanel"), th, record, item, index, e, eOpts)
     }
     ,
-    griditemmouseup: function (item, record, item, index, e, eOpts) {
+    griditemmouseup: function (item, record, itemHtml, index, e, eOpts) {
         console.log(this)
         var me = this.view;
         console.log(arguments)
@@ -526,10 +543,13 @@ Ext.define('svgxml.view.grid.TypeGridController', {
                                     addSlot.setDisabled(false);
                                 }
                             }
-                            isPidMenu(me, menu);
+/*                            isPidMenu(me, menu);
                             isLogicMenu(me, menu);
                             isSCFMMenu(me, menu);
                             isScaleMenu(me, menu);
+                            isdoubleBOMenu(me,menu);*/
+                            isTypeGridProperty(me,menu);
+
                             menu.getComponent("cut").setDisabled(false);
                             menu.getComponent("copy").setDisabled(false);
                             menu.getComponent("deplicate").setDisabled(false);
@@ -554,6 +574,15 @@ function changeTitle(girdpanel, menu) {
     if (girdpanel.datas.type > 6) {
         menu.getComponent("Rename").setDisabled(false);
     }
+}
+
+
+function isTypeGridProperty(gridpanel,menu){
+    isPidMenu(gridpanel, menu);
+    isLogicMenu(gridpanel, menu);
+    isSCFMMenu(gridpanel, menu);
+    isScaleMenu(gridpanel, menu);
+    isdoubleBOMenu(gridpanel, menu);
 }
 
 function isScaleMenu(girdpanel, menu) {
@@ -583,14 +612,20 @@ function isLogicMenu(gridpanel, menu) {
     }
 }
 function isPidMenu(girdpanel, menu) {
-    console.log(arguments)
     if (girdpanel.datas.type == 74) {
         var cProperty = menu.getComponent("Property")
         cProperty.setDisabled(false);
         cProperty.on("click", menu.getController().SCFMPropertyClick, girdpanel)
     }
 }
+function isdoubleBOMenu(gridpanel, menu) {
 
+    if (gridpanel.datas.type == 80) {
+        var cProperty = menu.getComponent("Property")
+        cProperty.setDisabled(false);
+        cProperty.on("click", menu.getController().pidPropertyClick, gridpanel)
+    }
+}
 
 function currentDrawPanelGridPanelsTrSetId() {
     //var aGridPanels = getCurrentDrawPanelGirdPanels();
@@ -815,8 +850,8 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
             var columnid = d3.select(aRowsAll[i]).attr("id");
 
             var tempLineEnd;
-
-            if (aRowsAll[i].querySelector("div").innerHTML != "Out" && aRowsAll[i].querySelector("div").innerHTML != "mode" && aRowsAll[i].querySelector("div").innerHTML != "Instance") {
+            var nameHtml = aRowsAll[i].querySelector("div").innerHTML;
+            if (nameHtml != "Out" && nameHtml != "mode" && nameHtml != "Instance" && nameHtml != "open" && nameHtml != "close") {
 
                 tempLineEnd = oSvg.append("circle").attr("r", CIRCLE_MIN_R).attr("stroke-width", STROKEWIDTH_MIN).attr("stroke", "rgb(137,190,229)").attr("fill", "green").attr("cx", left).attr("cy", top).attr("class", "tempCircle").attr("columnid", columnid);
 
@@ -831,7 +866,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
                 sStartItemTrId = item.querySelector("tr").id;
             }
             //console.log("wanle")
-
         }
 
         document.onmousemove = function (e) {
@@ -865,7 +899,6 @@ function initDrawLine(thi, th, record, item, index, e, eOpts) {
 
         d3.select("#tempLine").remove();
         var svg = d3.select(".tempSVG" + drawpanel.id);
-
         var start = d3.select("#tempLineStart");
         var end = d3.select("#tempLineEnd");
         var endcx = end.attr("cx");

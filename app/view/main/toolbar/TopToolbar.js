@@ -179,7 +179,7 @@ Ext.define("svgxml.view.main.toolbar.TopToolbar", {
                         }, {
                             text: "About",
                             handler: function () {
-                                Ext.Msg.alert('Version', 'SmartIO Programtools 2.07  ');
+                                Ext.Msg.alert('Version', 'SmartIO Programtools 2.08  ');
                             }
                         }
                     ]

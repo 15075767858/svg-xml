@@ -1,4 +1,4 @@
-$image-search-path: '/Library/WebServer/Documents/program/build/production/program/resources';
+$image-search-path: '/Applications/MAMP/htdocs/program/build/production/program/resources';
 $theme-name:  'ext-theme-neptune' !default;
 $include-ai: true;
 $include-ao: true;
@@ -1090,6 +1090,7 @@ $include-buffer: true;
 $include-comp: true;
 $include-count: true;
 $include-delay: true;
+$include-doublebo: true;
 $include-enth: true;
 $include-fa: true;
 $include-fd: true;

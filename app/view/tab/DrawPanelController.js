@@ -490,9 +490,6 @@ function createTypeGrid(items, index) {
         })
     )
     if (index != undefined) {
-        console.log(index)
-        console.log(drawPanel)
-        console.log(typegrid)
         drawPanel.add(typegrid);
         drawPanel.insert(index, typegrid);
     } else {

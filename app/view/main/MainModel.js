@@ -486,6 +486,19 @@ var slotsJson = {
         },
         isAddSlot:true,
         maxSlot:10
+    },
+    "doubleBO":{
+        type:"80",
+        initData:function(){
+            var arr=new Array();
+            arr[0] = {'name': 'Out', 'value': "0"};
+            arr[1] = {'name': 'In', 'value': "0"};
+            arr[2] = {'name': 'open', 'value': "1"};
+            arr[3] = {'name': 'close', 'value': "0"};
+            return arr;
+        },
+        isAddSlot:false
+        //maxSlot:10
     }
 
 
@@ -648,6 +661,12 @@ var Imgs = [{
     {
         name: "Integer",
         src: "resources/img/SVG/Integer.svg",
+        Img_0: "",
+        Img_1: ""
+    },
+    {
+        name: "doubleBO",
+        src: "resources/img/SVG/doubleBO.svg",
         Img_0: "",
         Img_1: ""
     }

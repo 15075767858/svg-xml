@@ -31,23 +31,23 @@ Ext.define('svgxml.view.tab.BasicController', {
                 console.log(typeName)
 
                 var store = Ext.create(typeName, {
-                   /* listeners: {
+                    /* listeners: {
 
-                        beginupdate: function (store) {
-                            console.log("beginupdate")
-                            setTimeout(function () {
+                     beginupdate: function (store) {
+                     console.log("beginupdate")
+                     setTimeout(function () {
 
-                                var containerHeight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
-                                var gridheight = containerHeight + panel.header.getHeight();
-                                if (panel.getHeight() != gridheight) {
-                                    panel.setHeight(gridheight);
-                                }
-                                currentDrawPanelGridPanelsTrSetId()
-                            }, 1000)
+                     var containerHeight = Ext.get(panel.body.dom.querySelector(".x-grid-item-container")).getHeight();
+                     var gridheight = containerHeight + panel.header.getHeight();
+                     if (panel.getHeight() != gridheight) {
+                     panel.setHeight(gridheight);
+                     }
+                     currentDrawPanelGridPanelsTrSetId()
+                     }, 1000)
 
-                            //setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
-                        }
-                    }*/
+                     //setTimeout(currentDrawPanelGridPanelsTrSetId, 1000)
+                     }
+                     }*/
                 })
 
                 store.setData(slotsJson[typeName].initData())
@@ -318,6 +318,13 @@ Ext.define('Integer', {
     storeId: 'IntegerStore',
     fields: ['name', 'value'],
     data: slotsJson.Integer.initData(),
+    proxy: oproxy
+});
+Ext.define('doubleBO', {
+    extend: "Ext.data.Store",
+    storeId: 'doubleBOStore',
+    fields: ['name', 'value'],
+    data: slotsJson['doubleBO'].initData(),
     proxy: oproxy
 });
 /*

@@ -177,7 +177,21 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
                 ],
                 plugins: [
                     Ext.create('Ext.grid.plugin.CellEditing', {
-                        clicksToEdit: 1
+                        clicksToEdit: 1,
+                        listeners: {
+                            edit: function (editor, context, eOpts) {
+                                var record = context.record;
+                                if (record.data.name == "time") {
+                                    if (context.value > 500 || context.value < 100) {
+                                        Ext.Msg.alert('Exception', 'Changes failure max value is 500 ,min value is 100.');
+                                        record.set("value", context.originalValue)
+                                    }
+                                }
+                            },
+                            /*beforeedit:function(){
+                             return false;
+                             }*/
+                        }
                     })
                 ],
                 columns: [{header: 'name', dataIndex: "name"},
@@ -265,40 +279,7 @@ Ext.define('svgxml.view.grid.menu.gridmenuController', {
             width: 390,
             height: 190,
             layout: 'border',
-            /*items: {  // Let's put an empty grid in just to illustrate fit layout
-             region: "center",
-             xtype: 'grid',
-             height: "100%",
-             width: "100%",
-             border: false,
-             bbar: [
-             {
-             text: "Ok", handler: function (menu) {
-             Ext.data.StoreManager.lookup("store" + _this.id).commitChanges();
-             Ext.Msg.alert('Status', 'Changes saved successfully.');
-             win.close();
-             }
-             }
-             ],
-             plugins: [
-             Ext.create('Ext.grid.plugin.CellEditing', {
-             clicksToEdit: 1
-             })
-             ],
-             columns: [{header: 'name', dataIndex: "name"},
-             {
-             header: "value", dataIndex: "value", editor: {
-             xtype: 'textfield',
-             allowBlank: false
-             }
-             },
-             {
-             xtype: 'checkcolumn', text: 'Active', dataIndex: 'active'
-             }
 
-             ],                 // 仅仅用来显示一个头部。没有数据，
-             store: Ext.data.StoreManager.lookup("store" + _this.id)
-             }*/
             listeners: {
                 resize: function () {
                     console.log(arguments)

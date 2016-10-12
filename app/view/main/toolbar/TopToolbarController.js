@@ -684,11 +684,11 @@ function get_A_Master_node(gridpanel) {
 
 
         if (gridpanel.datas.type == "79" & i > 2) {
-            slots = $("<slots number='0'></slots>");
+            slots = $("<slots number=" + i + "></slots>");
             slots.append($("<node>0</node>"));
             slots.append($("<slot_number>0</slot_number>"));
-
         }
+
         masterNode.append(slots);
 
         //数据校验 图片缓存 优化性能
@@ -708,6 +708,7 @@ function get_A_Master_node(gridpanel) {
     }
     isLogic(gridpanel, masterNode)
     isscaleSave(gridpanel, masterNode);
+    isDoubleBOSave(gridpanel, masterNode);
 
     return masterNode;
 }
@@ -775,6 +776,17 @@ function isscaleSave(gridpanel, masterNode) {
     masterNode.append("<slots number='4'><default>" + items[2].data.value + "</default></slots>")
     masterNode.append("<slots number='5'><default>" + items[3].data.value + "</default></slots>")
 }
+function isDoubleBOSave(gridpanel, masterNode) {
+    var items;
+    if (gridpanel.datas.type == "80") {
+        items = Ext.data.StoreManager.lookup("store" + gridpanel.id).data.items;
+    } else {
+        return;
+    }
+    console.log(items)
+    masterNode.append("<slots number='4'><default>" + items[0].data.value + "</default></slots>")
+}
+
 
 function isSCFMSave(gridpanel, masterNode) {
     var items;
